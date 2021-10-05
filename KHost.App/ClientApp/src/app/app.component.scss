@@ -1,0 +1,9 @@
+.main-menu {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+
+    > mat-icon {
+        margin: 0 0.5em;
+    }
+}

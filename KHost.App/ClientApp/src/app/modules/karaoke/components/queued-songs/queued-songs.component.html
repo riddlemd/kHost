@@ -1,0 +1,75 @@
+<div class='component-title'>Queued Songs{{ selectedQueuedSinger?.singer ? " for " + selectedQueuedSinger!.singer!.name : ""  }}</div>
+<div class='scroll-wrapper'>
+    <div class='empty' *ngIf="!selectedQueuedSinger?.singer">No Singer selected.</div>
+    <div class='empty' *ngIf="getQueueLength() <= 0 && selectedQueuedSinger?.singer">Selected singer has no songs queued.</div>
+    <table *ngIf="getQueueLength() > 0">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Band</th>
+                <th>Length</th>
+                <th>Source</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody cdkDropList (cdkDropListDropped)="drop($event)">
+            <tr *ngFor="let queuedSong of selectedQueuedSinger?.singer?.queuedSongs" class="queued-song-row" [ngClass]="{'selected': queuedSong === selectedQueuedSong }" (contextmenu)="menuTrigger.openMenu();" (mousedown)="selectQueuedSong(queuedSong)" cdkDrag>
+                <td class='drag-column' cdkDragHandle><mat-icon>drag_handle</mat-icon></td>
+                <td class='song-name-column'>{{ queuedSong?.song?.name }}</td>
+                <td class='song-band-name-column'>{{ queuedSong?.song?.bandName }}</td>
+                <td class='song-length-column'>{{ queuedSong?.song?.lengthInSeconds | secondsToMinutes }}</td>
+                <td class='song-source-column'>{{ queuedSong?.song?.source }}</td>
+                <td class='options-column'>
+                    <a mat-icon-button #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="menu">
+                        <mat-icon>more_vert</mat-icon>
+                    </a>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item>
+                            <mat-icon>play_arrow</mat-icon>
+                            <span>Play Now</span>
+                        </button>
+                        <mat-divider></mat-divider>
+                        <button mat-menu-item (click)="moveToTop(queuedSong)">
+                            <mat-icon>north</mat-icon>
+                            <span>Move To Top</span>
+                        </button>
+                        <button mat-menu-item (click)="moveUp(queuedSong)">
+                            <mat-icon>arrow_upward</mat-icon>
+                            <span>Move Up</span>
+                        </button>
+                        <button mat-menu-item (click)="moveDown(queuedSong)">
+                            <mat-icon>arrow_downward</mat-icon>
+                            <span>Move Down</span>
+                        </button>
+                        <button mat-menu-item (click)="moveToBottom(queuedSong)">
+                            <mat-icon>south</mat-icon>
+                            <span>Move to Bottom</span>
+                        </button>
+                        <mat-divider></mat-divider>
+                        <button mat-menu-item *ngIf="queuedSong.song?.remotePath === null">
+                            <mat-icon>edit</mat-icon>
+                            <span>Edit</span>
+                        </button>
+                        <button mat-menu-item *ngIf="queuedSong.song?.remotePath === null">
+                            <mat-icon>delete_forever</mat-icon>
+                            <span>Remove from Library</span>
+                        </button>
+                        <button mat-menu-item *ngIf="queuedSong.song?.remotePath !== null">
+                            <mat-icon>download_for_offline</mat-icon>
+                            <span>Download</span>
+                        </button>
+                        <mat-divider></mat-divider>
+                        <button mat-menu-item (click)="remove(queuedSong)">
+                            <mat-icon>delete</mat-icon>
+                            <span>Remove from Queue</span>
+                        </button>
+                    </mat-menu>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class='table-footer'>
+    <div>Queued Songs: {{ getQueueLength() }}</div>
+</div>

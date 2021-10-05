@@ -1,0 +1,32 @@
+:host {
+    display: flex;
+    flex-direction: column;
+
+    > .scroll-wrapper {
+        flex: 1 1 auto;
+    }
+}
+
+button {
+    margin: 0px;
+}
+
+.cdk-drag-preview {
+    list-style: none;
+}
+
+.name-column {
+    width: 100%;
+}
+
+.count-column {
+    text-align: right;
+}
+
+.singer-row {
+    cursor: pointer;
+}
+
+.estimated-wait {
+    padding: 0.5em;
+}

@@ -1,0 +1,38 @@
+:host {
+    display: block;
+
+    > .scroll-wrapper {
+        flex: 1 1 auto;
+        max-height: 10em;
+    }
+
+    > form {
+        display: flex;
+        flex: 0 1 auto;
+        margin-bottom: 0.5em;
+
+        & > input {
+            flex: 1 1;
+            padding: 1em;
+        }
+
+        button {
+            margin: 0;
+        }
+    }
+}
+
+.last-sang-column {
+    width: 1px;
+    white-space: nowrap;
+    text-align: right;
+}
+
+.buttons {
+    margin-top: 0.5em;
+    text-align: right;
+}
+
+.singer-row {
+    cursor: pointer;
+}

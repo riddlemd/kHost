@@ -1,0 +1,38 @@
+<h1>Venues Manager</h1>
+<div class='scroll-wrapper'>
+    <div class='empty' *ngIf="venues.length <= 0">No Venues found.</div>
+    <table *ngIf="venues.length > 0">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Address</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let venue of venues" class="singer-row" [ngClass]="{'selected': venue === selectedVenue }" (contextmenu)="menuTrigger.openMenu();" (mousedown)="selectedVenue=venue">
+                <td class='name-column'>{{ venue.name }}</td>
+                <td class='address-column'>{{ venue.address }}</td>
+                <td class='options-column'>
+                    <a mat-icon-button #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="menu">
+                        <mat-icon>more_vert</mat-icon>
+                    </a>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item>
+                            <mat-icon>edit</mat-icon>
+                            <span>Edit</span>
+                        </button>
+                        <button mat-menu-item>
+                            <mat-icon>delete</mat-icon>
+                            <span>Remove</span>
+                        </button>
+                    </mat-menu>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<form>
+    <input type="text" placeholder="Enter the name of the venue here, use * for wildcard searches.">
+    <button>Search</button>
+</form>

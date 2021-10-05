@@ -1,0 +1,26 @@
+:host {
+    display: flex;
+    position: relative;
+    align-items: stretch;
+
+    vertical-align: middle;
+}
+
+#button {
+    padding: 1em;
+    cursor: pointer;
+}
+
+#icon {
+    padding: 1em;
+    border-left: 1px dashed rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+
+    &:before {
+        content: "↓";
+    }
+}
+
+button {
+    margin: 0px;
+}

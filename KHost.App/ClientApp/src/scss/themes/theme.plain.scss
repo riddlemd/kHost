@@ -1,0 +1,132 @@
+$text-color: #d5e6cb !default;
+$background-color: #1b1b1b !default;
+$highlight-color: #9594c0 !default;
+$disable-color: rgba(255, 255, 255, 0.38) !default;
+$focus-color: #564295 !default;
+$divider-color: rgba(255, 255, 255, 0.2);
+
+$button-color: #564295 !default;
+
+$overlay-background-color: rgba(0, 0, 0, 0.8) !default;
+
+$scrollbar-background-color: rgba(0, 0, 0, 0.05) !default;
+$scrollbar-foreground-color: rgba(255, 255, 255, 0.5) !default;
+
+$control-background: rgba(0, 0, 0, 0.5) !default;
+
+$table-header-color: #2b2b2b !default;
+$table-row-alt-color: rgba(0, 0, 0, 0.3) !default;
+
+body {
+	background: $background-color;
+	color: $text-color;
+}
+
+a {
+	color: $text-color;
+
+	&:visited {
+		color: $text-color;
+	}
+
+	&:active {
+		color: $text-color;
+	}
+
+	&:hover {
+		color: $text-color;
+	}
+}
+
+.selected {
+	background: $highlight-color !important;
+	color: $text-color !important;
+
+	a {
+		&:hover {
+			color: $text-color;
+		}
+	}
+}
+
+.logo {
+	&::before {
+		color:$button-color;
+	}
+}
+
+.mat-dialog-container {
+	background: $background-color;
+	color: $text-color;
+}
+
+.cdk-drag-placeholder {
+	background: $highlight-color !important;
+}
+
+::-webkit-scrollbar-track {
+	background: $scrollbar-background-color;
+}
+
+::-webkit-scrollbar-thumb {
+	background: $scrollbar-foreground-color;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: $button-color;
+}
+
+.mat-menu-panel {
+	background: $background-color;
+	color: $text-color;
+
+	.mat-menu-item {
+		color: $text-color;
+
+		.mat-icon {
+			color: $text-color;
+		}
+
+		&[disabled] {
+			color: $disable-color;
+		}
+
+		&:hover {
+			background: $highlight-color;
+		}
+	}
+}
+
+input {
+	background: $control-background;
+	color: $text-color;
+
+	&:focus {
+		outline-color: $focus-color;
+	}
+}
+
+button {
+	background: $button-color;
+	color: $text-color;
+}
+
+table {
+	tr {
+		&:nth-child(even) {
+			background: $table-header-color;
+		}
+
+		> th {
+			background: $table-row-alt-color;
+		}
+	}
+}
+
+.cdk-overlay-dark-backdrop {
+	background: $overlay-background-color;
+}
+
+.mat-divider {
+	border-top-color: $divider-color;
+}

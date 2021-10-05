@@ -1,0 +1,30 @@
+<div mat-dialog-title>Add Singer</div>
+
+<form>
+    <input name='name' type='text' placeholder="Name of singer" [formControl]="queryControl">
+    <button (click)="search();false;">Search</button>
+</form>
+
+<div class='empty' *ngIf="singers !== null && singers.length === 0">No singers found.</div>
+
+<div class='scroll-wrapper' *ngIf="singers !== null && singers.length > 0">
+    <table >
+        <thead>
+            <tr>
+                <th class='name-column'>Name</th>
+                <th class='last-sang-column'>Last Sang</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let singer of singers" class="singer-row" [ngClass]="{'selected': singer === selectedSinger }" (click)="selectSinger(singer)">
+                <td class='name-column'>{{ singer.name }}</td>
+                <td class='last-sang-column'>--/--/--</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class='buttons'>
+    <button>Create New</button>
+    <button *ngIf="selectedSinger">Add Selected</button>
+</div>

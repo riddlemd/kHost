@@ -1,0 +1,41 @@
+<h1>Songs Manager</h1>
+<div class='scroll-wrapper'>
+    <div class='empty' *ngIf="songs.length <= 0">No Songs found.</div>
+    <table *ngIf="songs.length > 0">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Band</th>
+                <th>Length</th>
+                <th>Source</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let song of songs" class="song-row" [ngClass]="{'selected': song === selectedSong }" (contextmenu)="menuTrigger.openMenu();" (mousedown)="selectedSong=song">
+                <td class='song-name-column'>{{ song?.name }}</td>
+                <td class='song-band-name-column'>{{ song?.bandName }}</td>
+                <td class='song-length-column'>00:00</td>
+                <td class='song-source-column'>{{ song?.source }}</td>
+                <td class='options-column'>
+                    <a mat-icon-button #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="menu">
+                        <mat-icon>more_vert</mat-icon>
+                    </a>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item>
+                            <mat-icon>play_arrow</mat-icon>
+                            <span>Play Now</span>
+                        </button>
+                    </mat-menu>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class='table-footer'>
+    <div class='total-songs'>Songs: {{ songs.length }}</div>
+</div>
+<form>
+    <input type="text" placeholder="Enter the name of the song or band here, use * for wildcard searches.">
+    <button (click)="false;">Search</button>
+</form>
