@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { Venue } from '../../kommon/models/Venue';
 import { Singer } from '../../kommon/models/Singer';
 
@@ -9,15 +8,15 @@ export abstract class SingersProvider {
 
     }
 
-    get(count: number = 20, offset: number = 0): Observable<Singer[]> {
+    get(count: number = 20, offset: number = 0): Promise<Singer[]> {
         throw("Not Implemented");
     }
 
-    getBySingerId(id: number, count: number = 20, offset: number = 0): Observable<Singer[]> {
+    getById(id: number): Promise<Singer|null> {
         throw("Not Implemented");
     }
 
-    search(query: string, venue: Venue|null = null, count: number = 20, offset: number = 0): Observable<Singer[]> {
+    search(query: string, venue: Venue|null = null, count: number = 20, offset: number = 0): Promise<Singer[]> {
         throw("Not Implemented");
     }
 }

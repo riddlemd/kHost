@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { Song } from '../models/Song';
 
 @Injectable()
@@ -8,15 +7,11 @@ export abstract class SongsProvider {
 
     }
 
-    get(count: number = 20, offset: number = 0): Observable<Song[]> {
+    get(count: number = 20, offset: number = 0): Promise<Song[]> {
         throw("Not Implemented");
     }
 
-    getBySingerId(id: number, count: number = 20, offset: number = 0): Observable<Song[]> {
-        throw("Not Implemented");
-    }
-
-    search(query: string, count: number = 20, offset: number = 0): Observable<Song[]> {
+    search(query: string, count: number = 20, offset: number = 0): Promise<Song[]> {
         throw ("Not Implemented");
     }
 }

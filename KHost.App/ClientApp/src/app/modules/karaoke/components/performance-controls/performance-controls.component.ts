@@ -9,9 +9,13 @@ import { QueuedSinger } from '../../models/QueuedSinger';
   templateUrl: './performance-controls.component.html',
   styleUrls: ['./performance-controls.component.scss']
 })
-export class PerformanceControlsComponent implements OnInit {
-  @Input() selectedQueuedSinger:QueuedSinger|null = null;
-  @Input() currentVenue: Venue|null = null;
+export class PerformanceControlsComponent {
+
+  @Input()
+  selectedQueuedSinger: QueuedSinger|null = null;
+  
+  @Input()
+  currentVenue: Venue|null = null;
 
   singer: Singer|null = null;
 
@@ -34,9 +38,6 @@ export class PerformanceControlsComponent implements OnInit {
   }
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
 }
 
 export enum PerformanceState {

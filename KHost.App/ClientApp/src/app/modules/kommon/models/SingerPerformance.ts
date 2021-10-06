@@ -5,5 +5,7 @@ export class SingerPerformance {
 
     songId: number|null = null;
 
+    venueId: number|null = null;
+
     date: Date|null = null;
 }

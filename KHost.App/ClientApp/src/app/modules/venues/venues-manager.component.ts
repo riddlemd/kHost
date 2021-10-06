@@ -20,9 +20,7 @@ export class VenuesManagerComponent implements OnInit {
 
   ngOnInit(): void {
     this._venuesProvider.get()
-      .subscribe(
-        value => { this.venues = value; }
-      )
+      .then(value => { this.venues = value; });
   }
 
 }

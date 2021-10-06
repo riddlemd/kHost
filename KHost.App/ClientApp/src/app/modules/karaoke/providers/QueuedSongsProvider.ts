@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { QueuedSong } from '../../karaoke/models/QueuedSong';
 import { Singer } from '../../kommon/models/Singer';
 import { Song } from 'src/app/modules/kommon/models/Song';
@@ -10,35 +9,35 @@ export abstract class QueuedSongsProvider {
 
     }
 
-    get(count: number = 20, offset: number = 0): Observable<QueuedSong[]> {
+    get(count: number = 20, offset: number = 0): Promise<QueuedSong[]> {
         throw("Not Implemented");
     }
 
-    getBySinger(singer: Singer, count: number = 20, offset: number = 0): Observable<QueuedSong[]> {
+    getBySinger(singer: Singer, count: number = 20, offset: number = 0): Promise<QueuedSong[]> {
         throw("Not Implemented");
     }
 
-    remove(queuedSong: QueuedSong): Observable<boolean> {
+    remove(queuedSong: QueuedSong): Promise<boolean> {
         throw("Not Implemented");
     }
 
-    add(singer: Singer, song: Song): Observable<QueuedSong> {
+    add(singer: Singer, song: Song): Promise<QueuedSong> {
         throw("Not Implemented");
     }
 
-    moveToTop(queuedSong: QueuedSong): Observable<boolean> {
+    moveToTop(queuedSong: QueuedSong): Promise<boolean> {
         throw ("Not Implemented");
     }
 
-    moveToBottom(queuedSong: QueuedSong): Observable<boolean> {
+    moveToBottom(queuedSong: QueuedSong): Promise<boolean> {
         throw ("Not Implemented");
     }
 
-    moveUp(queuedSong: QueuedSong): Observable<boolean> {
+    moveUp(queuedSong: QueuedSong): Promise<boolean> {
         throw ("Not Implemented");
     }
 
-    moveDown(queuedSong: QueuedSong): Observable<boolean> {
+    moveDown(queuedSong: QueuedSong): Promise<boolean> {
         throw ("Not Implemented");
     }
 }

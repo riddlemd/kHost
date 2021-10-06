@@ -7,12 +7,12 @@ export class MockKhEventsProvider extends KhEventsProvider {
     constructor() {
         super();
 
-        this._cache = this._generateKhEvents();
+        this._generateKhEvents();
     }
 
-    private _generateKhEvents(): KhEvent[] {
-        let khEvents: KhEvent[] = [];
-
-        return khEvents;
+    private async _generateKhEvents(): Promise<void> {
+        console.info(`Generating KhEvents`);
+        
+        this._cache = [];
     }
 }

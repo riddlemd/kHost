@@ -19,8 +19,6 @@ export class SongsManagerComponent implements OnInit {
 
   ngOnInit(): void {
     this._songsProvider.get()
-      .subscribe(
-        value => { this.songs = value; }
-      )
+      .then(value => { this.songs = value; });
   }
 }

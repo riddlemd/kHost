@@ -19,9 +19,7 @@ export class SingersManagerComponent implements OnInit {
 
   ngOnInit(): void {
     this._singersProvider.get()
-      .subscribe(
-        value => { this.singers = value; }
-      )
+      .then(value => { this.singers = value; });
   }
 
 }

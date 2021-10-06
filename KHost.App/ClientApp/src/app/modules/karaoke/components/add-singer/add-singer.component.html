@@ -16,7 +16,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let singer of singers" class="singer-row" [ngClass]="{'selected': singer === selectedSinger }" (click)="selectSinger(singer)">
+            <tr *ngFor="let singer of singers" class="singer-row" [ngClass]="{'selected': singer === selectedSinger }" (click)="selectedSinger=singer">
                 <td class='name-column'>{{ singer.name }}</td>
                 <td class='last-sang-column'>--/--/--</td>
             </tr>

@@ -16,6 +16,7 @@ import { SongSearchComponent } from './components/song-search/song-search.compon
 import { PerformanceControlsComponent } from './components/performance-controls/performance-controls.component';
 // Providers
 import { AddSingerComponent } from './components/add-singer/add-singer.component';
+import { SingerPerformanceHistoryComponent } from './components/singer-performance-history/singer-performance-history.component';
 
 
 
@@ -29,7 +30,8 @@ import { AddSingerComponent } from './components/add-singer/add-singer.component
     QueuedSongsComponent,
     SongSearchComponent,
     PerformanceControlsComponent,
-    AddSingerComponent
+    AddSingerComponent,
+    SingerPerformanceHistoryComponent
   ],
   imports: [
     CommonModule,

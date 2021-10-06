@@ -11,8 +11,10 @@ import { QueuedSinger } from '../../models/QueuedSinger';
   templateUrl: './song-search.component.html',
   styleUrls: ['./song-search.component.scss']
 })
-export class SongSearchComponent implements OnInit {
-  @Input() selectedQueuedSinger: QueuedSinger|null = null;
+export class SongSearchComponent {
+  
+  @Input()
+  selectedQueuedSinger: QueuedSinger|null = null;
 
   selectedSong: Song|null = null;
 
@@ -31,30 +33,21 @@ export class SongSearchComponent implements OnInit {
     }
   ]
 
-  selectedSearchMode:MultiButtonMode = this.searchModes[0];
-
-  constructor(private _songsProvider: SongsProvider) { 
-    
+  private _selectedSearchMode:MultiButtonMode = this.searchModes[0];
+  get selectedSearchMode() { return this._selectedSearchMode; }
+  set selectedSearchMode(value: MultiButtonMode) {
+    this.songs = null;
+    this.selectedSong = null;
+    this._selectedSearchMode = value;
   }
 
-  ngOnInit(): void {
+  constructor(private _songsProvider: SongsProvider) { 
     
   }
 
   search(): void {
     this.songs = [];
     this._songsProvider.search(this.queryControl.value)
-      .subscribe(
-        value => { this.songs = value; }
-      )
-  }
-
-  setSearchMode(mode: MultiButtonMode): void {
-    this.songs = null;
-    this.selectedSearchMode = mode;
-  }
-
-  selectSong(e: any, song: Song): void {
-    this.selectedSong = song;
+      .then(value => { this.songs = value; });
   }
 }

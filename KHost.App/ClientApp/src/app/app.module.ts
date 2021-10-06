@@ -28,6 +28,8 @@ import { MockSingersProvider } from "./modules/kommon/providers/Mock/MockSingers
 import { MockVenuesProvider } from "./modules/kommon/providers/Mock/MockVenuesProvider";
 import { KhEventsProvider } from "./modules/kommon/providers/KhEventsProvider";
 import { MockKhEventsProvider } from "./modules/kommon/providers/Mock/MockKhEventsProvider";
+import { SingerPerformancesProvider } from "./modules/kommon/providers/SingerPerformancesProvider";
+import { MockSingerPerformanceProvider } from "./modules/kommon/providers/Mock/MockSingerPerformancesProvider";
 
 @NgModule({
   declarations: [
@@ -53,7 +55,8 @@ import { MockKhEventsProvider } from "./modules/kommon/providers/Mock/MockKhEven
     [{ provide: SongsProvider, useClass: MockSongsProvider }],
     [{ provide: SingersProvider, useClass: MockSingersProvider }],
     [{ provide: VenuesProvider, useClass: MockVenuesProvider }],
-    [{ provide: KhEventsProvider, useClass: MockKhEventsProvider }]
+    [{ provide: KhEventsProvider, useClass: MockKhEventsProvider }],
+    [{ provide: SingerPerformancesProvider, useClass: MockSingerPerformanceProvider}]
   ],
   bootstrap: [AppComponent]
 })

@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-import { Observable, of } from "rxjs";
 import { Venue } from "src/app/modules/kommon/models/Venue";
 import { Singer } from "../../../kommon/models/Singer";
 import { SingersProvider } from "../SingersProvider";
@@ -9,44 +8,64 @@ export class MockSingersProvider extends SingersProvider {
     
     private _cache: Singer[] = [];
 
-    private _nextSingerId: number = 1;
-
     constructor() {
         super();
-        this._cache = this._generateSingers();
+
+        this._generateSingers();
     }
 
-    get(count: number = 20, offset: number = 0): Observable<Singer[]> {
-        let singers:Singer[] = [...this._cache];
-        return of(singers);
+    get(count: number = 20, offset: number = 0): Promise<Singer[]> {
+        console.info(`Getting Singers (Count:${count}, Offset:${offset})`);
+
+        const singers = this._cache
+            .slice(offset, count);
+
+        return new Promise((resolve, reject) => {
+            resolve(singers);
+        });
     }
 
-    getById(id: number, count: number = 20, offset: number = 0): Observable<Singer|null> {
+    getById(id: number): Promise<Singer|null> {
+        console.info(`Getting Singer (Id:${id})`);
+
+        let singerToReturn: Singer|null = null;
+
         for(let singer of this._cache) {
-            if(singer.id === id) return of(singer);
+            if(singer.id !== id) continue;
+            
+            singerToReturn = singer;
+            break;
         }
 
-        return of(null);
+        return new Promise((resolve, reject) => {
+            resolve(singerToReturn);
+        });
     }
 
-    search(query: string, venue: Venue|null = null, count: number = 20, offset: number = 0): Observable<Singer[]> {
-        let songs = this._cache.filter(s => s.name.substring(0, query.length) === query);
+    search(query: string, venue: Venue|null = null, count: number = 20, offset: number = 0): Promise<Singer[]> {
+        console.info(`Searching Singers (Query:"${query}", Count:${count}, Offset:${offset})`);
 
-        return of(songs);
+        const singers = this._cache
+            .filter(s => s.name.substring(0, query.length) === query)
+            .slice(offset, count);
+
+        return new Promise((resolve, reject) => {
+            resolve(singers);
+        });
     }
 
-    private _generateSingers(): Singer[] {
-        let singers:Singer[] = [];
+    private async _generateSingers(): Promise<void> {
+        console.info(`Generating Singers`);
+        
+        this._cache = []
 
-        for(var i = 0; i < 15; i++)
+        for(var i = 0; i < 100; i++)
         {
-            let singer = new Singer();
-            singer.id = this._nextSingerId++;
+            const singer = new Singer();
+            singer.id = i;
             singer.name = (Math.random() + 1).toString(36).substring(7);
 
-            singers.push(singer);
+            this._cache.push(singer);
         }
-
-        return singers;
     }
 }

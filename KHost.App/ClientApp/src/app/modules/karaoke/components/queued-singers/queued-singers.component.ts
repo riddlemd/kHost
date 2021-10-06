@@ -7,6 +7,8 @@ import { QueuedSongsProvider } from '../../providers/QueuedSongsProvider';
 import { MatDialog } from '@angular/material/dialog';
 import { AddSingerComponent } from '../add-singer/add-singer.component';
 import { Venue } from 'src/app/modules/kommon/models/Venue';
+import { SingerPerformancesProvider } from 'src/app/modules/kommon/providers/SingerPerformancesProvider';
+import { SingerPerformanceHistoryComponent } from '../singer-performance-history/singer-performance-history.component';
 
 @Component({
   selector: 'kh-queued-singers',
@@ -14,16 +16,29 @@ import { Venue } from 'src/app/modules/kommon/models/Venue';
   styleUrls: ['./queued-singers.component.scss']
 })
 export class QueuedSingersComponent implements OnInit {
-  @Input() selectedQueuedSinger: QueuedSinger|null = null;
-  @Input() currentVenue: Venue|null = null;
-  @Output() selectedQueuedSingerChange = new EventEmitter<QueuedSinger|null>();
+
+  private _selectedQueuedSinger: QueuedSinger|null = null;
+  @Input()
+  set selectedQueuedSinger(value: QueuedSinger|null) { 
+    this._selectedQueuedSinger = value;
+    this.selectedQueuedSingerChange.emit(value);
+    console.info(value);
+  }
+  get selectedQueuedSinger() { return this._selectedQueuedSinger };
+
+  @Input()
+  currentVenue: Venue|null = null;
+  
+  @Output()
+  selectedQueuedSingerChange = new EventEmitter<QueuedSinger|null>();
 
   queuedSingers: QueuedSinger[] = []
 
   constructor(
     private _queuedSingersProvider: QueuedSingersProvider,
     private _queuedSongsProvider: QueuedSongsProvider,
-    private _addSingerDialog: MatDialog) {
+    private _singerPerformancesProvider: SingerPerformancesProvider,
+    private _dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -36,65 +51,40 @@ export class QueuedSingersComponent implements OnInit {
 
   moveToTop(queuedSinger: QueuedSinger): void {
     this._queuedSingersProvider.moveToTop(queuedSinger)
-      .subscribe(
-        value => {
-          if(!value) return;
-
-          this.queuedSingers.moveToStart(queuedSinger);
-        },
-        error => { alert('Unable to communicate with kHost local server.'); }
-      );
+      .then(value => {
+        this.queuedSingers.moveToStart(queuedSinger);
+      });
   }
 
   moveUp(queuedSinger: QueuedSinger): void {
     this._queuedSingersProvider.moveUp(queuedSinger)
-      .subscribe(
-        value => {
-          if(!value) return;
-
-          this.queuedSingers.moveTowardStart(queuedSinger);
-        },
-        error => { alert('Unable to communicate with kHost local server.'); }
-      );
+      .then(value => {
+        this.queuedSingers.moveTowardStart(queuedSinger);
+      });
   }
 
   moveDown(queuedSinger: QueuedSinger): void {
     this._queuedSingersProvider.moveDown(queuedSinger)
-      .subscribe(
-        value => {
-          if(!value) return;
-
-          this.queuedSingers.moveTowardEnd(queuedSinger);
-        },
-        error => { alert('Unable to communicate with kHost local server.'); }
-      );
+      .then(value => {
+        this.queuedSingers.moveTowardEnd(queuedSinger);
+      });
   }
 
   moveToBottom(queuedSinger: QueuedSinger): void {
-    this._queuedSingersProvider.moveDown(queuedSinger)
-      .subscribe(
-        value => {
-          if(!value) return;
-
-          this.queuedSingers.moveToEnd(queuedSinger);
-        },
-        error => { alert('Unable to communicate with kHost local server.'); }
-      );
+    this._queuedSingersProvider.moveToBottom(queuedSinger)
+      .then(value => {
+        this.queuedSingers.moveToEnd(queuedSinger);
+      });
   }
 
   remove(queuedSinger: QueuedSinger): void {
     let startIndex = this.getQueuedSongIndex(queuedSinger);
 
     this._queuedSingersProvider.remove(queuedSinger)
-      .subscribe(
-        value => {
-          if(!value) return;
-
-          this.queuedSingers.splice(startIndex, 1);
-          this.selectQueuedSinger(null);
-        },
-        error => { alert('Unable to communicate with kHost local server.'); }
-      );
+      .then(value => {
+        this.queuedSingers.splice(startIndex, 1);
+        this.selectedQueuedSinger = null;
+      });
   }
 
   add(singer: Singer): void {
@@ -103,45 +93,35 @@ export class QueuedSingersComponent implements OnInit {
     }
 
     this._queuedSingersProvider.add(singer)
-      .subscribe(
-        value => {
-          if(!value) return;
-          
-          this.queuedSingers.push(value);
-         },
-        error => { alert('Unable to communicate with kHost local server.'); }
-      );
+      .then(value => { this.queuedSingers.push(value); })
   }
 
-  selectQueuedSinger(queuedSinger: QueuedSinger | null): void {
-    this.selectedQueuedSingerChange.emit(queuedSinger);
-  }
-
-  populateSingers(): void
+  async populateSingers(): Promise<void>
   {
-    this._queuedSingersProvider.get()
-      .subscribe(
-        value => { 
-          this.queuedSingers = value;
+    this.queuedSingers = await this._queuedSingersProvider.get();
 
-          for(let queuedSinger of this.queuedSingers) {
-            if(queuedSinger.singer === null) continue;
-            
-            this._queuedSongsProvider.getBySinger(queuedSinger.singer).subscribe(
-              value => {
-                if(queuedSinger.singer !== null)
-                  queuedSinger.singer.queuedSongs = value;
-              }
-            );
-          }
-        },
-        error => { alert('Unable to communicate with kHost local server.'); }
-      );
+    for(let queuedSinger of this.queuedSingers) {
+      if(queuedSinger.singer === null) continue;
+      
+      queuedSinger.singer.performanceHistory = await this._singerPerformancesProvider.getBySinger(queuedSinger.singer)
+      queuedSinger.singer.queuedSongs = await this._queuedSongsProvider.getBySinger(queuedSinger.singer);
+    }
   }
 
   openAddSingerDialog(): void {
-    const dialogRef = this._addSingerDialog.open(AddSingerComponent);
+    const dialogRef = this._dialog.open(AddSingerComponent);
     dialogRef.componentInstance.currentVenue = this.currentVenue;
+
+    dialogRef
+      .afterClosed()
+        .subscribe(result => {
+          console.log(`Dialog result: ${result}`);
+    });
+  }
+
+  openSingerPerformanceHistoryDialog(): void {
+    const dialogRef = this._dialog.open(SingerPerformanceHistoryComponent);
+    dialogRef.componentInstance.selectedQueuedSinger = this.selectedQueuedSinger;
 
     dialogRef
       .afterClosed()

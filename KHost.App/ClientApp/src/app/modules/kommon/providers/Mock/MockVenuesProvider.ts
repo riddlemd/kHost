@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-import { Observable, of } from "rxjs";
 import { Venue } from "../../models/Venue";
 import { VenuesProvider } from "../VenuesProvider";
 
@@ -8,34 +7,47 @@ export class MockVenuesProvider extends VenuesProvider {
 
     private _cache: Venue[] = [];
 
-    private _nextVenueId = 0;
-
     constructor() {
         super();
 
-        this._cache = this._generateVenues();
+        this._generateVenues();
     }
 
-    get(count: number = 20, offset: number = 0): Observable<Venue[]> {
-        let venues = [...this._cache];
-        return of(venues);
+    get(count: number = 20, offset: number = 0): Promise<Venue[]> {
+        console.info(`Getting Venues (Count:${count}, Offset:${offset})`);
+
+        const venues = this._cache
+            .slice(offset, count);
+        
+        return new Promise((resolve, reject) => {
+            resolve(venues);
+        });
     }
 
-    search(query: string, count: number = 20, offset: number = 0): Observable<Venue[]> {
-        return this.get();
+    search(query: string, count: number = 20, offset: number = 0): Promise<Venue[]> {
+        console.info(`Searching Venues (Query:"${query}", Count:${count}, Offset:${offset})`);
+
+        const venues = this._cache
+            .filter(s => s.name.substring(0, query.length) === query)
+            .slice(offset, count);
+
+        return new Promise((resolve, reject) => {
+            resolve(venues);
+        })
     }
 
-    private _generateVenues(): Venue[] {
-        let venues: Venue[] = [];
+    private async _generateVenues(): Promise<void> {
+        console.info(`Generating Venues`);
+        
+        this._cache = [];
 
         for(let i = 0; i < 100; i++) {
-            let venue = new Venue();
-            venue.id = this._nextVenueId++;
+            
+            const venue = new Venue();
+            venue.id = i;
             venue.name = (Math.random() + 1).toString(36).substring(7);
 
-            venues.push(venue);
+            this._cache.push(venue);
         }
-
-        return venues;
     }
 }

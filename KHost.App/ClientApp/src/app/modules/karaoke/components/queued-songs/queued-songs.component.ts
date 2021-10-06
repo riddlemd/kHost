@@ -1,9 +1,9 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Component, Input } from '@angular/core';
-import { queue } from 'rxjs';
 import { QueuedSong } from 'src/app/modules/karaoke/models/QueuedSong';
 import { QueuedSinger } from '../../models/QueuedSinger';
 import { QueuedSongsProvider } from '../../providers/QueuedSongsProvider';
+import 'src/app/modules/kommon/collections/arrayExtensions';
 
 @Component({
   selector: 'kh-queued-songs',
@@ -11,7 +11,9 @@ import { QueuedSongsProvider } from '../../providers/QueuedSongsProvider';
   styleUrls: ['./queued-songs.component.scss']
 })
 export class QueuedSongsComponent {
-  @Input() selectedQueuedSinger: QueuedSinger|null = null;
+  
+  @Input()
+  selectedQueuedSinger: QueuedSinger|null = null;
 
   selectedQueuedSong: QueuedSong|null = null;
 
@@ -19,7 +21,7 @@ export class QueuedSongsComponent {
     
   }
 
-  getQueueLength(): number {
+  getSongQueueCount(): number {
     return this.selectedQueuedSinger?.singer?.queuedSongs.length ?? 0;
   }
 
@@ -29,27 +31,19 @@ export class QueuedSongsComponent {
 
   moveToTop(queuedSong: QueuedSong): void {
     this._queuedSongsProvider.moveToTop(queuedSong)
-      .subscribe(
+      .then(
         value => {
-          if(!value) return;
-
-          let startIndex = this.getQueuedSongIndex(queuedSong);
-          this.selectedQueuedSinger?.singer?.queuedSongs.move(startIndex, 0);
-        },
-        error => { alert('Unable to communicate with kHost local server.'); }
+          this.selectedQueuedSinger?.singer?.queuedSongs.moveToStart(queuedSong);
+        }
       );
   }
 
   moveUp(queuedSong: QueuedSong): void {
     this._queuedSongsProvider.moveUp(queuedSong)
-      .subscribe(
+      .then(
         value => {
-          if(!value) return;
-          
-          let startIndex = this.getQueuedSongIndex(queuedSong);
-          this.selectedQueuedSinger?.singer?.queuedSongs.move(startIndex, startIndex - 1);
-        },
-        error => { alert('Unable to communicate with kHost local server.'); }
+          this.selectedQueuedSinger?.singer?.queuedSongs.moveTowardStart(queuedSong);
+        }
       );
 
 
@@ -57,40 +51,29 @@ export class QueuedSongsComponent {
 
   moveDown(queuedSong: QueuedSong): void {
     this._queuedSongsProvider.moveDown(queuedSong)
-      .subscribe(
+      .then(
         value => {
-          if(!value) return;
-          
-          let startIndex = this.getQueuedSongIndex(queuedSong);
-          this.selectedQueuedSinger?.singer?.queuedSongs.move(startIndex, startIndex + 1);
-        },
-        error => { alert('Unable to communicate with kHost local server.'); }
+          this.selectedQueuedSinger?.singer?.queuedSongs.moveTowardEnd(queuedSong);
+        }
       );
   }
 
   moveToBottom(queuedSong: QueuedSong): void {
-    this._queuedSongsProvider.moveDown(queuedSong)
-      .subscribe(
+    this._queuedSongsProvider.moveToBottom(queuedSong)
+      .then(
         value => {
-          if(!value) return;
-          
-          let startIndex = this.getQueuedSongIndex(queuedSong);
-          this.selectedQueuedSinger?.singer?.queuedSongs.move(startIndex, this.selectedQueuedSinger?.singer?.queuedSongs.length);
-        },
-        error => { alert('Unable to communicate with kHost local server.'); }
+          this.selectedQueuedSinger?.singer?.queuedSongs.moveToEnd(queuedSong);
+        }
       );
   }
 
   remove(queuedSong: QueuedSong): void {
     this._queuedSongsProvider.remove(queuedSong)
-      .subscribe(
+      .then(
         value => {
-          if(!value) return;
-
           let startIndex = this.getQueuedSongIndex(queuedSong);
           this.selectedQueuedSinger?.singer?.queuedSongs.splice(startIndex, 1);
-        },
-        error => { alert('Unable to communicate with kHost local server.'); }
+        }
       );
   }
 

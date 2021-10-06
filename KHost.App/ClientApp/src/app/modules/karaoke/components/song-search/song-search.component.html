@@ -12,7 +12,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let song of songs" class="song-row" [ngClass]="{'selected': song === selectedSong }" (contextmenu)="menuTrigger.openMenu();" (mousedown)="selectSong($event, song)">
+            <tr *ngFor="let song of songs" class="song-row" [ngClass]="{'selected': song === selectedSong }" (contextmenu)="menuTrigger.openMenu();" (mousedown)="selectedSong=song;">
                 <td class='song-name-column'>{{ song?.name }}</td>
                 <td class='song-band-name-column'>{{ song?.bandName }}</td>
                 <td class='song-length-column'>{{ song?.lengthInSeconds | secondsToMinutes }}</td>

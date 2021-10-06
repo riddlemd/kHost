@@ -1,99 +1,128 @@
 import { Injectable } from "@angular/core";
-import { Observable, of } from "rxjs";
+import { SingersProvider } from "src/app/modules/kommon/providers/SingersProvider";
+import { SongsProvider } from "src/app/modules/kommon/providers/SongsProvider";
 import { QueuedSong } from "../../../karaoke/models/QueuedSong";
 import { Singer } from "../../../kommon/models/Singer";
 import { Song, SongState } from "../../../kommon/models/Song";
 import { QueuedSongsProvider } from "../../providers/QueuedSongsProvider";
+import "src/app/modules/kommon/mathematics/MathExtensions";
 
 @Injectable()
 export class MockQueuedSongsProvider extends QueuedSongsProvider {
-    
-    private _singersCached: number[] = [];
-    
+        
     private _cache: QueuedSong[] = [];
 
-    private _nextQueuedSongId: number = 1;
+    constructor(
+        private _singersProvider: SingersProvider,
+        private _songsProvider: SongsProvider
+    ) {
+        super();
 
-    get(count: number = 20, offset: number = 0): Observable<QueuedSong[]> {
-        console.info(`Getting QueuedSongs`);
-        return of(this._cache);
+        this._generateQueuedSongs();
     }
 
-    getBySinger(singer: Singer, count: number = 20, offset: number = 0): Observable<QueuedSong[]> {
-        console.info(`Getting QueuedSongs for Singer#${singer.id}`);
+    get(count: number = 20, offset: number = 0): Promise<QueuedSong[]> {
+        console.info(`Getting QueuedSongs (Count:${count}, Offset:${offset})`);
 
-        if(this._singersCached.indexOf(singer.id) === -1) {
-            this._cache = this._cache.concat(this._generateQueuedSongs(singer.id));
-            this._singersCached.push(singer.id);
-        }
+        const queuedSongs = this._cache
+            .slice(offset, count);
 
-        return of(this._cache.filter(qs => qs.singerId === singer.id));
+        return new Promise((resolve, reject) => {
+            resolve(queuedSongs);
+        });
     }
 
-    remove(queuedSong: QueuedSong): Observable<boolean> {
+    getBySinger(singer: Singer, count: number = 20, offset: number = 0): Promise<QueuedSong[]> {
+        console.info(`Getting QueuedSongs for Singer#${singer.id} (Count:${count}, Offset:${offset})`);
+
+        const queuedSongs = this._cache
+            .filter(s => s.singerId == singer.id)
+            .slice(offset, count);
+
+        return new Promise((resolve, reject) => {
+           resolve(queuedSongs); 
+        });
+    }
+
+    remove(queuedSong: QueuedSong): Promise<boolean> {
         console.info(`Removing QueuedSong#${queuedSong.id} for Singer#${queuedSong.singerId}`);
+
         for(let i = 0; i < this._cache.length; i++) {
             if(this._cache[i].id !== queuedSong.id) continue;
             
             this._cache.splice(i, 1);
 
-            return of (true);
+            return new Promise((resolve, reject) => { resolve(true); });
         }
 
-        return of(false);
+        return new Promise((resolve, reject) => { reject(); });
     }
 
-    moveToTop(queuedSong: QueuedSong): Observable<boolean> {
+    moveToTop(queuedSong: QueuedSong): Promise<boolean> {
         console.info(`movedToTop QueuedSong#${queuedSong.id} for Singer#${queuedSong.singerId}`);
+
         this._cache.moveToStart(queuedSong);
-        return of(true);
+        
+        return new Promise<boolean>((resolve, reject) => {
+            resolve(true);
+        });
     }
 
-    moveToBottom(queuedSong: QueuedSong): Observable<boolean> {
+    moveToBottom(queuedSong: QueuedSong): Promise<boolean> {
         console.info(`movedToBottom QueuedSong#${queuedSong.id} for Singer#${queuedSong.singerId}`);
+
         this._cache.moveToEnd(queuedSong);
-        return of(true);
+        
+        return new Promise<boolean>((resolve, reject) => {
+            resolve(true);
+        });
     }
 
-    moveUp(queuedSong: QueuedSong): Observable<boolean> {
+    moveUp(queuedSong: QueuedSong): Promise<boolean> {
         console.info(`movedUp QueuedSong#${queuedSong.id} for Singer#${queuedSong.singerId}`);
+
         this._cache.moveTowardStart(queuedSong);
-        return of(true);
+        
+        return new Promise<boolean>((resolve, reject) => {
+            resolve(true);
+        });
     }
 
-    moveDown(queuedSong: QueuedSong): Observable<boolean> {
+    moveDown(queuedSong: QueuedSong): Promise<boolean> {
         console.info(`movedDown QueuedSong#${queuedSong.id} for Singer#${queuedSong.singerId}`);
+        
         this._cache.moveTowardEnd(queuedSong);
-        return of(true);
+        
+        return new Promise<boolean>((resolve, reject) => {
+            resolve(true);
+        });
     }
 
-    private _generateQueuedSongs(singerId: number): QueuedSong[] {
-        let queuedSongs = [];
-        let maxCount = Math.random() * 10;
-        for(var i = 0; i < maxCount; i++)
-        {            
-            let song = new Song();
-            song.id = i;
-            song.name = (Math.random() + 1).toString(36).substring(7);
-            song.bandName = (Math.random() + 1).toString(36).substring(7);
-            song.source = i % 2 ? 'local' : 'youtube';
-            song.localPath = i % 2 ? 'local://' : null;
-            song.remotePath = i % 2 ? null : 'remote://';
-            song.state = SongState.Ready;
-            song.lengthInSeconds = Math.random() * 360;
+    private async _generateQueuedSongs(): Promise<void> {
+        console.info(`Generating QueuedSongs`);
+        
+        this._cache = [];
 
-            let singer = new Singer();
-            singer.id = singerId;
+        const singers: Singer[] = await this._singersProvider.get();
+        const songs: Song[] = await this._songsProvider.get();
 
-            let queuedSong = new QueuedSong();
-            queuedSong.id = this._nextQueuedSongId++;
-            queuedSong.songId = song.id;
-            queuedSong.song = song;
-            queuedSong.singerId = singer.id;
-            queuedSong.singer = singer;
+        for(let singer of singers) {
+            const maxQueuedSongs = Math.random() * 10;
 
-            queuedSongs.push(queuedSong);
+            for(let i = 1; i <= maxQueuedSongs; i++)
+            {
+                const randomSongId = Math.randomBetween(0, songs.length - 1);
+                const song = songs[randomSongId];
+                
+                let queuedSong = new QueuedSong();
+                queuedSong.id = i;
+                queuedSong.songId = song.id;
+                queuedSong.song = song;
+                queuedSong.singerId = singer.id;
+                queuedSong.singer = singer;
+
+                this._cache.push(queuedSong);
+            }
         }
-        return queuedSongs;
     }
 }

@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-import { Observable, of } from "rxjs";
 import { QueuedSinger } from "../../models/QueuedSinger";
 import { Singer } from "../../../kommon/models/Singer";
 import { QueuedSingersProvider } from "../QueuedSingersProvider";
@@ -7,76 +6,100 @@ import { QueuedSingersProvider } from "../QueuedSingersProvider";
 @Injectable()
 export class MockQueuedSingersProvider extends QueuedSingersProvider {
     
-    private _cache: QueuedSinger[];
-    
-    private _nextQueuedSingerId: number = 1;
+    private _cache: QueuedSinger[] = [];
 
     constructor() {
         super();
-        this._cache = this.generateQueuedSingers();
+        
+        this.generateQueuedSingers();
     }
 
-    get(count: number = 20, offset: number = 0): Observable<QueuedSinger[]> {
+    get(count: number = 20, offset: number = 0): Promise<QueuedSinger[]> {
         console.info('Getting QueuedSingers');
-        let queuedSingers:QueuedSinger[] = [...this._cache]; // need to return a copy so it mimics remote sources, otherwise it'll pass it around by reference and cause issues.
 
-        return of(queuedSingers);
+        const queuedSingers:QueuedSinger[] = this._cache
+            .slice(offset, count);
+
+        return new Promise<QueuedSinger[]>((resolve, reject) => {
+            resolve(queuedSingers);
+        });
     }
     
-    remove(queuedSinger: QueuedSinger): Observable<boolean> {
+    remove(queuedSinger: QueuedSinger): Promise<boolean> {
         console.info(`Removing QueuedSinger#${queuedSinger.id}`);
+
         for(let i = 0; i < this._cache.length; i++) {
             if(this._cache[i].id !== queuedSinger.id) continue;
             
             this._cache.splice(i, 1);
 
-            return of(true);
+            return new Promise<boolean>((resolve, reject) => {
+                resolve(true);
+            });
         }
 
-        return of(false);
+        return new Promise<boolean>((resolve, reject) => {
+            reject();
+        });
     }
     
-    moveToTop(queuedSinger: QueuedSinger): Observable<boolean> {
+    moveToTop(queuedSinger: QueuedSinger): Promise<boolean> {
         console.info(`movedToTop QueuedSinger#${queuedSinger.id}`);
+
         this._cache.moveToStart(queuedSinger);
-        return of(true);
+
+        return new Promise<boolean>((resolve, reject) => {
+            resolve(true);
+        });
     }
 
-    moveToBottom(queuedSinger: QueuedSinger): Observable<boolean> {
+    moveToBottom(queuedSinger: QueuedSinger): Promise<boolean> {
         console.info(`movedToBottom QueuedSinger#${queuedSinger.id}`);
+
         this._cache.moveToEnd(queuedSinger);
-        return of(true);
+        
+        return new Promise<boolean>((resolve, reject) => {
+            resolve(true);
+        });
     }
 
-    moveUp(queuedSinger: QueuedSinger): Observable<boolean> {
+    moveUp(queuedSinger: QueuedSinger): Promise<boolean> {
         console.info(`movedUp QueuedSinger#${queuedSinger.id}`);
+
         this._cache.moveToStart(queuedSinger);
-        return of(true);
+        
+        return new Promise<boolean>((resolve, reject) => {
+            resolve(true);
+        });
     }
 
-    moveDown(queuedSinger: QueuedSinger): Observable<boolean> {
+    moveDown(queuedSinger: QueuedSinger): Promise<boolean> {
         console.info(`movedDown QueuedSinger#${queuedSinger.id}`);
+
         this._cache.moveTowardEnd(queuedSinger);
-        return of(true);
+        
+        return new Promise<boolean>((resolve, reject) => {
+            resolve(true);
+        });
     }
 
-    private generateQueuedSingers(): QueuedSinger[] {
-        let queuedSingers:QueuedSinger[] = [];
+    private async generateQueuedSingers(): Promise<void> {
+        console.info(`Generating QueuedSingers`);
+        
+        this._cache = [];
 
-        for(var i = 1; i < 15; i++)
+        for(let i = 1; i <= 15; i++)
         {
-            let singer = new Singer();
+            const singer = new Singer();
             singer.id = i;
             singer.name = (Math.random() + 1).toString(36).substring(7);
 
-            let queuedSinger = new QueuedSinger();
-            queuedSinger.id = this._nextQueuedSingerId++;
+            const queuedSinger = new QueuedSinger();
+            queuedSinger.id = i;
             queuedSinger.singerId = singer.id;
             queuedSinger.singer = singer;
             
-            queuedSingers.push(queuedSinger);
+            this._cache.push(queuedSinger);
         }
-
-        return queuedSingers;
     }
 }
