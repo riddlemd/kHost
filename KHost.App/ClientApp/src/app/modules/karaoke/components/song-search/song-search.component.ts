@@ -62,7 +62,6 @@ export class SongSearchComponent implements OnInit {
     this._songSearchProvider.search(this.queryControl.value, this.selectedSearchMode.value)
       .then(songSearchResults => { 
         this.songSearchResults = songSearchResults;
-        console.info(songSearchResults);
       });
   }
 }
