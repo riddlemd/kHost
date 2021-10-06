@@ -14,7 +14,7 @@ namespace KHost.App.Providers
 
         }
 
-        public async Task<IEnumerable<QueuedSong>> GetAll() => await DefaultRepository?.GetAll();
+        public async Task<IEnumerable<QueuedSong>> GetAll() => await DefaultRepository?.Get();
 
         public async Task<(bool, int?)> Save(QueuedSong model) => await DefaultRepository?.Save(model);
 

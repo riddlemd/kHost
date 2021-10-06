@@ -22,7 +22,7 @@ namespace KHost.App.Repositories
             models.ForEach(qs => qs.Position = i++);
         }
 
-        protected async Task<IEnumerable<TModel>> GetAllInOrder()
+        protected async Task<IEnumerable<TModel>> GetInOrder()
         {
             var connection = SqlClientProvider.Connection;
 
@@ -35,7 +35,7 @@ namespace KHost.App.Repositories
 
             var model = GetById(id) as IModelWithPosition;
 
-            var models = (await GetAllInOrder()).ToList();
+            var models = (await GetInOrder()).ToList();
 
             models.Move(model.Position, model.Position + 1);
 
@@ -53,7 +53,7 @@ namespace KHost.App.Repositories
 
             var model = GetById(id) as IModelWithPosition;
 
-            var models = (await GetAllInOrder()).ToList();
+            var models = (await GetInOrder()).ToList();
 
             models.MoveToLast(model.Position);
 
@@ -71,7 +71,7 @@ namespace KHost.App.Repositories
 
             var model = GetById(id) as IModelWithPosition;
 
-            var models = (await GetAllInOrder()).ToList();
+            var models = (await GetInOrder()).ToList();
 
             models.MoveToFirst(model.Position);
 
@@ -89,7 +89,7 @@ namespace KHost.App.Repositories
 
             var model = GetById(id) as IModelWithPosition;
 
-            var models = (await GetAllInOrder()).ToList();
+            var models = (await GetInOrder()).ToList();
 
             models.Move(model.Position, model.Position - 1);
 

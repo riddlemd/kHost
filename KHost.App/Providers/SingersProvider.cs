@@ -13,7 +13,7 @@ namespace KHost.App.Providers
         {
         }
 
-        public async Task<IEnumerable<Singer>> GetAll() => await DefaultRepository?.GetAll();
+        public async Task<IEnumerable<Singer>> GetAll() => await DefaultRepository?.Get();
 
         public async Task<(bool, int?)> Save(Singer model) => await DefaultRepository?.Save(model);
 

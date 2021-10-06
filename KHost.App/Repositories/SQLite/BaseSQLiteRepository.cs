@@ -21,10 +21,19 @@ namespace KHost.App.Repositories.SQLite
             TableName = typeof(TModel).Name.Pluralize();
         }
 
-        public virtual async Task<IEnumerable<TModel>> GetAll()
+        public virtual async Task<IEnumerable<TModel>> Get(int count = 20, int offset = 0)
         {
             var connection = SqlClientProvider.Connection;
-            return await connection.GetAllAsync<TModel>();
+
+            var sql = $"SELECT * FROM {TableName} LIMIT @Limit OFFSET @offset";
+
+            var parameters = new
+            {
+                Limit = count,
+                Offset = offset
+            };
+
+            return await connection.QueryAsync<TModel>(sql, parameters);
         }
 
         public virtual async Task<(bool, int?)> Save(TModel model)
@@ -37,14 +46,16 @@ namespace KHost.App.Repositories.SQLite
             return (true, await connection.InsertAsync(model));
         }
 
-        public virtual async Task<IEnumerable<TModel>> Search(string query)
+        public virtual async Task<IEnumerable<TModel>> Search(string query, int count = 20, int offset = 0)
         {
             var connection = SqlClientProvider.Connection;
 
-            var sql = $"SELECT * FROM {TableName} WHERE name LIKE @Query";
+            var sql = $"SELECT * FROM {TableName} WHERE name LIKE @Query LIMIT @Limit OFFSET @offset";
             
             var parameters = new {
-                Query = query.Replace("*", "%")
+                Query = query.Replace("*", "%"),
+                Limit = count,
+                Offset = offset
             };
 
             return await connection.QueryAsync<TModel>(sql, parameters);
