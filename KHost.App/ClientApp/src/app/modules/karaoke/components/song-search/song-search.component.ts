@@ -48,8 +48,6 @@ export class SongSearchComponent implements OnInit {
         }
 
         this.selectedSearchMode = this.searchModes[0];
-
-        console.info(this.searchModes);
       });
   }
 
