@@ -1,8 +1,8 @@
 <div class='component-title'>{{ selectedSearchMode ? selectedSearchMode?.text : ""  }} Song Search</div>
 <div class='scroll-wrapper'>
-    <div class='empty' *ngIf="songs === null">Enter query below to search songs.</div>
-    <div class='empty' *ngIf="(songs?.length ?? 0) <= 0 && songs !== null">No Results Found.</div>
-    <table *ngIf="(songs?.length ?? 0) > 0">
+    <div class='empty' *ngIf="songSearchResults === null">Enter query below to search songs.</div>
+    <div class='empty' *ngIf="getSongSearchResultsCount() <= 0 && songSearchResults !== null">No Results Found.</div>
+    <table *ngIf="getSongSearchResultsCount() > 0">
         <thead>
             <tr>
                 <th>Name</th>
@@ -12,10 +12,10 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let song of songs" class="song-row" [ngClass]="{'selected': song === selectedSong }" (contextmenu)="menuTrigger.openMenu();" (mousedown)="selectedSong=song;">
-                <td class='song-name-column'>{{ song?.name }}</td>
-                <td class='song-band-name-column'>{{ song?.bandName }}</td>
-                <td class='song-length-column'>{{ song?.lengthInSeconds | secondsToMinutes }}</td>
+            <tr *ngFor="let songSearchResult of songSearchResults" class="song-row" [ngClass]="{'selected': songSearchResult === selectedSongSearchResult }" (contextmenu)="menuTrigger.openMenu();" (mousedown)="selectedSongSearchResult=songSearchResult;">
+                <td class='song-name-column'>{{ songSearchResult?.songName }}</td>
+                <td class='song-band-name-column'>{{ songSearchResult?.bandName }}</td>
+                <td class='song-length-column'>{{ songSearchResult?.lengthInSeconds | secondsToMinutes }}</td>
                 <td class='options-column'>
                     <a mat-icon-button #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="menu">
                         <mat-icon>more_vert</mat-icon>
@@ -30,20 +30,20 @@
                             <mat-icon>add</mat-icon>
                             <span>Add to Singer</span>
                         </button>
-                        <button mat-menu-item *ngIf="song?.remotePath !== null">
+                        <button mat-menu-item [disabled]="!selectedQueuedSinger?.singer" *ngIf="selectedSearchMode.value.allowDownload">
                             <mat-icon>download_for_offline</mat-icon>
                             <span>Download and Add to Singer</span>
                         </button>
                         <mat-divider></mat-divider>
-                        <button mat-menu-item *ngIf="song?.remotePath === null">
+                        <button mat-menu-item *ngIf="selectedSearchMode.value.isLocal" >
                             <mat-icon>edit</mat-icon>
                             <span>Edit</span>
                         </button>
-                        <button mat-menu-item *ngIf="song?.remotePath === null">
+                        <button mat-menu-item *ngIf="selectedSearchMode.value.isLocal">
                             <mat-icon>delete_forever</mat-icon>
                             <span>Remove from Library</span>
                         </button>
-                        <button mat-menu-item *ngIf="song?.remotePath !== null">
+                        <button mat-menu-item *ngIf="selectedSearchMode.value.allowDownload">
                             <mat-icon>file_download</mat-icon>
                             <span>Download</span>
                         </button>
@@ -54,7 +54,7 @@
     </table>
 </div>
 <div class='table-footer'>
-    <div>Songs: {{ songs?.length ?? 0 }}</div>
+    <div>Songs: {{ getSongSearchResultsCount() }}</div>
 </div>
 <form>
     <input type="text" name="query" [formControl]="queryControl" placeholder="Enter the name of the song or band here, use * for wildcard searches.">
