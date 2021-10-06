@@ -107,7 +107,7 @@ export class MockQueuedSongsProvider extends QueuedSongsProvider {
         const songs: Song[] = await this._songsProvider.get();
 
         for(let singer of singers) {
-            const maxQueuedSongs = Math.random() * 10;
+            const maxQueuedSongs = Math.random() * 11 - 1;
 
             for(let i = 1; i <= maxQueuedSongs; i++)
             {
