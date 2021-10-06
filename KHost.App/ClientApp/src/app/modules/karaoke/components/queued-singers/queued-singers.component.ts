@@ -18,11 +18,9 @@ import { SingerPerformanceHistoryComponent } from '../singer-performance-history
 export class QueuedSingersComponent implements OnInit {
 
   private _selectedQueuedSinger: QueuedSinger|null = null;
-  @Input()
   set selectedQueuedSinger(value: QueuedSinger|null) { 
     this._selectedQueuedSinger = value;
     this.selectedQueuedSingerChange.emit(value);
-    console.info(value);
   }
   get selectedQueuedSinger() { return this._selectedQueuedSinger };
 

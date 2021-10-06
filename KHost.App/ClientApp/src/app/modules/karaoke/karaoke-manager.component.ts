@@ -15,6 +15,10 @@ export class KaraokeManagerComponent implements OnInit {
 
   constructor() { }
 
+  setSelectedQueuedSinger(queuedSinger: QueuedSinger|null): void {
+    this.selectedQueuedSinger = queuedSinger;
+  }
+
   ngOnInit(): void {
   }
 }
