@@ -18,9 +18,9 @@ namespace KHost.App.Controllers.Api
         }
 
         [HttpGet]
-        public virtual async Task<IActionResult> GetAll()
+        public virtual async Task<IActionResult> Get([FromQuery] int count = 20, [FromQuery] int offset = 0)
         {
-            var songs = await DefaultProvider.GetAll();
+            var songs = await DefaultProvider.Get(count, offset);
 
             var response = new OkObjectResult(new
             {
@@ -31,9 +31,9 @@ namespace KHost.App.Controllers.Api
         }
 
         [HttpGet]
-        public virtual async Task<IActionResult> Search([FromQuery] string q)
+        public virtual async Task<IActionResult> Search([FromQuery] string query, [FromQuery]int count = 20, [FromQuery]int offset = 0)
         {
-            var songs = await DefaultProvider.Search(q);
+            var songs = await DefaultProvider.Search(query, count, offset);
 
             var response = new OkObjectResult(new
             {
