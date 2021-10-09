@@ -12,6 +12,10 @@
         <span>Karaoke Controls</span>
     </button>
     <mat-divider></mat-divider>
+    <button mat-menu-item (click)="navigateTo('/downloads')">
+        <mat-icon>download</mat-icon>
+        <span>Manage Downloads</span>
+    </button>
     <button mat-menu-item (click)="navigateTo('/songs')">
         <mat-icon>library_music</mat-icon>
         <span>Manage Songs</span>
@@ -33,6 +37,11 @@
     <button mat-menu-item (click)="navigateTo('/about')">
         <mat-icon>info</mat-icon>
         <span>About</span>
+    </button>
+    <mat-divider></mat-divider>
+    <button mat-menu-item (click)="navigateTo('/shutdown')">
+        <mat-icon>power_settings_new</mat-icon>
+        <span>Shutdown kHost</span>
     </button>
 </mat-menu>
 

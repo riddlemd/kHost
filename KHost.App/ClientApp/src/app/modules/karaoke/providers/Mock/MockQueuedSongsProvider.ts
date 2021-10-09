@@ -1,9 +1,9 @@
 import { Injectable } from "@angular/core";
-import { SingersProvider } from "src/app/modules/kommon/providers/SingersProvider";
-import { SongsProvider } from "src/app/modules/kommon/providers/SongsProvider";
+import { SingersProvider } from "../../../../services/providers/SingersProvider";
+import { SongsProvider } from "../../../../services/providers/SongsProvider";
 import { QueuedSong } from "../../../karaoke/models/QueuedSong";
-import { Singer } from "../../../kommon/models/Singer";
-import { Song, SongState } from "../../../kommon/models/Song";
+import { Singer } from "../../../../models/Singer";
+import { Song, SongState } from "../../../../models/Song";
 import { QueuedSongsProvider } from "../../providers/QueuedSongsProvider";
 import "src/app/modules/kommon/mathematics/MathExtensions";
 

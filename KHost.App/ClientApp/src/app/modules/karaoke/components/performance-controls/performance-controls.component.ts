@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Singer } from 'src/app/modules/kommon/models/Singer';
-import { Song } from 'src/app/modules/kommon/models/Song';
-import { Venue } from 'src/app/modules/kommon/models/Venue';
+import { Singer } from 'src/app/models/Singer';
+import { Song } from 'src/app/models/Song';
+import { Venue } from 'src/app/models/Venue';
 import { QueuedSinger } from '../../models/QueuedSinger';
 
 @Component({

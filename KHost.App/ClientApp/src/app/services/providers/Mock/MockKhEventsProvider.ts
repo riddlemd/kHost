@@ -1,6 +1,8 @@
-import { KhEvent } from "../../models/KhEvent";
+import { Injectable } from "@angular/core";
+import { KhEvent } from "../../../models/KhEvent";
 import { KhEventsProvider } from "../KhEventsProvider";
 
+@Injectable()
 export class MockKhEventsProvider extends KhEventsProvider {
     private _cache: KhEvent[] = [];
 

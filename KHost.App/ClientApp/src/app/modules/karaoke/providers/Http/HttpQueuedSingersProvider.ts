@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { QueuedSinger } from '../../models/QueuedSinger';
-import { Singer } from '../../../kommon/models/Singer';
+import { Singer } from '../../../../models/Singer';
 
 @Injectable()
 export class HttpQueuedSingersProvider {

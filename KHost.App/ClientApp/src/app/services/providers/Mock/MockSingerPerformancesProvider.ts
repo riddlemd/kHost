@@ -1,8 +1,7 @@
-import { Observable, of } from "rxjs";
-import { Singer } from "../../models/Singer";
-import { SingerPerformance } from "../../models/SingerPerformance";
+import 'src/app/modules/kommon/chrono/DateExtensions';
+import { Singer } from "src/app/models/Singer";
+import { SingerPerformance } from "src/app/models/SingerPerformance";
 import { SingerPerformancesProvider } from "../SingerPerformancesProvider";
-import '../../chrono/DateExtensions';
 import { Injectable } from "@angular/core";
 import { SingersProvider } from "../SingersProvider";
 

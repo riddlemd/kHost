@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Singer } from 'src/app/modules/kommon/models/Singer';
-import { SingersProvider } from 'src/app/modules/kommon/providers/SingersProvider';
-import { Venue } from 'src/app/modules/kommon/models/Venue';
+import { Singer } from 'src/app/models/Singer';
+import { SingersProvider } from 'src/app/services/providers/SingersProvider';
+import { Venue } from 'src/app/models/Venue';
 
 @Component({
   selector: 'kh-add-singer',

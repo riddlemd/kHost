@@ -1,5 +1,5 @@
-import { Singer } from "../../kommon/models/Singer";
-import { Song } from "src/app/modules/kommon/models/Song";
+import { Singer } from "../../../models/Singer";
+import { Song } from "src/app/models/Song";
 
 export class QueuedSong
 {

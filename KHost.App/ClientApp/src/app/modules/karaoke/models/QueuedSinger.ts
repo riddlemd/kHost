@@ -1,4 +1,4 @@
-import { Singer } from "../../kommon/models/Singer";
+import { Singer } from "../../../models/Singer";
 
 export class QueuedSinger
 {

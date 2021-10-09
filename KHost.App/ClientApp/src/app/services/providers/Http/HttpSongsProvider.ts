@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Song } from '../../models/Song';
+import { Song } from '../../../models/Song';
 
 @Injectable()
 export class HttpSongsProvider {

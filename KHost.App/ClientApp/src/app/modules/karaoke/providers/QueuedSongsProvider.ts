@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { QueuedSong } from '../../karaoke/models/QueuedSong';
-import { Singer } from '../../kommon/models/Singer';
-import { Song } from 'src/app/modules/kommon/models/Song';
+import { Singer } from '../../../models/Singer';
+import { Song } from 'src/app/models/Song';
 
 @Injectable()
 export abstract class QueuedSongsProvider {

@@ -1,4 +1,4 @@
-import { Song } from "../../../kommon/models/Song";
+import { Song } from "../../../../models/Song";
 import { SongSearchEngine } from "../../models/SongSearchEngine";
 import { SongSearchResult } from "../../models/SongSearchResult";
 import { SongSearchProvider } from "../SongSearchProvider";
@@ -30,6 +30,7 @@ export class MockSongSearchProvider extends SongSearchProvider {
         const songSearchEngines = [
             new SongSearchEngine("local", "Local"),
             new SongSearchEngine("youtube", "YouTube", false, true),
+            new SongSearchEngine("karafun", "KaraFun", false, true)
         ];
 
         return new Promise((resolve, reject) => {

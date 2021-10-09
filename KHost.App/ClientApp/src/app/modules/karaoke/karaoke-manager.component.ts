@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Venue } from '../kommon/models/Venue';
+import { Venue } from '../../models/Venue';
 import { QueuedSinger } from './models/QueuedSinger';
 
 @Component({

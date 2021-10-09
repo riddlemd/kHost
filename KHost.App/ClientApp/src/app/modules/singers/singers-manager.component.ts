@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Singer } from '../kommon/models/Singer';
-import { SingersProvider } from 'src/app/modules/kommon/providers/SingersProvider';
+import { Singer } from '../../models/Singer';
+import { SingersProvider } from '../../services/providers/SingersProvider';
 
 @Component({
   selector: 'kh-singers-manager',

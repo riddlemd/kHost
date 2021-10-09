@@ -1,13 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { QueuedSinger } from 'src/app/modules/karaoke/models/QueuedSinger';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { Singer } from 'src/app/modules/kommon/models/Singer';
+import { Singer } from 'src/app/models/Singer';
 import { QueuedSingersProvider } from '../../providers/QueuedSingersProvider';
 import { QueuedSongsProvider } from '../../providers/QueuedSongsProvider';
 import { MatDialog } from '@angular/material/dialog';
 import { AddSingerComponent } from '../add-singer/add-singer.component';
-import { Venue } from 'src/app/modules/kommon/models/Venue';
-import { SingerPerformancesProvider } from 'src/app/modules/kommon/providers/SingerPerformancesProvider';
+import { Venue } from 'src/app/models/Venue';
+import { SingerPerformancesProvider } from 'src/app/services/providers/SingerPerformancesProvider';
 import { SingerPerformanceHistoryComponent } from '../singer-performance-history/singer-performance-history.component';
 
 @Component({

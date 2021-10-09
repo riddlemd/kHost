@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { SingerPerformance } from '../../../kommon/models/SingerPerformance';
+import { SingerPerformance } from '../../../../models/SingerPerformance';
 import { QueuedSinger } from '../../models/QueuedSinger';
 
 @Component({

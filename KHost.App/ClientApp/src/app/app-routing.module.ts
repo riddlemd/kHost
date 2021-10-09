@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { DownloadsManagerComponent } from './modules/downloads/downloads-manager.component';
 import { KaraokeManagerComponent } from './modules/karaoke/karaoke-manager.component';
 import { SettingsManagerComponent } from './modules/settings/settings-manager.component';
 import { SingersManagerComponent } from './modules/singers/singers-manager.component';
@@ -11,7 +12,8 @@ const routes: Routes = [
   { path: 'singers', component: SingersManagerComponent },
   { path: 'songs', component: SongsManagerComponent },
   { path: 'venues', component: VenuesManagerComponent},
-  { path: 'settings', component: SettingsManagerComponent}
+  { path: 'settings', component: SettingsManagerComponent},
+  { path: 'downloads', component: DownloadsManagerComponent}
 ];
 
 @NgModule({

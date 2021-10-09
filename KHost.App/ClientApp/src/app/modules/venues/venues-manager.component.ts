@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Venue } from '../kommon/models/Venue';
-import { MockVenuesProvider } from '../kommon/providers/Mock/MockVenuesProvider';
-import { VenuesProvider } from '../kommon/providers/VenuesProvider';
+import { Venue } from '../../models/Venue';
+import { VenuesProvider } from '../../services/providers/VenuesProvider';
 
 @Component({
   selector: 'kh-venues-manager',

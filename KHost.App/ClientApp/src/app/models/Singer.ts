@@ -1,4 +1,4 @@
-import { QueuedSong } from "../../karaoke/models/QueuedSong";
+import { QueuedSong } from "../modules/karaoke/models/QueuedSong";
 import { SingerPerformance } from "./SingerPerformance";
 
 export class Singer
