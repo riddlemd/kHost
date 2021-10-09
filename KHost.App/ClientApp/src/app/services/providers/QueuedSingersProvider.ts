@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { QueuedSinger } from '../../models/QueuedSinger';
-import { Singer } from '../../models/Singer';
+import { QueuedSinger } from 'src/app/models/QueuedSinger';
+import { Singer } from 'src/app/models/Singer';
 
 @Injectable()
 export abstract class QueuedSingersProvider {

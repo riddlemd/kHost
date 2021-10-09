@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Download } from "../../../models/Download";
+import { Download } from "src/app/models/Download";
 import { DownloadsProvider } from "../DownloadsProvider";
 
 @Injectable()

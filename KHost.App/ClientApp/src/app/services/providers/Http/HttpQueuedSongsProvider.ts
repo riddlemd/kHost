@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { QueuedSong } from '../../../karaoke/models/QueuedSong';
-import { Singer } from '../../../../models/Singer';
+import { QueuedSong } from 'src/app/models/QueuedSong';
+import { Singer } from 'src/app/models/Singer';
 import { Song } from 'src/app/models/Song';
 
 @Injectable()

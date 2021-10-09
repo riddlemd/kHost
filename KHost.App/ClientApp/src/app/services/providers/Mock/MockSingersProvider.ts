@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Venue } from "src/app/models/Venue";
-import { Singer } from "../../../models/Singer";
+import { Singer } from "src/app/models/Singer";
 import { SingersProvider } from "../SingersProvider";
 
 @Injectable()

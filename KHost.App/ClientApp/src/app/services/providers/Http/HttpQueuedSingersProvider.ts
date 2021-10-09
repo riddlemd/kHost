@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { QueuedSinger } from '../../../models/QueuedSinger';
-import { Singer } from '../../../models/Singer';
+import { QueuedSinger } from 'src/app/models/QueuedSinger';
+import { Singer } from 'src/app/models/Singer';
 
 @Injectable()
 export class HttpQueuedSingersProvider {

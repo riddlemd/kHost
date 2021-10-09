@@ -3,7 +3,6 @@ import { Venue } from 'src/app/models/Venue';
 import { VenuesProvider } from 'src/app/services/providers/VenuesProvider';
 
 @Component({
-  selector: 'kh-venues-manager',
   templateUrl: './venues-manager.component.html',
   styleUrls: ['./venues-manager.component.scss']
 })

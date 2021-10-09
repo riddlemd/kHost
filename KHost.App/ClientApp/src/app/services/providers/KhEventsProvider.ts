@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { KhEvent } from "../../models/KhEvent";
+import { KhEvent } from "src/app/models/KhEvent";
 
 @Injectable()
 export class KhEventsProvider {

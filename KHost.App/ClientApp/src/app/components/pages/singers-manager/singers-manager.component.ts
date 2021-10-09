@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Singer } from '../../models/Singer';
-import { SingersProvider } from '../../services/providers/SingersProvider';
+import { Singer } from 'src/app/models/Singer';
+import { SingersProvider } from 'src/app/services/providers/SingersProvider';
 
 @Component({
-  selector: 'kh-singers-manager',
   templateUrl: './singers-manager.component.html',
   styleUrls: ['./singers-manager.component.scss']
 })

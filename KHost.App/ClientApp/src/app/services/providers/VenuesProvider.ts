@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Venue } from "../../models/Venue";
+import { Venue } from "src/app/models/Venue";
 
 @Injectable()
 export class VenuesProvider {

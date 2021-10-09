@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Venue } from '../../models/Venue';
-import { QueuedSinger } from '../../models/QueuedSinger';
+import { Venue } from 'src/app/models/Venue';
+import { QueuedSinger } from 'src/app/models/QueuedSinger';
 
 @Component({
-  selector: 'kh-karaoke-manager',
   templateUrl: './karaoke-manager.component.html',
   styleUrls: ['./karaoke-manager.component.scss']
 })

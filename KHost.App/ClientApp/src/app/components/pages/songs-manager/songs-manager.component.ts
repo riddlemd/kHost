@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Song } from '../../models/Song';
-import { SongsProvider } from '../../services/providers/SongsProvider';
+import { Song } from 'src/app/models/Song';
+import { SongsProvider } from 'src/app/services/providers/SongsProvider';
 
 @Component({
-  selector: 'kh-songs-manager',
   templateUrl: './songs-manager.component.html',
   styleUrls: ['./songs-manager.component.scss']
 })

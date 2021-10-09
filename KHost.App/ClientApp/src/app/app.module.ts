@@ -16,9 +16,25 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { DragDropModule } from '@angular/cdk/drag-drop';
 // kHost Modules
 import { KommonModule } from './modules/kommon/kommon.module';
+import { AuthModule } from './modules/auth/auth.module';
 // Components
 import { AppComponent } from './app.component';
-import { LoginComponent } from "./components/login/login.component";
+import { LoginComponent } from "./components/pages/login/login.component";
+import { KaraokeManagerComponent } from './components/pages/karaoke-manager/karaoke-manager.component';
+import { AddSingerComponent } from './components/pages/karaoke-manager/add-singer/add-singer.component';
+import { PerformanceControlsComponent } from './components/pages/karaoke-manager/performance-controls/performance-controls.component';
+import { QueuedSingersComponent } from './components/pages/karaoke-manager/queued-singers/queued-singers.component';
+import { QueuedSongsComponent } from './components/pages/karaoke-manager/queued-songs/queued-songs.component';
+import { SingerPerformanceHistoryComponent } from './components/pages/karaoke-manager/singer-performance-history/singer-performance-history.component';
+import { SongSearchComponent } from './components/pages/karaoke-manager/song-search/song-search.component';
+import { DownloadsManagerComponent } from './components/pages/downloads-manager/downloads-manager.component';
+import { SettingsManagerComponent } from './components/pages/settings-manager/settings-manager.component';
+import { SingersManagerComponent } from './components/pages/singers-manager/singers-manager.component';
+import { SongsManagerComponent } from './components/pages/songs-manager/songs-manager.component';
+import { VenuesManagerComponent } from './components/pages/venues-manager/venues-manager.component';
+// Services
+import { LocalStorageService } from "./services/local-storage.service";
+import { AuthConfig, AuthService } from './modules/auth/services/auth.service';
 // Providers
 import { QueuedSongsProvider } from "src/app/services/providers/QueuedSongsProvider";
 import { QueuedSingersProvider } from "./services/providers/QueuedSingersProvider";
@@ -36,19 +52,14 @@ import { MockVenuesProvider } from "src/app/services/providers/Mock/MockVenuesPr
 import { MockSongSearchProvider } from "src/app/services/providers/Mock/MockSongSearchProvider";
 import { MockSingerPerformanceProvider } from "src/app/services/providers/Mock/MockSingerPerformancesProvider";
 import { MockKhEventsProvider } from "src/app/services/providers/Mock/MockKhEventsProvider";
-import { LocalStorageService } from "./services/local-storage.service";
-import { KaraokeManagerComponent } from './components/karaoke-manager/karaoke-manager.component';
-import { AddSingerComponent } from './components/karaoke-manager/add-singer/add-singer.component';
-import { PerformanceControlsComponent } from './components/karaoke-manager/performance-controls/performance-controls.component';
-import { QueuedSingersComponent } from './components/karaoke-manager/queued-singers/queued-singers.component';
-import { QueuedSongsComponent } from './components/karaoke-manager/queued-songs/queued-songs.component';
-import { SingerPerformanceHistoryComponent } from './components/karaoke-manager/singer-performance-history/singer-performance-history.component';
-import { SongSearchComponent } from './components/karaoke-manager/song-search/song-search.component';
-import { DownloadsManagerComponent } from './components/downloads-manager/downloads-manager.component';
-import { SettingsManagerComponent } from './components/settings-manager/settings-manager.component';
-import { SingersManagerComponent } from './components/singers-manager/singers-manager.component';
-import { SongsManagerComponent } from './components/songs-manager/songs-manager.component';
-import { VenuesManagerComponent } from './components/venues-manager/venues-manager.component';
+import { NotAuthorizedComponent } from './components/pages/not-authorized/not-authorized.component';
+
+// Configurations
+const configurations = {
+  auth: new AuthConfig({
+    loginUrl: 'login'
+  })
+};
 
 @NgModule({
   declarations: [
@@ -71,7 +82,8 @@ import { VenuesManagerComponent } from './components/venues-manager/venues-manag
     // SongsManager
     SongsManagerComponent,
     // VenuesManager
-    VenuesManagerComponent
+    VenuesManagerComponent,
+    NotAuthorizedComponent
   ],
   imports: [
     // Angular Modules
@@ -90,10 +102,12 @@ import { VenuesManagerComponent } from './components/venues-manager/venues-manag
     // Angular CDK
     DragDropModule,
     // kHost Modules
-    KommonModule
+    KommonModule,
+    AuthModule
   ],
   providers: [
     LocalStorageService,
+    [{ provide: AuthService, useFactory: (localStorageService: LocalStorageService) => new AuthService(configurations.auth, localStorageService) }],
     [{ provide: QueuedSongsProvider, useClass: MockQueuedSongsProvider }],
     [{ provide: QueuedSingersProvider, useClass: MockQueuedSingersProvider }],
     [{ provide: SongsProvider, useClass: MockSongsProvider }],
