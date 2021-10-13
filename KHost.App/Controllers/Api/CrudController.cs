@@ -25,7 +25,7 @@ namespace KHost.App.Controllers.Api
         [HttpPost]
         public virtual async Task<IActionResult> Create([FromBody] TModel entity)
         {
-            await DefaultRepository.Insert(entity);
+            await DefaultRepository.Create(entity);
             await DefaultRepository.Save();
 
             var response = new ApiResponse(entity);
@@ -36,7 +36,7 @@ namespace KHost.App.Controllers.Api
         [HttpGet]
         public virtual async Task<IActionResult> Read([FromQuery] GenericPaginatedRequest request)
         {
-            var queuedSingers = await DefaultRepository.Get(request.Count, request.Offset);
+            var queuedSingers = await DefaultRepository.Read(request.Count, request.Offset);
 
             var response = new ApiResponse(queuedSingers);
 

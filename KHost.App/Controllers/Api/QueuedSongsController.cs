@@ -14,6 +14,17 @@ namespace KHost.App.Controllers.Api
             
         }
 
+        public async Task<IActionResult> GetBySingerId([FromBody] GenericIdRequest request)
+        {
+            var queuedSongs = await UnitOfWork.GetRepository<IQueuedSongsRepository>().GetBySingerId(request.Id);
+
+            var response = new ApiResponse(queuedSongs);
+
+            return Ok(response);
+        }
+
+        // Queue Methods
+
         [HttpPost]
         public async Task<IActionResult> MoveUp([FromBody] GenericIdRequest request)
         {

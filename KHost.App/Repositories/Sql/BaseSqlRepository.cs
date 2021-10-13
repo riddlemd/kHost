@@ -17,13 +17,13 @@ namespace KHost.App.Repositories.Sql
             Context = context;
         }
 
-        public virtual async Task<IEnumerable<TModel>> Get(int? count = null, int? offset = null) => await BuildGetQuery(count, offset).ToArrayAsync();
+        public virtual async Task<IEnumerable<TModel>> Read(int? count = null, int? offset = null) => await BuildGetQuery(count, offset).ToArrayAsync();
 
         public virtual async Task<TModel> GetById(int id) => (await BuildGetByIdQuery(id).ToArrayAsync()).FirstOrDefault();
 
         public virtual async Task<IEnumerable<TModel>> GetByIds(IEnumerable<int> ids) => await BuildGetByIdsQuery(ids).ToArrayAsync();
 
-        public virtual async Task Insert(TModel entity)
+        public virtual async Task Create(TModel entity)
         {
             if (entity.Id != null) throw new Exception("Entity Id must be null to be inserted");
 

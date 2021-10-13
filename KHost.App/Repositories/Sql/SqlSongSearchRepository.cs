@@ -50,19 +50,19 @@ namespace KHost.App.Repositories.Sql
             return songSearchResults;
         }
 
-        public Task<IEnumerable<object>> Get(int? count = null, int? offset = null) => throw new NotImplementedException();
-
         public Task<object> GetById(int id) => throw new NotImplementedException();
 
         public Task<IEnumerable<object>> GetByIds(IEnumerable<int> ids) => throw new NotImplementedException();
 
-        public Task Insert(object entity) => throw new NotImplementedException();
+        public Task Create(object entity) => throw new NotImplementedException();
+
+        public Task<IEnumerable<object>> Read(int? count = null, int? offset = null) => throw new NotImplementedException();
+
+        public Task Update(object entity) => throw new NotImplementedException();
 
         public Task DeleteById(int id) => throw new NotImplementedException();
 
         public Task Delete(object entity) => throw new NotImplementedException();
-
-        public Task Update(object entity) => throw new NotImplementedException();
 
         public Task<int> Save() => throw new NotImplementedException();
     }

@@ -12,9 +12,5 @@ namespace KHost.App.Repositories.Sql
         }
 
         DbContext IQueueRepository<QueuedSinger>.Context => Context;
-
-        protected override IQueryable<QueuedSinger> BuildGetQuery(int? count = null, int? offset = null) => base.BuildGetQuery(count, offset)
-            .Include(queuedSinger => queuedSinger.Singer.QueuedSongs)
-            .ThenInclude(queuedSong => queuedSong.Song);
     }
 }
