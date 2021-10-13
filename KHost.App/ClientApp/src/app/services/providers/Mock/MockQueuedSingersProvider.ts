@@ -5,82 +5,92 @@ import { Singer } from "src/app/models/Singer";
 import { QueuedSingersProvider } from "../QueuedSingersProvider";
 
 @Injectable()
-export class MockQueuedSingersProvider extends QueuedSingersProvider {
+export class MockQueuedSingersProvider implements QueuedSingersProvider {
     
     private _cache: QueuedSinger[] = [];
 
     constructor() {
-        super();
-        
         this.generateQueuedSingers();
     }
 
-    get(count: number = 20, offset: number = 0): Promise<QueuedSinger[]> {
+    // CRUD Methods
+
+    create(singer: Singer): Promise<number> {
+        throw new Error('Method not implemented.');
+    }
+
+    read(count?: number, offset?: number): Promise<QueuedSinger[]> {
         console.info('Getting QueuedSingers');
 
         const queuedSingers:QueuedSinger[] = this._cache
-            .slice(offset, count);
+            .slice(offset ?? 0, count ?? 20);
 
         return new Promise<QueuedSinger[]>((resolve, reject) => {
             resolve(queuedSingers);
         });
     }
+
+    update(singer: Singer): Promise<void> {
+        throw new Error('Method not implemented.');
+    }
     
-    remove(queuedSinger: QueuedSinger): Promise<boolean> {
-        console.info(`Removing QueuedSinger#${queuedSinger.id}`);
+    delete(queuedSinger: QueuedSinger): Promise<void> {
+        console.info(`Deleting QueuedSinger#${queuedSinger.id}`);
 
         for(let i = 0; i < this._cache.length; i++) {
             if(this._cache[i].id !== queuedSinger.id) continue;
             
             this._cache.splice(i, 1);
 
-            return new Promise<boolean>((resolve, reject) => {
-                resolve(true);
+            return new Promise((resolve, reject) => {
+                resolve();
             });
         }
 
-        return new Promise<boolean>((resolve, reject) => {
+        return new Promise((resolve, reject) => {
             reject();
         });
     }
+
+    // Queue Methods
     
-    moveToTop(queuedSinger: QueuedSinger): Promise<boolean> {
+    moveToTop(queuedSinger: QueuedSinger): Promise<void> {
         console.info(`movedToTop QueuedSinger#${queuedSinger.id}`);
 
         this._cache.moveToStart(queuedSinger);
 
-        return new Promise<boolean>((resolve, reject) => {
-            resolve(true);
+        return new Promise((resolve, reject) => {
+            resolve();
         });
     }
 
-    moveToBottom(queuedSinger: QueuedSinger): Promise<boolean> {
+    moveToBottom(queuedSinger: QueuedSinger): Promise<void> {
         console.info(`movedToBottom QueuedSinger#${queuedSinger.id}`);
 
         this._cache.moveToEnd(queuedSinger);
         
-        return new Promise<boolean>((resolve, reject) => {
-            resolve(true);
+        return new Promise((resolve, reject) => {
+            resolve();
         });
     }
 
-    moveUp(queuedSinger: QueuedSinger): Promise<boolean> {
+    moveUp(queuedSinger: QueuedSinger): Promise<void> {
         console.info(`movedUp QueuedSinger#${queuedSinger.id}`);
 
         this._cache.moveToStart(queuedSinger);
         
-        return new Promise<boolean>((resolve, reject) => {
-            resolve(true);
+        return new Promise((resolve, reject) => {
+            resolve();
         });
     }
 
-    moveDown(queuedSinger: QueuedSinger): Promise<boolean> {
+    moveDown(queuedSinger: QueuedSinger): Promise<void> {
         console.info(`movedDown QueuedSinger#${queuedSinger.id}`);
 
         this._cache.moveTowardEnd(queuedSinger);
         
-        return new Promise<boolean>((resolve, reject) => {
-            resolve(true);
+        return new Promise((resolve, reject) => {
+            resolve();
         });
     }
 

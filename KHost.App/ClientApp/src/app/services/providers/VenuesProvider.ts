@@ -3,12 +3,26 @@ import { Venue } from "src/app/models/Venue";
 
 @Injectable()
 export class VenuesProvider {
-    
-    get(count: number = 20, offset: number = 0): Promise<Venue[]> {
+
+    search(query: string, count?: number, offset?: number): Promise<Venue[]> {
         throw("Not Implemented");
     }
 
-    search(query: string, count: number = 20, offset: number = 0): Promise<Venue[]> {
+    // CRUD Methods
+
+    create(venue: Venue): Promise<number> {
+        throw("Not Implemented");
+    }
+
+    read(count?: number, offset?: number): Promise<Venue[]> {
+        throw("Not Implemented");
+    }
+
+    update(venue: Venue): Promise<void> {
+        throw("Not Implemented");
+    }
+    
+    delete(venue: Venue): Promise<void> {
         throw("Not Implemented");
     }
 }

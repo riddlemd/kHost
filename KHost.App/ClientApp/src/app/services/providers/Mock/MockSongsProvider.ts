@@ -3,25 +3,12 @@ import { Song, SongState } from "src/app/models/Song";
 import { SongsProvider } from "../SongsProvider";
 
 @Injectable()
-export class MockSongsProvider extends SongsProvider {
+export class MockSongsProvider implements SongsProvider {
 
     private _cache: Song[] = [];
 
     constructor() {
-        super();
-
         this._generateSongs();
-    }
-
-    get(count: number = 20, offset: number = 0): Promise<Song[]> {
-        console.info(`Getting Songs (Count:${count}, Offset:${offset})`);
-
-        const songs = this._cache
-            .slice(offset, count);
-
-        return new Promise((resolve, reject) => {
-            resolve(songs);
-        });
     }
 
     search(query: string, count: number = 20, offset: number = 0): Promise<Song[]> {
@@ -34,6 +21,31 @@ export class MockSongsProvider extends SongsProvider {
         return new Promise((resolve, reject) => {
             resolve(songs);
         });
+    }
+
+    // CRUD Methods
+
+    create(song: Song): Promise<number> {
+        throw new Error("Method not implemented.");
+    }
+
+    update(singer: Song): Promise<void> {
+        throw new Error("Method not implemented.");
+    }
+
+    read(count?: number, offset?: number): Promise<Song[]> {
+        console.info(`Reading Songs (Count:${count}, Offset:${offset})`);
+
+        const songs = this._cache
+            .slice(offset, count);
+
+        return new Promise((resolve, reject) => {
+            resolve(songs);
+        });
+    }
+
+    delete(song: Song): Promise<void> {
+        throw new Error("Method not implemented.");
     }
 
     private async _generateSongs(): Promise<void> {

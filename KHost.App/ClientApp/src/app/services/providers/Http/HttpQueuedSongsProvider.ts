@@ -1,31 +1,135 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { AppConfig } from 'src/app/app.config';
 import { QueuedSong } from 'src/app/models/QueuedSong';
 import { Singer } from 'src/app/models/Singer';
-import { Song } from 'src/app/models/Song';
+import { QueuedSongsProvider } from '../QueuedSongsProvider';
 
 @Injectable()
-export class HttpQueuedSongsProvider {
-    private endpoint:string = "/api/queued-songs";
+export class HttpQueuedSongsProvider implements QueuedSongsProvider {
+    private static readonly ENDPOINT:string = "/api/queued-songs";
     
-    constructor(private _httpClient: HttpClient) {
-
+    constructor(
+        private _config: AppConfig,
+        private _httpClient: HttpClient
+    ) {
+        
     }
 
-    get(count: number = 20, offset: number = 0): Observable<QueuedSong[]> {
-        return this._httpClient.get<QueuedSong[]>(this.endpoint + "/get-all");
+    getBySinger(singer: Singer, count?: number, offset?: number): Promise<QueuedSong[]> {
+        const url = `${this._config.apiUrl}${HttpQueuedSongsProvider.ENDPOINT}/get-by-singer-id`;
+
+        const options: any = {
+            params: {
+                id: singer.id
+            }
+        };
+
+        if(count) options.params.count = count;
+
+        if(offset) options.params.offset = offset;
+
+        const response: any = this._httpClient.get<QueuedSong[]>(url, options).toPromise();
+        const queuedSongs = response?.queuedSongs;
+
+        return queuedSongs;
     }
 
-    getBySinger(singer: Singer, count: number = 20, offset: number = 0): Observable<QueuedSong[]> {
-        return this._httpClient.post<QueuedSong[]>(this.endpoint + "/get", {singerId:singer.id});
+    // CRUD Methods
+
+    async create(queuedSong: QueuedSong): Promise<number> {
+        throw new Error('Method not implemented.');
     }
 
-    remove(queuedSong: QueuedSong): Observable<boolean> {
-        return this._httpClient.post<boolean>(this.endpoint + "/remove", {id:queuedSong.id});
+    async read(count?: number, offset?: number): Promise<QueuedSong[]> {
+        const url = `${this._config.apiUrl}${HttpQueuedSongsProvider.ENDPOINT}/read`;
+
+        const options: any = { params: {} };
+
+        if(count) options.params.count = count;
+
+        if(offset) options.params.offset = offset;
+
+        try {
+            const response: any = this._httpClient.get<QueuedSong[]>(url, options).toPromise();
+            const queuedSongs = response?.queuedSongs;
+
+            return queuedSongs;
+        }
+        catch(exception) {
+
+        }
+
+        return [];
     }
 
-    add(singer: Singer, song: Song): Observable<QueuedSong> {
-        return this._httpClient.post<QueuedSong>(this.endpoint + "/add", {singerId: singer.id, songId: song.id});
+    async update(queuedSong: QueuedSong): Promise<void> {
+        throw new Error('Method not implemented.');
+    }
+    
+    async delete(queuedSinger: QueuedSong): Promise<void> {
+        throw new Error('Method not implemented.');
+    }
+
+    // Queue Methods
+
+    async moveToTop(queuedSong: QueuedSong): Promise<void> {
+        const url = `${this._config.apiUrl}${HttpQueuedSongsProvider.ENDPOINT}/move-to-top`;
+
+        const data = {
+            id: queuedSong.id
+        };
+
+        try {
+            const response: any = await this._httpClient.post<QueuedSong[]>(url, data).toPromise();
+        }
+        catch(exception) {
+
+        }
+    }
+
+    async moveToBottom(queuedSong: QueuedSong): Promise<void> {
+        const url = `${this._config.apiUrl}${HttpQueuedSongsProvider.ENDPOINT}/move-to-bottom`;
+
+        const data = {
+            id: queuedSong.id
+        };
+
+        try {
+            const response: any = await this._httpClient.post<QueuedSong[]>(url, data).toPromise();
+        }
+        catch(exception) {
+
+        }
+    }
+
+    async moveUp(queuedSong: QueuedSong): Promise<void> {
+        const url = `${this._config.apiUrl}${HttpQueuedSongsProvider.ENDPOINT}/move-up`;
+
+        const data = {
+            id: queuedSong.id
+        };
+
+        try {
+            const response: any = await this._httpClient.post<QueuedSong[]>(url, data).toPromise();
+        }
+        catch(exception) {
+
+        }
+    }
+
+    async moveDown(queuedSong: QueuedSong): Promise<void> {
+        const url = `${this._config.apiUrl}${HttpQueuedSongsProvider.ENDPOINT}/move-down`;
+
+        const data = {
+            id: queuedSong.id
+        };
+
+        try {
+            const response: any = await this._httpClient.post<QueuedSong[]>(url, data).toPromise();
+        }
+        catch(exception) {
+
+        }
     }
 }

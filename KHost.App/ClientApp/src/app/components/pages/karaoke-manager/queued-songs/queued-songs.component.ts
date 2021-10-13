@@ -68,7 +68,7 @@ export class QueuedSongsComponent {
   }
 
   remove(queuedSong: QueuedSong): void {
-    this._queuedSongsProvider.remove(queuedSong)
+    this._queuedSongsProvider.delete(queuedSong)
       .then(
         value => {
           let startIndex = this.getQueuedSongIndex(queuedSong);

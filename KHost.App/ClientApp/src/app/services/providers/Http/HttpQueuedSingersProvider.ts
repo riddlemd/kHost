@@ -3,79 +3,106 @@ import { Injectable } from '@angular/core';
 import { AppConfig } from 'src/app/app.config';
 import { QueuedSinger } from 'src/app/models/QueuedSinger';
 import { Singer } from 'src/app/models/Singer';
+import { QueuedSingersProvider } from '../QueuedSingersProvider';
 
 @Injectable()
-export class HttpQueuedSingersProvider {
-    private static endpoint:string = "/api/queued-singers";
+export class HttpQueuedSingersProvider implements QueuedSingersProvider {
+    private static readonly ENDPOINT:string = "/api/queued-singers";
     
     constructor(
         private _config: AppConfig,
-        private _httpClient: HttpClient) {
-
+        private _httpClient: HttpClient
+    ) {
+        
     }
 
-    async get(count: number = 20, offset: number = 0): Promise<QueuedSinger[]> {
-        const url = `${this._config.apiUrl}${HttpQueuedSingersProvider.endpoint}/read`;
+    // CRUD Methods
 
-        const response: any = await this._httpClient.get<QueuedSinger[]>(url).toPromise();
-        const queuedSingers: QueuedSinger[] = response?.queuedSingers;
-
-        return queuedSingers;
+    async create(singer: Singer): Promise<number> {
+        throw new Error('Method not implemented.');
     }
 
-    async remove(queuedSinger: QueuedSinger): Promise<boolean> {
-        throw("Not Implemented");
+    async read(count?: number, offset?: number): Promise<QueuedSinger[]> {
+        const url = `${this._config.apiUrl}${HttpQueuedSingersProvider.ENDPOINT}/read`;
+
+        try {
+            const response: any = await this._httpClient.get<QueuedSinger[]>(url).toPromise();
+            const queuedSingers: QueuedSinger[] = response?.queuedSingers;
+
+            return queuedSingers;
+        }
+        catch(exception) {
+            throw("Unable to get QueuedSingers");
+        }
     }
 
-    async add(singer: Singer): Promise<QueuedSinger> {
-        throw("Not Implemented");
+    async update(singer: Singer): Promise<void> {
+        throw new Error('Method not implemented.');
+    }
+    
+    async delete(queuedSinger: QueuedSinger): Promise<void> {
+        throw new Error('Method not implemented.');
     }
 
-    async moveToTop(queuedSinger: QueuedSinger): Promise<boolean> {
-        const url = `${this._config.apiUrl}${HttpQueuedSingersProvider.endpoint}/move-to-top`;
+    // Queue Methods
+
+    async moveToTop(queuedSinger: QueuedSinger): Promise<void> {
+        const url = `${this._config.apiUrl}${HttpQueuedSingersProvider.ENDPOINT}/move-to-top`;
 
         const data = {
             id: queuedSinger.id
         };
 
-        const response: any = await this._httpClient.post<QueuedSinger[]>(url, data).toPromise();
-
-        return true;
+        try {
+            const response: any = await this._httpClient.post<QueuedSinger[]>(url, data).toPromise();
+        }
+        catch(exception) {
+            
+        }
     }
 
-    async moveToBottom(queuedSinger: QueuedSinger): Promise<boolean> {
-        const url = `${this._config.apiUrl}${HttpQueuedSingersProvider.endpoint}/move-to-bottom`;
+    async moveToBottom(queuedSinger: QueuedSinger): Promise<void> {
+        const url = `${this._config.apiUrl}${HttpQueuedSingersProvider.ENDPOINT}/move-to-bottom`;
+        
+        const data = {
+            id: queuedSinger.id
+        };
+
+        try {
+            await this._httpClient.post<QueuedSinger[]>(url, data).toPromise();
+        }
+        catch(exception) {
+
+        }
+    }
+
+    async moveUp(queuedSinger: QueuedSinger): Promise<void> {
+        const url = `${this._config.apiUrl}${HttpQueuedSingersProvider.ENDPOINT}/move-up`;
 
         const data = {
             id: queuedSinger.id
         };
 
-        const response: any = await this._httpClient.post<QueuedSinger[]>(url, data).toPromise();
+        try {
+            await this._httpClient.post<QueuedSinger[]>(url, data).toPromise();
+        }
+        catch(exception) {
 
-        return true;
+        }
     }
 
-    async moveUp(queuedSinger: QueuedSinger): Promise<boolean> {
-        const url = `${this._config.apiUrl}${HttpQueuedSingersProvider.endpoint}/move-up`;
+    async moveDown(queuedSinger: QueuedSinger): Promise<void> {
+        const url = `${this._config.apiUrl}${HttpQueuedSingersProvider.ENDPOINT}/move-down`;
 
         const data = {
             id: queuedSinger.id
         };
 
-        const response: any = await this._httpClient.post<QueuedSinger[]>(url, data).toPromise();
-
-        return true;
-    }
-
-    async moveDown(queuedSinger: QueuedSinger): Promise<boolean> {
-        const url = `${this._config.apiUrl}${HttpQueuedSingersProvider.endpoint}/move-down`;
-
-        const data = {
-            id: queuedSinger.id
-        };
-
-        const response: any = await this._httpClient.post<QueuedSinger[]>(url, data).toPromise();
-
-        return true;
+        try {
+            await this._httpClient.post<QueuedSinger[]>(url, data).toPromise();
+        }
+        catch(exception) {
+            
+        }
     }
 }

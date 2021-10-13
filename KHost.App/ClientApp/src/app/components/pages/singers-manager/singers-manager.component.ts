@@ -17,7 +17,7 @@ export class SingersManagerComponent implements OnInit {
   constructor(private _singersProvider: SingersProvider) { }
 
   ngOnInit(): void {
-    this._singersProvider.get()
+    this._singersProvider.read()
       .then(value => { this.singers = value; });
   }
 

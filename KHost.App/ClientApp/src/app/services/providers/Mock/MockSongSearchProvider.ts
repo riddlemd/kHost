@@ -2,9 +2,10 @@ import { SongSearchEngine } from "src/app/models/SongSearchEngine";
 import { SongSearchResult } from "src/app/models/SongSearchResult";
 import { SongSearchProvider } from "../SongSearchProvider";
 
-export class MockSongSearchProvider extends SongSearchProvider {
+export class MockSongSearchProvider implements SongSearchProvider {
+    
     constructor() {
-        super();
+        
     }
 
     async search(query: string, songSearchEngine: SongSearchEngine, count: number = 20, offset: number = 0): Promise<SongSearchResult[]> {
@@ -15,14 +16,6 @@ export class MockSongSearchProvider extends SongSearchProvider {
         return new Promise((resolve, reject) => {
             resolve(songSearchResults);
         });
-    }
-
-    convertToLocalSong(songSearchResult: SongSearchResult): Promise<void> {
-        throw ("Not Implemented");
-    }
-
-    convertToRemoteSong(songSearchResult: SongSearchResult): Promise<void> {
-        throw ("Not Implemented");
     }
 
     getSongSearchEngines(): Promise<SongSearchEngine[]> {

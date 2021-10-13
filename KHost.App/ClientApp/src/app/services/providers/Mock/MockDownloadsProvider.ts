@@ -3,13 +3,27 @@ import { Download } from "src/app/models/Download";
 import { DownloadsProvider } from "../DownloadsProvider";
 
 @Injectable()
-export class MockDownloadsProvider extends DownloadsProvider {
-    
-    get(count: number = 20, offset: number = 0): Promise<Download[]> {
-        throw ("Not Implemented");
-    }
+export class MockDownloadsProvider implements DownloadsProvider {
 
     getById(id: number): Promise<Download[]> {
         throw ("Not Implemented");
+    }
+
+    // CRUD Methods
+
+    create(download: Download): Promise<number> {
+        throw("Not Implemented");
+    }
+
+    read(count?: number, offset?: number): Promise<Download[]> {
+        throw("Not Implemented");
+    }
+
+    update(download: Download): Promise<void> {
+        throw("Not Implemented");
+    }
+    
+    delete(download: Download): Promise<void> {
+        throw("Not Implemented");
     }
 }

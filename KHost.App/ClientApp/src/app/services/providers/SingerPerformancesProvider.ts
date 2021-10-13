@@ -5,11 +5,25 @@ import { SingerPerformance } from "src/app/models/SingerPerformance";
 @Injectable()
 export class SingerPerformancesProvider {
 
-    get(count: number = 20, offset: number = 0): Promise<SingerPerformance[]> {
+    getBySinger(singer: Singer, count?: number, offset?: number): Promise<SingerPerformance[]> {
         throw("Not Implemented");
     }
 
-    getBySinger(singer: Singer, count: number = 20, offset: number = 0): Promise<SingerPerformance[]> {
+    // CRUD Methods
+
+    create(singerPerformance: SingerPerformance): Promise<number> {
+        throw("Not Implemented");
+    }
+
+    read(count?: number, offset?: number): Promise<SingerPerformance[]> {
+        throw("Not Implemented");
+    }
+
+    update(singerPerformance: SingerPerformance): Promise<void> {
+        throw("Not Implemented");
+    }
+    
+    delete(singerPerformance: SingerPerformance): Promise<void> {
         throw("Not Implemented");
     }
 }

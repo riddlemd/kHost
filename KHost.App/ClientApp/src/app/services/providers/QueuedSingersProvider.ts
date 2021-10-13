@@ -8,31 +8,39 @@ export abstract class QueuedSingersProvider {
 
     }
 
-    get(count: number = 20, offset: number = 0): Promise<QueuedSinger[]> {
+    // CRUD Methods
+
+    create(singer: Singer): Promise<number> {
         throw("Not Implemented");
     }
 
-    remove(queuedSinger: QueuedSinger): Promise<boolean> {
+    read(count?: number, offset?: number): Promise<QueuedSinger[]> {
         throw("Not Implemented");
     }
 
-    add(singer: Singer): Promise<QueuedSinger> {
+    update(singer: Singer): Promise<void> {
+        throw("Not Implemented");
+    }
+    
+    delete(queuedSinger: QueuedSinger): Promise<void> {
         throw("Not Implemented");
     }
 
-    moveToTop(queuedSinger: QueuedSinger): Promise<boolean> {
+    // Queue Methods
+
+    moveToTop(queuedSinger: QueuedSinger): Promise<void> {
         throw ("Not Implemented");
     }
 
-    moveToBottom(queuedSinger: QueuedSinger): Promise<boolean> {
+    moveToBottom(queuedSinger: QueuedSinger): Promise<void> {
         throw ("Not Implemented");
     }
 
-    moveUp(queuedSinger: QueuedSinger): Promise<boolean> {
+    moveUp(queuedSinger: QueuedSinger): Promise<void> {
         throw ("Not Implemented");
     }
 
-    moveDown(queuedSinger: QueuedSinger): Promise<boolean> {
+    moveDown(queuedSinger: QueuedSinger): Promise<void> {
         throw ("Not Implemented");
     }
 }

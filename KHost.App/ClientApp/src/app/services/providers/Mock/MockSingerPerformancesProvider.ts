@@ -6,32 +6,19 @@ import { Injectable } from "@angular/core";
 import { SingersProvider } from "../SingersProvider";
 
 @Injectable()
-export class MockSingerPerformanceProvider extends SingerPerformancesProvider {
+export class MockSingerPerformanceProvider implements SingerPerformancesProvider {
     private _cache: SingerPerformance[] = [];
 
     constructor(private _singersProvider: SingersProvider) {
-        super();
-
         this._generateSingerPerformances();
     }
 
-    async get(count: number = 20, offset: number = 0): Promise<SingerPerformance[]> {
-        console.info(`Getting SingerPerformances (Count:${count}, Offset:${offset})`);
-
-        const songs = this._cache
-            .slice(offset, count);
-
-        return new Promise<SingerPerformance[]>((resolve, reject) => {
-            resolve(songs);
-        });
-    }
-
-    async getBySinger(singer: Singer, count: number = 20, offset: number = 0): Promise<SingerPerformance[]> {
+    async getBySinger(singer: Singer, count?: number, offset?: number): Promise<SingerPerformance[]> {
         console.info(`Getting SingerPerformances for Singer#${singer.id} (Count:${count}, Offset:${offset})`);
         
         const singerPerformances: SingerPerformance[] = this._cache
             .filter(sp => sp.singerId == singer.id)
-            .slice(offset, count);
+            .slice(offset ?? 0, count ?? 20);
 
         singerPerformances.sort((a,b) => {
             const aTime = a.date?.getTime() ?? 0;
@@ -44,12 +31,37 @@ export class MockSingerPerformanceProvider extends SingerPerformancesProvider {
         });
     }
 
+    // CRUD Methods
+
+    create(singerPerformance: SingerPerformance): Promise<number> {
+        throw new Error('Method not implemented.');
+    }
+
+    async read(count?: number, offset?: number): Promise<SingerPerformance[]> {
+        console.info(`Getting SingerPerformances (Count:${count}, Offset:${offset})`);
+
+        const songs = this._cache
+            .slice(offset ?? 0, count ?? 20);
+
+        return new Promise((resolve, reject) => {
+            resolve(songs);
+        });
+    }
+
+    update(singerPerformance: SingerPerformance): Promise<void> {
+        throw new Error('Method not implemented.');
+    }
+
+    delete(singerPerformance: SingerPerformance): Promise<void> {
+        throw new Error('Method not implemented.');
+    }
+
     private async _generateSingerPerformances(): Promise<void> {
         console.info(`Generating SingerPerformances`);
         
         this._cache = [];
 
-        const singers = await this._singersProvider.get();
+        const singers = await this._singersProvider.read();
 
         for(let singer of singers) {
             const maxPerformanceCount = Math.random() * 30;

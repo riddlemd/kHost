@@ -17,7 +17,7 @@ export class VenuesManagerComponent implements OnInit {
   constructor(private _venuesProvider: VenuesProvider) { }
 
   ngOnInit(): void {
-    this._venuesProvider.get()
+    this._venuesProvider.read()
       .then(value => { this.venues = value; });
   }
 

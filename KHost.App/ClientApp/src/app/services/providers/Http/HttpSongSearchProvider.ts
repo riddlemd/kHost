@@ -6,7 +6,7 @@ import { SongSearchResult } from "src/app/models/SongSearchResult";
 import { SongSearchProvider } from "../SongSearchProvider";
 
 @Injectable()
-export class HttpSongSearchProvider extends SongSearchProvider {
+export class HttpSongSearchProvider implements SongSearchProvider {
 
     private static endpointPath = '/api/song-search';
 
@@ -14,40 +14,32 @@ export class HttpSongSearchProvider extends SongSearchProvider {
         private _config: AppConfig,
         private _httpClient: HttpClient
     ) {
-        super();
+        
     }
 
-    async search(query: string, songSearchEngine: SongSearchEngine, count: number = 20, offset: number = 0): Promise<SongSearchResult[]> {
+    async search(query: string, songSearchEngine: SongSearchEngine, count?: number, offset?: number): Promise<SongSearchResult[]> {
         const url = `${this._config.apiUrl}${HttpSongSearchProvider.endpointPath}/search`;
 
-        const params = {
-            query: query,
-            engine: songSearchEngine.name,
-            count: count,
-            offset: offset
+        const options: any = {
+            params: {
+                query: query,
+                engine: songSearchEngine.name
+            }
         };
 
-        const options = {
-            params: params
-        };
+        if(count) options.params.count = count;
+
+        if(offset) options.params.offset = offset;
 
         try {
             const response: any = await this._httpClient.get(url, options).toPromise();
             const songSearchResults: SongSearchResult[] = response?.songSearchResults;
             return songSearchResults;
-        } catch (e) {
-            // Do nothing.
+        } catch (exception) {
+            
         }
 
         return [];
-    }
-
-    convertToLocalSong(songSearchResult: SongSearchResult): Promise<void> {
-        throw ("Not Implemented");
-    }
-
-    convertToRemoteSong(songSearchResult: SongSearchResult): Promise<void> {
-        throw ("Not Implemented");
     }
 
     async getSongSearchEngines(): Promise<SongSearchEngine[]> {
@@ -58,8 +50,8 @@ export class HttpSongSearchProvider extends SongSearchProvider {
             const songSearchEngines: SongSearchEngine[] = response?.songSearchEngines;
 
             return songSearchEngines;
-        } catch (e) {
-            // Do nothing.
+        } catch (exception) {
+            
         }
 
         return [];

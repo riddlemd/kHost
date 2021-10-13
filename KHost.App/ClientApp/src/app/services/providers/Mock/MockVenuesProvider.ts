@@ -36,6 +36,31 @@ export class MockVenuesProvider extends VenuesProvider {
         })
     }
 
+    // CRUD Methods
+
+    create(venue: Venue): Promise<number> {
+        throw new Error("Method not implemented.");
+    }
+
+    update(venue: Venue): Promise<void> {
+        throw new Error("Method not implemented.");
+    }
+
+    read(count?: number, offset?: number): Promise<Venue[]> {
+        console.info(`Reading Venues (Count:${count}, Offset:${offset})`);
+
+        const venues = this._cache
+            .slice(offset, count);
+        
+        return new Promise((resolve, reject) => {
+            resolve(venues);
+        });
+    }
+
+    delete(venue: Venue): Promise<void> {
+        throw new Error("Method not implemented.");
+    }
+
     private async _generateVenues(): Promise<void> {
         console.info(`Generating Venues`);
         

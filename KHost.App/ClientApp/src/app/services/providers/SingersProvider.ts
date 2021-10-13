@@ -5,15 +5,33 @@ import { Singer } from 'src/app/models/Singer';
 @Injectable()
 export abstract class SingersProvider {
 
-    get(count: number = 20, offset: number = 0): Promise<Singer[]> {
-        throw("Not Implemented");
-    }
-
     getById(id: number): Promise<Singer|null> {
         throw("Not Implemented");
     }
 
-    search(query: string, venue: Venue|null = null, count: number = 20, offset: number = 0): Promise<Singer[]> {
+    getByIds(ids: number[]): Promise<Singer[]> {
+        throw("Not Implemented");
+    }
+
+    search(query: string, venue?: Venue, count?: number, offset?: number): Promise<Singer[]> {
+        throw("Not Implemented");
+    }
+
+    // CRUD Methods
+
+    create(singer: Singer): Promise<number> {
+        throw("Not Implemented");
+    }
+
+    update(singer: Singer): Promise<void> {
+        throw("Not Implemented");
+    }
+
+    read(count?: number, offset?: number): Promise<Singer[]> {
+        throw("Not Implemented");
+    }
+
+    delete(singer: Singer): Promise<void> {
         throw("Not Implemented");
     }
 }

@@ -7,15 +7,7 @@ export class SongSearchProvider {
         
     }
 
-    search(query: string, songSearchEngine: SongSearchEngine, count: number = 20, offset: number = 0): Promise<SongSearchResult[]> {
-        throw ("Not Implemented");
-    }
-
-    convertToLocalSong(songSearchResult: SongSearchResult): Promise<void> {
-        throw ("Not Implemented");
-    }
-
-    convertToRemoteSong(songSearchResult: SongSearchResult): Promise<void> {
+    search(query: string, songSearchEngine: SongSearchEngine, count?: number, offset?: number): Promise<SongSearchResult[]> {
         throw ("Not Implemented");
     }
 

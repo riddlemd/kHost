@@ -34,6 +34,7 @@ import { SongsManagerComponent } from './components/pages/songs-manager/songs-ma
 import { VenuesManagerComponent } from './components/pages/venues-manager/venues-manager.component';
 import { MainMenuComponent } from './components/main-menu/main-menu.component';
 import { HeaderComponent } from './components/header/header.component';
+import { NotAuthorizedComponent } from './components/pages/not-authorized/not-authorized.component';
 // Services
 import { LocalStorageService } from "./services/local-storage.service";
 import { AuthService } from './modules/auth/services/auth.service';
@@ -51,14 +52,16 @@ import { MockQueuedSongsProvider } from "src/app/services/providers/Mock/MockQue
 import { MockQueuedSingersProvider } from "./services/providers/Mock/MockQueuedSingersProvider";
 import { MockSongsProvider } from "src/app/services/providers/Mock/MockSongsProvider";
 import { MockSingersProvider } from "src/app/services/providers/Mock/MockSingersProvider";
-import { MockVenuesProvider } from "src/app/services/providers/Mock/MockVenuesProvider";
 import { MockSongSearchProvider } from "src/app/services/providers/Mock/MockSongSearchProvider";
+import { MockVenuesProvider } from "src/app/services/providers/Mock/MockVenuesProvider";
 import { MockSingerPerformanceProvider } from "src/app/services/providers/Mock/MockSingerPerformancesProvider";
 import { MockKhEventsProvider } from "src/app/services/providers/Mock/MockKhEventsProvider";
-import { NotAuthorizedComponent } from './components/pages/not-authorized/not-authorized.component';
 // Http Providers
 import { HttpSongSearchProvider } from './services/providers/Http/HttpSongSearchProvider';
 import { HttpQueuedSingersProvider } from './services/providers/Http/HttpQueuedSingersProvider';
+import { HttpQueuedSongsProvider } from './services/providers/Http/HttpQueuedSongsProvider';
+import { HttpSongsProvider } from './services/providers/Http/HttpSongsProvider';
+import { HttpSingersProvider } from './services/providers/Http/HttpSingersProvider';
 // Configs
 import { AppConfig, AppConfigInstance } from './app.config';
 
@@ -112,10 +115,10 @@ import { AppConfig, AppConfigInstance } from './app.config';
     { provide: AppConfig, useValue: AppConfigInstance },
     LocalStorageService,
     AuthService,
-    [{ provide: QueuedSongsProvider, useClass: MockQueuedSongsProvider }],
+    [{ provide: QueuedSongsProvider, useClass: HttpQueuedSongsProvider }],
     [{ provide: QueuedSingersProvider, useClass: HttpQueuedSingersProvider }],
-    [{ provide: SongsProvider, useClass: MockSongsProvider }],
-    [{ provide: SingersProvider, useClass: MockSingersProvider }],
+    [{ provide: SongsProvider, useClass: HttpSongsProvider }],
+    [{ provide: SingersProvider, useClass: HttpSingersProvider }],
     [{ provide: VenuesProvider, useClass: MockVenuesProvider }],
     [{ provide: KhEventsProvider, useClass: MockKhEventsProvider }],
     [{ provide: SingerPerformancesProvider, useClass: MockSingerPerformanceProvider}],

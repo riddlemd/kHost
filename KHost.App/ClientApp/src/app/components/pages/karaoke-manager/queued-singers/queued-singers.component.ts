@@ -9,6 +9,7 @@ import { AddSingerComponent } from '../add-singer/add-singer.component';
 import { Venue } from 'src/app/models/Venue';
 import { SingerPerformancesProvider } from 'src/app/services/providers/SingerPerformancesProvider';
 import { SingerPerformanceHistoryComponent } from '../singer-performance-history/singer-performance-history.component';
+import { SingersProvider } from 'src/app/services/providers/SingersProvider';
 
 @Component({
   selector: 'kh-queued-singers',
@@ -35,6 +36,7 @@ export class QueuedSingersComponent implements OnInit {
   constructor(
     private _queuedSingersProvider: QueuedSingersProvider,
     private _queuedSongsProvider: QueuedSongsProvider,
+    private _singersProvider: SingersProvider,
     private _singerPerformancesProvider: SingerPerformancesProvider,
     private _dialog: MatDialog) {
   }
@@ -78,7 +80,7 @@ export class QueuedSingersComponent implements OnInit {
   remove(queuedSinger: QueuedSinger): void {
     let startIndex = this.getQueuedSongIndex(queuedSinger);
 
-    this._queuedSingersProvider.remove(queuedSinger)
+    this._queuedSingersProvider.delete(queuedSinger)
       .then(value => {
         this.queuedSingers.splice(startIndex, 1);
         this.selectedQueuedSinger = null;
@@ -90,18 +92,26 @@ export class QueuedSingersComponent implements OnInit {
       if(existingQueuedSinger?.singer?.id == singer.id) return;
     }
 
-    this._queuedSingersProvider.add(singer)
-      .then(value => { this.queuedSingers.push(value); })
+    this._queuedSingersProvider.create(singer)
+      .then(value => { 
+        const queuedSinger = new QueuedSinger();
+        queuedSinger.id = value;
+        queuedSinger.singerId = singer.id;
+        
+        return this.queuedSingers.push(queuedSinger);
+      })
   }
 
   async populateSingers(): Promise<void>
   {
-    this.queuedSingers = await this._queuedSingersProvider.get();
+    this.queuedSingers = await this._queuedSingersProvider.read();
+
+    //const singers = await this._singersProvider.
 
     for(let queuedSinger of this.queuedSingers) {
-      if(queuedSinger.singer === null) continue;
+      if(!queuedSinger.singer) continue;
       
-      queuedSinger.singer.performanceHistory = await this._singerPerformancesProvider.getBySinger(queuedSinger.singer)
+      //queuedSinger.singer.performanceHistory = await this._singerPerformancesProvider.getBySinger(queuedSinger.singer)
       queuedSinger.singer.queuedSongs = await this._queuedSongsProvider.getBySinger(queuedSinger.singer);
     }
   }

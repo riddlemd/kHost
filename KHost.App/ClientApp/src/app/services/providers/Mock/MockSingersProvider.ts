@@ -4,25 +4,12 @@ import { Singer } from "src/app/models/Singer";
 import { SingersProvider } from "../SingersProvider";
 
 @Injectable()
-export class MockSingersProvider extends SingersProvider {
+export class MockSingersProvider implements SingersProvider {
     
     private _cache: Singer[] = [];
 
     constructor() {
-        super();
-
         this._generateSingers();
-    }
-
-    get(count: number = 20, offset: number = 0): Promise<Singer[]> {
-        console.info(`Getting Singers (Count:${count}, Offset:${offset})`);
-
-        const singers = this._cache
-            .slice(offset, count);
-
-        return new Promise((resolve, reject) => {
-            resolve(singers);
-        });
     }
 
     getById(id: number): Promise<Singer|null> {
@@ -42,6 +29,10 @@ export class MockSingersProvider extends SingersProvider {
         });
     }
 
+    getByIds(ids: number[]): Promise<Singer[]> {
+        throw new Error("Method not implemented.");
+    }
+
     search(query: string, venue: Venue|null = null, count: number = 20, offset: number = 0): Promise<Singer[]> {
         console.info(`Searching Singers (Query:"${query}", Count:${count}, Offset:${offset})`);
 
@@ -52,6 +43,33 @@ export class MockSingersProvider extends SingersProvider {
         return new Promise((resolve, reject) => {
             resolve(singers);
         });
+    }
+
+    // CRUD Methods
+
+    create(singer: Singer): Promise<number> {
+        throw new Error("Method not implemented.");
+    }
+
+    read(count?: number, offset?: number): Promise<Singer[]> {
+        console.info(`Getting Singers (Count:${count}, Offset:${offset})`);
+
+        const queuedSongs = this._cache
+            .slice(offset, count);
+
+        return new Promise((resolve, reject) => {
+            resolve(queuedSongs);
+        });
+    }
+
+    update(singer: Singer): Promise<void> {
+        throw new Error("Method not implemented.");
+    }
+
+    delete(singer: Singer): Promise<void> {
+        console.info(`Deleting Singer#${singer.id}`);
+
+        throw("Not Implemented");
     }
 
     private async _generateSingers(): Promise<void> {

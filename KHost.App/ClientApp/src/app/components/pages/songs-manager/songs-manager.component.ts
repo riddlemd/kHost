@@ -17,7 +17,7 @@ export class SongsManagerComponent implements OnInit {
   constructor(private _songsProvider: SongsProvider) { }
 
   ngOnInit(): void {
-    this._songsProvider.get()
+    this._songsProvider.read()
       .then(value => { this.songs = value; });
   }
 }
