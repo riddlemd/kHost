@@ -1,0 +1,42 @@
+<div class='main-menu'>
+    <a mat-icon-button [matMenuTriggerFor]="menu" title='Main Menu'><mat-icon>more_vert</mat-icon></a>
+</div>
+
+<mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="navigateTo('/')">
+        <mat-icon>mic_external_on</mat-icon>
+        <span>Karaoke Controls</span>
+    </button>
+    <mat-divider></mat-divider>
+    <button mat-menu-item (click)="navigateTo('/downloads')">
+        <mat-icon>download</mat-icon>
+        <span>Manage Downloads</span>
+    </button>
+    <button mat-menu-item (click)="navigateTo('/songs')">
+        <mat-icon>library_music</mat-icon>
+        <span>Manage Songs</span>
+    </button>
+    <button mat-menu-item (click)="navigateTo('/singers')">
+        <mat-icon>person</mat-icon>
+        <span>Manage Singers</span>
+    </button>
+    <button mat-menu-item (click)="navigateTo('/venues')">
+        <mat-icon>business</mat-icon>
+        <span>Manage Venues</span>
+    </button>
+    <mat-divider></mat-divider>
+    <button mat-menu-item (click)="navigateTo('/settings')">
+        <mat-icon>settings</mat-icon>
+        <span>Settings</span>
+    </button>
+    <mat-divider></mat-divider>
+    <button mat-menu-item (click)="navigateTo('/about')">
+        <mat-icon>info</mat-icon>
+        <span>About</span>
+    </button>
+    <mat-divider></mat-divider>
+    <button mat-menu-item (click)="navigateTo('/shutdown')">
+        <mat-icon>power_settings_new</mat-icon>
+        <span>Shutdown kHost</span>
+    </button>
+</mat-menu>

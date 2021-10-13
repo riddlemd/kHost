@@ -1,20 +1,22 @@
 using KHost.App.Configuration;
+using KHost.App.EntityFramework;
 using KHost.App.ErrorHandling;
 using KHost.App.Models.Responses;
 using KHost.App.Providers;
 using KHost.App.Repositories;
-using KHost.App.Repositories.SQLite;
+using KHost.App.Repositories.Sql;
+using KHost.App.Routing;
 using KHost.Common.Http;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.SpaServices.AngularCli;
-using Microsoft.Data.SqlClient;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Data;
+using Newtonsoft.Json.Serialization;
 
 namespace KHost.App
 {
@@ -36,22 +38,44 @@ namespace KHost.App
                 .Configure<SingerOptions>(Configuration.GetSection("Singers"))
                 .Configure<SongOptions>(Configuration.GetSection("Songs"))
                 // Database
-                .AddSingleton<SQLiteClientProvider>()
-                // Repositories
-                .AddTransient<ISongRepository, SQLiteSongsRepository>()
-                .AddTransient<ISingersRepository, SQLiteSingersRepository>()
-                .AddTransient<IQueuedSingersRepository, SQLiteQueuedSingerRepository>()
+                .AddDbContextPool<DbContext, KHDatabaseContext>(options => options.UseSqlite(Configuration.GetConnectionString("Default")))
                 // Providers
-                .AddTransient<SingersProvider>()
-                .AddTransient<SongsProvider>()
-                .AddTransient<QueuedSingersProvider>()
+                .AddTransient<SongSearchProvider>()
+                // Repositories
+                .AddTransient<ISongsRepository, SqlSongsRepository>()
+                .AddTransient<ISingersRepository, SqlSingersRepository>()
+                .AddTransient<IQueuedSingersRepository, SqlQueuedSingerRepository>()
+                .AddTransient<IQueuedSongsRepository, SqlQueuedSongRepository>()
+                .AddTransient<ISongSearchRepository, SqlSongSearchRepository>()
+                // Others
+                .AddTransient<IUnitOfWork, UnitOfWork>()
                 // ASP.NET CORE
-                .AddControllersWithViews();
+                .AddControllersWithViews(options =>
+                {
+                    options.Conventions.Add(new RouteTokenTransformerConvention(new DashedParameterTransformer()));
+                })
+                .AddNewtonsoftJson(options =>
+                {
+                    options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
+                    //options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                });
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
+            });
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(
+                    name: "Custom",
+                    builder =>
+                        builder
+                            .AllowAnyOrigin()
+                            .AllowAnyHeader()
+                            .AllowAnyMethod()
+                    );
             });
         }
 
@@ -102,6 +126,8 @@ namespace KHost.App
             {
                 app.UseSpaStaticFiles();
             }
+
+            app.UseCors("Custom");
 
             app.UseRouting();
 

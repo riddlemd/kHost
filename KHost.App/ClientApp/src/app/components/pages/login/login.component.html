@@ -1,9 +1,10 @@
 <h1>Login</h1>
 
+<div class='error' *ngIf="showError">Invalid username and/or password.</div>
 <form [formGroup]="form" (submit)="login()">
     <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>Email</mat-label>
-      <input matInput type="text" formControlName="email" />
+      <mat-label>Username</mat-label>
+      <input matInput type="text" formControlName="username" />
     </mat-form-field>
 
     <mat-form-field class="example-full-width" appearance="fill">

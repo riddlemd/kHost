@@ -130,3 +130,11 @@ table {
 .mat-divider {
 	border-top-color: $divider-color;
 }
+
+.error {
+	background: rgba(255, 0, 0, 0.5);
+	border: 1px solid rgba(255, 0, 0, 1);
+	color: #fff;
+	padding: 1em;
+	text-align: center;
+}

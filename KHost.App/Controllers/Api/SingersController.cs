@@ -1,66 +1,27 @@
 ﻿using KHost.App.Models;
-using KHost.App.Providers;
+using KHost.App.Models.Requests;
+using KHost.App.Models.Responses;
+using KHost.App.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace KHost.App.Controllers.Api
 {
-    public class SingersController : BaseApiController
+    public class SingersController : CrudController<Singer, ISingersRepository>
     {
-        protected SingersProvider DefaultProvider { get; }
-
-        public SingersController(SingersProvider defaultProvider)
+        public SingersController(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
-            DefaultProvider = defaultProvider;
+
         }
 
         [HttpGet]
-        public virtual async Task<IActionResult> GetAll([FromQuery] int count = 20, [FromQuery] int offset = 0)
+        public async Task<IActionResult> Search([FromQuery] GenericSearchRequest request)
         {
-            var singers = await DefaultProvider.Get(count, offset);
+            var singers = await UnitOfWork.GetRepository<ISingersRepository>().Search(request.Query, request.Count, request.Offset);
 
-            var response = new OkObjectResult(new
-            {
-                Singers = singers
-            });
+            var results = new ApiResponse(singers);
 
-            return response;
-        }
-
-        [HttpGet]
-        public virtual async Task<IActionResult> Search([FromQuery] string query, [FromQuery] int count = 20, [FromQuery] int offset = 0)
-        {
-            var singers = await DefaultProvider.Search(query, count, offset);
-
-            var response = new OkObjectResult(new
-            {
-                Singers = singers
-            });
-
-            return response;
-        }
-
-        [HttpPost]
-        public virtual async Task<IActionResult> Save(Singer model)
-        {
-            var result = await DefaultProvider.Save(model);
-
-            var response = new OkObjectResult(result);
-
-            return response;
-        }
-
-        [HttpPost]
-        public virtual async Task<IActionResult> Remove(int id)
-        {
-            var result = await DefaultProvider.Remove(id);
-
-            var response = new OkObjectResult(result);
-
-            return response;
+            return Ok(results);
         }
     }
 }

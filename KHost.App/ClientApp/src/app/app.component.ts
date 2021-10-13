@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -9,15 +8,11 @@ import { Router } from '@angular/router';
 export class AppComponent implements OnInit {
   title = 'kHost';
 
-  constructor(private _router: Router) {
+  constructor() {
 
   }
 
   ngOnInit(): void {
     //document.addEventListener('contextmenu', function(e) { e.preventDefault(); }); // We disable contextmenu this way, because otherwise the .cdk-overlay-container element will still have one.
-  }
-
-  navigateTo(url:string): void {
-    this._router.navigateByUrl(url);
   }
 }

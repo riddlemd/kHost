@@ -57,6 +57,9 @@ table {
 html, body {
 	height: 100vh;
 	@include unselectable;
+
+	margin: 0;
+	font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 app-root {
@@ -65,9 +68,35 @@ app-root {
 	height: 100%;
 }
 
-body {
-	margin: 0;
-	font-family: Roboto, "Helvetica Neue", sans-serif;
+kh-header {
+	position: relative;
+    height: 4em;
+
+    .logo {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 0.5rem;
+
+        font-size: 2em;
+
+        &::before {
+            content: 'k';
+            vertical-align: auto;
+        }
+    
+        &::after {
+            content: "Host";
+            vertical-align: auto;
+        }
+    }
+
+    > kh-main-menu {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 0.5rem;
+    }
 }
 
 table {
@@ -140,9 +169,28 @@ button {
 select {
 	padding: 1em;
 
-	& > option {
+	> option {
 		padding: 1em;
 	}
+}
+
+input {
+	border: 0px;
+	padding: 1em;
+
+	&:focus {
+		outline: 1px solid;
+	}
+}
+
+label {
+	font-weight: bold;
+}
+
+a {
+	color: #fff;
+	text-decoration: none;
+	cursor: pointer;
 }
 
 ::-webkit-scrollbar {
@@ -159,29 +207,8 @@ select {
 	padding: 0.5em;
 }
 
-a {
-	color: #fff;
-	text-decoration: none;
-	cursor: pointer;
-}
-
 .cdk-drag-preview {
 	display: none;
-}
-
-.logo {
-	font-size: 2em;
-	margin: 1rem;
-
-	&::before {
-		content: 'k';
-		vertical-align: auto;
-	}
-
-	&::after {
-		content: "Host";
-		vertical-align: auto;
-	}
 }
 
 .empty {
@@ -207,17 +234,4 @@ a {
 			}
 		}
 	}
-}
-
-input {
-	border: 0px;
-	padding: 1em;
-
-	&:focus {
-		outline: 1px solid;
-	}
-}
-
-label {
-	font-weight: bold;
 }

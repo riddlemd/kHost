@@ -1,0 +1,15 @@
+@use '~@angular/material' as material;
+
+@include material.core();
+
+$primary: material.define-palette(material.$deep-purple-palette);
+$accent:  material.define-palette(material.$amber-palette, A200, A100, A400);
+
+$theme: material.define-dark-theme((
+  color: (
+    primary: $primary,
+    accent: $accent,
+  )
+));
+
+@include material.all-component-themes($theme);

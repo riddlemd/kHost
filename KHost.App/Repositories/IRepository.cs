@@ -1,22 +1,57 @@
 ﻿using KHost.App.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace KHost.App.Repositories
 {
-    public interface IRepository<TModel>
-        where TModel : BaseModel
+    public interface IRepository<TModel> : IRepository
+        where TModel : class, IModelWithId
     {
-        public Task<IEnumerable<TModel>> Get(int count = 20, int offset = 0);
+        public new Task<IEnumerable<TModel>> Get(int? count = null, int? offset = null);
 
-        public Task<(bool, int?)> Save(TModel model);
+        public new Task<TModel> GetById(int id);
 
-        public Task<IEnumerable<TModel>> Search(string query, int count = 20, int offset = 0);
+        public new Task<IEnumerable<TModel>> GetByIds(IEnumerable<int> ids);
 
-        public Task<TModel> GetById(int id);
+        public Task Insert(TModel entity);
 
-        public Task<bool> Remove(int id);
+        public Task Delete(TModel entity);
+
+        public Task Update(TModel entity);
+
+        #region Non Generic Implementations
+
+        async Task<IEnumerable<object>> IRepository.Get(int? count, int? offset) => await Get(count, offset);
+
+        async Task<object> IRepository.GetById(int id) => await GetById(id);
+
+        async Task<IEnumerable<object>> IRepository.GetByIds(IEnumerable<int> ids) => await GetByIds(ids);
+
+        Task IRepository.Insert(object entity) => Insert(entity as TModel);
+
+        Task IRepository.Delete(object entity) => Delete(entity as TModel);
+
+        Task IRepository.Update(object entity) => Update(entity as TModel);
+
+        #endregion
+    }
+
+    public interface IRepository
+    {
+        public Task<IEnumerable<object>> Get(int? count = null, int? offset = null);
+
+        public Task<object> GetById(int id);
+
+        public Task<IEnumerable<object>> GetByIds(IEnumerable<int> ids);
+
+        public Task Insert(object entity);
+
+        public Task DeleteById(int id);
+
+        public Task Delete(object entity);
+
+        public Task Update(object entity);
+
+        public Task<int> Save();
     }
 }

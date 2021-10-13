@@ -1,20 +1,15 @@
-﻿using Dapper.Contrib.Extensions;
-using KHost.App.Models;
-using KHost.App.Providers;
-using KHost.App.Repositories.SQLite;
-using KHost.Common.Collections;
+﻿using KHost.App.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace KHost.App.Repositories
 {
     public interface IQueueRepository<TModel> : IRepository<TModel>
-        where TModel : BaseModel, IModelWithPosition
+        where TModel : class, IModelWithId, IModelWithPosition
     {
-        abstract protected SQLiteClientProvider SqlClientProvider { get; }
+        abstract protected DbContext Context { get; }
 
         protected void RecalculatePositions(List<TModel> models)
         {
@@ -24,13 +19,16 @@ namespace KHost.App.Repositories
 
         protected async Task<IEnumerable<TModel>> GetInOrder()
         {
-            var connection = SqlClientProvider.Connection;
+            throw new NotImplementedException();
+            //var connection = SqlClientProvider.Connection;
 
-            return (await connection.GetAllAsync<TModel>()).OrderBy(qs => qs.Position);
+            //return (await connection.GetAllAsync<TModel>()).OrderBy(qs => qs.Position);
         }
 
         public virtual async Task<int> MoveDown(int id)
         {
+            throw new NotImplementedException();
+            /*
             var connection = SqlClientProvider.Connection;
 
             var model = GetById(id) as IModelWithPosition;
@@ -45,10 +43,13 @@ namespace KHost.App.Repositories
                 throw new FailedToUpdateRecordException();
 
             return model.Position;
+            */
         }
 
         public virtual async Task<int> MoveToBottom(int id)
         {
+            throw new NotImplementedException();
+            /*
             var connection = SqlClientProvider.Connection;
 
             var model = GetById(id) as IModelWithPosition;
@@ -63,10 +64,13 @@ namespace KHost.App.Repositories
                 throw new FailedToUpdateRecordException();
 
             return model.Position;
+            */
         }
 
         public virtual async Task<int> MoveToTop(int id)
         {
+            throw new NotImplementedException();
+            /*
             var connection = SqlClientProvider.Connection;
 
             var model = GetById(id) as IModelWithPosition;
@@ -81,10 +85,13 @@ namespace KHost.App.Repositories
                 throw new FailedToUpdateRecordException();
 
             return model.Position;
+            */
         }
 
         public virtual async Task<int> MoveUp(int id)
         {
+            throw new NotImplementedException();
+            /*
             var connection = SqlClientProvider.Connection;
 
             var model = GetById(id) as IModelWithPosition;
@@ -99,6 +106,7 @@ namespace KHost.App.Repositories
                 throw new FailedToUpdateRecordException();
 
             return model.Position;
+            */
         }
     }
 }

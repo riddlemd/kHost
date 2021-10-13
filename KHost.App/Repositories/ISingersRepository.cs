@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace KHost.App.Repositories
 {
-    public interface ISingersRepository : IRepository<Singer>
+    public interface ISingersRepository : IRepository<Singer>, ISearchableRepository<Singer>
     {
 
     }

@@ -1,18 +1,13 @@
-﻿using Dapper.Contrib.Extensions;
-using KHost.Common.Text;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace KHost.App.Models
 {
-    public class Singer : BaseModel
+    public class Singer : BaseModel, IModelWithId
     {
+        public int? Id { get; set; }
+
         public string Name { get; set; }
 
-        [Computed]
-        public string NickName { get; set; }
+        public List<QueuedSong> QueuedSongs { get; set; }
     }
 }

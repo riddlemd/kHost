@@ -1,66 +1,61 @@
 ﻿using KHost.App.Models;
-using KHost.App.Providers;
+using KHost.App.Models.Requests;
+using KHost.App.Models.Responses;
+using KHost.App.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace KHost.App.Controllers.Api
 {
-    public class QueuedSingersController : BaseApiController
+    public class QueuedSingersController : CrudController<QueuedSinger, IQueuedSingersRepository>
     {
-        protected QueuedSingersProvider DefaultProvider { get; }
-
-        public QueuedSingersController(QueuedSingersProvider defaultProvider)
+        public QueuedSingersController(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
-            DefaultProvider = defaultProvider;
-        }
-
-        [HttpGet]
-        public virtual async Task<IActionResult> GetAll([FromQuery] int count = 20, [FromQuery] int offset = 0)
-        {
-            var queuedSingers = await DefaultProvider.Get(count, offset);
-
-            var response = new OkObjectResult(new
-            {
-                QueuedSingers = queuedSingers
-            });
-
-            return response;
-        }
-
-        [HttpGet]
-        public virtual async Task<IActionResult> Search([FromQuery] string query, [FromQuery] int count = 20, [FromQuery] int offset = 0)
-        {
-            var queuedSingers = await DefaultProvider.Search(query, count, offset);
-
-            var response = new OkObjectResult(new
-            {
-                QueuedSingers = queuedSingers
-            });
-
-            return response;
+            
         }
 
         [HttpPost]
-        public virtual async Task<IActionResult> Save(QueuedSinger model)
+        public async Task<IActionResult> MoveUp([FromBody] GenericIdRequest request)
         {
-            var result = await DefaultProvider.Save(model);
+            var newPosition = await UnitOfWork.GetRepository<IQueuedSingersRepository>().MoveUp(request.Id);
+            UnitOfWork.Complete();
 
-            var response = new OkObjectResult(result);
+            var response = new ApiResponse();
 
-            return response;
+            return Ok(response);
         }
 
         [HttpPost]
-        public virtual async Task<IActionResult> Remove(int id)
+        public async Task<IActionResult> MoveDown([FromBody] GenericIdRequest request)
         {
-            var result = await DefaultProvider.Remove(id);
+            var newPosition = await UnitOfWork.GetRepository<IQueuedSingersRepository>().MoveDown(request.Id);
+            UnitOfWork.Complete();
 
-            var response = new OkObjectResult(result);
+            var response = new ApiResponse();
 
-            return response;
+            return Ok(response);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> MoveToTop([FromBody] GenericIdRequest request)
+        {
+            var newPosition = await UnitOfWork.GetRepository<IQueuedSingersRepository>().MoveToTop(request.Id);
+            UnitOfWork.Complete();
+
+            var response = new ApiResponse();
+
+            return Ok(response);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> MoveToBottom([FromBody] GenericIdRequest request)
+        {
+            var newPosition = await UnitOfWork.GetRepository<IQueuedSingersRepository>().MoveToBottom(request.Id);
+            UnitOfWork.Complete();
+
+            var response = new ApiResponse();
+
+            return Ok(response);
         }
     }
 }

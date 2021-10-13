@@ -1,7 +1,7 @@
 // Angular Modules
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from "@angular/forms";
 import { AppRoutingModule } from './app-routing.module';
 // Angular Material Modules
@@ -32,9 +32,11 @@ import { SettingsManagerComponent } from './components/pages/settings-manager/se
 import { SingersManagerComponent } from './components/pages/singers-manager/singers-manager.component';
 import { SongsManagerComponent } from './components/pages/songs-manager/songs-manager.component';
 import { VenuesManagerComponent } from './components/pages/venues-manager/venues-manager.component';
+import { MainMenuComponent } from './components/main-menu/main-menu.component';
+import { HeaderComponent } from './components/header/header.component';
 // Services
 import { LocalStorageService } from "./services/local-storage.service";
-import { AuthConfig, AuthService } from './modules/auth/services/auth.service';
+import { AuthService } from './modules/auth/services/auth.service';
 // Providers
 import { QueuedSongsProvider } from "src/app/services/providers/QueuedSongsProvider";
 import { QueuedSingersProvider } from "./services/providers/QueuedSingersProvider";
@@ -44,6 +46,7 @@ import { VenuesProvider } from "src/app/services/providers/VenuesProvider";
 import { KhEventsProvider } from "src/app/services/providers/KhEventsProvider";
 import { SingerPerformancesProvider } from "src/app/services/providers/SingerPerformancesProvider";
 import { SongSearchProvider } from "src/app/services/providers/SongSearchProvider";
+// Mock Providers
 import { MockQueuedSongsProvider } from "src/app/services/providers/Mock/MockQueuedSongsProvider";
 import { MockQueuedSingersProvider } from "./services/providers/Mock/MockQueuedSingersProvider";
 import { MockSongsProvider } from "src/app/services/providers/Mock/MockSongsProvider";
@@ -53,13 +56,11 @@ import { MockSongSearchProvider } from "src/app/services/providers/Mock/MockSong
 import { MockSingerPerformanceProvider } from "src/app/services/providers/Mock/MockSingerPerformancesProvider";
 import { MockKhEventsProvider } from "src/app/services/providers/Mock/MockKhEventsProvider";
 import { NotAuthorizedComponent } from './components/pages/not-authorized/not-authorized.component';
-
-// Configurations
-const configurations = {
-  auth: new AuthConfig({
-    loginUrl: 'login'
-  })
-};
+// Http Providers
+import { HttpSongSearchProvider } from './services/providers/Http/HttpSongSearchProvider';
+import { HttpQueuedSingersProvider } from './services/providers/Http/HttpQueuedSingersProvider';
+// Configs
+import { AppConfig, AppConfigInstance } from './app.config';
 
 @NgModule({
   declarations: [
@@ -83,7 +84,9 @@ const configurations = {
     SongsManagerComponent,
     // VenuesManager
     VenuesManagerComponent,
-    NotAuthorizedComponent
+    NotAuthorizedComponent,
+    MainMenuComponent,
+    HeaderComponent
   ],
   imports: [
     // Angular Modules
@@ -106,16 +109,17 @@ const configurations = {
     AuthModule
   ],
   providers: [
+    { provide: AppConfig, useValue: AppConfigInstance },
     LocalStorageService,
-    [{ provide: AuthService, useFactory: (localStorageService: LocalStorageService) => new AuthService(configurations.auth, localStorageService) }],
+    AuthService,
     [{ provide: QueuedSongsProvider, useClass: MockQueuedSongsProvider }],
-    [{ provide: QueuedSingersProvider, useClass: MockQueuedSingersProvider }],
+    [{ provide: QueuedSingersProvider, useClass: HttpQueuedSingersProvider }],
     [{ provide: SongsProvider, useClass: MockSongsProvider }],
     [{ provide: SingersProvider, useClass: MockSingersProvider }],
     [{ provide: VenuesProvider, useClass: MockVenuesProvider }],
     [{ provide: KhEventsProvider, useClass: MockKhEventsProvider }],
     [{ provide: SingerPerformancesProvider, useClass: MockSingerPerformanceProvider}],
-    [{ provide: SongSearchProvider, useClass: MockSongSearchProvider}]
+    [{ provide: SongSearchProvider, useClass: HttpSongSearchProvider}]
   ],
   bootstrap: [AppComponent]
 })

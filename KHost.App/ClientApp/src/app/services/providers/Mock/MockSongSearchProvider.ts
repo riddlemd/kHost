@@ -45,7 +45,7 @@ export class MockSongSearchProvider extends SongSearchProvider {
             songSearchResult.id = i.toString();
             songSearchResult.songName = (Math.random() + 1).toString(36).substring(7);
             songSearchResult.bandName = (Math.random() + 1).toString(36).substring(7);
-            songSearchResult.engine = songSearchEngine;
+            songSearchResult.engineName = songSearchEngine.name;
             songSearchResult.lengthInSeconds = Math.random() * 360;
 
             songSearchResults.push(songSearchResult);

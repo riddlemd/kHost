@@ -8,7 +8,7 @@ export class SongSearchResult {
 
     bandName: string = '';
 
-    engine: SongSearchEngine|null = null;
+    engineName: string = '';
 
     lengthInSeconds: number|null = null;
 }
