@@ -1,7 +1,9 @@
 ﻿using KHost.App.Models;
+using KHost.Common.Collections;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace KHost.App.Repositories
@@ -17,96 +19,70 @@ namespace KHost.App.Repositories
             models.ForEach(qs => qs.Position = i++);
         }
 
-        protected async Task<IEnumerable<TModel>> GetInOrder()
-        {
-            throw new NotImplementedException();
-            //var connection = SqlClientProvider.Connection;
+        protected async Task<List<TModel>> GetInOrder() => await Context.Set<TModel>().OrderBy(e => e.Position).ToListAsync();
 
-            //return (await connection.GetAllAsync<TModel>()).OrderBy(qs => qs.Position);
+        public virtual async Task<int> MoveUp(int id)
+        {
+            var entity = await GetById(id);
+
+            var entities = await GetInOrder();
+
+            var index = entity.Position - 1;
+
+            entities.Move(index, index - 1);
+
+            RecalculatePositions(entities);
+
+            await Save();
+
+            return entity.Position;
         }
 
         public virtual async Task<int> MoveDown(int id)
         {
-            throw new NotImplementedException();
-            /*
-            var connection = SqlClientProvider.Connection;
+            var entity = await GetById(id);
 
-            var model = GetById(id) as IModelWithPosition;
+            var entities = await GetInOrder();
 
-            var models = (await GetInOrder()).ToList();
+            var index = entity.Position - 1;
 
-            models.Move(model.Position, model.Position + 1);
+            entities.Move(index, index + 1);
 
-            RecalculatePositions(models);
+            RecalculatePositions(entities);
 
-            if (!await connection.UpdateAsync(models))
-                throw new FailedToUpdateRecordException();
+            await Save();
 
-            return model.Position;
-            */
-        }
-
-        public virtual async Task<int> MoveToBottom(int id)
-        {
-            throw new NotImplementedException();
-            /*
-            var connection = SqlClientProvider.Connection;
-
-            var model = GetById(id) as IModelWithPosition;
-
-            var models = (await GetInOrder()).ToList();
-
-            models.MoveToLast(model.Position);
-
-            RecalculatePositions(models);
-
-            if (!await connection.UpdateAsync(models))
-                throw new FailedToUpdateRecordException();
-
-            return model.Position;
-            */
+            return entity.Position;
         }
 
         public virtual async Task<int> MoveToTop(int id)
         {
-            throw new NotImplementedException();
-            /*
-            var connection = SqlClientProvider.Connection;
+            var entity = await GetById(id);
 
-            var model = GetById(id) as IModelWithPosition;
+            var entities = await GetInOrder();
 
-            var models = (await GetInOrder()).ToList();
+            entities.MoveToFirst(entity.Position);
 
-            models.MoveToFirst(model.Position);
+            RecalculatePositions(entities);
 
-            RecalculatePositions(models);
+            await Save();
 
-            if (!await connection.UpdateAsync(models))
-                throw new FailedToUpdateRecordException();
-
-            return model.Position;
-            */
+            return entity.Position;
         }
 
-        public virtual async Task<int> MoveUp(int id)
+        public virtual async Task<int> MoveToBottom(int id)
         {
-            throw new NotImplementedException();
-            /*
-            var connection = SqlClientProvider.Connection;
+            var entity = await GetById(id);
 
-            var model = GetById(id) as IModelWithPosition;
+            var entities = await GetInOrder();
 
-            var models = (await GetInOrder()).ToList();
+            entities.MoveToLast(entity.Position);
 
-            models.Move(model.Position, model.Position - 1);
+            RecalculatePositions(entities);
 
-            RecalculatePositions(models);
+            await Save();
 
-            if (!await connection.UpdateAsync(models))
-                throw new FailedToUpdateRecordException();
-
-            return model.Position;
-            */
+            return entity.Position;
         }
     }
 }
