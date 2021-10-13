@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace KHost.App.Controllers.Api
 {
-    public class CrudController<TModel, TRepository> : BaseApiController
+    public abstract class CrudController<TModel, TRepository> : BaseApiController
         where TModel : class, IModelWithId
         where TRepository : class, IRepository<TModel>
     {
