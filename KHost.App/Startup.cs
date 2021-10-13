@@ -1,5 +1,4 @@
 using KHost.App.Configuration;
-using KHost.App.EntityFramework;
 using KHost.App.ErrorHandling;
 using KHost.App.Models.Responses;
 using KHost.App.Providers;
@@ -38,7 +37,7 @@ namespace KHost.App
                 .Configure<SingerOptions>(Configuration.GetSection("Singers"))
                 .Configure<SongOptions>(Configuration.GetSection("Songs"))
                 // Database
-                .AddDbContextPool<DbContext, KHDatabaseContext>(options => options.UseSqlite(Configuration.GetConnectionString("Default")))
+                .AddDbContextPool<DbContext, SqlDbContext>(options => options.UseSqlite(Configuration.GetConnectionString("Default")))
                 // Providers
                 .AddTransient<SongSearchProvider>()
                 // Repositories
