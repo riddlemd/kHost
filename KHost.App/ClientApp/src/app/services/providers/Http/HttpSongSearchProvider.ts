@@ -34,6 +34,7 @@ export class HttpSongSearchProvider implements SongSearchProvider {
         try {
             const response: any = await this._httpClient.get(url, options).toPromise();
             const songSearchResults: SongSearchResult[] = response?.songSearchResults;
+            
             return songSearchResults;
         } catch (exception) {
             

@@ -17,7 +17,7 @@ namespace KHost.App.Repositories.Sql
             Context = context;
         }
 
-        public virtual async Task<IEnumerable<TModel>> Read(int? count = null, int? offset = null) => await BuildGetQuery(count, offset).ToArrayAsync();
+        public virtual async Task<IEnumerable<TModel>> Read(int? count = null, int? offset = null) => await BuildReadQuery(count, offset).ToArrayAsync();
 
         public virtual async Task<TModel> GetById(int id) => (await BuildGetByIdQuery(id).ToArrayAsync()).FirstOrDefault();
 
@@ -54,7 +54,7 @@ namespace KHost.App.Repositories.Sql
 
         //
 
-        protected virtual IQueryable<TModel> BuildGetQuery(int? count = null, int? offset = null)
+        protected virtual IQueryable<TModel> BuildReadQuery(int? count = null, int? offset = null)
         {
             var query = Context.Set<TModel>().AsQueryable();
 

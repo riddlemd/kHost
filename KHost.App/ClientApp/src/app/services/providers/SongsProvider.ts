@@ -8,6 +8,10 @@ export abstract class SongsProvider {
         throw ("Not Implemented");
     }
 
+    getByIds(ids: number[]): Promise<Song[]> {
+        throw("Not Implemented");
+    }
+
     // CRUD Methods
 
     create(song: Song): Promise<number> {

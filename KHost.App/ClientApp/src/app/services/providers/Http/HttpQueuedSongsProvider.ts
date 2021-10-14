@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AppConfig } from 'src/app/app.config';
+import { QueuedSinger } from 'src/app/models/QueuedSinger';
 import { QueuedSong } from 'src/app/models/QueuedSong';
 import { Singer } from 'src/app/models/Singer';
 import { QueuedSongsProvider } from '../QueuedSongsProvider';
@@ -16,12 +17,12 @@ export class HttpQueuedSongsProvider implements QueuedSongsProvider {
         
     }
 
-    getBySinger(singer: Singer, count?: number, offset?: number): Promise<QueuedSong[]> {
-        const url = `${this._config.apiUrl}${HttpQueuedSongsProvider.ENDPOINT}/get-by-singer-id`;
+    async getByQueuedSinger(queuedSinger: QueuedSinger, count?: number, offset?: number): Promise<QueuedSong[]> {
+        const url = `${this._config.apiUrl}${HttpQueuedSongsProvider.ENDPOINT}/get-by-queued-singer-id`;
 
         const options: any = {
             params: {
-                id: singer.id
+                id: queuedSinger.id
             }
         };
 
@@ -29,10 +30,17 @@ export class HttpQueuedSongsProvider implements QueuedSongsProvider {
 
         if(offset) options.params.offset = offset;
 
-        const response: any = this._httpClient.get<QueuedSong[]>(url, options).toPromise();
-        const queuedSongs = response?.queuedSongs;
+        try {
+            const response: any = await this._httpClient.get<QueuedSong[]>(url, options).toPromise();
+            const queuedSongs = response?.queuedSongs;
 
-        return queuedSongs;
+            return queuedSongs;
+        }
+        catch(exception) {
+
+        }
+
+        return [];
     }
 
     // CRUD Methods
@@ -51,7 +59,7 @@ export class HttpQueuedSongsProvider implements QueuedSongsProvider {
         if(offset) options.params.offset = offset;
 
         try {
-            const response: any = this._httpClient.get<QueuedSong[]>(url, options).toPromise();
+            const response: any = await this._httpClient.get<QueuedSong[]>(url, options).toPromise();
             const queuedSongs = response?.queuedSongs;
 
             return queuedSongs;

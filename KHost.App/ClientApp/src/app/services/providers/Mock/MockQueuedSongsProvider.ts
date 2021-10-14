@@ -6,6 +6,7 @@ import { QueuedSong } from "src/app/models/QueuedSong";
 import { Singer } from "src/app/models/Singer";
 import { Song } from "src/app/models/Song";
 import "src/app/modules/kommon/mathematics/MathExtensions";
+import { QueuedSinger } from "src/app/models/QueuedSinger";
 
 @Injectable()
 export class MockQueuedSongsProvider implements QueuedSongsProvider {
@@ -19,11 +20,11 @@ export class MockQueuedSongsProvider implements QueuedSongsProvider {
         this._generateQueuedSongs();
     }
 
-    getBySinger(singer: Singer, count: number = 20, offset: number = 0): Promise<QueuedSong[]> {
-        console.info(`Getting QueuedSongs for Singer#${singer.id} (Count:${count}, Offset:${offset})`);
+    getByQueuedSinger(queuedSinger: QueuedSinger, count: number = 20, offset: number = 0): Promise<QueuedSong[]> {
+        console.info(`Getting QueuedSongs for Singer#${queuedSinger.id} (Count:${count}, Offset:${offset})`);
 
         const queuedSongs = this._cache
-            .filter(s => s.singerId == singer.id)
+            .filter(s => s.singerId == queuedSinger.id)
             .slice(offset, count);
 
         return new Promise((resolve, reject) => {

@@ -17,7 +17,7 @@ namespace KHost.App.Controllers.Api
         [HttpGet]
         public async Task<IActionResult> GetByIds([FromQuery] GenericIdsRequest request)
         {
-            var singers = await UnitOfWork.GetRepository<ISingersRepository>().GetByIds(request.Ids);
+            var singers = await UnitOfWork.GetRepository<ISingersRepository>().GetByIds(request.GetIdsAsInts());
 
             var results = new ApiResponse(singers);
 

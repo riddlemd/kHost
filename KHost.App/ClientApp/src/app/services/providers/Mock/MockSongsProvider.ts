@@ -10,6 +10,10 @@ export class MockSongsProvider implements SongsProvider {
     constructor() {
         this._generateSongs();
     }
+    
+    getByIds(ids: number[]): Promise<Song[]> {
+        throw new Error("Method not implemented.");
+    }
 
     search(query: string, count: number = 20, offset: number = 0): Promise<Song[]> {
         console.info(`Searching Songs (Query:"${query}", Count:${count}, Offset:${offset})`);

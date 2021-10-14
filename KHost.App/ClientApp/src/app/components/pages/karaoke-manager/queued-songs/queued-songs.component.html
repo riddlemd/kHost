@@ -14,7 +14,7 @@
             </tr>
         </thead>
         <tbody cdkDropList (cdkDropListDropped)="drop($event)">
-            <tr *ngFor="let queuedSong of selectedQueuedSinger?.singer?.queuedSongs" class="queued-song-row" [ngClass]="{'selected': queuedSong === selectedQueuedSong }" (contextmenu)="menuTrigger.openMenu();" (mousedown)="selectQueuedSong(queuedSong)" cdkDrag>
+            <tr *ngFor="let queuedSong of queuedSongs" class="queued-song-row" [ngClass]="{'selected': queuedSong === selectedQueuedSong }" (contextmenu)="menuTrigger.openMenu();" (mousedown)="selectQueuedSong(queuedSong)" cdkDrag>
                 <td class='drag-column' cdkDragHandle><mat-icon>drag_handle</mat-icon></td>
                 <td class='song-name-column'>{{ queuedSong?.song?.name }}</td>
                 <td class='song-band-name-column'>{{ queuedSong?.song?.bandName }}</td>

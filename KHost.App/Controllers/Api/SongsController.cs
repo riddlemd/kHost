@@ -15,6 +15,16 @@ namespace KHost.App.Controllers.Api
         }
 
         [HttpGet]
+        public async Task<IActionResult> GetByIds([FromQuery] GenericIdsRequest request)
+        {
+            var songs = await UnitOfWork.GetRepository<ISongsRepository>().GetByIds(request.GetIdsAsInts());
+
+            var results = new ApiResponse(songs);
+
+            return Ok(results);
+        }
+
+        [HttpGet]
         public async Task<IActionResult> Search([FromQuery] GenericSearchRequest request)
         {
             var songs = await UnitOfWork.GetRepository<ISongsRepository>().Search(request.Query, request.Count, request.Offset);

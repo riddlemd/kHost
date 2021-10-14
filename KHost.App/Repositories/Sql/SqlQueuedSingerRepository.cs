@@ -1,6 +1,8 @@
 ﻿using KHost.App.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace KHost.App.Repositories.Sql
 {
@@ -12,5 +14,21 @@ namespace KHost.App.Repositories.Sql
         }
 
         DbContext IQueueRepository<QueuedSinger>.Context => Context;
+
+        public override async Task<IEnumerable<QueuedSinger>> Read(int? count = null, int? offset = null)
+        {
+            var queuedSingers = await base.Read(count, offset);
+
+            foreach(var queuedSinger in queuedSingers)
+            {
+                var queuedSongsCount = Context.Set<QueuedSong>()
+                    .Where(qs => qs.QueuedSingerId == queuedSinger.Id)
+                    .Count();
+
+                queuedSinger.QueuedSongsCount = queuedSongsCount;
+            }
+
+            return queuedSingers;
+        }
     }
 }

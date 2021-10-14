@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
+import { QueuedSinger } from 'src/app/models/QueuedSinger';
 import { QueuedSong } from 'src/app/models/QueuedSong';
-import { Singer } from 'src/app/models/Singer';
 
 @Injectable()
 export abstract class QueuedSongsProvider {
@@ -8,7 +8,7 @@ export abstract class QueuedSongsProvider {
 
     }
 
-    getBySinger(singer: Singer, count?: number, offset?: number): Promise<QueuedSong[]> {
+    getByQueuedSinger(queuedSinger: QueuedSinger, count?: number, offset?: number): Promise<QueuedSong[]> {
         throw("Not Implemented");
     }
 

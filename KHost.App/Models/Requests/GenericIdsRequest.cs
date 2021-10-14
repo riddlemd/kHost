@@ -7,6 +7,8 @@ namespace KHost.App.Models.Requests
 {
     public class GenericIdsRequest
     {
-        public List<int> Ids { get; set; }
+        public string Ids { get; set; }
+
+        public IEnumerable<int> GetIdsAsInts() => Array.ConvertAll(Ids?.Split(',') ?? Array.Empty<string>(), int.Parse);
     }
 }

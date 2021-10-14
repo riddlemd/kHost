@@ -22,7 +22,25 @@ export class HttpSingersProvider implements SingersProvider {
     }
 
     async getByIds(ids: number[]): Promise<Singer[]> {
-        throw new Error("Method not implemented.");
+        const url = `${this._config.apiUrl}${HttpSingersProvider.ENDPOINT}/get-by-ids`;
+
+        const options: any = {
+            params: {
+                ids: ids.join(',')
+            }
+        };
+
+        try {
+            const response: any = await this._httpClient.get<Singer[]>(url, options).toPromise();
+            const singers = response?.singers;
+
+            return singers;
+        }
+        catch(exception) {
+
+        }
+
+        return [];
     }
 
     async search(query: string, venue?: Venue, count?: number, offset?: number): Promise<Singer[]> {
@@ -45,10 +63,10 @@ export class HttpSingersProvider implements SingersProvider {
         if(offset) options.params.offset = offset;
 
         try {
-            const response: any = this._httpClient.get<Singer[]>(url, options).toPromise();
-            const queuedSongs = response?.queuedSongs;
+            const response: any = await this._httpClient.get<Singer[]>(url, options).toPromise();
+            const singers = response?.singers;
 
-            return queuedSongs;
+            return singers;
         }
         catch(exception) {
 
