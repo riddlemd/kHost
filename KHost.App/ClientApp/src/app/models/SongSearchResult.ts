@@ -1,14 +1,34 @@
-import { SongSearchEngine } from "./SongSearchEngine";
-
 export class SongSearchResult {
 
-    id: string = '';
+    id: string;
 
-    songName: string = '';
+    songName: string;
 
-    bandName: string = '';
+    bandName: string;
 
-    engineName: string = '';
+    engineName: string;
 
-    lengthInSeconds: number|null = null;
+    lengthInSeconds: number;
+
+    constructor({
+        id,
+        songName,
+        bandName,
+        engineName,
+        lengthInSeconds
+    }: parameters) {
+        this.id = id;
+        this.songName = songName;
+        this.bandName = bandName;
+        this.engineName = engineName;
+        this.lengthInSeconds = lengthInSeconds;
+    }
+}
+
+interface parameters {
+    id: string,
+    songName: string,
+    bandName: string,
+    engineName: string,
+    lengthInSeconds: number
 }

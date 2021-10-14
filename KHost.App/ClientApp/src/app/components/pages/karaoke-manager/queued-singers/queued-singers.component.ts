@@ -83,15 +83,19 @@ export class QueuedSingersComponent implements OnInit {
   }
 
   async add(singer: Singer): Promise<void> {
+    if(!singer?.id) return;
+
     for(let existingQueuedSinger of this.queuedSingers) {
       if(existingQueuedSinger?.singer?.id == singer.id) return;
     }
 
     var newQueuedSingerId = await this._queuedSingersProvider.create(singer);
     
-    const queuedSinger = new QueuedSinger();
-    queuedSinger.id = newQueuedSingerId;
-    queuedSinger.singerId = singer.id;
+    const queuedSinger = new QueuedSinger({
+      id: newQueuedSingerId,
+      singerId: singer.id,
+      singer: singer
+    });
     
     this.queuedSingers.push(queuedSinger);
   }
@@ -103,7 +107,12 @@ export class QueuedSingersComponent implements OnInit {
     const singers = await this._singersProvider.getByIds(this.queuedSingers.map(qs => qs.singerId ?? 0));
 
     for(let queuedSinger of this.queuedSingers) {
-      queuedSinger.singer = singers.find(s => s.id == queuedSinger.singerId) ?? null;
+      const singer = singers.find(s => s.id == queuedSinger.singerId) ?? null;
+
+      if(!singer?.id) continue;
+
+      queuedSinger.singer = singer
+
       console.info(queuedSinger);
     }
   }

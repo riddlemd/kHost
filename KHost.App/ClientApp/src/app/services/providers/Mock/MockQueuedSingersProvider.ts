@@ -1,15 +1,17 @@
 import 'src/app/modules/kommon/collections/arrayExtensions';
+import 'src/app/modules/kommon/mathematics/MathExtensions';
 import { Injectable } from "@angular/core";
 import { QueuedSinger } from "src/app/models/QueuedSinger";
 import { Singer } from "src/app/models/Singer";
 import { QueuedSingersProvider } from "../QueuedSingersProvider";
+import { SingersProvider } from '../SingersProvider';
 
 @Injectable()
 export class MockQueuedSingersProvider implements QueuedSingersProvider {
     
     private _cache: QueuedSinger[] = [];
 
-    constructor() {
+    constructor(private _singersProvider: SingersProvider) {
         this.generateQueuedSingers();
     }
 
@@ -99,15 +101,19 @@ export class MockQueuedSingersProvider implements QueuedSingersProvider {
         
         this._cache = [];
 
+        const singers = await this._singersProvider.read();
+
         for(let i = 1; i <= 15; i++)
         {
-            const singer = new Singer();
-            singer.id = i;
-            singer.name = (Math.random() + 1).toString(36).substring(7);
+            const singer = singers[Math.randomBetween(1, singers.length)];
 
-            const queuedSinger = new QueuedSinger();
-            queuedSinger.id = i;
-            queuedSinger.singerId = singer.id;
+            if(!singer.id) continue;
+
+            const queuedSinger = new QueuedSinger({
+                id: i,
+                singerId: singer.id,
+                singer: singer
+            });
             
             this._cache.push(queuedSinger);
         }

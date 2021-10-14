@@ -1,12 +1,31 @@
 import { Singer } from "./Singer";
 
-export class QueuedSinger
-{
-  id: number = -1;
+export class QueuedSinger {
 
-  singerId: number | null = null;
+  singerId: number;
+    
+  singer?: Singer;
+  
+  id?: number;
+  
+  queuedSongsCount: number;
 
-  queuedSongsCount: number = 0;
+  constructor({
+    singerId,
+    singer,
+    id,
+    queuedSongsCount
+  }: parameters) {
+    this.singerId = singerId;
+    this.singer = singer;
+    this.id = id;
+    this.queuedSongsCount = queuedSongsCount ?? 0;
+  }
+}
 
-  singer: Singer | null = null;
+interface parameters {
+  singerId: number,
+  singer: Singer,
+  id: number,
+  queuedSongsCount?: number
 }

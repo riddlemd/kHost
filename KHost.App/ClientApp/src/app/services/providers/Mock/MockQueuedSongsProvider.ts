@@ -118,19 +118,23 @@ export class MockQueuedSongsProvider implements QueuedSongsProvider {
         const songs: Song[] = await this._songsProvider.read();
 
         for(let singer of singers) {
+            if(!singer.id) continue;
+            
             const maxQueuedSongs = Math.random() * 11 - 1;
 
             for(let i = 1; i <= maxQueuedSongs; i++)
             {
-                const randomSongId = Math.randomBetween(0, songs.length - 1);
-                const song = songs[randomSongId];
+                const song = songs[Math.randomBetween(0, songs.length - 1)];
+
+                if(!song.id) continue;
                 
-                let queuedSong = new QueuedSong();
-                queuedSong.id = i;
-                queuedSong.songId = song.id;
-                queuedSong.song = song;
-                queuedSong.singerId = singer.id;
-                queuedSong.singer = singer;
+                let queuedSong = new QueuedSong({
+                    id: i,
+                    songId: song.id,
+                    singerId: singer.id,
+                    song: song,
+                    singer: singer
+                });
 
                 this._cache.push(queuedSong);
             }

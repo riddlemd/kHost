@@ -20,9 +20,9 @@ export class MockSongSearchProvider implements SongSearchProvider {
 
     getSongSearchEngines(): Promise<SongSearchEngine[]> {
         const songSearchEngines = [
-            new SongSearchEngine("local", "Local"),
-            new SongSearchEngine("youtube", "YouTube", false, true),
-            new SongSearchEngine("karafun", "KaraFun", false, true)
+            new SongSearchEngine({name:"local", displayName:"Local"}),
+            new SongSearchEngine({name:"youtube", displayName:"YouTube", isLocal:false, allowDownload:true}),
+            new SongSearchEngine({name:"karafun", displayName:"KaraFun", isLocal:false, allowDownload:true})
         ];
 
         return new Promise((resolve, reject) => {
@@ -34,12 +34,13 @@ export class MockSongSearchProvider implements SongSearchProvider {
         const songSearchResults: SongSearchResult[] = [];
 
         for(let i = 1; i < 30; i++) {
-            const songSearchResult = new SongSearchResult();
-            songSearchResult.id = i.toString();
-            songSearchResult.songName = (Math.random() + 1).toString(36).substring(7);
-            songSearchResult.bandName = (Math.random() + 1).toString(36).substring(7);
-            songSearchResult.engineName = songSearchEngine.name;
-            songSearchResult.lengthInSeconds = Math.random() * 360;
+            const songSearchResult = new SongSearchResult({
+                id: i.toString(),
+                songName: (Math.random() + 1).toString(36).substring(7),
+                bandName: (Math.random() + 1).toString(36).substring(7),
+                engineName: songSearchEngine.name,
+                lengthInSeconds: Math.random() * 360
+            });
 
             songSearchResults.push(songSearchResult);
         }

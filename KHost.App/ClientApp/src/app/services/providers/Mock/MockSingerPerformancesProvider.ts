@@ -1,15 +1,22 @@
 import 'src/app/modules/kommon/chrono/DateExtensions';
+import 'src/app/modules/kommon/mathematics/MathExtensions';
 import { Singer } from "src/app/models/Singer";
 import { SingerPerformance } from "src/app/models/SingerPerformance";
 import { SingerPerformancesProvider } from "../SingerPerformancesProvider";
 import { Injectable } from "@angular/core";
 import { SingersProvider } from "../SingersProvider";
+import { SongsProvider } from '../SongsProvider';
+import { VenuesProvider } from '../VenuesProvider';
 
 @Injectable()
 export class MockSingerPerformanceProvider implements SingerPerformancesProvider {
     private _cache: SingerPerformance[] = [];
 
-    constructor(private _singersProvider: SingersProvider) {
+    constructor(
+        private _singersProvider: SingersProvider,
+        private _songsProvider: SongsProvider,
+        private _venuesProvider: VenuesProvider
+    ) {
         this._generateSingerPerformances();
     }
 
@@ -63,17 +70,32 @@ export class MockSingerPerformanceProvider implements SingerPerformancesProvider
 
         const singers = await this._singersProvider.read();
 
+        const songs = await this._songsProvider.read();
+
+        const venues = await this._venuesProvider.read();
+
         for(let singer of singers) {
+            if(!singer.id) return;
+
             const maxPerformanceCount = Math.random() * 30;
 
             for(let i = 0; i < maxPerformanceCount; i++) {
-                const singerPerformance = new SingerPerformance();
-                singerPerformance.id = i;
-    
-                singerPerformance.singerId = singer.id;
-                singerPerformance.songId = Math.floor(Math.random() * 100);
-                singerPerformance.venueId = Math.floor(Math.random() * 100);
-                singerPerformance.date = Date.getRandomBetween(new Date(0), new Date());
+
+                const song = songs[Math.randomBetween(1, songs.length)];
+
+                if(!song.id) continue;
+
+                const venue = venues[Math.randomBetween(1, venues.length)];
+
+                if(!venue.id) continue;
+
+                const singerPerformance = new SingerPerformance({
+                    id: i,
+                    singerId: singer.id,
+                    songId: song.id,
+                    venueId: venue.id,
+                    date: Date.getRandomBetween(new Date(0), new Date())
+                });
     
                 this._cache.push(singerPerformance);
             }    

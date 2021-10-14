@@ -97,8 +97,12 @@ export class QueuedSongsComponent implements OnChanges {
     const songs = await this._songsProvider.getByIds(queuedSongs.map(qs => qs.songId ?? 0));
 
     for(let queuedSong of queuedSongs) {
-      queuedSong.song = songs.find(s => s.id == queuedSong.songId) ?? null;
-      queuedSong.songId = queuedSong.song?.id ?? null;
+      const song = songs.find(s => s.id == queuedSong.songId) ?? null;
+
+      if(!song?.id) continue;
+
+      queuedSong.song = song;
+      queuedSong.songId = song.id;
     }
 
     return queuedSongs;

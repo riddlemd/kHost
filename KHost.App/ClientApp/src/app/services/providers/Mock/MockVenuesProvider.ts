@@ -68,9 +68,10 @@ export class MockVenuesProvider extends VenuesProvider {
 
         for(let i = 0; i < 100; i++) {
             
-            const venue = new Venue();
-            venue.id = i;
-            venue.name = (Math.random() + 1).toString(36).substring(7);
+            const venue = new Venue({
+                id: i,
+                name: (Math.random() + 1).toString(36).substring(7)
+            });
 
             this._cache.push(venue);
         }

@@ -1,11 +1,34 @@
 export class SingerPerformance {
-    id: number|null = null;
 
-    singerId: number|null = null;
+    singerId: number;
+    
+    songId: number;
+    
+    venueId: number;
+    
+    date: Date;
+    
+    id?: number;
+    
+    constructor({
+        singerId,
+        songId,
+        venueId,
+        date,
+        id
+    }: parameters) {
+        this.singerId = singerId;
+        this.songId = songId;
+        this.venueId = venueId;
+        this.date = date;
+        this.id = id;
+    }
+}
 
-    songId: number|null = null;
-
-    venueId: number|null = null;
-
-    date: Date|null = null;
+interface parameters {
+    singerId: number,
+    songId: number,
+    venueId: number,
+    date: Date,
+    id: number
 }

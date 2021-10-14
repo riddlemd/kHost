@@ -1,15 +1,24 @@
-import { QueuedSong } from "./QueuedSong";
-import { SingerPerformance } from "./SingerPerformance";
+export class Singer {
 
-export class Singer
-{
-    id: number = -1;
-    
-    name: string = "";
+    name: string;
 
-    lastSang: Date|null = null;
+    id?: number;
 
-    queuedSongs: QueuedSong[] = [];
+    lastSang?: Date;
 
-    performanceHistory: SingerPerformance[] = [];
+    constructor({
+        name,
+        id,
+        lastSang
+    }: parameters) {
+        this.name = name;
+        this.id = id;
+        this.lastSang = lastSang;
+    }
+}
+
+interface parameters {
+    name: string,
+    id: number,
+    lastSang?: Date
 }
