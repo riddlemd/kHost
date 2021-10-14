@@ -17,7 +17,7 @@ export class QueuedSongsComponent implements OnChanges {
   @Input()
   selectedQueuedSinger: QueuedSinger | null = null;
 
-  queuedSongs: QueuedSong[] | null = null;
+  queuedSongs: QueuedSong[] = [];
 
   selectedQueuedSong: QueuedSong | null = null;
 
@@ -45,53 +45,38 @@ export class QueuedSongsComponent implements OnChanges {
   }
 
   drop(e: CdkDragDrop<string[]>): void {
-    this.selectedQueuedSinger?.singer?.queuedSongs.move(e.previousIndex, e.currentIndex);
+    this.queuedSongs.move(e.previousIndex, e.currentIndex);
   }
 
-  moveToTop(queuedSong: QueuedSong): void {
-    this._queuedSongsProvider.moveToTop(queuedSong)
-      .then(
-        value => {
-          this.selectedQueuedSinger?.singer?.queuedSongs.moveToStart(queuedSong);
-        }
-      );
+  async moveToTop(queuedSong: QueuedSong): Promise<void> {
+    const result = await this._queuedSongsProvider.moveToTop(queuedSong)
+    
+    this.queuedSongs.moveToStart(queuedSong);
   }
 
-  moveUp(queuedSong: QueuedSong): void {
-    this._queuedSongsProvider.moveUp(queuedSong)
-      .then(
-        value => {
-          this.selectedQueuedSinger?.singer?.queuedSongs.moveTowardStart(queuedSong);
-        }
-      );
+  async moveUp(queuedSong: QueuedSong): Promise<void> {
+    const result = await this._queuedSongsProvider.moveUp(queuedSong)
+    
+    this.queuedSongs.moveTowardStart(queuedSong);
   }
 
-  moveDown(queuedSong: QueuedSong): void {
-    this._queuedSongsProvider.moveDown(queuedSong)
-      .then(
-        value => {
-          this.selectedQueuedSinger?.singer?.queuedSongs.moveTowardEnd(queuedSong);
-        }
-      );
+  async moveDown(queuedSong: QueuedSong): Promise<void> {
+    const result = await this._queuedSongsProvider.moveDown(queuedSong);
+    
+    this.queuedSongs.moveTowardEnd(queuedSong);
   }
 
-  moveToBottom(queuedSong: QueuedSong): void {
-    this._queuedSongsProvider.moveToBottom(queuedSong)
-      .then(
-        value => {
-          this.selectedQueuedSinger?.singer?.queuedSongs.moveToEnd(queuedSong);
-        }
-      );
+  async moveToBottom(queuedSong: QueuedSong): Promise<void> {
+    const result = await this._queuedSongsProvider.moveToBottom(queuedSong)
+     
+    this.queuedSongs.moveToEnd(queuedSong);
   }
 
-  remove(queuedSong: QueuedSong): void {
-    this._queuedSongsProvider.delete(queuedSong)
-      .then(
-        value => {
-          let startIndex = this.getQueuedSongIndex(queuedSong);
-          this.selectedQueuedSinger?.singer?.queuedSongs.splice(startIndex, 1);
-        }
-      );
+  async remove(queuedSong: QueuedSong): Promise<void> {
+    const result = await this._queuedSongsProvider.delete(queuedSong);
+    
+    const startIndex = this.getQueuedSongIndex(queuedSong);
+    this.queuedSongs.splice(startIndex, 1);
   }
 
   selectQueuedSong(queuedSong:QueuedSong): void {

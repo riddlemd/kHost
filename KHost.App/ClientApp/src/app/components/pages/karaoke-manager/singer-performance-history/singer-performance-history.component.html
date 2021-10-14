@@ -14,7 +14,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let singerPerformance of selectedQueuedSinger?.singer?.performanceHistory" class="singer-performance-row" [ngClass]="{'selected': singerPerformance === selectedSingerPerformance }" (contextmenu)="menuTrigger.openMenu();" (mousedown)="selectedSingerPerformance=singerPerformance">
+            <tr *ngFor="let singerPerformance of performanceHistory" class="singer-performance-row" [ngClass]="{'selected': singerPerformance === selectedSingerPerformance }" (contextmenu)="menuTrigger.openMenu();" (mousedown)="selectedSingerPerformance=singerPerformance">
                 <td class='song-name-column'>{{ singerPerformance?.songId }}</td>
                 <td class='song-band-name-column'>{{ singerPerformance?.songId }}</td>
                 <td class='venue-name-column'>{{ singerPerformance?.venueId }}</td>

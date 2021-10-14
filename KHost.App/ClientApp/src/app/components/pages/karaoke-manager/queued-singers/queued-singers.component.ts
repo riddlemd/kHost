@@ -49,57 +49,51 @@ export class QueuedSingersComponent implements OnInit {
     this.queuedSingers.move(e.previousIndex, e.currentIndex);
   }
 
-  moveToTop(queuedSinger: QueuedSinger): void {
-    this._queuedSingersProvider.moveToTop(queuedSinger)
-      .then(value => {
-        this.queuedSingers.moveToStart(queuedSinger);
-      });
+  async moveToTop(queuedSinger: QueuedSinger): Promise<void> {
+    const result = await this._queuedSingersProvider.moveToTop(queuedSinger);
+    
+    this.queuedSingers.moveToStart(queuedSinger);
   }
 
-  moveUp(queuedSinger: QueuedSinger): void {
-    this._queuedSingersProvider.moveUp(queuedSinger)
-      .then(value => {
-        this.queuedSingers.moveTowardStart(queuedSinger);
-      });
+  async moveUp(queuedSinger: QueuedSinger): Promise<void> {
+    const result = await this._queuedSingersProvider.moveUp(queuedSinger);
+    
+    this.queuedSingers.moveTowardStart(queuedSinger);
   }
 
-  moveDown(queuedSinger: QueuedSinger): void {
-    this._queuedSingersProvider.moveDown(queuedSinger)
-      .then(value => {
-        this.queuedSingers.moveTowardEnd(queuedSinger);
-      });
+  async moveDown(queuedSinger: QueuedSinger): Promise<void> {
+    const result = await this._queuedSingersProvider.moveDown(queuedSinger);
+    
+    this.queuedSingers.moveTowardEnd(queuedSinger);
   }
 
-  moveToBottom(queuedSinger: QueuedSinger): void {
-    this._queuedSingersProvider.moveToBottom(queuedSinger)
-      .then(value => {
-        this.queuedSingers.moveToEnd(queuedSinger);
-      });
+  async moveToBottom(queuedSinger: QueuedSinger): Promise<void> {
+    const result = await this._queuedSingersProvider.moveToBottom(queuedSinger);
+    
+    this.queuedSingers.moveToEnd(queuedSinger);
   }
 
-  remove(queuedSinger: QueuedSinger): void {
-    let startIndex = this.getQueuedSongIndex(queuedSinger);
+  async remove(queuedSinger: QueuedSinger): Promise<void> {
+    const result = await this._queuedSingersProvider.delete(queuedSinger)
 
-    this._queuedSingersProvider.delete(queuedSinger)
-      .then(value => {
-        this.queuedSingers.splice(startIndex, 1);
-        this.selectedQueuedSinger = null;
-      });
+    const startIndex = this.getQueuedSongIndex(queuedSinger);
+
+    this.queuedSingers.splice(startIndex, 1);
+    this.selectedQueuedSinger = null;
   }
 
-  add(singer: Singer): void {
+  async add(singer: Singer): Promise<void> {
     for(let existingQueuedSinger of this.queuedSingers) {
       if(existingQueuedSinger?.singer?.id == singer.id) return;
     }
 
-    this._queuedSingersProvider.create(singer)
-      .then(value => { 
-        const queuedSinger = new QueuedSinger();
-        queuedSinger.id = value;
-        queuedSinger.singerId = singer.id;
-        
-        return this.queuedSingers.push(queuedSinger);
-      })
+    var newQueuedSingerId = await this._queuedSingersProvider.create(singer);
+    
+    const queuedSinger = new QueuedSinger();
+    queuedSinger.id = newQueuedSingerId;
+    queuedSinger.singerId = singer.id;
+    
+    this.queuedSingers.push(queuedSinger);
   }
 
   async populateSingers(): Promise<void>

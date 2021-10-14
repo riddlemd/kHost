@@ -14,9 +14,11 @@ export class SingerPerformanceHistoryComponent {
 
   selectedSingerPerformance: SingerPerformance|null = null;
 
+  performanceHistory: SingerPerformance[] = [];
+
   constructor() { }
 
   getPerformanceCount(): number {
-    return this.selectedQueuedSinger?.singer?.performanceHistory.length ?? 0;
+    return this.performanceHistory.length;
   }
 }
