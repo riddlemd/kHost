@@ -30,7 +30,7 @@ export class AuthService {
 
     try {
       const response: any = await this._httpClient.post(url, data).toPromise();
-      const user: TUser | null = response?.user;
+      const user: TUser | undefined = response?.user;
 
       if(user?.accessKey) {
         this._localStorageService.write(AuthService.AuthenticatedUserLocalStorageKey, user);
@@ -50,10 +50,10 @@ export class AuthService {
   }
 
   public isAuthenticated(): boolean {
-    return this.getAuthenticatedUser() !== null;
+    return this.getAuthenticatedUser() !== undefined;
   }
 
-  public getAuthenticatedUser(): AuthUser | null {
+  public getAuthenticatedUser(): AuthUser | undefined {
     return this._localStorageService.read<AuthUser>(AuthService.AuthenticatedUserLocalStorageKey);
   }
 

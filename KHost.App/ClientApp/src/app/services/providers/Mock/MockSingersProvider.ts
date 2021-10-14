@@ -12,10 +12,10 @@ export class MockSingersProvider implements SingersProvider {
         this._generateSingers();
     }
 
-    getById(id: number): Promise<Singer|null> {
+    getById(id: number): Promise<Singer | undefined> {
         console.info(`Getting Singer (Id:${id})`);
 
-        let singerToReturn: Singer|null = null;
+        let singerToReturn: Singer | undefined;
 
         for(let singer of this._cache) {
             if(singer.id !== id) continue;
@@ -33,7 +33,7 @@ export class MockSingersProvider implements SingersProvider {
         throw new Error("Method not implemented.");
     }
 
-    search(query: string, venue: Venue|null = null, count: number = 20, offset: number = 0): Promise<Singer[]> {
+    search(query: string, venue?: Venue, count: number = 20, offset: number = 0): Promise<Singer[]> {
         console.info(`Searching Singers (Query:"${query}", Count:${count}, Offset:${offset})`);
 
         const singers = this._cache

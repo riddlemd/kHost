@@ -10,9 +10,7 @@ export class VenuesManagerComponent implements OnInit {
 
   venues: Venue[] = [];
 
-  private _selectedVenue: Venue|null = null;
-  get selectedVenue() { return this._selectedVenue; }
-  set selectedVenue(venue: Venue|null) {this._selectedVenue = venue; }
+  selectedVenue?: Venue;
 
   constructor(private _venuesProvider: VenuesProvider) { }
 

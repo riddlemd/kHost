@@ -17,10 +17,10 @@ export class LocalStorageService {
         this._localStorage.setItem(key, jsonData);
     }
 
-    read<T>(key: string): T | null  {
+    read<T>(key: string): T | undefined  {
         const jsonData = this._localStorage.getItem(key);
 
-        const data = jsonData !== null ? JSON.parse(jsonData) as T : null;
+        const data = jsonData !== null ? JSON.parse(jsonData) as T : undefined;
 
         return data;
     }

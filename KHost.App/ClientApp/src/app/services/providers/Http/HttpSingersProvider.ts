@@ -17,7 +17,7 @@ export class HttpSingersProvider implements SingersProvider {
         
     }
 
-    async getById(id: number): Promise<Singer | null> {
+    async getById(id: number): Promise<Singer | undefined> {
         throw new Error("Method not implemented.");
     }
 

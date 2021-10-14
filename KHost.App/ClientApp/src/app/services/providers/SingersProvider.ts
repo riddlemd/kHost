@@ -5,7 +5,7 @@ import { Singer } from 'src/app/models/Singer';
 @Injectable()
 export abstract class SingersProvider {
 
-    getById(id: number): Promise<Singer|null> {
+    getById(id: number): Promise<Singer | undefined> {
         throw("Not Implemented");
     }
 

@@ -1,7 +1,7 @@
 export class TableColumn<TModel> {
     name: string = "";
 
-    displayName: string | null = null;
+    displayName?: string;
     
     cell: (model: TModel) => string = () => { return "" };
   }

@@ -53,7 +53,23 @@ export class HttpSongsProvider implements SongsProvider {
     }
 
     async read(count?: number, offset?: number): Promise<Song[]> {
-        throw new Error('Method not implemented.');
+        const url = `${this._config.apiUrl}${HttpSongsProvider.ENDPOINT}/read`;
+
+        const options: any = {
+            params: {}
+        };
+
+        try {
+            const response: any = await this._httpClient.get<Song[]>(url, options).toPromise();
+            const songs = response?.songs;
+            
+            return songs;
+        }
+        catch(exception) {
+
+        }
+
+        return [];
     }
 
     async delete(song: Song): Promise<void> {

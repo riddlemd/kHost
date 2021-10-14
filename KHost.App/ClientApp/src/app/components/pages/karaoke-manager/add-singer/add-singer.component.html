@@ -5,9 +5,9 @@
     <button (click)="search();false;">Search</button>
 </form>
 
-<div class='empty' *ngIf="singers !== null && singers.length === 0">No singers found.</div>
+<div class='empty' *ngIf="singers !== undefined && singers.length === 0">No singers found.</div>
 
-<div class='scroll-wrapper' *ngIf="singers !== null && singers.length > 0">
+<div class='scroll-wrapper' *ngIf="singers !== undefined && singers.length > 0">
     <table >
         <thead>
             <tr>

@@ -15,11 +15,11 @@ import { SongsProvider } from 'src/app/services/providers/SongsProvider';
 export class QueuedSongsComponent implements OnChanges {
   
   @Input()
-  selectedQueuedSinger: QueuedSinger | null = null;
+  selectedQueuedSinger?: QueuedSinger;
 
   queuedSongs: QueuedSong[] = [];
 
-  selectedQueuedSong: QueuedSong | null = null;
+  selectedQueuedSong?: QueuedSong;
 
   constructor(
     private _queuedSongsProvider: QueuedSongsProvider,
@@ -97,7 +97,7 @@ export class QueuedSongsComponent implements OnChanges {
     const songs = await this._songsProvider.getByIds(queuedSongs.map(qs => qs.songId ?? 0));
 
     for(let queuedSong of queuedSongs) {
-      const song = songs.find(s => s.id == queuedSong.songId) ?? null;
+      const song = songs.find(s => s.id == queuedSong.songId) ?? undefined;
 
       if(!song?.id) continue;
 

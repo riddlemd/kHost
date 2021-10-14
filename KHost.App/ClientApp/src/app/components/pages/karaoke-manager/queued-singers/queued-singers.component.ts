@@ -18,18 +18,18 @@ import { SingersProvider } from 'src/app/services/providers/SingersProvider';
 })
 export class QueuedSingersComponent implements OnInit {
 
-  private _selectedQueuedSinger: QueuedSinger|null = null;
-  set selectedQueuedSinger(value: QueuedSinger|null) { 
+  private _selectedQueuedSinger?: QueuedSinger;
+  set selectedQueuedSinger(value: QueuedSinger | undefined) { 
     this._selectedQueuedSinger = value;
     this.selectedQueuedSingerChange.emit(value);
   }
   get selectedQueuedSinger() { return this._selectedQueuedSinger };
 
   @Input()
-  currentVenue: Venue|null = null;
+  currentVenue?: Venue;
   
   @Output()
-  selectedQueuedSingerChange = new EventEmitter<QueuedSinger|null>();
+  selectedQueuedSingerChange = new EventEmitter<QueuedSinger | undefined>();
 
   queuedSingers: QueuedSinger[] = []
 
@@ -79,7 +79,7 @@ export class QueuedSingersComponent implements OnInit {
     const startIndex = this.getQueuedSongIndex(queuedSinger);
 
     this.queuedSingers.splice(startIndex, 1);
-    this.selectedQueuedSinger = null;
+    this.selectedQueuedSinger = undefined;
   }
 
   async add(singer: Singer): Promise<void> {
@@ -107,7 +107,7 @@ export class QueuedSingersComponent implements OnInit {
     const singers = await this._singersProvider.getByIds(this.queuedSingers.map(qs => qs.singerId ?? 0));
 
     for(let queuedSinger of this.queuedSingers) {
-      const singer = singers.find(s => s.id == queuedSinger.singerId) ?? null;
+      const singer = singers.find(s => s.id == queuedSinger.singerId) ?? undefined;
 
       if(!singer?.id) continue;
 

@@ -18,8 +18,8 @@ export class LoginComponent {
       private _router: Router
     ) {
       this.form = new FormGroup({
-          'username': new FormControl(null, Validators.required),
-          'password': new FormControl(null, Validators.required)
+          'username': new FormControl(undefined, Validators.required),
+          'password': new FormControl(undefined, Validators.required)
       });
     }
 

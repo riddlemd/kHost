@@ -12,14 +12,14 @@ import { Venue } from 'src/app/models/Venue';
 export class AddSingerComponent {
 
   @Input()
-  currentVenue: Venue|null = null;
+  currentVenue?: Venue;
   
   @Output()
-  selectSingerChange = new EventEmitter<Singer|null>();
+  selectSingerChange = new EventEmitter<Singer | undefined>();
 
-  singers: Singer[]|null = null;
+  singers?: Singer[];
 
-  selectedSinger: Singer|null = null;
+  selectedSinger?: Singer;
 
   queryControl = new FormControl("");
 

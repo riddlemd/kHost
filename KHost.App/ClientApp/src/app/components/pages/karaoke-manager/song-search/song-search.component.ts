@@ -14,11 +14,11 @@ import { SongSearchProvider } from 'src/app/services/providers/SongSearchProvide
 export class SongSearchComponent implements OnInit {
   
   @Input()
-  selectedQueuedSinger: QueuedSinger|null = null;
+  selectedQueuedSinger?: QueuedSinger;
 
-  selectedSongSearchResult: SongSearchResult|null = null;
+  selectedSongSearchResult?: SongSearchResult;
 
-  songSearchResults: SongSearchResult[]|null = null;
+  songSearchResults?: SongSearchResult[];
 
   queryControl = new FormControl('');
 
@@ -27,8 +27,8 @@ export class SongSearchComponent implements OnInit {
   private _selectedSearchMode:MultiButtonMode = this.searchModes[0];
   get selectedSearchMode() { return this._selectedSearchMode; }
   set selectedSearchMode(value: MultiButtonMode) {
-    this.songSearchResults = null;
-    this.selectedSongSearchResult = null;
+    this.songSearchResults = undefined;
+    this.selectedSongSearchResult = undefined;
     this._selectedSearchMode = value;
   }
 

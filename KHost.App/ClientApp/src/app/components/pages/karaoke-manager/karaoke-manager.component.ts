@@ -8,13 +8,13 @@ import { QueuedSinger } from 'src/app/models/QueuedSinger';
 })
 export class KaraokeManagerComponent implements OnInit {
 
-  selectedQueuedSinger: QueuedSinger|null = null;
+  selectedQueuedSinger?: QueuedSinger;
 
-  currentVenue: Venue|null = null;
+  currentVenue?: Venue;
 
   constructor() { }
 
-  setSelectedQueuedSinger(queuedSinger: QueuedSinger|null): void {
+  setSelectedQueuedSinger(queuedSinger: QueuedSinger | undefined): void {
     this.selectedQueuedSinger = queuedSinger;
   }
 

@@ -1,5 +1,5 @@
 export class MultiButtonMode {
     text: string = '';
     
-    value: any = null;
+    value: any = undefined;
   }

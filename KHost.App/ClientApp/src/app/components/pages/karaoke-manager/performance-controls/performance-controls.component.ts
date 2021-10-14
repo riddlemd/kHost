@@ -12,14 +12,14 @@ import { QueuedSinger } from 'src/app/models/QueuedSinger';
 export class PerformanceControlsComponent {
 
   @Input()
-  selectedQueuedSinger: QueuedSinger|null = null;
+  selectedQueuedSinger?: QueuedSinger;
   
   @Input()
-  currentVenue: Venue|null = null;
+  currentVenue?: Venue;
 
-  singer: Singer|null = null;
+  singer?: Singer;
 
-  song: Song|null = null;
+  song?: Song;
 
   state: PerformanceState = PerformanceState.Unknown;
   

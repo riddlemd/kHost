@@ -10,9 +10,7 @@ export class SingersManagerComponent implements OnInit {
 
   singers: Singer[] = [];
 
-  private _selectedSinger: Singer|null = null;
-  get selectedSinger() { return this._selectedSinger; }
-  set selectedSinger(song: Singer|null) {this._selectedSinger = song; }
+  selectedSinger?: Singer;
 
   constructor(private _singersProvider: SingersProvider) { }
 

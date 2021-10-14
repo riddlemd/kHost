@@ -10,9 +10,9 @@ import { QueuedSinger } from 'src/app/models/QueuedSinger';
 export class SingerPerformanceHistoryComponent {
 
   @Input()
-  selectedQueuedSinger: QueuedSinger|null = null;
+  selectedQueuedSinger?: QueuedSinger;
 
-  selectedSingerPerformance: SingerPerformance|null = null;
+  selectedSingerPerformance?: SingerPerformance;
 
   performanceHistory: SingerPerformance[] = [];
 
