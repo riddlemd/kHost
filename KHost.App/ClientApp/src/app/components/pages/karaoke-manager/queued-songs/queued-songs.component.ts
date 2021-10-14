@@ -34,6 +34,9 @@ export class QueuedSongsComponent implements OnChanges {
     this.getQueuedSongsAndSongsForQueuedSinger(this.selectedQueuedSinger)
       .then(queuedSongs => {
         this.queuedSongs = queuedSongs;
+      })
+      .catch(() => {
+        this.queuedSongs = [];
       });
   }
 
