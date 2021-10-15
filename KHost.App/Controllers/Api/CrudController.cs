@@ -32,9 +32,9 @@ namespace KHost.App.Controllers.Api
         [HttpGet]
         public virtual async Task<IActionResult> Read([FromQuery] GenericPaginatedRequest request)
         {
-            var queuedSingers = await DefaultRepository.Read(request.Count, request.Offset);
+            var entities = await DefaultRepository.Read(request.Count, request.Offset);
 
-            var response = new ApiResponse(queuedSingers);
+            var response = new ApiResponse(entities);
 
             return Ok(response);
         }
