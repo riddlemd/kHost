@@ -62,6 +62,7 @@ import { HttpQueuedSingersProvider } from './services/providers/Http/HttpQueuedS
 import { HttpQueuedSongsProvider } from './services/providers/Http/HttpQueuedSongsProvider';
 import { HttpSongsProvider } from './services/providers/Http/HttpSongsProvider';
 import { HttpSingersProvider } from './services/providers/Http/HttpSingersProvider';
+import { HttpVenuesProvider } from './services/providers/Http/HttpVenuesProvider';
 // Configs
 import { AppConfig, AppConfigInstance } from './app.config';
 
@@ -120,7 +121,7 @@ import { AppConfig, AppConfigInstance } from './app.config';
     [{ provide: SongsProvider, useClass: HttpSongsProvider }],
     [{ provide: SingersProvider, useClass: HttpSingersProvider }],
     [{ provide: SongSearchProvider, useClass: HttpSongSearchProvider}],
-    [{ provide: VenuesProvider, useClass: MockVenuesProvider }],
+    [{ provide: VenuesProvider, useClass: HttpVenuesProvider }],
     [{ provide: SingerPerformancesProvider, useClass: MockSingerPerformanceProvider}],
     [{ provide: KhEventsProvider, useClass: MockKhEventsProvider }]
   ],

@@ -15,7 +15,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Newtonsoft.Json.Serialization;
 
 namespace KHost.App
 {
@@ -46,6 +45,7 @@ namespace KHost.App
                 .AddTransient<IQueuedSingersRepository, SqlQueuedSingerRepository>()
                 .AddTransient<IQueuedSongsRepository, SqlQueuedSongRepository>()
                 .AddTransient<ISongSearchRepository, SqlSongSearchRepository>()
+                .AddTransient<IVenuesRepository, SqlVenuesRepository>()
                 // Others
                 .AddTransient<IUnitOfWork, UnitOfWork>()
                 // ASP.NET CORE

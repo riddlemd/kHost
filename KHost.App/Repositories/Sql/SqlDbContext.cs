@@ -13,6 +13,8 @@ namespace KHost.App.Repositories.Sql
         
         public virtual DbSet<Song> Songs { get; set; }
 
+        public virtual DbSet<Venue> Venues { get; set; }
+
         public SqlDbContext(DbContextOptions<SqlDbContext> options) : base(options)
         {
             
