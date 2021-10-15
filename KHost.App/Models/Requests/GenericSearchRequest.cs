@@ -1,5 +1,4 @@
-﻿
-namespace KHost.App.Models.Requests
+﻿namespace KHost.App.Models.Requests
 {
     public class GenericSearchRequest : GenericPaginatedRequest
     {

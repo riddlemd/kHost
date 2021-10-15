@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace KHost.App.Models
+﻿namespace KHost.App.Models
 {
     public class Singer : BaseModel, IModelWithId
     {
