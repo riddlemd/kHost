@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using KHost.App.Repositories;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,11 @@ namespace KHost.App.Controllers.Api
     [ApiController]
     public abstract class BaseApiController : ControllerBase
     {
-        
+        protected IUnitOfWork UnitOfWork { get; }
+
+        public BaseApiController(IUnitOfWork unitOfWork)
+        {
+            UnitOfWork = unitOfWork;
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using KHost.App.Models.Requests;
 using KHost.App.Models.Responses;
 using KHost.App.Providers;
+using KHost.App.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -10,7 +11,7 @@ namespace KHost.App.Controllers.Api
     {
         protected SongSearchProvider SongSearchProvider { get; }
 
-        public SongSearchController(SongSearchProvider songSearchProvider)
+        public SongSearchController(SongSearchProvider songSearchProvider, IUnitOfWork unitOfWork) : base(unitOfWork)
         {
             SongSearchProvider = songSearchProvider;
         }
