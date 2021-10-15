@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Routing;
 using System.Text.RegularExpressions;
 
-namespace KHost.App.Routing
+namespace KHost.Common.Routing
 {
     public class DashedParameterTransformer : IOutboundParameterTransformer
     {

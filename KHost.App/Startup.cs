@@ -4,7 +4,7 @@ using KHost.App.Models.Responses;
 using KHost.App.Providers;
 using KHost.App.Repositories;
 using KHost.App.Repositories.Sql;
-using KHost.App.Routing;
+using KHost.Common.Routing;
 using KHost.Common.Http;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
