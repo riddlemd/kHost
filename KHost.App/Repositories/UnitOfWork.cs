@@ -15,7 +15,8 @@ namespace KHost.App.Repositories
             IQueuedSingersRepository queuedSingersRepository,
             IQueuedSongsRepository queuedSongsRepository,
             ISingersRepository singersRepository,
-            ISongsRepository songsRepository
+            ISongsRepository songsRepository,
+            IVenuesRepository venuesRepositry
         )
         {
             Context = context;
@@ -23,6 +24,7 @@ namespace KHost.App.Repositories
             Repositories.Add(queuedSongsRepository);
             Repositories.Add(singersRepository);
             Repositories.Add(songsRepository);
+            Repositories.Add(venuesRepositry);
         }
 
         public IEnumerable<IRepository> GetRepositories() => Repositories.ToArray();
