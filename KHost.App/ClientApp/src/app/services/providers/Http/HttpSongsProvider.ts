@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { AppConfig } from 'src/app/app.config';
 import { Song } from 'src/app/models/Song';
 import { SongsProvider } from '../SongsProvider';
@@ -48,7 +47,7 @@ export class HttpSongsProvider implements SongsProvider {
         throw new Error('Method not implemented.');
     }
 
-    async update(singer: Song): Promise<void> {
+    async update(song: Song): Promise<void> {
         throw new Error('Method not implemented.');
     }
 
