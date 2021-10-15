@@ -1,12 +1,12 @@
 ﻿using KHost.Common.Models;
-using KHost.App.Repositories;
+using KHost.Common.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace KHost.App.Providers
+namespace KHost.Common.Providers
 {
     public class SongSearchProvider
     {

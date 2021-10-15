@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace KHost.App.Repositories
+namespace KHost.Common.Repositories
 {
     public interface IQueueRepository<TModel> : IRepository<TModel>
         where TModel : class, IModelWithId, IModelWithPosition

@@ -1,7 +1,7 @@
 ﻿using KHost.Common.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace KHost.App.Repositories.Sql
+namespace KHost.Common.Repositories.Sql
 {
     public class SqlDbContext : DbContext
     {

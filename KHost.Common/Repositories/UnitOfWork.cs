@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 
-namespace KHost.App.Repositories
+namespace KHost.Common.Repositories
 {
     public class UnitOfWork : IUnitOfWork
     {

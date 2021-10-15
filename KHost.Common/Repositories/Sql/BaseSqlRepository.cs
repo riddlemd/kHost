@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace KHost.App.Repositories.Sql
+namespace KHost.Common.Repositories.Sql
 {
     public abstract class BaseSqlRepository<TModel> : IRepository<TModel>
         where TModel : class, IModelWithId

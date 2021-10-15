@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace KHost.App.Repositories
+namespace KHost.Common.Repositories
 {
     public interface IUnitOfWork : IDisposable
     {

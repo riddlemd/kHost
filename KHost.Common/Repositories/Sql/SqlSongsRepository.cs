@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace KHost.App.Repositories.Sql
+namespace KHost.Common.Repositories.Sql
 {
     public class SqlSongsRepository : BaseSqlRepository<Song>, ISongsRepository
     {

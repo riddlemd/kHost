@@ -1,6 +1,6 @@
 ﻿using KHost.Common.Models;
 using KHost.App.Models.Responses;
-using KHost.App.Repositories;
+using KHost.Common.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;

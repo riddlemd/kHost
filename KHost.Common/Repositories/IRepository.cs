@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace KHost.App.Repositories
+namespace KHost.Common.Repositories
 {
     public interface IRepository<TModel> : IRepository
         where TModel : class, IModelWithId

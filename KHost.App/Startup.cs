@@ -1,8 +1,8 @@
 using KHost.App.Configuration;
 using KHost.App.Models.Responses;
-using KHost.App.Providers;
-using KHost.App.Repositories;
-using KHost.App.Repositories.Sql;
+using KHost.Common.Providers;
+using KHost.Common.Repositories;
+using KHost.Common.Repositories.Sql;
 using KHost.Common.Routing;
 using KHost.Common.Http;
 using KHost.Common.ErrorHandling;
