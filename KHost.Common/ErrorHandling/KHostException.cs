@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Net;
-using System.Runtime.Serialization;
 
-namespace KHost.App.ErrorHandling
+namespace KHost.Common.ErrorHandling
 {
     public class KHostException : Exception
     {

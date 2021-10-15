@@ -1,11 +1,11 @@
 using KHost.App.Configuration;
-using KHost.App.ErrorHandling;
 using KHost.App.Models.Responses;
 using KHost.App.Providers;
 using KHost.App.Repositories;
 using KHost.App.Repositories.Sql;
 using KHost.Common.Routing;
 using KHost.Common.Http;
+using KHost.Common.ErrorHandling;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
