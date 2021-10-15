@@ -119,10 +119,10 @@ import { AppConfig, AppConfigInstance } from './app.config';
     [{ provide: QueuedSingersProvider, useClass: HttpQueuedSingersProvider }],
     [{ provide: SongsProvider, useClass: HttpSongsProvider }],
     [{ provide: SingersProvider, useClass: HttpSingersProvider }],
+    [{ provide: SongSearchProvider, useClass: HttpSongSearchProvider}],
     [{ provide: VenuesProvider, useClass: MockVenuesProvider }],
-    [{ provide: KhEventsProvider, useClass: MockKhEventsProvider }],
     [{ provide: SingerPerformancesProvider, useClass: MockSingerPerformanceProvider}],
-    [{ provide: SongSearchProvider, useClass: HttpSongSearchProvider}]
+    [{ provide: KhEventsProvider, useClass: MockKhEventsProvider }]
   ],
   bootstrap: [AppComponent]
 })
