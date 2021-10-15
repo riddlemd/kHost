@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace KHost.App.Models
+namespace KHost.Common.Models
 {
     public class QueuedSinger : BaseModel, IModelWithPosition, IModelWithId
     {

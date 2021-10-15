@@ -1,9 +1,5 @@
-﻿using KHost.App.Models;
+﻿using KHost.Common.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace KHost.App.Repositories.Sql
 {

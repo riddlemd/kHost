@@ -1,4 +1,4 @@
-﻿using KHost.App.Models;
+﻿using KHost.Common.Models;
 
 namespace KHost.App.Repositories
 {

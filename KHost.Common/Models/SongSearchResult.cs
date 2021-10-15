@@ -1,4 +1,4 @@
-﻿namespace KHost.App.Models
+﻿namespace KHost.Common.Models
 {
     public class SongSearchResult : BaseModel
     {

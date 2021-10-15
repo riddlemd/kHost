@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace KHost.App.Models
+namespace KHost.Common.Models
 {
     public abstract class BaseModel : ICloneable
     {

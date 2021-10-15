@@ -1,4 +1,4 @@
-﻿using KHost.App.Models;
+﻿using KHost.Common.Models;
 using KHost.App.Models.Responses;
 using KHost.App.Repositories;
 using Microsoft.AspNetCore.Mvc;
