@@ -43,4 +43,8 @@ export abstract class QueuedSingersProvider {
     moveDown(queuedSinger: QueuedSinger): Promise<void> {
         throw ("Not Implemented");
     }
+
+    moveBefore(beforeQueuedSinger: QueuedSinger, queuedSinger: QueuedSinger): Promise<void> {
+        throw ("Not Implemented");
+    }
 }

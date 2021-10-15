@@ -23,7 +23,13 @@ namespace KHost.App.Controllers.Api
             return Ok(response);
         }
 
-        // Queue Methods
+        #region CRUD Methods
+
+        public override Task<IActionResult> Update([FromBody] QueuedSinger entity) => throw new System.NotSupportedException();
+
+        #endregion 
+
+        #region Queue Methods
 
         [HttpPost]
         public async Task<IActionResult> MoveUp([FromBody] GenericIdRequest request)
@@ -68,5 +74,18 @@ namespace KHost.App.Controllers.Api
 
             return Ok(response);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> MoveBefore([FromBody] MoveBeforeRequest request)
+        {
+            var newPosition = await UnitOfWork.GetRepository<IQueuedSingersRepository>().MoveBefore(request.BeforeId, request.Id);
+            UnitOfWork.Complete();
+
+            var response = new ApiResponse();
+
+            return Ok(response);
+        }
+
+        #endregion
     }
 }

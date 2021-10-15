@@ -96,6 +96,10 @@ export class MockQueuedSingersProvider implements QueuedSingersProvider {
         });
     }
 
+    moveBefore(beforeQueuedSinger: QueuedSinger, queuedSinger: QueuedSinger): Promise<void> {
+        throw ("Not Implemented");
+    }
+
     private async generateQueuedSingers(): Promise<void> {
         console.info(`Generating QueuedSingers`);
         

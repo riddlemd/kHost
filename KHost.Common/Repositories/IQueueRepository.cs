@@ -12,7 +12,7 @@ namespace KHost.Common.Repositories
 
         abstract protected DbContext Context { get; }
 
-        public virtual async Task<float> MoveUp(int id)
+        public async Task<float> MoveUp(int id)
         {
             var entity = await GetById(id);
 
@@ -27,7 +27,7 @@ namespace KHost.Common.Repositories
             return entity.Position;
         }
 
-        public virtual async Task<float> MoveDown(int id)
+        public async Task<float> MoveDown(int id)
         {
             var entity = await GetById(id);
 
@@ -42,7 +42,7 @@ namespace KHost.Common.Repositories
             return entity.Position;
         }
 
-        public virtual async Task<float> MoveToTop(int id)
+        public async Task<float> MoveToTop(int id)
         {
             var entity = await GetById(id);
 
@@ -57,7 +57,7 @@ namespace KHost.Common.Repositories
             return entity.Position;
         }
 
-        public virtual async Task<float> MoveToBottom(int id)
+        public async Task<float> MoveToBottom(int id)
         {
             var entity = await GetById(id);
 
@@ -66,6 +66,21 @@ namespace KHost.Common.Repositories
             if (lastEntity == entity) return entity.Position;
 
             entity.Position = lastEntity.Position + PositionIncrement;
+
+            await Save();
+
+            return entity.Position;
+        }
+
+        public async Task<float> MoveBefore(int beforeId, int id)
+        {
+            var entity = await GetById(id);
+
+            var beforeEntity = await GetById(beforeId);
+
+            if (beforeEntity == entity) return entity.Position;
+
+            entity.Position = beforeEntity.Position - PositionIncrement;
 
             await Save();
 

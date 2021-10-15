@@ -46,10 +46,26 @@ export class QueuedSingersComponent implements OnInit {
   }
 
   async drop(e: CdkDragDrop<string[]>): Promise<void> {
-    console.info(e);
-    var isMovingUp = e.previousIndex > e.currentIndex;
+    if(e.currentIndex == e.previousIndex) return;
+
+    const nextIndex = e.currentIndex + 1;
 
     this.queuedSingers.move(e.previousIndex, e.currentIndex);
+
+    const queuedSinger = this.queuedSingers[e.currentIndex];
+
+    if(nextIndex >= this.queuedSingers.length) {
+      await this._queuedSingersProvider.moveToBottom(queuedSinger);
+      return;
+    }
+    else if(e.currentIndex <= 0) {
+      await this._queuedSingersProvider.moveToTop(queuedSinger);
+      return;
+    }
+
+    var nextQueuedSinger = this.queuedSingers[e.currentIndex + 1]
+
+    await this._queuedSingersProvider.moveBefore(nextQueuedSinger, queuedSinger);
   }
 
   async moveToTop(queuedSinger: QueuedSinger): Promise<void> {
