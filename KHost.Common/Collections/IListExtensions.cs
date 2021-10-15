@@ -4,32 +4,37 @@ namespace KHost.Common.Collections
 {
     public static class IListExtensions
     {
-        public static void Move<T>(this IList<T> list, int oldIndex, int newIndex)
+        public static IList<T> Move<T>(this IList<T> list, int oldIndex, int newIndex)
         {
-            if (oldIndex == newIndex)
-                return;
+            if (oldIndex == newIndex) return list;
 
             T item = list[oldIndex];
             list.RemoveAt(oldIndex);
             list.Insert(newIndex, item);
+
+            return list;
         }
 
-        public static void MoveToFirst<T>(this IList<T> list, int oldIndex)
+        public static IList<T> MoveToFirst<T>(this IList<T> list, int oldIndex)
         {
             if (oldIndex == 0)
-                return;
+                return list;
 
             list.Move(oldIndex, 0);
+
+            return list;
         }
 
-        public static void MoveToLast<T>(this IList<T> list, int oldIndex)
+        public static IList<T> MoveToLast<T>(this IList<T> list, int oldIndex)
         {
             var newIndex = list.Count - 1;
 
             if (oldIndex == newIndex)
-                return;
+                return list;
 
             list.Move(oldIndex, newIndex);
+
+            return list;
         }
     }
 }

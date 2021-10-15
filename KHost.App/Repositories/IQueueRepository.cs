@@ -1,8 +1,6 @@
 ﻿using KHost.App.Models;
 using KHost.Common.Collections;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -11,78 +9,86 @@ namespace KHost.App.Repositories
     public interface IQueueRepository<TModel> : IRepository<TModel>
         where TModel : class, IModelWithId, IModelWithPosition
     {
+        private static float PositionIncrement { get; } = 0.0001f; 
+
         abstract protected DbContext Context { get; }
 
-        protected void RecalculatePositions(List<TModel> models)
-        {
-            var i = 0;
-            models.ForEach(qs => qs.Position = i++);
-        }
-
-        protected async Task<List<TModel>> GetInOrder() => await Context.Set<TModel>().OrderBy(e => e.Position).ToListAsync();
-
-        public virtual async Task<int> MoveUp(int id)
+        public virtual async Task<float> MoveUp(int id)
         {
             var entity = await GetById(id);
 
-            var entities = await GetInOrder();
+            var prevEntity = await GetPrevEntity(entity);
 
-            var index = entity.Position - 1;
+            if (prevEntity == null) return entity.Position;
 
-            entities.Move(index, index - 1);
-
-            RecalculatePositions(entities);
+            entity.Position = prevEntity.Position - PositionIncrement;
 
             await Save();
 
             return entity.Position;
         }
 
-        public virtual async Task<int> MoveDown(int id)
+        public virtual async Task<float> MoveDown(int id)
         {
             var entity = await GetById(id);
 
-            var entities = await GetInOrder();
+            var nextEntity = await GetNextEntity(entity);
 
-            var index = entity.Position - 1;
+            if (nextEntity == null) return entity.Position;
 
-            entities.Move(index, index + 1);
-
-            RecalculatePositions(entities);
+            entity.Position = nextEntity.Position + PositionIncrement;
 
             await Save();
 
             return entity.Position;
         }
 
-        public virtual async Task<int> MoveToTop(int id)
+        public virtual async Task<float> MoveToTop(int id)
         {
             var entity = await GetById(id);
 
-            var entities = await GetInOrder();
+            var firstEntity = await GetFirstEntity();
 
-            entities.MoveToFirst(entity.Position);
+            if (firstEntity == entity) return entity.Position;
 
-            RecalculatePositions(entities);
+            entity.Position = firstEntity.Position - PositionIncrement;
 
             await Save();
 
             return entity.Position;
         }
 
-        public virtual async Task<int> MoveToBottom(int id)
+        public virtual async Task<float> MoveToBottom(int id)
         {
             var entity = await GetById(id);
 
-            var entities = await GetInOrder();
+            var lastEntity = await GetLastEntity();
 
-            entities.MoveToLast(entity.Position);
+            if (lastEntity == entity) return entity.Position;
 
-            RecalculatePositions(entities);
+            entity.Position = lastEntity.Position + PositionIncrement;
 
             await Save();
 
             return entity.Position;
         }
+
+        private async Task<TModel> GetFirstEntity() => await Context.Set<TModel>()
+            .OrderBy(e => e.Position)
+            .FirstOrDefaultAsync();
+
+        private async Task<TModel> GetLastEntity() => await Context.Set<TModel>()
+            .OrderByDescending(e => e.Position)
+            .FirstOrDefaultAsync();
+
+        private async Task<TModel> GetPrevEntity(TModel entity) => await Context.Set<TModel>()
+            .Where(e => e.Position < entity.Position)
+            .OrderByDescending(e => e.Position)
+            .FirstOrDefaultAsync();
+
+        private async Task<TModel> GetNextEntity(TModel entity) => await Context.Set<TModel>()
+            .Where(e => e.Position > entity.Position)
+            .OrderBy(e => e.Position)
+            .FirstOrDefaultAsync();
     }
 }

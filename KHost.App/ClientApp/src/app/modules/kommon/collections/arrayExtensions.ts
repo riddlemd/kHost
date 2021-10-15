@@ -29,6 +29,9 @@ Array.prototype.move = function (startIndex: number, endIndex: number) {
 
 Array.prototype.moveTowardStart = function (item: any) {
     let startIndex = this.indexOf(item);
+
+    if(startIndex == 0) return this;
+
     let endIndex = startIndex - 1;
     this.move(startIndex, endIndex);
     return this;
@@ -37,6 +40,9 @@ Array.prototype.moveTowardStart = function (item: any) {
 Array.prototype.moveTowardEnd = function (item: any) {
     let startIndex = this.indexOf(item);
     let endIndex = startIndex + 1;
+
+    if(endIndex >= this.length) return this;
+
     this.move(startIndex, endIndex);
     return this;
 }

@@ -7,6 +7,6 @@ namespace KHost.App.Models
 {
     public interface IModelWithPosition
     {
-        public int Position { get; set; }
+        public float Position { get; set; }
     }
 }

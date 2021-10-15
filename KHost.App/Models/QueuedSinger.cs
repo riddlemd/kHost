@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace KHost.App.Models
 {
@@ -10,7 +6,7 @@ namespace KHost.App.Models
     {
         public int? Id { get; set; }
 
-        public int Position { get; set; }
+        public float Position { get; set; }
 
         public int SingerId { get; set; }
 

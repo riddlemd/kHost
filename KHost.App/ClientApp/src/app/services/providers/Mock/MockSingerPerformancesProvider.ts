@@ -83,11 +83,11 @@ export class MockSingerPerformanceProvider implements SingerPerformancesProvider
 
                 const song = songs[Math.randomBetween(1, songs.length)];
 
-                if(!song.id) continue;
+                if(!song?.id) continue;
 
                 const venue = venues[Math.randomBetween(1, venues.length)];
 
-                if(!venue.id) continue;
+                if(!venue?.id) continue;
 
                 const singerPerformance = new SingerPerformance({
                     id: i,

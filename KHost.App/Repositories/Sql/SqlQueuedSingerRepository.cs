@@ -17,7 +17,10 @@ namespace KHost.App.Repositories.Sql
 
         public override async Task<IEnumerable<QueuedSinger>> Read(int? count = null, int? offset = null)
         {
-            var queuedSingers = await base.Read(count, offset);
+            var query = BuildReadQuery(count, offset)
+                .OrderBy(qs => qs.Position);
+
+            var queuedSingers = await query.ToArrayAsync();
 
             foreach(var queuedSinger in queuedSingers)
             {

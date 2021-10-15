@@ -8,6 +8,6 @@
 
         public int QueuedSingerId { get; set; }
 
-        public int Position { get; set; }
+        public float Position { get; set; }
     }
 }

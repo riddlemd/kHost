@@ -18,9 +18,19 @@ namespace KHost.App.Repositories.Sql
         public async Task<IEnumerable<QueuedSong>> GetByQueuedSingerId(int id)
         {
             var queuedSongs = Context.Set<QueuedSong>()
-                .Where(qs => qs.QueuedSingerId == id);
+                .Where(qs => qs.QueuedSingerId == id)
+                .OrderBy(qs => qs.Position);
 
             return await queuedSongs.ToListAsync();
+        }
+
+        protected override IQueryable<QueuedSong> BuildReadQuery(int? count = null, int? offset = null)
+        {
+            var query = base.BuildReadQuery(count, offset)
+                .OrderBy(qs => qs.Position);
+
+
+            return query;
         }
     }
 }

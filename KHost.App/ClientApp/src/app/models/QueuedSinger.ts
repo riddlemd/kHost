@@ -10,16 +10,20 @@ export class QueuedSinger {
   
   queuedSongsCount: number;
 
+  position: number;
+
   constructor({
     singerId,
     singer,
     id,
-    queuedSongsCount
+    queuedSongsCount,
+    position
   }: parameters) {
     this.singerId = singerId;
     this.singer = singer;
     this.id = id;
     this.queuedSongsCount = queuedSongsCount ?? 0;
+    this.position = position ?? 1;
   }
 }
 
@@ -27,5 +31,6 @@ interface parameters {
   singerId: number,
   singer: Singer,
   id: number,
-  queuedSongsCount?: number
+  queuedSongsCount?: number,
+  position?: number
 }
