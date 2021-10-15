@@ -10,7 +10,7 @@ export abstract class QueuedSingersProvider {
 
     // CRUD Methods
 
-    create(singer: Singer): Promise<number> {
+    create(queuedSinger: QueuedSinger): Promise<number> {
         throw("Not Implemented");
     }
 
@@ -18,7 +18,7 @@ export abstract class QueuedSingersProvider {
         throw("Not Implemented");
     }
 
-    update(singer: Singer): Promise<void> {
+    update(queuedSinger: QueuedSinger): Promise<void> {
         throw("Not Implemented");
     }
     

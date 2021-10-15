@@ -18,30 +18,54 @@ export class HttpQueuedSingersProvider implements QueuedSingersProvider {
 
     // CRUD Methods
 
-    async create(singer: Singer): Promise<number> {
-        throw new Error('Method not implemented.');
+    async create(queuedSinger: QueuedSinger): Promise<number> {
+        const url = `${this._config.apiUrl}${HttpQueuedSingersProvider.ENDPOINT}/create`;
+
+        try {
+            const response: any = await this._httpClient.post<QueuedSinger[]>(url, queuedSinger).toPromise();
+            const id: number = response?.id;
+
+            return id;
+        }
+        catch(exception) {
+            throw("Unable to Create QueuedSinger");
+        }
     }
 
     async read(count?: number, offset?: number): Promise<QueuedSinger[]> {
         const url = `${this._config.apiUrl}${HttpQueuedSingersProvider.ENDPOINT}/read`;
 
+        const options: any = { params: {} };
+
+        if(count) options.params.count = count;
+
+        if(offset) options.params.offset = offset;
+
         try {
-            const response: any = await this._httpClient.get<QueuedSinger[]>(url).toPromise();
+            const response: any = await this._httpClient.get(url, options).toPromise();
             const queuedSingers: QueuedSinger[] = response?.queuedSingers;
 
             return queuedSingers;
         }
         catch(exception) {
-            throw("Unable to get QueuedSingers");
+            throw("Unable to Read QueuedSingers");
         }
     }
 
-    async update(singer: Singer): Promise<void> {
+    async update(queuedSinger: QueuedSinger): Promise<void> {
+        // This provider is not expected to implement this.
         throw new Error('Method not implemented.');
     }
     
     async delete(queuedSinger: QueuedSinger): Promise<void> {
-        throw new Error('Method not implemented.');
+        const url = `${this._config.apiUrl}${HttpQueuedSingersProvider.ENDPOINT}/delete`;
+
+        try {
+            await this._httpClient.post(url, queuedSinger).toPromise();
+        }
+        catch(exception) {
+            throw("Unable to Delete QueuedSinger");
+        }
     }
 
     // Queue Methods
@@ -54,7 +78,7 @@ export class HttpQueuedSingersProvider implements QueuedSingersProvider {
         };
 
         try {
-            const response: any = await this._httpClient.post<QueuedSinger[]>(url, data).toPromise();
+            await this._httpClient.post(url, data).toPromise();
         }
         catch(exception) {
             
@@ -69,7 +93,7 @@ export class HttpQueuedSingersProvider implements QueuedSingersProvider {
         };
 
         try {
-            await this._httpClient.post<QueuedSinger[]>(url, data).toPromise();
+            await this._httpClient.post(url, data).toPromise();
         }
         catch(exception) {
 
@@ -84,7 +108,7 @@ export class HttpQueuedSingersProvider implements QueuedSingersProvider {
         };
 
         try {
-            await this._httpClient.post<QueuedSinger[]>(url, data).toPromise();
+            await this._httpClient.post(url, data).toPromise();
         }
         catch(exception) {
 
@@ -99,7 +123,7 @@ export class HttpQueuedSingersProvider implements QueuedSingersProvider {
         };
 
         try {
-            await this._httpClient.post<QueuedSinger[]>(url, data).toPromise();
+            await this._httpClient.post(url, data).toPromise();
         }
         catch(exception) {
             

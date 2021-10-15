@@ -14,10 +14,6 @@ export class HttpVenuesProvider implements VenuesProvider {
     ) {
         
     }
-    
-    async search(query: string, count?: number, offset?: number): Promise<Venue[]> {
-        throw new Error('Method not implemented.');
-    }
 
     async getByIds(ids: number[]): Promise<Venue[]> {
         const url = `${this._config.apiUrl}${HttpVenuesProvider.ENDPOINT}/get-by-ids`;
@@ -29,7 +25,29 @@ export class HttpVenuesProvider implements VenuesProvider {
         };
 
         try {
-            const response: any = await this._httpClient.get<Venue[]>(url, options).toPromise();
+            const response: any = await this._httpClient.get(url, options).toPromise();
+            const venues = response?.venues;
+            
+            return venues;
+        }
+        catch(exception) {
+
+        }
+
+        return [];
+    }
+
+    async search(query: string, count?: number, offset?: number): Promise<Venue[]> {
+        const url = `${this._config.apiUrl}${HttpVenuesProvider.ENDPOINT}/search`;
+
+        const options: any = {
+            params: {
+                query: query
+            }
+        };
+
+        try {
+            const response: any = await this._httpClient.get(url, options).toPromise();
             const venues = response?.venues;
             
             return venues;
@@ -44,11 +62,17 @@ export class HttpVenuesProvider implements VenuesProvider {
     // CRUD Methods
 
     async create(venue: Venue): Promise<number> {
-        throw new Error('Method not implemented.');
-    }
+        const url = `${this._config.apiUrl}${HttpVenuesProvider.ENDPOINT}/create`;
 
-    async update(venue: Venue): Promise<void> {
-        throw new Error('Method not implemented.');
+        try {
+            const response: any = await this._httpClient.post(url, venue).toPromise();
+            const id: number = response?.id;
+
+            return id;
+        }
+        catch(exception) {
+            throw("Unable to Create Song");
+        }
     }
 
     async read(venue?: number, offset?: number): Promise<Venue[]> {
@@ -59,7 +83,7 @@ export class HttpVenuesProvider implements VenuesProvider {
         };
 
         try {
-            const response: any = await this._httpClient.get<Venue[]>(url, options).toPromise();
+            const response: any = await this._httpClient.get(url, options).toPromise();
             const venues = response?.venues;
             
             return venues;
@@ -71,7 +95,25 @@ export class HttpVenuesProvider implements VenuesProvider {
         return [];
     }
 
+    async update(venue: Venue): Promise<void> {
+        const url = `${this._config.apiUrl}${HttpVenuesProvider.ENDPOINT}/update`;
+
+        try {
+            await this._httpClient.post(url, venue).toPromise();
+        }
+        catch(exception) {
+            throw("Unable to Update Venue");
+        }
+    }
+
     async delete(venue: Venue): Promise<void> {
-        throw new Error('Method not implemented.');
+        const url = `${this._config.apiUrl}${HttpVenuesProvider.ENDPOINT}/delete`;
+
+        try {
+            await this._httpClient.post(url, venue).toPromise();
+        }
+        catch(exception) {
+            throw("Unable to Delete Venue");
+        }
     }
 }

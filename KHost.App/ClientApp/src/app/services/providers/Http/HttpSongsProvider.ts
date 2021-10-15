@@ -14,10 +14,6 @@ export class HttpSongsProvider implements SongsProvider {
     ) {
         
     }
-    
-    async search(query: string, count?: number, offset?: number): Promise<Song[]> {
-        throw new Error('Method not implemented.');
-    }
 
     async getByIds(ids: number[]): Promise<Song[]> {
         const url = `${this._config.apiUrl}${HttpSongsProvider.ENDPOINT}/get-by-ids`;
@@ -29,7 +25,29 @@ export class HttpSongsProvider implements SongsProvider {
         };
 
         try {
-            const response: any = await this._httpClient.get<Song[]>(url, options).toPromise();
+            const response: any = await this._httpClient.get(url, options).toPromise();
+            const songs = response?.songs;
+            
+            return songs;
+        }
+        catch(exception) {
+
+        }
+
+        return [];
+    }
+
+    async search(query: string, count?: number, offset?: number): Promise<Song[]> {
+        const url = `${this._config.apiUrl}${HttpSongsProvider.ENDPOINT}/search`;
+
+        const options: any = {
+            params: {
+                query: query
+            }
+        };
+
+        try {
+            const response: any = await this._httpClient.get(url, options).toPromise();
             const songs = response?.songs;
             
             return songs;
@@ -44,11 +62,17 @@ export class HttpSongsProvider implements SongsProvider {
     // CRUD Methods
 
     async create(song: Song): Promise<number> {
-        throw new Error('Method not implemented.');
-    }
+        const url = `${this._config.apiUrl}${HttpSongsProvider.ENDPOINT}/create`;
 
-    async update(song: Song): Promise<void> {
-        throw new Error('Method not implemented.');
+        try {
+            const response: any = await this._httpClient.post(url, song).toPromise();
+            const id: number = response?.id;
+
+            return id;
+        }
+        catch(exception) {
+            throw("Unable to Create Song");
+        }
     }
 
     async read(count?: number, offset?: number): Promise<Song[]> {
@@ -59,7 +83,7 @@ export class HttpSongsProvider implements SongsProvider {
         };
 
         try {
-            const response: any = await this._httpClient.get<Song[]>(url, options).toPromise();
+            const response: any = await this._httpClient.get(url, options).toPromise();
             const songs = response?.songs;
             
             return songs;
@@ -71,7 +95,25 @@ export class HttpSongsProvider implements SongsProvider {
         return [];
     }
 
+    async update(song: Song): Promise<void> {
+        const url = `${this._config.apiUrl}${HttpSongsProvider.ENDPOINT}/update`;
+
+        try {
+            await this._httpClient.post(url, song).toPromise();
+        }
+        catch(exception) {
+            throw("Unable to Update Song");
+        }
+    }
+
     async delete(song: Song): Promise<void> {
-        throw new Error('Method not implemented.');
+        const url = `${this._config.apiUrl}${HttpSongsProvider.ENDPOINT}/delete`;
+
+        try {
+            await this._httpClient.post(url, song).toPromise();
+        }
+        catch(exception) {
+            throw("Unable to Delete Song");
+        }
     }
 }

@@ -18,7 +18,25 @@ export class HttpSingersProvider implements SingersProvider {
     }
 
     async getById(id: number): Promise<Singer | undefined> {
-        throw new Error("Method not implemented.");
+        const url = `${this._config.apiUrl}${HttpSingersProvider.ENDPOINT}/get-by-id`;
+
+        const options: any = {
+            params: {
+                id: id
+            }
+        };
+
+        try {
+            const response: any = await this._httpClient.get(url, options).toPromise();
+            const singer = response?.singer;
+
+            return singer;
+        }
+        catch(exception) {
+
+        }
+
+        return undefined;
     }
 
     async getByIds(ids: number[]): Promise<Singer[]> {
@@ -31,7 +49,7 @@ export class HttpSingersProvider implements SingersProvider {
         };
 
         try {
-            const response: any = await this._httpClient.get<Singer[]>(url, options).toPromise();
+            const response: any = await this._httpClient.get(url, options).toPromise();
             const singers = response?.singers;
 
             return singers;
@@ -44,13 +62,45 @@ export class HttpSingersProvider implements SingersProvider {
     }
 
     async search(query: string, venue?: Venue, count?: number, offset?: number): Promise<Singer[]> {
-        throw new Error("Method not implemented.");
+        const url = `${this._config.apiUrl}${HttpSingersProvider.ENDPOINT}/search`;
+
+        const options: any = {
+            params: {
+                query: query
+            }
+        };
+
+        if(count) options.params.count = count;
+
+        if(offset) options.params.offset = offset;
+
+        try {
+            const response: any = await this._httpClient.get(url, options).toPromise();
+            const singers = response?.singers;
+
+            return singers;
+        }
+        catch(exception) {
+
+        }
+
+        return [];
     }
 
     // CRUD Methods
 
     async create(singer: Singer): Promise<number> {
-        throw new Error("Method not implemented.");
+        const url = `${this._config.apiUrl}${HttpSingersProvider.ENDPOINT}/create`;
+
+        try {
+            const response: any = await this._httpClient.post(url, singer).toPromise();
+            const id: number = response?.id;
+
+            return id;
+        }
+        catch(exception) {
+            throw("Unable to Create Singer");
+        }
     }
 
     async read(count?: number, offset?: number): Promise<Singer[]> {
@@ -63,7 +113,7 @@ export class HttpSingersProvider implements SingersProvider {
         if(offset) options.params.offset = offset;
 
         try {
-            const response: any = await this._httpClient.get<Singer[]>(url, options).toPromise();
+            const response: any = await this._httpClient.get(url, options).toPromise();
             const singers = response?.singers;
 
             return singers;
@@ -76,10 +126,24 @@ export class HttpSingersProvider implements SingersProvider {
     }
 
     async update(singer: Singer): Promise<void> {
-        throw new Error("Method not implemented.");
+        const url = `${this._config.apiUrl}${HttpSingersProvider.ENDPOINT}/update`;
+
+        try {
+            await this._httpClient.post(url, singer).toPromise();
+        }
+        catch(exception) {
+            throw("Unable to Update Singer");
+        }
     }
 
     async delete(singer: Singer): Promise<void> {
-        throw new Error("Method not implemented.");
+        const url = `${this._config.apiUrl}${HttpSingersProvider.ENDPOINT}/delete`;
+
+        try {
+            await this._httpClient.post(url, singer).toPromise();
+        }
+        catch(exception) {
+            throw("Unable to Delete Singer");
+        }
     }
 }

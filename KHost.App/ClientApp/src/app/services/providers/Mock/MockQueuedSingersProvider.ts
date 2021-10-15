@@ -17,7 +17,7 @@ export class MockQueuedSingersProvider implements QueuedSingersProvider {
 
     // CRUD Methods
 
-    create(singer: Singer): Promise<number> {
+    create(queuedSinger: QueuedSinger): Promise<number> {
         throw new Error('Method not implemented.');
     }
 
@@ -32,7 +32,7 @@ export class MockQueuedSingersProvider implements QueuedSingersProvider {
         });
     }
 
-    update(singer: Singer): Promise<void> {
+    update(queuedSinger: QueuedSinger): Promise<void> {
         throw new Error('Method not implemented.');
     }
     

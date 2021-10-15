@@ -45,7 +45,10 @@ export class QueuedSingersComponent implements OnInit {
     this.populateSingers();
   }
 
-  drop(e: CdkDragDrop<string[]>): void {
+  async drop(e: CdkDragDrop<string[]>): Promise<void> {
+    console.info(e);
+    var isMovingUp = e.previousIndex > e.currentIndex;
+
     this.queuedSingers.move(e.previousIndex, e.currentIndex);
   }
 
@@ -89,13 +92,11 @@ export class QueuedSingersComponent implements OnInit {
       if(existingQueuedSinger?.singer?.id == singer.id) return;
     }
 
-    var newQueuedSingerId = await this._queuedSingersProvider.create(singer);
-    
     const queuedSinger = new QueuedSinger({
-      id: newQueuedSingerId,
       singerId: singer.id,
-      singer: singer
     });
+
+    queuedSinger.id = await this._queuedSingersProvider.create(queuedSinger);
     
     this.queuedSingers.push(queuedSinger);
   }
@@ -112,8 +113,6 @@ export class QueuedSingersComponent implements OnInit {
       if(!singer?.id) continue;
 
       queuedSinger.singer = singer
-
-      console.info(queuedSinger);
     }
   }
 

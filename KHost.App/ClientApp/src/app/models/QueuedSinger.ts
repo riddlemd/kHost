@@ -29,8 +29,8 @@ export class QueuedSinger {
 
 interface parameters {
   singerId: number,
-  singer: Singer,
-  id: number,
+  singer?: Singer,
+  id?: number,
   queuedSongsCount?: number,
   position?: number
 }
