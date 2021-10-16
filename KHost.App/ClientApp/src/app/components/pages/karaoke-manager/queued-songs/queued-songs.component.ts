@@ -44,8 +44,27 @@ export class QueuedSongsComponent implements OnChanges {
     return this.queuedSongs?.length ?? 0;
   }
 
-  drop(e: CdkDragDrop<string[]>): void {
+  async drop(e: CdkDragDrop<string[]>): Promise<void> {
+    if(e.currentIndex == e.previousIndex) return;
+
+    const nextIndex = e.currentIndex + 1;
+
     this.queuedSongs.move(e.previousIndex, e.currentIndex);
+
+    const queuedSong = this.queuedSongs[e.currentIndex];
+
+    if(nextIndex >= this.queuedSongs.length) {
+      await this._queuedSongsProvider.moveToBottom(queuedSong);
+      return;
+    }
+    else if(e.currentIndex <= 0) {
+      await this._queuedSongsProvider.moveToTop(queuedSong);
+      return;
+    }
+
+    var nextQueuedSinger = this.queuedSongs[e.currentIndex + 1]
+
+    await this._queuedSongsProvider.moveBefore(nextQueuedSinger, queuedSong);
   }
 
   async moveToTop(queuedSong: QueuedSong): Promise<void> {
