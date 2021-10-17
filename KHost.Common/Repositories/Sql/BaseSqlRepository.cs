@@ -10,9 +10,9 @@ namespace KHost.Common.Repositories.Sql
     public abstract class BaseSqlRepository<TModel> : IRepository<TModel>
         where TModel : class, IModelWithId
     {
-        protected virtual DbContext Context { get; }
+        protected virtual KHostDbContext Context { get; }
 
-        protected BaseSqlRepository(DbContext context)
+        protected BaseSqlRepository(KHostDbContext context)
         {
             Context = context;
         }

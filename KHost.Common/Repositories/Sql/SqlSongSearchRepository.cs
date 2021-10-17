@@ -19,7 +19,7 @@ namespace KHost.Common.Repositories.Sql
 
         protected virtual DbContext Context { get; }
 
-        public SqlSongSearchRepository(DbContext context)
+        public SqlSongSearchRepository(KHostDbContext context)
         {
             Context = context;
         }

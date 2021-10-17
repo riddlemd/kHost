@@ -1,9 +1,9 @@
 ﻿using KHost.Common.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace KHost.Common.Repositories.Sql
+namespace KHost.Common.Repositories
 {
-    public class SqlDbContext : DbContext
+    public class KHostDbContext : DbContext
     {
         public virtual DbSet<QueuedSinger> QueuedSingers { get; set; }
 
@@ -15,7 +15,7 @@ namespace KHost.Common.Repositories.Sql
 
         public virtual DbSet<Venue> Venues { get; set; }
 
-        public SqlDbContext(DbContextOptions<SqlDbContext> options) : base(options)
+        public KHostDbContext(DbContextOptions<KHostDbContext> options) : base(options)
         {
             
         }

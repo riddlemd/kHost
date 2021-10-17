@@ -36,7 +36,7 @@ namespace KHost.App
                 .Configure<SingerOptions>(Configuration.GetSection("Singers"))
                 .Configure<SongOptions>(Configuration.GetSection("Songs"))
                 // Database
-                .AddDbContextPool<DbContext, SqlDbContext>(options => options.UseSqlite(Configuration.GetConnectionString("Default")))
+                .AddDbContextPool<KHostDbContext>(options => options.UseSqlite(Configuration.GetConnectionString("Default")))
                 // Providers
                 .AddTransient<SongSearchProvider>()
                 // Repositories

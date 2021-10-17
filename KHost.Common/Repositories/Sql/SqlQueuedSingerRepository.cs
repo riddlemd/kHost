@@ -8,7 +8,7 @@ namespace KHost.Common.Repositories.Sql
 {
     public class SqlQueuedSingerRepository : BaseSqlRepository<QueuedSinger>, IQueuedSingersRepository
     {
-        public SqlQueuedSingerRepository(DbContext context) : base(context)
+        public SqlQueuedSingerRepository(KHostDbContext context) : base(context)
         {
             
         }
