@@ -8,7 +8,7 @@ namespace KHost.Common.Repositories.EF
 {
     public class EFQueuedSingerRepository : BaseEFRepository<QueuedSinger>, IQueuedSingersRepository
     {
-        public EFQueuedSingerRepository(KHostDbContext context) : base(context)
+        public EFQueuedSingerRepository(DatabaseContext context) : base(context)
         {
             
         }

@@ -19,7 +19,7 @@ namespace KHost.Common.Repositories.EF
 
         protected virtual DbContext Context { get; }
 
-        public EFSongSearchRepository(KHostDbContext context)
+        public EFSongSearchRepository(DatabaseContext context)
         {
             Context = context;
         }

@@ -10,9 +10,9 @@ namespace KHost.Common.Repositories.EF
     public abstract class BaseEFRepository<TModel> : IRepository<TModel>
         where TModel : class, IModelWithId
     {
-        protected virtual KHostDbContext Context { get; }
+        protected virtual DbContext Context { get; }
 
-        protected BaseEFRepository(KHostDbContext context)
+        protected BaseEFRepository(DbContext context)
         {
             Context = context;
         }
@@ -52,7 +52,7 @@ namespace KHost.Common.Repositories.EF
 
         public virtual Task<int> Save() => Context.SaveChangesAsync();
 
-        //
+        #region Query Building Methods
 
         protected virtual IQueryable<TModel> BuildReadQuery(int? count = null, int? offset = null)
         {
@@ -82,5 +82,7 @@ namespace KHost.Common.Repositories.EF
 
             return query;
         }
+
+        #endregion
     }
 }

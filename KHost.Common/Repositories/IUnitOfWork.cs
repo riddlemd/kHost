@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace KHost.Common.Repositories
 {
@@ -9,6 +10,6 @@ namespace KHost.Common.Repositories
 
         public TRepository GetRepository<TRepository>() where TRepository : class;
 
-        int Complete();
+        Task Complete();
     }
 }

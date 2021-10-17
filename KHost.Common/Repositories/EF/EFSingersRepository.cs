@@ -8,7 +8,7 @@ namespace KHost.Common.Repositories.EF
 {
     public class EFSingersRepository : BaseEFRepository<Singer>, ISingersRepository
     {
-        public EFSingersRepository(KHostDbContext context) : base(context)
+        public EFSingersRepository(DatabaseContext context) : base(context)
         {
 
         }

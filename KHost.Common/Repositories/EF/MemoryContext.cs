@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace KHost.Common.Repositories.EF
 {
-    public class InMemoryEFRepository<TModel> : BaseEFRepository<TModel>
-        where TModel : class, IModelWithId
+    public class MemoryContext : DbContext
     {
+        public virtual DbSet<Download> Downloads { get; set; }
 
-        public InMemoryEFRepository(MemoryContext memoryContext) : base(memoryContext)
+        public MemoryContext(DbContextOptions<MemoryContext> options) : base(options)
         {
 
         }

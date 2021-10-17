@@ -4,7 +4,7 @@ namespace KHost.Common.Repositories.EF
 {
     public class EFVenuesRepository : BaseEFRepository<Venue>, IVenuesRepository
     {
-        public EFVenuesRepository(KHostDbContext context) : base(context)
+        public EFVenuesRepository(DatabaseContext context) : base(context)
         {
 
         }

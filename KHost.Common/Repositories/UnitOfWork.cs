@@ -1,16 +1,20 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using KHost.Common.Repositories.EF;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace KHost.Common.Repositories
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private KHostDbContext Context { get; }
+        private DatabaseContext DatabaseContext { get; }
+
+        private MemoryContext MemoryContext { get; }
 
         private List<IRepository> Repositories { get; } = new List<IRepository>();
 
         public UnitOfWork(
-            KHostDbContext context,
+            DatabaseContext databaseContext,
+            MemoryContext memoryContext,
             IQueuedSingersRepository queuedSingersRepository,
             IQueuedSongsRepository queuedSongsRepository,
             ISingersRepository singersRepository,
@@ -19,7 +23,8 @@ namespace KHost.Common.Repositories
             IDownloadsRepository downloadsRepository
         )
         {
-            Context = context;
+            DatabaseContext = databaseContext;
+            MemoryContext = memoryContext;
             Repositories.Add(queuedSingersRepository);
             Repositories.Add(queuedSongsRepository);
             Repositories.Add(singersRepository);
@@ -42,11 +47,21 @@ namespace KHost.Common.Repositories
             return null;
         }
 
-        public int Complete() => Context.SaveChanges();
+        public async Task Complete()
+        {
+            var tasks = new List<Task>
+            {
+                DatabaseContext.SaveChangesAsync(),
+                MemoryContext.SaveChangesAsync()
+            };
+
+            await Task.WhenAll(tasks);
+        }
 
         public void Dispose()
         {
-            Context.Dispose();
+            DatabaseContext.Dispose();
+            MemoryContext.Dispose();
         }
     }
 }
