@@ -15,6 +15,8 @@ namespace KHost.Common.Repositories
 
         public virtual DbSet<Venue> Venues { get; set; }
 
+        public virtual DbSet<Download> Downloads { get; set; }
+
         public KHostDbContext(DbContextOptions<KHostDbContext> options) : base(options)
         {
             
