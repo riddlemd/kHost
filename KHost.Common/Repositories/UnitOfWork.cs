@@ -5,12 +5,12 @@ namespace KHost.Common.Repositories
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private DbContext Context { get; }
+        private KHostDbContext Context { get; }
 
         private List<IRepository> Repositories { get; } = new List<IRepository>();
 
         public UnitOfWork(
-            DbContext context,
+            KHostDbContext context,
             IQueuedSingersRepository queuedSingersRepository,
             IQueuedSongsRepository queuedSongsRepository,
             ISingersRepository singersRepository,
