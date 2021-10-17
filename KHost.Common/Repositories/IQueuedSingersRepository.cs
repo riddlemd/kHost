@@ -4,6 +4,6 @@ namespace KHost.Common.Repositories
 {
     public interface IQueuedSingersRepository : IQueueRepository<QueuedSinger>
     {
-
+        
     }
 }

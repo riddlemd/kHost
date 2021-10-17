@@ -22,7 +22,7 @@ namespace KHost.Common.Repositories
 
             entity.Position = prevEntity.Position - PositionIncrement;
 
-            await Save();
+            await Context.SaveChangesAsync();
 
             return entity.Position;
         }
@@ -37,7 +37,7 @@ namespace KHost.Common.Repositories
 
             entity.Position = nextEntity.Position + PositionIncrement;
 
-            await Save();
+            await Context.SaveChangesAsync();
 
             return entity.Position;
         }
@@ -52,7 +52,7 @@ namespace KHost.Common.Repositories
 
             entity.Position = firstEntity.Position - PositionIncrement;
 
-            await Save();
+            await Context.SaveChangesAsync();
 
             return entity.Position;
         }
@@ -67,7 +67,7 @@ namespace KHost.Common.Repositories
 
             entity.Position = lastEntity.Position + PositionIncrement;
 
-            await Save();
+            await Context.SaveChangesAsync();
 
             return entity.Position;
         }
@@ -82,7 +82,7 @@ namespace KHost.Common.Repositories
 
             entity.Position = beforeEntity.Position - PositionIncrement;
 
-            await Save();
+            await Context.SaveChangesAsync();
 
             return entity.Position;
         }
