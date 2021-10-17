@@ -46,6 +46,7 @@ namespace KHost.App
                 .AddTransient<IQueuedSongsRepository, EFQueuedSongRepository>()
                 .AddTransient<ISongSearchRepository, EFSongSearchRepository>()
                 .AddTransient<IVenuesRepository, EFVenuesRepository>()
+                .AddTransient<IDownloadsRepository, EFDownloadsRepository> ()
                 // Others
                 .AddTransient<IUnitOfWork, UnitOfWork>()
                 // ASP.NET CORE
