@@ -5,13 +5,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace KHost.Common.Repositories.Sql
+namespace KHost.Common.Repositories.EF
 {
-    public class SqlSongSearchRepository : IRepository, ISongSearchRepository
+    public class EFSongSearchRepository : IRepository, ISongSearchRepository
     {
         public SongSearchEngine EngineDefinition { get; } = new SongSearchEngine
         {
-            Name = nameof(SqlSongSearchRepository),
+            Name = nameof(EFSongSearchRepository),
             DisplayName = "Local",
             IsLocal = true,
             AllowDownload = false
@@ -19,7 +19,7 @@ namespace KHost.Common.Repositories.Sql
 
         protected virtual DbContext Context { get; }
 
-        public SqlSongSearchRepository(KHostDbContext context)
+        public EFSongSearchRepository(KHostDbContext context)
         {
             Context = context;
         }
@@ -27,7 +27,7 @@ namespace KHost.Common.Repositories.Sql
         public async Task<IEnumerable<SongSearchResult>> Search(string searchQuery, int? count, int? offset)
         {
             var query = Context.Set<Song>().AsQueryable()
-                .Where(song => EF.Functions.Like(song.Name, searchQuery) || EF.Functions.Like(song.BandName, searchQuery));
+                .Where(song => Microsoft.EntityFrameworkCore.EF.Functions.Like(song.Name, searchQuery) || Microsoft.EntityFrameworkCore.EF.Functions.Like(song.BandName, searchQuery));
 
             if (offset != null)
                 query = query.Skip((int)offset);

@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace KHost.Common.Repositories.Sql
+namespace KHost.Common.Repositories.EF
 {
-    public class SqlQueuedSingerRepository : BaseSqlRepository<QueuedSinger>, IQueuedSingersRepository
+    public class EFQueuedSingerRepository : BaseEFRepository<QueuedSinger>, IQueuedSingersRepository
     {
-        public SqlQueuedSingerRepository(KHostDbContext context) : base(context)
+        public EFQueuedSingerRepository(KHostDbContext context) : base(context)
         {
             
         }

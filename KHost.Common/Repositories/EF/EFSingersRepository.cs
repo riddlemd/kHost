@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace KHost.Common.Repositories.Sql
+namespace KHost.Common.Repositories.EF
 {
-    public class SqlSingersRepository : BaseSqlRepository<Singer>, ISingersRepository
+    public class EFSingersRepository : BaseEFRepository<Singer>, ISingersRepository
     {
-        public SqlSingersRepository(KHostDbContext context) : base(context)
+        public EFSingersRepository(KHostDbContext context) : base(context)
         {
 
         }
@@ -16,7 +16,7 @@ namespace KHost.Common.Repositories.Sql
         public async Task<IEnumerable<Singer>> Search(string searchQuery, int? count, int? offset)
         {
             var query = Context.Set<Singer>().AsQueryable()
-                .Where(singer => EF.Functions.Like(singer.Name, searchQuery));
+                .Where(singer => Microsoft.EntityFrameworkCore.EF.Functions.Like(singer.Name, searchQuery));
 
             if (offset != null)
                 query = query.Skip((int)offset);

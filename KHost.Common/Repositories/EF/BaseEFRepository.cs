@@ -5,14 +5,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace KHost.Common.Repositories.Sql
+namespace KHost.Common.Repositories.EF
 {
-    public abstract class BaseSqlRepository<TModel> : IRepository<TModel>
+    public abstract class BaseEFRepository<TModel> : IRepository<TModel>
         where TModel : class, IModelWithId
     {
         protected virtual KHostDbContext Context { get; }
 
-        protected BaseSqlRepository(KHostDbContext context)
+        protected BaseEFRepository(KHostDbContext context)
         {
             Context = context;
         }

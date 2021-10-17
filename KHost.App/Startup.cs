@@ -2,7 +2,7 @@ using KHost.App.Configuration;
 using KHost.App.Models.Responses;
 using KHost.Common.Providers;
 using KHost.Common.Repositories;
-using KHost.Common.Repositories.Sql;
+using KHost.Common.Repositories.EF;
 using KHost.Common.Routing;
 using KHost.Common.Http;
 using KHost.Common.ErrorHandling;
@@ -40,12 +40,12 @@ namespace KHost.App
                 // Providers
                 .AddTransient<SongSearchProvider>()
                 // Repositories
-                .AddTransient<ISongsRepository, SqlSongsRepository>()
-                .AddTransient<ISingersRepository, SqlSingersRepository>()
-                .AddTransient<IQueuedSingersRepository, SqlQueuedSingerRepository>()
-                .AddTransient<IQueuedSongsRepository, SqlQueuedSongRepository>()
-                .AddTransient<ISongSearchRepository, SqlSongSearchRepository>()
-                .AddTransient<IVenuesRepository, SqlVenuesRepository>()
+                .AddTransient<ISongsRepository, EFSongsRepository>()
+                .AddTransient<ISingersRepository, EFSingersRepository>()
+                .AddTransient<IQueuedSingersRepository, EFQueuedSingerRepository>()
+                .AddTransient<IQueuedSongsRepository, EFQueuedSongRepository>()
+                .AddTransient<ISongSearchRepository, EFSongSearchRepository>()
+                .AddTransient<IVenuesRepository, EFVenuesRepository>()
                 // Others
                 .AddTransient<IUnitOfWork, UnitOfWork>()
                 // ASP.NET CORE
