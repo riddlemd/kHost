@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace KHost.Common.Providers
 {
-    public class SongSearchProvider
+    public class DefaultSongSearchProvider : ISongSearchProvider
     {
         private ISongSearchRepository[] SongSearchRepositories { get; }
 
-        public SongSearchProvider(IServiceProvider services)
+        public DefaultSongSearchProvider(IServiceProvider services)
         {
             SongSearchRepositories = services.GetServices<ISongSearchRepository>().ToArray();
         }
@@ -26,11 +26,11 @@ namespace KHost.Common.Providers
             return songSearchResults;
         }
 
-        public IEnumerable<SongSearchEngine> GetSongSearchEngineDefinitions()=> SongSearchRepositories.Select(r => r.EngineDefinition);
+        public IEnumerable<SongSearchEngine> GetSongSearchEngineDefinitions() => SongSearchRepositories.Select(r => r.EngineDefinition);
 
         private ISongSearchRepository GetSongSearchRepositry(string typeName)
         {
-            foreach(var songSearchRepository in SongSearchRepositories)
+            foreach (var songSearchRepository in SongSearchRepositories)
             {
                 if (songSearchRepository.GetType().Name == typeName)
                     return songSearchRepository;

@@ -11,9 +11,9 @@ namespace KHost.App.Controllers.Api
 {
     public class SongSearchController : BaseApiController
     {
-        protected SongSearchProvider SongSearchProvider { get; }
+        protected ISongSearchProvider SongSearchProvider { get; }
 
-        public SongSearchController(SongSearchProvider songSearchProvider)
+        public SongSearchController(ISongSearchProvider songSearchProvider)
         {
             SongSearchProvider = songSearchProvider;
         }
