@@ -4,6 +4,7 @@ using KHost.App.Models.Responses;
 using KHost.Common.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace KHost.App.Controllers.Api
 {
@@ -19,7 +20,7 @@ namespace KHost.App.Controllers.Api
         {
             var singers = await UnitOfWork.GetRepository<ISingersRepository>().GetByIds(request.GetIdsAsInts());
 
-            var results = new ApiResponse(singers);
+            var results = new ApiResponse<IEnumerable<Singer>>(singers);
 
             return Ok(results);
         }
@@ -29,7 +30,7 @@ namespace KHost.App.Controllers.Api
         {
             var singers = await UnitOfWork.GetRepository<ISingersRepository>().Search(request.Query, request.Count, request.Offset);
 
-            var results = new ApiResponse(singers);
+            var results = new ApiResponse<IEnumerable<Singer>>(singers);
 
             return Ok(results);
         }

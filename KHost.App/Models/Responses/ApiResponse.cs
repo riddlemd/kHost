@@ -9,23 +9,47 @@ using System.Runtime.Serialization;
 namespace KHost.App.Models.Responses
 {
     [Serializable]
-    public class ApiResponse : DynamicObject, ISerializable
+    public class ApiResponse : ISerializable
     {
-        private IDictionary<string, object> Properties { get; } = new Dictionary<string, object>();
-
         public bool Success { get; set; } = true;
 
-        public ApiResponse()
+        public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
+            foreach (var property in GetType().GetProperties())
+            {
+                var camelizedKey = property.Name[0].ToString().ToLower() + property.Name[1..];
+                info.AddValue(camelizedKey, property.GetValue(this));
+            }
+        }
+    }
 
+    [Serializable]
+    public class ApiResponse<TModel> : ApiResponse
+        where TModel : class
+    {
+        public TModel Object { get; }
+
+        private readonly string _objectName;
+
+        public ApiResponse(TModel obj)
+        {
+            _objectName = GetPropertyNameFromObject(obj);
+            Object = obj;
         }
 
-        public ApiResponse(object obj)
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            Properties.Add(GetPropertyNameFromObject(obj), obj);
+            if(Object != null)
+            {
+                info.AddValue(_objectName, Object);
+            }
+
+            base.GetObjectData(info, context);
         }
 
-        private string GetPropertyNameFromObject(object obj)
+        #region Static
+
+        private static string GetPropertyNameFromObject(object obj)
         {
             if (obj is IEnumerable objs)
             {
@@ -35,33 +59,6 @@ namespace KHost.App.Models.Responses
             }
 
             return obj.GetType().Name;
-        }
-
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            // Get dynamic properties
-            foreach(var kv in Properties)
-            {
-                var camelizedKey = kv.Key[0].ToString().ToLower() + kv.Key[1..];
-                info.AddValue(camelizedKey, kv.Value);
-            }
-
-            // Get standard class properties
-            foreach(var property in GetType().GetProperties())
-            {
-                var camelizedKey = property.Name[0].ToString().ToLower() + property.Name[1..];
-                info.AddValue(camelizedKey, property.GetValue(this));
-            }
-        }
-
-        #region Dynamic Object Overrides
-
-        public override bool TryGetMember(GetMemberBinder binder, out object result) => Properties.TryGetValue(binder.Name, out result);
-
-        public override bool TrySetMember(SetMemberBinder binder, object value)
-        {
-            Properties[binder.Name] = value;
-            return true;
         }
 
         #endregion

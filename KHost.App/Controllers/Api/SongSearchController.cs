@@ -1,8 +1,10 @@
 ﻿using KHost.App.Models.Requests;
 using KHost.App.Models.Responses;
+using KHost.Common.Models;
 using KHost.Common.Providers;
 using KHost.Common.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace KHost.App.Controllers.Api
@@ -21,7 +23,7 @@ namespace KHost.App.Controllers.Api
         {
             var songSearchResults = await SongSearchProvider.Search(request.Query, request.Engine, request.Count, request.Offset);
 
-            var response = new ApiResponse(songSearchResults);
+            var response = new ApiResponse<IEnumerable<SongSearchResult>>(songSearchResults);
 
             return Ok(response);
         }
@@ -31,7 +33,7 @@ namespace KHost.App.Controllers.Api
         {
             var songSearchEngines = SongSearchProvider.GetSongSearchEngineDefinitions();
 
-            var response = new ApiResponse (songSearchEngines);
+            var response = new ApiResponse<IEnumerable<SongSearchEngine>>(songSearchEngines);
 
             return Ok(response);
         }

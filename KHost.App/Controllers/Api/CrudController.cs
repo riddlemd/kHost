@@ -4,6 +4,7 @@ using KHost.App.Models.Responses;
 using KHost.Common.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace KHost.App.Controllers.Api
 {
@@ -24,7 +25,7 @@ namespace KHost.App.Controllers.Api
             await DefaultRepository.Create(entity);
             await DefaultRepository.Save();
 
-            var response = new ApiResponse(entity);
+            var response = new ApiResponse<TModel>(entity);
 
             return Ok(response);
         }
@@ -34,7 +35,7 @@ namespace KHost.App.Controllers.Api
         {
             var entities = await DefaultRepository.Read(request.Count, request.Offset);
 
-            var response = new ApiResponse(entities);
+            var response = new ApiResponse<IEnumerable<TModel>>(entities);
 
             return Ok(response);
         }

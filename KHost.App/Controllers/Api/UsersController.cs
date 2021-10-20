@@ -19,7 +19,7 @@ namespace KHost.App.Controllers.Api
         {
             var accessKey = Guid.NewGuid().ToString();
 
-            var response = new ApiResponse(new User()
+            var response = new ApiResponse<User>(new User()
             {
                 Username = loginRequest.Username,
                 AccessKey = accessKey

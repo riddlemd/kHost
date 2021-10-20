@@ -18,13 +18,14 @@ namespace KHost.App.Controllers.Api
         {
             var singer = await UnitOfWork.GetRepository<IQueuedSingersRepository>().GetById(request.Id);
 
-            var response = new ApiResponse(singer);
+            var response = new ApiResponse<QueuedSinger>(singer);
 
             return Ok(response);
         }
 
         #region CRUD Methods
 
+        // Not expected to be implemented.
         public override Task<IActionResult> Update([FromBody] QueuedSinger entity) => throw new System.NotSupportedException();
 
         #endregion 
@@ -35,7 +36,7 @@ namespace KHost.App.Controllers.Api
         public async Task<IActionResult> MoveUp([FromBody] GenericIdRequest request)
         {
             var newPosition = await UnitOfWork.GetRepository<IQueuedSingersRepository>().MoveUp(request.Id);
-            UnitOfWork.Complete();
+            await UnitOfWork.Complete();
 
             var response = new ApiResponse();
 
@@ -46,7 +47,7 @@ namespace KHost.App.Controllers.Api
         public async Task<IActionResult> MoveDown([FromBody] GenericIdRequest request)
         {
             var newPosition = await UnitOfWork.GetRepository<IQueuedSingersRepository>().MoveDown(request.Id);
-            UnitOfWork.Complete();
+            await UnitOfWork.Complete();
 
             var response = new ApiResponse();
 
@@ -57,7 +58,7 @@ namespace KHost.App.Controllers.Api
         public async Task<IActionResult> MoveToTop([FromBody] GenericIdRequest request)
         {
             var newPosition = await UnitOfWork.GetRepository<IQueuedSingersRepository>().MoveToTop(request.Id);
-            UnitOfWork.Complete();
+            await UnitOfWork .Complete();
 
             var response = new ApiResponse();
 
@@ -68,7 +69,7 @@ namespace KHost.App.Controllers.Api
         public async Task<IActionResult> MoveToBottom([FromBody] GenericIdRequest request)
         {
             var newPosition = await UnitOfWork.GetRepository<IQueuedSingersRepository>().MoveToBottom(request.Id);
-            UnitOfWork.Complete();
+            await UnitOfWork .Complete();
 
             var response = new ApiResponse();
 
@@ -79,7 +80,7 @@ namespace KHost.App.Controllers.Api
         public async Task<IActionResult> MoveBefore([FromBody] MoveBeforeRequest request)
         {
             var newPosition = await UnitOfWork.GetRepository<IQueuedSingersRepository>().MoveBefore(request.BeforeId, request.Id);
-            UnitOfWork.Complete();
+            await UnitOfWork .Complete();
 
             var response = new ApiResponse();
 
