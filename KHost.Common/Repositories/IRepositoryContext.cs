@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace KHost.Common.Repositories
 {
-    public interface IRepositoryContext:  IDisposable
+    public interface IRepositoryContext : IDisposable
     {
         Task<bool> Save();
     }
