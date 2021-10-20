@@ -9,7 +9,7 @@ namespace KHost.App.Controllers.Api
 {
     public class UsersController : BaseApiController
     {
-        public UsersController(IUnitOfWork unitOfWork) : base(unitOfWork)
+        public UsersController()
         {
 
         }

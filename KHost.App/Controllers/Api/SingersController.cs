@@ -10,7 +10,7 @@ namespace KHost.App.Controllers.Api
 {
     public class SingersController : CrudController<Singer, ISingersRepository>
     {
-        public SingersController(IUnitOfWork unitOfWork) : base(unitOfWork)
+        public SingersController(ISingersRepository defaultRepository) : base(defaultRepository)
         {
 
         }
@@ -18,21 +18,21 @@ namespace KHost.App.Controllers.Api
         [HttpGet]
         public async Task<IActionResult> GetByIds([FromQuery] GenericIdsRequest request)
         {
-            var singers = await UnitOfWork.GetRepository<ISingersRepository>().GetByIds(request.GetIdsAsInts());
+            var singers = await DefaultRepository.GetByIds(request.GetIdsAsInts());
 
-            var results = new ApiResponse<IEnumerable<Singer>>(singers);
+            var response = new ApiResponse<IEnumerable<Singer>>(singers);
 
-            return Ok(results);
+            return Ok(response);
         }
 
         [HttpGet]
         public async Task<IActionResult> Search([FromQuery] GenericSearchRequest request)
         {
-            var singers = await UnitOfWork.GetRepository<ISingersRepository>().Search(request.Query, request.Count, request.Offset);
+            var singers = await DefaultRepository.Search(request.Query, request.Count, request.Offset);
 
-            var results = new ApiResponse<IEnumerable<Singer>>(singers);
+            var response = new ApiResponse<IEnumerable<Singer>>(singers);
 
-            return Ok(results);
+            return Ok(response);
         }
     }
 }

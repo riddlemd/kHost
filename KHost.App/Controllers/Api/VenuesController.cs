@@ -5,7 +5,7 @@ namespace KHost.App.Controllers.Api
 {
     public class VenuesController : CrudController<Venue, IVenuesRepository>
     {
-        public VenuesController(IUnitOfWork unitOfWork) : base(unitOfWork)
+        public VenuesController(IVenuesRepository defaultRepository) : base(defaultRepository)
         {
 
         }

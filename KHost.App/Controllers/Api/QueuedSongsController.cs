@@ -10,7 +10,7 @@ namespace KHost.App.Controllers.Api
 {
     public class QueuedSongsController : CrudController<QueuedSong, IQueuedSongsRepository>
     {
-        public QueuedSongsController(IUnitOfWork unitOfWork) : base(unitOfWork)
+        public QueuedSongsController(IQueuedSongsRepository defaultRepository) : base(defaultRepository)
         {
             
         }
@@ -18,7 +18,7 @@ namespace KHost.App.Controllers.Api
         [HttpGet]
         public async Task<IActionResult> GetByQueuedSingerId([FromQuery] GenericIdRequest request)
         {
-            var queuedSongs = await UnitOfWork.GetRepository<IQueuedSongsRepository>().GetByQueuedSingerId(request.Id);
+            var queuedSongs = await DefaultRepository.GetByQueuedSingerId(request.Id);
 
             var response = new ApiResponse<IEnumerable<QueuedSong>>(queuedSongs);
 
@@ -37,8 +37,8 @@ namespace KHost.App.Controllers.Api
         [HttpPost]
         public async Task<IActionResult> MoveUp([FromBody] GenericIdRequest request)
         {
-            var newPosition = await UnitOfWork.GetRepository<IQueuedSongsRepository>().MoveUp(request.Id);
-            await UnitOfWork .Complete();
+            var newPosition = await DefaultRepository.MoveUp(request.Id);
+            await DefaultRepository.Save();
 
             var response = new ApiResponse();
 
@@ -48,8 +48,8 @@ namespace KHost.App.Controllers.Api
         [HttpPost]
         public async Task<IActionResult> MoveDown([FromBody] GenericIdRequest request)
         {
-            var newPosition = await UnitOfWork.GetRepository<IQueuedSongsRepository>().MoveDown(request.Id);
-            await UnitOfWork .Complete();
+            var newPosition = await DefaultRepository.MoveDown(request.Id);
+            await DefaultRepository.Save();
 
             var response = new ApiResponse();
 
@@ -59,8 +59,8 @@ namespace KHost.App.Controllers.Api
         [HttpPost]
         public async Task<IActionResult> MoveToTop([FromBody] GenericIdRequest request)
         {
-            var newPosition = await UnitOfWork.GetRepository<IQueuedSongsRepository>().MoveToTop(request.Id);
-            await UnitOfWork .Complete();
+            var newPosition = await DefaultRepository.MoveToTop(request.Id);
+            await DefaultRepository.Save();
 
             var response = new ApiResponse();
 
@@ -70,8 +70,8 @@ namespace KHost.App.Controllers.Api
         [HttpPost]
         public async Task<IActionResult> MoveToBottom([FromBody] GenericIdRequest request)
         {
-            var newPosition = await UnitOfWork.GetRepository<IQueuedSongsRepository>().MoveToBottom(request.Id);
-            await UnitOfWork .Complete();
+            var newPosition = await DefaultRepository.MoveToBottom(request.Id);
+            await DefaultRepository.Save();
 
             var response = new ApiResponse();
 
@@ -81,8 +81,8 @@ namespace KHost.App.Controllers.Api
         [HttpPost]
         public async Task<IActionResult> MoveBefore([FromBody] MoveBeforeRequest request)
         {
-            var newPosition = await UnitOfWork.GetRepository<IQueuedSongsRepository>().MoveBefore(request.BeforeId, request.Id);
-            await UnitOfWork .Complete();
+            var newPosition = await DefaultRepository.MoveBefore(request.BeforeId, request.Id);
+            await DefaultRepository.Save();
 
             var response = new ApiResponse();
 

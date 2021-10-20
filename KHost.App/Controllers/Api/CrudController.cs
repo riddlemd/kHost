@@ -12,11 +12,11 @@ namespace KHost.App.Controllers.Api
         where TModel : class, IModelWithId
         where TRepository : class, IRepository<TModel>
     {
-        private TRepository DefaultRepository { get; }
+        protected TRepository DefaultRepository { get; }
 
-        public CrudController(IUnitOfWork unitOfWork) : base(unitOfWork)
+        public CrudController(TRepository defaultRepository)
         {
-            DefaultRepository = UnitOfWork.GetRepository<TRepository>();
+            DefaultRepository = defaultRepository;
         }
 
         [HttpPost]

@@ -10,7 +10,7 @@ namespace KHost.App.Controllers.Api
 {
     public class SongsController : CrudController<Song, ISongsRepository>
     {
-        public SongsController(IUnitOfWork unitOfWork) : base(unitOfWork)
+        public SongsController(ISongsRepository defaultRepository) : base(defaultRepository)
         {
             
         }
@@ -18,21 +18,21 @@ namespace KHost.App.Controllers.Api
         [HttpGet]
         public async Task<IActionResult> GetByIds([FromQuery] GenericIdsRequest request)
         {
-            var songs = await UnitOfWork.GetRepository<ISongsRepository>().GetByIds(request.GetIdsAsInts());
+            var songs = await DefaultRepository.GetByIds(request.GetIdsAsInts());
 
-            var results = new ApiResponse<IEnumerable<Song>>(songs);
+            var response = new ApiResponse<IEnumerable<Song>>(songs);
 
-            return Ok(results);
+            return Ok(response);
         }
 
         [HttpGet]
         public async Task<IActionResult> Search([FromQuery] GenericSearchRequest request)
         {
-            var songs = await UnitOfWork.GetRepository<ISongsRepository>().Search(request.Query, request.Count, request.Offset);
+            var songs = await DefaultRepository.Search(request.Query, request.Count, request.Offset);
 
-            var results = new ApiResponse<IEnumerable<Song>>(songs);
+            var response = new ApiResponse<IEnumerable<Song>>(songs);
 
-            return Ok(results);
+            return Ok(response);
         }
     }
 }

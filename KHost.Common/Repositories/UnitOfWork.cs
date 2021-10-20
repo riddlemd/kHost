@@ -1,36 +1,21 @@
 ﻿using KHost.Common.Repositories.EF;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace KHost.Common.Repositories
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private DatabaseContext DatabaseContext { get; }
-
-        private MemoryContext MemoryContext { get; }
-
         private List<IRepository> Repositories { get; } = new List<IRepository>();
 
-        public UnitOfWork(
-            DatabaseContext databaseContext,
-            MemoryContext memoryContext,
-            IQueuedSingersRepository queuedSingersRepository,
-            IQueuedSongsRepository queuedSongsRepository,
-            ISingersRepository singersRepository,
-            ISongsRepository songsRepository,
-            IVenuesRepository venuesRepositry,
-            IDownloadsRepository downloadsRepository
-        )
+        public UnitOfWork RegisterRepository(IRepository repository)
         {
-            DatabaseContext = databaseContext;
-            MemoryContext = memoryContext;
-            Repositories.Add(queuedSingersRepository);
-            Repositories.Add(queuedSongsRepository);
-            Repositories.Add(singersRepository);
-            Repositories.Add(songsRepository);
-            Repositories.Add(venuesRepositry);
-            Repositories.Add(downloadsRepository);
+            if (!Repositories.Contains(repository))
+                Repositories.Add(repository);
+
+            return this;
         }
 
         public IEnumerable<IRepository> GetRepositories() => Repositories.ToArray();
@@ -49,19 +34,30 @@ namespace KHost.Common.Repositories
 
         public async Task Complete()
         {
-            var tasks = new List<Task>
+            var contexts = GetContexts();
+            var tasks = new List<Task>();
+
+            foreach(var context in contexts)
             {
-                DatabaseContext.SaveChangesAsync(),
-                MemoryContext.SaveChangesAsync()
-            };
+                tasks.Add(context.SaveChangesAsync());
+            }
 
             await Task.WhenAll(tasks);
         }
 
         public void Dispose()
         {
-            DatabaseContext.Dispose();
-            MemoryContext.Dispose();
+            var contexts = GetContexts();
+
+            foreach (var context in contexts)
+            {
+                context.Dispose();
+            }
         }
+
+        private IEnumerable<DbContext> GetContexts() => Repositories
+            .Where(r => r is IRepositoryWithDbContext)
+            .Select(r => (r as IRepositoryWithDbContext).Context)
+            .Distinct();
     }
 }

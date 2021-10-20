@@ -13,7 +13,7 @@ namespace KHost.App.Controllers.Api
     {
         protected SongSearchProvider SongSearchProvider { get; }
 
-        public SongSearchController(SongSearchProvider songSearchProvider, IUnitOfWork unitOfWork) : base(unitOfWork)
+        public SongSearchController(SongSearchProvider songSearchProvider)
         {
             SongSearchProvider = songSearchProvider;
         }

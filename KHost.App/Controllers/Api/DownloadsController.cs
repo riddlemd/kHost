@@ -5,7 +5,7 @@ namespace KHost.App.Controllers.Api
 {
     public class DownloadsController : CrudController<Download, IDownloadsRepository>
     {
-        public DownloadsController(IUnitOfWork unitOfWork) : base(unitOfWork)
+        public DownloadsController(IDownloadsRepository defaultRepository) : base(defaultRepository)
         {
         }
     }

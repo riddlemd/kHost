@@ -7,10 +7,12 @@ using System.Threading.Tasks;
 
 namespace KHost.Common.Repositories.EF
 {
-    public abstract class BaseEFRepository<TModel> : IRepository<TModel>
+    public abstract class BaseEFRepository<TModel> : IRepository<TModel>, IRepositoryWithDbContext
         where TModel : class, IModelWithId
     {
         protected virtual DbContext Context { get; }
+
+        DbContext IRepositoryWithDbContext.Context => Context;
 
         protected BaseEFRepository(DbContext context)
         {

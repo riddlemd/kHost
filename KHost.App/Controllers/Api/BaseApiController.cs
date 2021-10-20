@@ -7,11 +7,9 @@ namespace KHost.App.Controllers.Api
     [ApiController]
     public abstract class BaseApiController : ControllerBase
     {
-        protected IUnitOfWork UnitOfWork { get; }
-
-        public BaseApiController(IUnitOfWork unitOfWork)
+        public BaseApiController()
         {
-            UnitOfWork = unitOfWork;
+
         }
     }
 }
