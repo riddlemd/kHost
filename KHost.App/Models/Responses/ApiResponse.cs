@@ -1,8 +1,6 @@
 ﻿using KHost.Common.Text;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Dynamic;
 using System.Linq;
 using System.Runtime.Serialization;
 
@@ -17,6 +15,10 @@ namespace KHost.App.Models.Responses
         {
             foreach (var property in GetType().GetProperties())
             {
+                var shouldBeIgnored = property.GetCustomAttributes(true).Any(a => a is IgnoreDataMemberAttribute);
+
+                if (shouldBeIgnored) continue;
+
                 var camelizedKey = property.Name[0].ToString().ToLower() + property.Name[1..];
                 info.AddValue(camelizedKey, property.GetValue(this));
             }
@@ -27,6 +29,7 @@ namespace KHost.App.Models.Responses
     public class ApiResponse<TModel> : ApiResponse
         where TModel : class
     {
+        [IgnoreDataMember]
         public TModel Object { get; }
 
         private readonly string _objectName;
@@ -54,8 +57,8 @@ namespace KHost.App.Models.Responses
             if (obj is IEnumerable objs)
             {
                 var objsType = objs.GetType();
-
-                return objsType.GetElementType()?.Name.Pluralize() ?? objsType.GetGenericArguments().LastOrDefault()?.Name.Pluralize();
+                var name = objsType.GetElementType()?.Name.Pluralize() ?? objsType.GetGenericArguments().LastOrDefault()?.Name.Pluralize();
+                return name[0].ToString().ToLower() + name[1..];
             }
 
             return obj.GetType().Name;
