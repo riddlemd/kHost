@@ -62,7 +62,7 @@ namespace Khost.App.UnitTests.Tests.Controllers
         }
 
         [SkippableFact(typeof(NotSupportedException))]
-        public virtual async Task<ApiResponse> WhenNewEnityCreatedReturnsEntity()
+        public virtual async Task<ApiResponse> ShouldSuccessfullyCreateEntity()
         {
             // Arrange
             var request = CreateSampleEntity();
@@ -80,7 +80,7 @@ namespace Khost.App.UnitTests.Tests.Controllers
         }
 
         [SkippableFact(typeof(NotSupportedException))]
-        public virtual async Task<ApiResponse> WhenReadNoCountNoOffsetReturnsEntities()
+        public virtual async Task<ApiResponse> ShouldSuccessfullyReadEntities()
         {
             // Arrange
             var request = new GenericPaginatedRequest();
@@ -98,7 +98,7 @@ namespace Khost.App.UnitTests.Tests.Controllers
         }
 
         [SkippableFact(typeof(NotSupportedException))]
-        public virtual async Task<ApiResponse> WhenEntityUpdatedReturnsSuccessTrue()
+        public virtual async Task<ApiResponse> ShouldSuccessfullyUpdateEntity()
         {
             // Arrange
             var request = CreateSampleEntity();
@@ -115,7 +115,7 @@ namespace Khost.App.UnitTests.Tests.Controllers
         }
 
         [SkippableFact(typeof(NotSupportedException))]
-        public virtual async Task<ApiResponse> WhenEntityDeletedReturnsSuccessTrue()
+        public virtual async Task<ApiResponse> ShouldSuccessfullyDeleteEntity()
         {
             // Arrange
             var request = new GenericIdRequest
