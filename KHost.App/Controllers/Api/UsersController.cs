@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace KHost.App.Controllers.Api
 {
-    public class UsersController : BaseApiController
+    public class UsersController : CrudController<User, IUsersRepository>
     {
-        public UsersController()
+        public UsersController(IUsersRepository defaultRepository) : base(defaultRepository)
         {
 
         }
