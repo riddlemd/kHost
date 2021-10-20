@@ -14,5 +14,7 @@ namespace KHost.Common.Models
 
         [NotMapped]
         public int QueuedSongsCount { get; set; }
+
+        public override QueuedSinger Clone() => base.Clone() as QueuedSinger;
     }
 }

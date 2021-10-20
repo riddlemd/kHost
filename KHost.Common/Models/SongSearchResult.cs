@@ -10,6 +10,8 @@
 
         public string EngineName { get; set; }
 
-        public int? LengthInSeconds { get; set; } 
+        public int? LengthInSeconds { get; set; }
+
+        public override SongSearchResult Clone() => base.Clone() as SongSearchResult;
     }
 }

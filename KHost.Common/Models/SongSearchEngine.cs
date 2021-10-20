@@ -9,5 +9,7 @@
         public bool IsLocal { get; set; } = true;
 
         public bool AllowDownload { get; set; } = false;
+
+        public override SongSearchEngine Clone() => base.Clone() as SongSearchEngine;
     }
 }
