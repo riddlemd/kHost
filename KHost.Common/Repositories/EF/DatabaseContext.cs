@@ -1,9 +1,10 @@
 ﻿using KHost.Common.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace KHost.Common.Repositories.EF
 {
-    public class DatabaseContext : DbContext
+    public class DatabaseContext : BaseEFContext
     {
         public virtual DbSet<QueuedSinger> QueuedSingers { get; set; }
 

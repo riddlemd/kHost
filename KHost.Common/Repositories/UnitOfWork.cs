@@ -39,7 +39,7 @@ namespace KHost.Common.Repositories
 
             foreach(var context in contexts)
             {
-                tasks.Add(context.SaveChangesAsync());
+                tasks.Add(context.Save());
             }
 
             await Task.WhenAll(tasks);
@@ -55,9 +55,9 @@ namespace KHost.Common.Repositories
             }
         }
 
-        private IEnumerable<DbContext> GetContexts() => Repositories
-            .Where(r => r is IRepositoryWithDbContext)
-            .Select(r => (r as IRepositoryWithDbContext).Context)
+        private IEnumerable<IRepositoryContext> GetContexts() => Repositories
+            .Where(r => r is IRepositoryWithContext)
+            .Select(r => (r as IRepositoryWithContext).Context)
             .Distinct();
     }
 }

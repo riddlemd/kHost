@@ -10,7 +10,7 @@ namespace KHost.Common.Repositories.EF
 {
     public class EFUsersRepository : BaseEFRepository<User>, IUsersRepository
     {
-        public EFUsersRepository(DbContext context) : base(context)
+        public EFUsersRepository(DatabaseContext context) : base(context)
         {
 
         }

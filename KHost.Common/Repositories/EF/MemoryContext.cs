@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace KHost.Common.Repositories.EF
 {
-    public class MemoryContext : DbContext
+    public class MemoryContext : BaseEFContext
     {
         public virtual DbSet<Download> Downloads { get; set; }
 
