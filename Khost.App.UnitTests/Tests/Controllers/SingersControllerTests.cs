@@ -65,7 +65,7 @@ namespace Khost.App.UnitTests.Tests.Controllers
 
             var repository = Mock.Of<ISingersRepository>();
 
-            Mock.Get(repository).Setup(r => r.GetByIds(It.IsAny<IEnumerable<int>>()))
+            _ = Mock.Get(repository).Setup(r => r.GetByIds(It.IsAny<IEnumerable<int>>()))
                 .Returns((IEnumerable<int> ids) => Task.FromResult(GenerateEntities().Where(e => ids.Contains((int)e.Id))));
 
             var controller = CreateController(repository);
@@ -95,7 +95,7 @@ namespace Khost.App.UnitTests.Tests.Controllers
 
             var repository = Mock.Of<ISingersRepository>();
 
-            Mock.Get(repository).Setup(r => r.Search(It.IsAny<string>(), It.IsAny<int?>(), It.IsAny<int?>()))
+            _ = Mock.Get(repository).Setup(r => r.Search(It.IsAny<string>(), It.IsAny<int?>(), It.IsAny<int?>()))
                 .Returns((string query, int? count, int? offset) => Task.FromResult(GenerateEntities()));
 
             var controller = CreateController(repository);

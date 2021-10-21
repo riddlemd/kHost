@@ -56,7 +56,7 @@ namespace Khost.App.UnitTests.Tests.Controllers
 
             var provider = Mock.Of<ISongSearchProvider>();
 
-            Mock.Get(provider).Setup(p => p.Search(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int?>(), It.IsAny<int?>()))
+            _ = Mock.Get(provider).Setup(p => p.Search(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int?>(), It.IsAny<int?>()))
                 .Returns((string query, string engine, int? count, int? offset) => Task.FromResult(songSearchResults));
 
             var controller = new SongSearchController(provider);
@@ -89,7 +89,7 @@ namespace Khost.App.UnitTests.Tests.Controllers
 
             var provider = Mock.Of<ISongSearchProvider>();
 
-            Mock.Get(provider).Setup(p => p.GetSongSearchEngineDefinitions())
+            _ = Mock.Get(provider).Setup(p => p.GetSongSearchEngineDefinitions())
                 .Returns(() => engines);
 
             var controller = new SongSearchController(provider);

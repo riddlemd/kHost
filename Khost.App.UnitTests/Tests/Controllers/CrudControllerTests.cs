@@ -37,7 +37,7 @@ namespace Khost.App.UnitTests.Tests.Controllers
             
             var repository = Mock.Of<TRepository>();
             
-            Mock.Get(repository).Setup(r => r.Create(It.IsAny<TModel>()))
+            _ = Mock.Get(repository).Setup(r => r.Create(It.IsAny<TModel>()))
                 .Returns((TModel entity) => Task.FromResult(entity));
             
             var controller = CreateController(repository);
@@ -65,8 +65,8 @@ namespace Khost.App.UnitTests.Tests.Controllers
             var request = new GenericPaginatedRequest();
 
             var repository = Mock.Of<TRepository>();
-            
-            Mock.Get(repository).Setup(r => r.Read(It.IsAny<int?>(), It.IsAny<int?>()))
+
+            _ = Mock.Get(repository).Setup(r => r.Read(It.IsAny<int?>(), It.IsAny<int?>()))
                 .Returns((int? count, int? offset) => Task.FromResult(GenerateEntities()));
             
             var controller = CreateController(repository);
@@ -95,7 +95,7 @@ namespace Khost.App.UnitTests.Tests.Controllers
 
             var repository = Mock.Of<TRepository>();
 
-            Mock.Get(repository).Setup(r => r.Update(It.IsAny<TModel>()))
+            _ = Mock.Get(repository).Setup(r => r.Update(It.IsAny<TModel>()))
                 .Returns((TModel entity) => Task.FromResult(true));
 
             var controller = CreateController(repository);
@@ -125,7 +125,7 @@ namespace Khost.App.UnitTests.Tests.Controllers
 
             var repository = Mock.Of<TRepository>();
 
-            Mock.Get(repository).Setup(r => r.DeleteById(It.IsAny<int>()))
+            _ = Mock.Get(repository).Setup(r => r.DeleteById(It.IsAny<int>()))
                 .Returns((int id) => Task.FromResult(true));
 
             var controller = CreateController(repository);
