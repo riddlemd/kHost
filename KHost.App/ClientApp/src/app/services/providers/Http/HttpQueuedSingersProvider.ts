@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParamsOptions } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AppConfig } from 'src/app/app.config';
+import { ApiResponse } from 'src/app/models/ApiResponse';
 import { QueuedSinger } from 'src/app/models/QueuedSinger';
 import { Singer } from 'src/app/models/Singer';
 import { QueuedSingersProvider } from '../QueuedSingersProvider';
@@ -22,8 +23,8 @@ export class HttpQueuedSingersProvider implements QueuedSingersProvider {
         const url = `${this._config.apiUrl}${HttpQueuedSingersProvider.ENDPOINT}/create`;
 
         try {
-            const response: any = await this._httpClient.post<QueuedSinger[]>(url, queuedSinger).toPromise();
-            const id: number = response?.id;
+            const response = await this._httpClient.post<ApiResponse<QueuedSinger>>(url, queuedSinger).toPromise();
+            const id: number = response.result.id ?? -1;
 
             return id;
         }
@@ -35,15 +36,15 @@ export class HttpQueuedSingersProvider implements QueuedSingersProvider {
     async read(count?: number, offset?: number): Promise<QueuedSinger[]> {
         const url = `${this._config.apiUrl}${HttpQueuedSingersProvider.ENDPOINT}/read`;
 
-        const options: any = { params: {} };
+        const options: any = { params: {}, headers: {} };
 
         if(count) options.params.count = count;
 
         if(offset) options.params.offset = offset;
 
         try {
-            const response: any = await this._httpClient.get(url, options).toPromise();
-            const queuedSingers: QueuedSinger[] = response?.queuedSingers;
+            const response = await this._httpClient.get<ApiResponse<QueuedSinger[]>>(url, <object>options).toPromise();
+            const queuedSingers: QueuedSinger[] = response.result;
 
             return queuedSingers;
         }

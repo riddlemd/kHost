@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { AppConfig } from "src/app/app.config";
+import { ApiResponse } from "src/app/models/ApiResponse";
 import { Singer } from "src/app/models/Singer";
 import { Venue } from "src/app/models/Venue";
 import { SingersProvider } from "../SingersProvider";
@@ -27,8 +28,8 @@ export class HttpSingersProvider implements SingersProvider {
         };
 
         try {
-            const response: any = await this._httpClient.get(url, options).toPromise();
-            const singer = response?.singer;
+            const response = await this._httpClient.get<ApiResponse<Singer>>(url, <object>options).toPromise();
+            const singer = response.result;
 
             return singer;
         }
@@ -49,8 +50,8 @@ export class HttpSingersProvider implements SingersProvider {
         };
 
         try {
-            const response: any = await this._httpClient.get(url, options).toPromise();
-            const singers = response?.singers;
+            const response = await this._httpClient.get<ApiResponse<Singer[]>>(url, <object>options).toPromise();
+            const singers = response.result;
 
             return singers;
         }
@@ -75,8 +76,8 @@ export class HttpSingersProvider implements SingersProvider {
         if(offset) options.params.offset = offset;
 
         try {
-            const response: any = await this._httpClient.get(url, options).toPromise();
-            const singers = response?.singers;
+            const response = await this._httpClient.get<ApiResponse<Singer[]>>(url, <object>options).toPromise();
+            const singers = response.result;
 
             return singers;
         }
@@ -93,8 +94,8 @@ export class HttpSingersProvider implements SingersProvider {
         const url = `${this._config.apiUrl}${HttpSingersProvider.ENDPOINT}/create`;
 
         try {
-            const response: any = await this._httpClient.post(url, singer).toPromise();
-            const id: number = response?.id;
+            const response = await this._httpClient.post<ApiResponse<Singer>>(url, singer).toPromise();
+            const id: number = response.result.id ?? -1;
 
             return id;
         }
@@ -113,8 +114,8 @@ export class HttpSingersProvider implements SingersProvider {
         if(offset) options.params.offset = offset;
 
         try {
-            const response: any = await this._httpClient.get(url, options).toPromise();
-            const singers = response?.singers;
+            const response = await this._httpClient.get<ApiResponse<Singer[]>>(url, <object>options).toPromise();
+            const singers = response.result;
 
             return singers;
         }

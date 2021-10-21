@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AppConfig } from 'src/app/app.config';
+import { ApiResponse } from 'src/app/models/ApiResponse';
 import { Song } from 'src/app/models/Song';
 import { SongsProvider } from '../SongsProvider';
 
@@ -25,8 +26,8 @@ export class HttpSongsProvider implements SongsProvider {
         };
 
         try {
-            const response: any = await this._httpClient.get(url, options).toPromise();
-            const songs = response?.songs;
+            const response = await this._httpClient.get<ApiResponse<Song[]>>(url, <object>options).toPromise();
+            const songs = response.result;
             
             return songs;
         }
@@ -47,8 +48,8 @@ export class HttpSongsProvider implements SongsProvider {
         };
 
         try {
-            const response: any = await this._httpClient.get(url, options).toPromise();
-            const songs = response?.songs;
+            const response = await this._httpClient.get<ApiResponse<Song[]>>(url, <object>options).toPromise();
+            const songs = response.result;
             
             return songs;
         }
@@ -65,8 +66,8 @@ export class HttpSongsProvider implements SongsProvider {
         const url = `${this._config.apiUrl}${HttpSongsProvider.ENDPOINT}/create`;
 
         try {
-            const response: any = await this._httpClient.post(url, song).toPromise();
-            const id: number = response?.id;
+            const response = await this._httpClient.post<ApiResponse<Song>>(url, song).toPromise();
+            const id: number = response.result.id ?? -1;
 
             return id;
         }
@@ -83,8 +84,8 @@ export class HttpSongsProvider implements SongsProvider {
         };
 
         try {
-            const response: any = await this._httpClient.get(url, options).toPromise();
-            const songs = response?.songs;
+            const response = await this._httpClient.get<ApiResponse<Song[]>>(url, <object>options).toPromise();
+            const songs = response.result;
             
             return songs;
         }

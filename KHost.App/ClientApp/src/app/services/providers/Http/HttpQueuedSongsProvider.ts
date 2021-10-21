@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AppConfig } from 'src/app/app.config';
+import { ApiResponse } from 'src/app/models/ApiResponse';
 import { QueuedSinger } from 'src/app/models/QueuedSinger';
 import { QueuedSong } from 'src/app/models/QueuedSong';
 import { QueuedSongsProvider } from '../QueuedSongsProvider';
@@ -30,8 +31,8 @@ export class HttpQueuedSongsProvider implements QueuedSongsProvider {
         if(offset) options.params.offset = offset;
 
         try {
-            const response: any = await this._httpClient.get(url, options).toPromise();
-            const queuedSongs = response?.queuedSongs;
+            const response = await this._httpClient.get<ApiResponse<QueuedSong[]>>(url, <object>options).toPromise();
+            const queuedSongs = response.result;
 
             return queuedSongs;
         }
@@ -48,8 +49,8 @@ export class HttpQueuedSongsProvider implements QueuedSongsProvider {
         const url = `${this._config.apiUrl}${HttpQueuedSongsProvider.ENDPOINT}/create`;
 
         try {
-            const response: any = await this._httpClient.get(url).toPromise();
-            const id: number = response?.id;
+            const response = await this._httpClient.post<ApiResponse<QueuedSong>>(url, queuedSong).toPromise();
+            const id: number = response.result.id ?? -1;
 
             return id;
         }
@@ -68,8 +69,8 @@ export class HttpQueuedSongsProvider implements QueuedSongsProvider {
         if(offset) options.params.offset = offset;
 
         try {
-            const response: any = await this._httpClient.get(url, options).toPromise();
-            const queuedSongs: QueuedSong[] = response?.queuedSongs;
+            const response = await this._httpClient.get<ApiResponse<QueuedSong[]>>(url, <object>options).toPromise();
+            const queuedSongs: QueuedSong[] = response.result;
 
             return queuedSongs;
         }

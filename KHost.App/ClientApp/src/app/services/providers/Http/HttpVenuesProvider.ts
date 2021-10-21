@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AppConfig } from 'src/app/app.config';
+import { ApiResponse } from 'src/app/models/ApiResponse';
 import { Venue } from 'src/app/models/Venue';
 import { VenuesProvider } from '../VenuesProvider';
 
@@ -25,8 +26,8 @@ export class HttpVenuesProvider implements VenuesProvider {
         };
 
         try {
-            const response: any = await this._httpClient.get(url, options).toPromise();
-            const venues = response?.venues;
+            const response = await this._httpClient.get<ApiResponse<Venue[]>>(url, <object>options).toPromise();
+            const venues = response.result;
             
             return venues;
         }
@@ -47,8 +48,8 @@ export class HttpVenuesProvider implements VenuesProvider {
         };
 
         try {
-            const response: any = await this._httpClient.get(url, options).toPromise();
-            const venues = response?.venues;
+            const response = await this._httpClient.get<ApiResponse<Venue[]>>(url, <object>options).toPromise();
+            const venues = response.result;
             
             return venues;
         }
@@ -65,8 +66,8 @@ export class HttpVenuesProvider implements VenuesProvider {
         const url = `${this._config.apiUrl}${HttpVenuesProvider.ENDPOINT}/create`;
 
         try {
-            const response: any = await this._httpClient.post(url, venue).toPromise();
-            const id: number = response?.id;
+            const response = await this._httpClient.post<ApiResponse<Venue>>(url, venue).toPromise();
+            const id: number = response.result.id ?? -1;
 
             return id;
         }
@@ -83,8 +84,8 @@ export class HttpVenuesProvider implements VenuesProvider {
         };
 
         try {
-            const response: any = await this._httpClient.get(url, options).toPromise();
-            const venues = response?.venues;
+            const response = await this._httpClient.get<ApiResponse<Venue[]>>(url, <object>options).toPromise();
+            const venues = response.result;
             
             return venues;
         }

@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { AppConfig } from "src/app/app.config";
+import { ApiResponse } from "src/app/models/ApiResponse";
 import { SongSearchEngine } from "src/app/models/SongSearchEngine";
 import { SongSearchResult } from "src/app/models/SongSearchResult";
 import { SongSearchProvider } from "../SongSearchProvider";
@@ -32,8 +33,8 @@ export class HttpSongSearchProvider implements SongSearchProvider {
         if(offset) options.params.offset = offset;
 
         try {
-            const response: any = await this._httpClient.get(url, options).toPromise();
-            const songSearchResults: SongSearchResult[] = response?.songSearchResults;
+            const response = await this._httpClient.get<ApiResponse<SongSearchResult[]>>(url, <object>options).toPromise();
+            const songSearchResults: SongSearchResult[] = response.result;
             
             return songSearchResults;
         } catch (exception) {
@@ -47,8 +48,8 @@ export class HttpSongSearchProvider implements SongSearchProvider {
         const url = `${this._config.apiUrl}${HttpSongSearchProvider.endpointPath}/get-song-search-engines`;
 
         try {
-            const response: any = await this._httpClient.get(url).toPromise();
-            const songSearchEngines: SongSearchEngine[] = response?.songSearchEngines;
+            const response = await this._httpClient.get<ApiResponse<SongSearchEngine[]>>(url).toPromise();
+            const songSearchEngines: SongSearchEngine[] = response.result;
 
             return songSearchEngines;
         } catch (exception) {
