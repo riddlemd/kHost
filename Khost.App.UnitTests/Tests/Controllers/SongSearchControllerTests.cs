@@ -66,8 +66,11 @@ namespace Khost.App.UnitTests.Tests.Controllers
 
             // Then
             var okResult = Assert.IsType<OkObjectResult>(actionResult);
+            
             var apiResponse = Assert.IsType<ApiResponse<IEnumerable<SongSearchResult>>>(okResult.Value);
+            
             Assert.True(apiResponse.Success);
+            
             Assert.True(apiResponse.Result.Any());
         }
 
@@ -96,8 +99,11 @@ namespace Khost.App.UnitTests.Tests.Controllers
 
             // Then
             var okResult = Assert.IsType<OkObjectResult>(actionResult);
+            
             var apiResponse = Assert.IsType<ApiResponse<IEnumerable<SongSearchEngine>>>(okResult.Value);
+            
             Assert.True(apiResponse.Success);
+            
             Assert.True(apiResponse.Result.Any());
         }
     }

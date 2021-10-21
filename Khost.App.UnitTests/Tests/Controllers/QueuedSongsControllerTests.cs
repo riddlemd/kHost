@@ -64,8 +64,11 @@ namespace Khost.App.UnitTests.Tests.Controllers
 
             // Then
             var okResult = Assert.IsType<OkObjectResult>(actionResult);
+            
             var apiResponse = Assert.IsType<ApiResponse<IEnumerable<QueuedSong>>>(okResult.Value);
+            
             Assert.True(apiResponse.Success);
+            
             Assert.True(apiResponse.Result.Any());
         }
 
@@ -93,7 +96,9 @@ namespace Khost.App.UnitTests.Tests.Controllers
 
             // Then
             var okResult = Assert.IsType<OkObjectResult>(actionResult);
+            
             var apiResponse = Assert.IsType<ApiResponse>(okResult.Value);
+            
             Assert.True(apiResponse.Success);
         }
 
@@ -121,7 +126,9 @@ namespace Khost.App.UnitTests.Tests.Controllers
 
             // Then
             var okResult = Assert.IsType<OkObjectResult>(actionResult);
+            
             var apiResponse = Assert.IsType<ApiResponse>(okResult.Value);
+            
             Assert.True(apiResponse.Success);
         }
 
@@ -149,7 +156,9 @@ namespace Khost.App.UnitTests.Tests.Controllers
 
             // Then
             var okResult = Assert.IsType<OkObjectResult>(actionResult);
+            
             var apiResponse = Assert.IsType<ApiResponse>(okResult.Value);
+            
             Assert.True(apiResponse.Success);
         }
 
@@ -177,7 +186,9 @@ namespace Khost.App.UnitTests.Tests.Controllers
 
             // Then
             var okResult = Assert.IsType<OkObjectResult>(actionResult);
+            
             var apiResponse = Assert.IsType<ApiResponse>(okResult.Value);
+            
             Assert.True(apiResponse.Success);
         }
     }
