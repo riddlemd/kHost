@@ -14,7 +14,5 @@ namespace KHost.App.Models.Responses
             if(ex != null)
                 Message = ex.Message;
         }
-
-        public override string ToString() => JsonConvert.SerializeObject(this);
     }
 }

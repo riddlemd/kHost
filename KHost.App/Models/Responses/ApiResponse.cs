@@ -1,4 +1,5 @@
 ﻿using KHost.Common.Text;
+using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Linq;
@@ -10,6 +11,8 @@ namespace KHost.App.Models.Responses
     public class ApiResponse
     {
         public bool Success { get; set; } = true;
+
+        public override string ToString() => JsonConvert.SerializeObject(this);
     }
 
     [Serializable]
