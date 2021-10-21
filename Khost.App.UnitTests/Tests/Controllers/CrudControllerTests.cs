@@ -56,6 +56,9 @@ namespace Khost.App.UnitTests.Tests.Controllers
             Mock.Setup(x => x.GetById(It.IsAny<int>()))
                 .Returns((int id) => MockGetByIdHandler(id));
 
+            Mock.Setup(x => x.GetByIds(It.IsAny<IEnumerable<int>>()))
+                .Returns((IEnumerable<int> ids) => MockGetByIdsHandler(ids));
+
             Repository = Mock.Object;
 
             Controller = CreateController();
@@ -64,13 +67,13 @@ namespace Khost.App.UnitTests.Tests.Controllers
         [SkippableFact(typeof(NotSupportedException))]
         public virtual async Task<ApiResponse> ShouldSuccessfullyCreateEntity()
         {
-            // Arrange
+            // Given
             var request = CreateSampleEntity();
 
-            // Act
+            // When
             var actionResult = await Controller.Create(request);
 
-            // Assert
+            // Then
             var okResult = Assert.IsType<OkObjectResult>(actionResult);
             var apiResponse = Assert.IsType<ApiResponse<TModel>>(okResult.Value);
             Assert.True(apiResponse.Success);
@@ -82,13 +85,13 @@ namespace Khost.App.UnitTests.Tests.Controllers
         [SkippableFact(typeof(NotSupportedException))]
         public virtual async Task<ApiResponse> ShouldSuccessfullyReadEntities()
         {
-            // Arrange
+            // Given
             var request = new GenericPaginatedRequest();
 
-            // Act
+            // When
             var actionResult = await Controller.Read(request);
 
-            // Assert
+            // Then
             var okResult = Assert.IsType<OkObjectResult>(actionResult);
             var apiResponse = Assert.IsType<ApiResponse<IEnumerable<TModel>>>(okResult.Value);
             Assert.True(apiResponse.Success);
@@ -100,13 +103,13 @@ namespace Khost.App.UnitTests.Tests.Controllers
         [SkippableFact(typeof(NotSupportedException))]
         public virtual async Task<ApiResponse> ShouldSuccessfullyUpdateEntity()
         {
-            // Arrange
+            // Given
             var request = CreateSampleEntity();
 
-            // Act
+            // When
             var actionResult = await Controller.Update(request);
 
-            // Assert
+            // Then
             var okResult = Assert.IsType<OkObjectResult>(actionResult);
             var apiResponse = Assert.IsType<ApiResponse>(okResult.Value);
             Assert.True(apiResponse.Success);
@@ -117,16 +120,16 @@ namespace Khost.App.UnitTests.Tests.Controllers
         [SkippableFact(typeof(NotSupportedException))]
         public virtual async Task<ApiResponse> ShouldSuccessfullyDeleteEntity()
         {
-            // Arrange
+            // Given
             var request = new GenericIdRequest
             {
                 Id = 1
             };
 
-            // Act
+            // When
             var actionResult = await Controller.Delete(request);
 
-            // Assert
+            // Then
             var okResult = Assert.IsType<OkObjectResult>(actionResult);
             var apiResponse = Assert.IsType<ApiResponse>(okResult.Value);
             Assert.True(apiResponse.Success);
@@ -195,7 +198,9 @@ namespace Khost.App.UnitTests.Tests.Controllers
             return Task.FromResult(Entities.Remove((int)entity.Id));
         }
 
-        protected virtual Task<TModel> MockGetByIdHandler(int id) => Task.FromResult(Entities.ContainsKey(id) ? JsonConvert.DeserializeObject<TModel>(Entities[id]) : null);
+        protected async virtual Task<TModel> MockGetByIdHandler(int id) => Entities.ContainsKey(id) ? JsonConvert.DeserializeObject<TModel>(Entities[id]) : null;
+
+        protected async virtual Task<IEnumerable<TModel>> MockGetByIdsHandler(IEnumerable<int> ids) => Entities.Where(e => ids.Contains(e.Key)).Select(e => JsonConvert.DeserializeObject<TModel>(e.Value));
 
         #endregion
     }

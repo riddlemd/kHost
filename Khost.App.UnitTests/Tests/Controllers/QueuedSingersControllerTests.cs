@@ -1,7 +1,9 @@
 ﻿using KHost.App.Controllers.Api;
+using KHost.App.Models.Requests;
 using KHost.App.Models.Responses;
 using KHost.Common.Models;
 using KHost.Common.Repositories;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,5 +35,77 @@ namespace Khost.App.UnitTests.Tests.Controllers
             SingerId = Random.Next(1, 1000),
             QueuedSongsCount = Random.Next(0, 10)
         };
+
+        [Fact]
+        public async Task ShouldSuccessfullyMoveUp()
+        {
+            // Given
+            var request = new GenericIdRequest
+            {
+                Id = 2
+            };
+
+            // When
+            var actionResult = await Controller.MoveUp(request);
+
+            // Then
+            var okResult = Assert.IsType<OkObjectResult>(actionResult);
+            var apiResponse = Assert.IsType<ApiResponse>(okResult.Value);
+            Assert.True(apiResponse.Success);
+        }
+
+        [Fact]
+        public async Task ShouldSuccessfullyMoveDown()
+        {
+            // Given
+            var request = new GenericIdRequest
+            {
+                Id = 2
+            };
+
+            // When
+            var actionResult = await Controller.MoveDown(request);
+
+            // Then
+            var okResult = Assert.IsType<OkObjectResult>(actionResult);
+            var apiResponse = Assert.IsType<ApiResponse>(okResult.Value);
+            Assert.True(apiResponse.Success);
+        }
+
+        [Fact]
+        public async Task ShouldSuccessfullyMoveToTop()
+        {
+            // Given
+            var request = new GenericIdRequest
+            {
+                Id = 2
+            };
+
+            // When
+            var actionResult = await Controller.MoveToTop(request);
+
+            // Then
+            var okResult = Assert.IsType<OkObjectResult>(actionResult);
+            var apiResponse = Assert.IsType<ApiResponse>(okResult.Value);
+            Assert.True(apiResponse.Success);
+        }
+
+        [Fact]
+        public async Task ShouldSuccessfullyMoveToBottom()
+        {
+            // Given
+            var request = new GenericIdRequest
+            {
+                Id = 2
+            };
+
+            // When
+            var actionResult = await Controller.MoveToBottom(request);
+
+            // Then
+            var okResult = Assert.IsType<OkObjectResult>(actionResult);
+            var apiResponse = Assert.IsType<ApiResponse>(okResult.Value);
+            Assert.True(apiResponse.Success);
+        }
     }
 }
