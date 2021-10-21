@@ -20,13 +20,11 @@ namespace Khost.App.UnitTests.Tests.Controllers
         where TRepository : class, IRepository<TModel>
         where TController : CrudController<TModel, TRepository>
     {
-        protected IEnumerable<TModel> Entities { get; }
-
         protected Random Random { get; } = new Random();
 
         public CrudControllerTests()
         {
-            Entities = GenerateEntities();
+
         }
 
         [SkippableFact(typeof(NotSupportedException))]
@@ -66,7 +64,7 @@ namespace Khost.App.UnitTests.Tests.Controllers
             var repository = Mock.Of<TRepository>();
             
             Mock.Get(repository).Setup(r => r.Read(It.IsAny<int?>(), It.IsAny<int?>()))
-                .Returns((int? count, int? offset) => Task.FromResult(Entities));
+                .Returns((int? count, int? offset) => Task.FromResult(GenerateEntities()));
             
             var controller = CreateController(repository);
 
