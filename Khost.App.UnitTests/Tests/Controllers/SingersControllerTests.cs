@@ -16,26 +16,7 @@ namespace Khost.App.UnitTests.Tests.Controllers
 {
     public class SingersControllerTests : CrudControllerTests<Singer, ISingersRepository, SingersController>
     {
-        public SingersControllerTests()
-        {
-            Mock.Setup(x => x.Search(It.IsAny<string>(), It.IsAny<int?>(), It.IsAny<int?>()))
-                .Returns(async (string query, int? count, int? offset) =>
-                {
-                    var entities = await Repository.Read();
-
-                    if (offset != null)
-                        entities.Skip((int)offset);
-
-                    if (count != null)
-                        entities.Take((int)count);
-
-                    entities = entities.Where(e => e.Name == query);
-
-                    return entities;
-                });
-        }
-
-        protected override SingersController CreateController() => new (Repository);
+        protected override SingersController CreateController(ISingersRepository repository) => new (repository);
 
         protected override IEnumerable<Singer> GenerateEntities() => new List<Singer>
         {
@@ -80,14 +61,21 @@ namespace Khost.App.UnitTests.Tests.Controllers
                 Ids = "1,2"
             };
 
+            var repository = Mock.Of<ISingersRepository>();
+
+            Mock.Get(repository).Setup(r => r.GetByIds(It.IsAny<IEnumerable<int>>()))
+                .Returns((IEnumerable<int> ids) => Task.FromResult(Entities.Where(e => ids.Contains((int)e.Id))));
+
+            var controller = CreateController(repository);
+
             // When
-            var actionResult = await Controller.GetByIds(request);
+            var actionResult = await controller.GetByIds(request);
 
             // Then
             var okResult = Assert.IsType<OkObjectResult>(actionResult);
             var apiResponse = Assert.IsType<ApiResponse<IEnumerable<Singer>>>(okResult.Value);
             Assert.True(apiResponse.Success);
-            Assert.True(apiResponse.Object.Count() == 2);
+            Assert.True(apiResponse.Result.Count() == 2);
         }
 
         [Fact]
@@ -99,14 +87,21 @@ namespace Khost.App.UnitTests.Tests.Controllers
                 Query = "Joe Dirt"
             };
 
+            var repository = Mock.Of<ISingersRepository>();
+
+            Mock.Get(repository).Setup(r => r.Search(It.IsAny<string>(), It.IsAny<int?>(), It.IsAny<int?>()))
+                .Returns((string query, int? count, int? offset) => Task.FromResult(Entities));
+
+            var controller = CreateController(repository);
+
             // When
-            var actionResult = await Controller.Search(request);
+            var actionResult = await controller.Search(request);
 
             // Then
             var okResult = Assert.IsType<OkObjectResult>(actionResult);
             var apiResponse = Assert.IsType<ApiResponse<IEnumerable<Singer>>>(okResult.Value);
             Assert.True(apiResponse.Success);
-            Assert.True(apiResponse.Object.Any());
+            Assert.True(apiResponse.Result.Any());
         }
     }
 }

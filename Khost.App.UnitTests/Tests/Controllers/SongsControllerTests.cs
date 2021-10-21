@@ -11,7 +11,7 @@ namespace Khost.App.UnitTests.Tests.Controllers
 {
     public class SongsControllerTests : CrudControllerTests<Song, ISongsRepository, SongsController>
     {
-        protected override SongsController CreateController() => new(Repository);
+        protected override SongsController CreateController(ISongsRepository repository) => new(repository);
 
         protected override IEnumerable<Song> GenerateEntities() => new List<Song>
         {

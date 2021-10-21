@@ -12,7 +12,7 @@ namespace Khost.App.UnitTests.Tests.Controllers
 {
     public class DownloadsControllerTests : CrudControllerTests<Download, IDownloadsRepository, DownloadsController>
     {
-        protected override DownloadsController CreateController() => new (Repository);
+        protected override DownloadsController CreateController(IDownloadsRepository repository) => new (repository);
 
         protected override IEnumerable<Download> GenerateEntities() => new List<Download>
         {

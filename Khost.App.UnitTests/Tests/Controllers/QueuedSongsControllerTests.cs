@@ -16,25 +16,22 @@ namespace Khost.App.UnitTests.Tests.Controllers
 {
     public class QueuedSongsControllerTests : CrudControllerTests<QueuedSong, IQueuedSongsRepository, QueuedSongsController>
     {
-        public QueuedSongsControllerTests()
-        {
-            Mock.Setup(x => x.GetByQueuedSingerId(It.IsAny<int>()))
-                .Returns(async (int id) => (await Repository.Read()).Where(qs => qs.QueuedSingerId == id));
-        }
-
-        protected override QueuedSongsController CreateController() => new(Repository);
+        protected override QueuedSongsController CreateController(IQueuedSongsRepository repository) => new(repository);
 
         protected override IEnumerable<QueuedSong> GenerateEntities()
         {
             for(var i = 0; i < 10; i++)
             {
-                yield return new QueuedSong
+                for (var c = 0; c < Random.Next(0, 10); c++)
                 {
-                    Id = i + 1,
-                    QueuedSingerId = i + 1,
-                    SongId = i + 100,
-                    Position = i,
-                };
+                    yield return new QueuedSong
+                    {
+                        Id = i + c + 1,
+                        QueuedSingerId = i + 1,
+                        SongId = i + 100,
+                        Position = i + c,
+                    };
+                }
             }
         }
 
@@ -53,14 +50,21 @@ namespace Khost.App.UnitTests.Tests.Controllers
                 Id = 2
             };
 
+            var repository = Mock.Of<IQueuedSongsRepository>();
+
+            Mock.Get(repository).Setup(r => r.GetByQueuedSingerId(It.IsAny<int>()))
+                .Returns((int id) => Task.FromResult(Entities.Where(e => e.QueuedSingerId == request.Id)));
+
+            var controller = CreateController(repository);
+
             // When
-            var actionResult = await Controller.GetByQueuedSingerId(request);
+            var actionResult = await controller.GetByQueuedSingerId(request);
 
             // Then
             var okResult = Assert.IsType<OkObjectResult>(actionResult);
             var apiResponse = Assert.IsType<ApiResponse<IEnumerable<QueuedSong>>>(okResult.Value);
             Assert.True(apiResponse.Success);
-            Assert.True(apiResponse.Object.Any());
+            Assert.True(apiResponse.Result.Any());
         }
 
         [Fact]
@@ -72,8 +76,17 @@ namespace Khost.App.UnitTests.Tests.Controllers
                 Id = 2
             };
 
+            var expectedNewPosition = 5.45f;
+
+            var repository = Mock.Of<IQueuedSongsRepository>();
+
+            Mock.Get(repository).Setup(r => r.MoveUp(It.IsAny<int>()))
+                .Returns((int id) => Task.FromResult(expectedNewPosition));
+
+            var controller = CreateController(repository);
+
             // When
-            var actionResult = await Controller.MoveUp(request);
+            var actionResult = await controller.MoveUp(request);
 
             // Then
             var okResult = Assert.IsType<OkObjectResult>(actionResult);
@@ -90,8 +103,17 @@ namespace Khost.App.UnitTests.Tests.Controllers
                 Id = 2
             };
 
+            var expectedNewPosition = 5.45f;
+
+            var repository = Mock.Of<IQueuedSongsRepository>();
+
+            Mock.Get(repository).Setup(r => r.MoveDown(It.IsAny<int>()))
+                .Returns((int id) => Task.FromResult(expectedNewPosition));
+
+            var controller = CreateController(repository);
+
             // When
-            var actionResult = await Controller.MoveDown(request);
+            var actionResult = await controller.MoveDown(request);
 
             // Then
             var okResult = Assert.IsType<OkObjectResult>(actionResult);
@@ -108,8 +130,17 @@ namespace Khost.App.UnitTests.Tests.Controllers
                 Id = 2
             };
 
+            var expectedNewPosition = 0f;
+
+            var repository = Mock.Of<IQueuedSongsRepository>();
+
+            Mock.Get(repository).Setup(r => r.MoveToTop(It.IsAny<int>()))
+                .Returns((int id) => Task.FromResult(expectedNewPosition));
+
+            var controller = CreateController(repository);
+
             // When
-            var actionResult = await Controller.MoveToTop(request);
+            var actionResult = await controller.MoveToTop(request);
 
             // Then
             var okResult = Assert.IsType<OkObjectResult>(actionResult);
@@ -126,8 +157,17 @@ namespace Khost.App.UnitTests.Tests.Controllers
                 Id = 2
             };
 
+            var expectedNewPosition = 100f;
+
+            var repository = Mock.Of<IQueuedSongsRepository>();
+
+            Mock.Get(repository).Setup(r => r.MoveUp(It.IsAny<int>()))
+                .Returns((int id) => Task.FromResult(expectedNewPosition));
+
+            var controller = CreateController(repository);
+
             // When
-            var actionResult = await Controller.MoveToBottom(request);
+            var actionResult = await controller.MoveToBottom(request);
 
             // Then
             var okResult = Assert.IsType<OkObjectResult>(actionResult);
