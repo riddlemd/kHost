@@ -14,15 +14,6 @@ namespace KHost.App.Controllers.Api
             
         }
 
-        public async Task<IActionResult> GetBySingerId([FromBody] GenericIdRequest request)
-        {
-            var singer = await DefaultRepository.GetById(request.Id);
-
-            var response = new ApiResponse<QueuedSinger>(singer);
-
-            return Ok(response);
-        }
-
         #region CRUD Methods
 
         // Not expected to be implemented.
