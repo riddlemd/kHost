@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
+using Xunit.Categories;
 
 namespace Khost.App.UnitTests.Tests.Controllers
 {
@@ -53,6 +54,7 @@ namespace Khost.App.UnitTests.Tests.Controllers
         };
 
         [Fact]
+        [Category("Success")]
         public async Task ShouldSuccessfullyGetSingersWhenIdProvided()
         {
             // Given
@@ -79,6 +81,7 @@ namespace Khost.App.UnitTests.Tests.Controllers
         }
 
         [Fact]
+        [Category("Success")]
         public async Task ShouldSuccessfullyGetSingersWhenQueryProvided()
         {
             // Given

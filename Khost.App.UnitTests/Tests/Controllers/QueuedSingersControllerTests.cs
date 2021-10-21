@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
+using Xunit.Categories;
 
 namespace Khost.App.UnitTests.Tests.Controllers
 {
@@ -38,6 +39,7 @@ namespace Khost.App.UnitTests.Tests.Controllers
         };
 
         [Fact]
+        [Category("Success")]
         public async Task ShouldSuccessfullyMoveUp()
         {
             // Given
@@ -65,6 +67,7 @@ namespace Khost.App.UnitTests.Tests.Controllers
         }
 
         [Fact]
+        [Category("Success")]
         public async Task ShouldSuccessfullyMoveDown()
         {
             // Given
@@ -92,6 +95,7 @@ namespace Khost.App.UnitTests.Tests.Controllers
         }
 
         [Fact]
+        [Category("Success")]
         public async Task ShouldSuccessfullyMoveToTop()
         {
             // Given
@@ -119,6 +123,7 @@ namespace Khost.App.UnitTests.Tests.Controllers
         }
 
         [Fact]
+        [Category("Success")]
         public async Task ShouldSuccessfullyMoveToBottom()
         {
             // Given
