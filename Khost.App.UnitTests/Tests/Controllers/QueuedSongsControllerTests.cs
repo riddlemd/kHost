@@ -69,7 +69,7 @@ namespace Khost.App.UnitTests.Tests.Controllers
             
             Assert.True(apiResponse.Success);
             
-            Assert.True(apiResponse.Result.Any());
+            Assert.NotNull(apiResponse.Result);
         }
 
         [Fact]
