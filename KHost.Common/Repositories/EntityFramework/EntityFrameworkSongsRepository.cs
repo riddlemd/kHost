@@ -1,21 +1,22 @@
-﻿using KHost.Common.Models;
+﻿using KHost.Common.EntityFramework;
+using KHost.Common.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace KHost.Common.Repositories.EF
+namespace KHost.Common.Repositories.EntityFramework
 {
-    public class EFSingersRepository : BaseEFRepository<Singer>, ISingersRepository
+    public class EntityFrameworkSongsRepository : BaseEntityFrameworkRepository<Song>, ISongsRepository
     {
-        public EFSingersRepository(DatabaseContext context) : base(context)
+        public EntityFrameworkSongsRepository(DatabaseContext context) : base(context)
         {
 
         }
 
-        public async Task<IEnumerable<Singer>> Search(string searchQuery, int? count, int? offset)
+        public async Task<IEnumerable<Song>> Search(string searchQuery, int? count, int? offset)
         {
-            var query = Context.Set<Singer>().AsQueryable()
+            var query = Context.Set<Song>().AsQueryable()
                 .Where(singer => Microsoft.EntityFrameworkCore.EF.Functions.Like(singer.Name, searchQuery));
 
             if (offset != null)

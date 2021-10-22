@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using KHost.Common.Repositories;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -6,11 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KHost.Common.Repositories.EF
+namespace KHost.Common.EntityFramework
 {
-    public abstract class BaseEFContext : DbContext, IRepositoryContext
+    public abstract class BaseContext : DbContext, IRepositoryContext
     {
-        protected BaseEFContext([NotNullAttribute] DbContextOptions options) : base(options)
+        protected BaseContext([NotNullAttribute] DbContextOptions options) : base(options)
         {
 
         }

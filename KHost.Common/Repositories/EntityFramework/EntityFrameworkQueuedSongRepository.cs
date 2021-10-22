@@ -1,14 +1,15 @@
-﻿using KHost.Common.Models;
+﻿using KHost.Common.EntityFramework;
+using KHost.Common.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace KHost.Common.Repositories.EF
+namespace KHost.Common.Repositories.EntityFramework
 {
-    public class EFQueuedSongRepository : BaseEFRepository<QueuedSong>, IQueuedSongsRepository
+    public class EntityFrameworkQueuedSongRepository : BaseEntityFrameworkRepository<QueuedSong>, IQueuedSongsRepository
     {
-        public EFQueuedSongRepository(DatabaseContext context) : base(context)
+        public EntityFrameworkQueuedSongRepository(DatabaseContext context) : base(context)
         {
 
         }

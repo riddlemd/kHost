@@ -7,7 +7,6 @@ namespace KHost.Common.Repositories
     public interface IRepository<TModel> : IRepository
         where TModel : class, IModelWithId
     {
-
         public new Task<TModel> FindById(int id);
 
         public new Task<IEnumerable<TModel>> FindByIds(IEnumerable<int> ids);

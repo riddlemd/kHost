@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KHost.Common.Repositories.EF
+namespace KHost.Common.EntityFramework
 {
-    public class MemoryContext : BaseEFContext
+    public class MemoryContext : BaseContext
     {
         public virtual DbSet<Download> Downloads { get; set; }
 

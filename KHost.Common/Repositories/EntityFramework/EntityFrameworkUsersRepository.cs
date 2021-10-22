@@ -1,4 +1,5 @@
-﻿using KHost.Common.Models;
+﻿using KHost.Common.EntityFramework;
+using KHost.Common.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -6,11 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KHost.Common.Repositories.EF
+namespace KHost.Common.Repositories.EntityFramework
 {
-    public class EFUsersRepository : BaseEFRepository<User>, IUsersRepository
+    public class EntityFrameworkUsersRepository : BaseEntityFrameworkRepository<User>, IUsersRepository
     {
-        public EFUsersRepository(DatabaseContext context) : base(context)
+        public EntityFrameworkUsersRepository(DatabaseContext context) : base(context)
         {
 
         }
@@ -18,7 +19,7 @@ namespace KHost.Common.Repositories.EF
         public async Task<IEnumerable<User>> Search(string searchQuery, int? count, int? offset)
         {
             var query = Context.Set<User>().AsQueryable()
-                .Where(user => Microsoft.EntityFrameworkCore.EF.Functions.Like(user.Username, searchQuery));
+                .Where(user => EF.Functions.Like(user.Username, searchQuery));
 
             if (offset != null)
                 query = query.Skip((int)offset);

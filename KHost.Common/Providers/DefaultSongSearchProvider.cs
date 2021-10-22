@@ -1,5 +1,6 @@
 ﻿using KHost.Common.Models;
 using KHost.Common.Repositories;
+using KHost.Common.SongSearchEngines;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -10,11 +11,11 @@ namespace KHost.Common.Providers
 {
     public class DefaultSongSearchProvider : ISongSearchProvider
     {
-        private ISongSearchRepository[] SongSearchRepositories { get; }
+        private ISongSearchEngine[] SongSearchRepositories { get; }
 
         public DefaultSongSearchProvider(IServiceProvider services)
         {
-            SongSearchRepositories = services.GetServices<ISongSearchRepository>().ToArray();
+            SongSearchRepositories = services.GetServices<ISongSearchEngine>().ToArray();
         }
 
         public async Task<IEnumerable<SongSearchResult>> Search(string searchQuery, string searchEngine, int? count = null, int? offset = null)
@@ -30,7 +31,7 @@ namespace KHost.Common.Providers
 
         public IEnumerable<SongSearchEngine> GetSongSearchEngineDefinitions() => SongSearchRepositories.Select(r => r.EngineDefinition);
 
-        private ISongSearchRepository GetSongSearchRepositry(string typeName)
+        private ISongSearchEngine GetSongSearchRepositry(string typeName)
         {
             foreach (var songSearchRepository in SongSearchRepositories)
             {

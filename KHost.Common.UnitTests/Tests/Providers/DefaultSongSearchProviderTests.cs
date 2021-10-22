@@ -1,6 +1,7 @@
 ﻿using KHost.Common.Models;
 using KHost.Common.Providers;
 using KHost.Common.Repositories;
+using KHost.Common.SongSearchEngines;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using System;
@@ -50,9 +51,9 @@ namespace KHost.Common.UnitTests.Tests.Providers
 
             var query = "";
 
-            var engine = "ISongSearchRepositoryProxy";
+            var engine = "ISongSearchEngineProxy";
             
-            var songSearchRepository = Mock.Of<ISongSearchRepository>();
+            var songSearchRepository = Mock.Of<ISongSearchEngine>();
             
             _ = Mock.Get(songSearchRepository).Setup(r => r.Search(It.IsAny<string>(), It.IsAny<int?>(), It.IsAny<int?>())).Returns(Task.FromResult(entities));
             
@@ -74,9 +75,9 @@ namespace KHost.Common.UnitTests.Tests.Providers
         public async Task ShouldSuccessfullyGetSongSearchEngineDefinitions()
         {
             // Given
-            var localSongSearchRepository = Mock.Of<ISongSearchRepository>();
+            var localSongSearchRepository = Mock.Of<ISongSearchEngine>();
 
-            var mockSongSearchRepository = Mock.Of<ISongSearchRepository>();
+            var mockSongSearchRepository = Mock.Of<ISongSearchEngine>();
 
             var serviceProvider = new ServiceCollection()
                 .AddSingleton(p => localSongSearchRepository)

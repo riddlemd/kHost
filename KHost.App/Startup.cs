@@ -2,7 +2,6 @@ using KHost.App.Configuration;
 using KHost.App.Models.Responses;
 using KHost.Common.Providers;
 using KHost.Common.Repositories;
-using KHost.Common.Repositories.EF;
 using KHost.Common.Routing;
 using KHost.Common.Http;
 using KHost.Common.ErrorHandling;
@@ -15,6 +14,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using KHost.Common.EntityFramework;
+using KHost.Common.Repositories.EntityFramework;
+using KHost.Common.SongSearchEngines;
 
 namespace KHost.App
 {
@@ -41,14 +43,15 @@ namespace KHost.App
                 // Providers
                 .AddTransient<ISongSearchProvider, DefaultSongSearchProvider>()
                 // Repositories
-                .AddTransient<ISongsRepository, EFSongsRepository>()
-                .AddTransient<ISingersRepository, EFSingersRepository>()
-                .AddTransient<IQueuedSingersRepository, EFQueuedSingerRepository>()
-                .AddTransient<IQueuedSongsRepository, EFQueuedSongRepository>()
-                .AddTransient<ISongSearchRepository, EFSongSearchRepository>()
-                .AddTransient<IVenuesRepository, EFVenuesRepository>()
-                .AddTransient<IDownloadsRepository, EFDownloadsRepository>()
-                .AddTransient<IUsersRepository, EFUsersRepository>()
+                .AddTransient<ISongsRepository, EntityFrameworkSongsRepository>()
+                .AddTransient<ISingersRepository, EntityFrameworkSingersRepository>()
+                .AddTransient<IQueuedSingersRepository, EntityFrameworkQueuedSingerRepository>()
+                .AddTransient<IQueuedSongsRepository, EntityFrameworkQueuedSongRepository>()
+                .AddTransient<IVenuesRepository, EntityFrameworkVenuesRepository>()
+                .AddTransient<IDownloadsRepository, EntityFrameworkDownloadsRepository>()
+                .AddTransient<IUsersRepository, EntityFrameworkUsersRepository>()
+                // Song Search Engines
+                .AddTransient<ISongSearchEngine, LocalSongSearchEngine>()
                 // ASP.NET CORE
                 .AddControllersWithViews(options =>
                 {

@@ -1,20 +1,21 @@
-﻿using KHost.Common.Models;
+﻿using KHost.Common.EntityFramework;
+using KHost.Common.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace KHost.Common.Repositories.EF
+namespace KHost.Common.Repositories.EntityFramework
 {
-    public abstract class BaseEFRepository<TModel> : IRepository<TModel>, IRepositoryWithContext
+    public abstract class BaseEntityFrameworkRepository<TModel> : IRepository<TModel>, IRepositoryWithContext
         where TModel : class, IModelWithId
     {
-        protected virtual BaseEFContext Context { get; }
+        protected virtual BaseContext Context { get; }
 
         IRepositoryContext IRepositoryWithContext.Context => Context as IRepositoryContext;
 
-        protected BaseEFRepository(BaseEFContext context)
+        protected BaseEntityFrameworkRepository(BaseContext context)
         {
             Context = context;
         }
