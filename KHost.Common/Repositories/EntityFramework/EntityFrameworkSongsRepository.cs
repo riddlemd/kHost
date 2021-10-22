@@ -17,7 +17,7 @@ namespace KHost.Common.Repositories.EntityFramework
         public async Task<IEnumerable<Song>> Search(string searchQuery, int? count, int? offset)
         {
             var query = Context.Set<Song>().AsQueryable()
-                .Where(singer => Microsoft.EntityFrameworkCore.EF.Functions.Like(singer.Name, searchQuery));
+                .Where(song => EF.Functions.Like(song.Name, searchQuery) || EF.Functions.Like(song.BandName, searchQuery));
 
             if (offset != null)
                 query = query.Skip((int)offset);
