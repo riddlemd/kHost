@@ -40,7 +40,6 @@ namespace KHost.App
                 .Configure<SongOptions>(Configuration.GetSection("Songs"))
                 // Database
                 .AddDbContextPool<DatabaseContext>(options => options.UseSqlite(Configuration.GetConnectionString("Default")))
-                .AddDbContextPool<MemoryContext>(options => options.UseInMemoryDatabase(databaseName: "InMemory"))
                 // Providers
                 .AddTransient<ISongSearchProvider, DefaultSongSearchProvider>()
                 // Repositories
