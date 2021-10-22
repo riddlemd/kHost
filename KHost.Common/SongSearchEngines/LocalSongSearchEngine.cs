@@ -41,7 +41,7 @@ namespace KHost.Common.SongSearchEngines
             var songSearchResults = (await query.ToArrayAsync())
                 .Select(song => new SongSearchResult
                 {
-                    Id = song.Id.ToString(),
+                    Id = song.Id.ToString()!,
                     SongName = song.Name,
                     BandName = song.BandName,
                     EngineName = currentEngine,
