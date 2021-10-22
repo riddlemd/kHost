@@ -1,4 +1,5 @@
-﻿using KHost.Common.Models;
+﻿using KHost.Common.ErrorHandling;
+using KHost.Common.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,6 +17,8 @@ namespace KHost.Common.Repositories
         {
             var entity = await FindById(id);
 
+            _ = entity ?? throw new KHostException("Entity not found");
+
             var prevEntity = await GetPrevEntity(entity);
 
             if (prevEntity == null) return entity.Position;
@@ -30,6 +33,8 @@ namespace KHost.Common.Repositories
         public async Task<float> MoveDown(int id)
         {
             var entity = await FindById(id);
+
+            _ = entity ?? throw new KHostException("Entity not found");
 
             var nextEntity = await GetNextEntity(entity);
 
@@ -46,6 +51,8 @@ namespace KHost.Common.Repositories
         {
             var entity = await FindById(id);
 
+            _ = entity ?? throw new KHostException("Entity not found");
+
             var firstEntity = await GetFirstEntity();
 
             if (firstEntity == entity) return entity.Position;
@@ -60,6 +67,8 @@ namespace KHost.Common.Repositories
         public async Task<float> MoveToBottom(int id)
         {
             var entity = await FindById(id);
+
+            _ = entity ?? throw new KHostException("Entity not found");
 
             var lastEntity = await GetLastEntity();
 
@@ -76,7 +85,11 @@ namespace KHost.Common.Repositories
         {
             var entity = await FindById(id);
 
+            _ = entity ?? throw new KHostException("Entity not found");
+
             var beforeEntity = await FindById(beforeId);
+
+            _ = beforeEntity ?? throw new KHostException("Entity not found");
 
             if (beforeEntity == entity) return entity.Position;
 

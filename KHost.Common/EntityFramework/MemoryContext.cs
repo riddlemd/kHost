@@ -10,7 +10,7 @@ namespace KHost.Common.EntityFramework
 {
     public class MemoryContext : BaseContext
     {
-        public virtual DbSet<Download> Downloads { get; set; }
+        public virtual DbSet<Download>? Downloads { get; set; }
 
         public MemoryContext(DbContextOptions<MemoryContext> options) : base(options)
         {

@@ -15,7 +15,7 @@ namespace KHost.App.Controllers.Api
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
+        public Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
         {
             var accessKey = Guid.NewGuid().ToString();
 
@@ -25,7 +25,7 @@ namespace KHost.App.Controllers.Api
                 AccessKey = accessKey
             });
 
-            return Ok(response);
+            return Task.FromResult<IActionResult>(Ok(response));
         }
 
         #region Requests

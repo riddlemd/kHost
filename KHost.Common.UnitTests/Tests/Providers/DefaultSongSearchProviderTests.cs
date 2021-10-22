@@ -16,7 +16,7 @@ namespace KHost.Common.UnitTests.Tests.Providers
 {
     public class DefaultSongSearchProviderTests
     {
-        protected IEnumerable<SongSearchResult> GenerateEntities() => new List<SongSearchResult>()
+        private static IEnumerable<SongSearchResult> GenerateEntities() => new List<SongSearchResult>()
         {
             new ()
             {
@@ -72,7 +72,7 @@ namespace KHost.Common.UnitTests.Tests.Providers
 
         [Fact]
         [Category(TestCategory.Success)]
-        public async Task ShouldSuccessfullyGetSongSearchEngineDefinitions()
+        public void ShouldSuccessfullyGetSongSearchEngineDefinitions()
         {
             // Given
             var localSongSearchEngine = Mock.Of<ISongSearchEngine>();

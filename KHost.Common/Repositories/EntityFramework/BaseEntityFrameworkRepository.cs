@@ -22,22 +22,31 @@ namespace KHost.Common.Repositories.EntityFramework
 
         public virtual async Task<IEnumerable<TModel>> Read(int? count = null, int? offset = null) => await BuildReadQuery(count, offset).ToArrayAsync();
 
-        public virtual async Task<TModel> FindById(int id) => (await BuildFindByIdQuery(id).ToArrayAsync()).FirstOrDefault();
+        public virtual async Task<TModel?> FindById(int id) => (await BuildFindByIdQuery(id).ToArrayAsync()).FirstOrDefault();
 
         public virtual async Task<IEnumerable<TModel>> FindByIds(IEnumerable<int> ids) => await BuildFindByIdsQuery(ids).ToArrayAsync();
 
-        public virtual async Task Create(TModel entity)
+        public virtual Task Create(TModel entity)
         {
             if (entity.Id != null) throw new Exception("Entity Id must be null to be inserted");
 
             Context.Set<TModel>().Add(entity);
+
+            return Task.CompletedTask;
         }
 
-        public virtual async Task Delete(TModel entity) => Context.Set<TModel>().Remove(entity);
+        public virtual Task Delete(TModel entity)
+        {
+            Context.Set<TModel>().Remove(entity);
+
+            return Task.CompletedTask;
+        }
 
         public virtual async Task DeleteById(int id)
         {
             var entity = await FindById(id);
+
+            if (entity == null) return;
 
             await Delete(entity);
         }

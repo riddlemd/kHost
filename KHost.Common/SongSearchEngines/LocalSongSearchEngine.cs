@@ -37,7 +37,7 @@ namespace KHost.Common.SongSearchEngines
             return songSearchResults;
         }
 
-        public SongSearchEngineDetails GetDetails() => new SongSearchEngineDetails
+        public SongSearchEngineDetails GetDetails() => new ()
         {
             Name = nameof(LocalSongSearchEngine),
             DisplayName = "Local",

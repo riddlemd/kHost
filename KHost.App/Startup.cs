@@ -17,6 +17,7 @@ using Microsoft.Extensions.Hosting;
 using KHost.Common.EntityFramework;
 using KHost.Common.Repositories.EntityFramework;
 using KHost.Common.SongSearchEngines;
+using System.Threading.Tasks;
 
 namespace KHost.App
 {
@@ -109,10 +110,11 @@ namespace KHost.App
             else
             {
                 app.UseExceptionHandler(errorApp =>
-                    errorApp.Run(async context =>
+                    errorApp.Run(context =>
                     {
                         var exceptionHandlerPathFeature = context.Features.Get<IExceptionHandlerPathFeature>();
                         var ex = exceptionHandlerPathFeature.Error;
+                        return Task.CompletedTask;
                     })
                 );
 

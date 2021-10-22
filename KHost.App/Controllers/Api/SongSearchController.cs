@@ -29,13 +29,13 @@ namespace KHost.App.Controllers.Api
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetSongSearchEngines()
+        public Task<IActionResult> GetSongSearchEngines()
         {
             var songSearchEngineDetails = SongSearchProvider.GetSongSearchEngineDetails();
 
             var response = new ApiResponse<IEnumerable<SongSearchEngineDetails>>(songSearchEngineDetails);
 
-            return Ok(response);
+            return Task.FromResult<IActionResult>(Ok(response));
         }
 
         #region Requests

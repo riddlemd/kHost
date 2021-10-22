@@ -31,7 +31,7 @@ namespace KHost.Common.Providers
 
         public IEnumerable<SongSearchEngineDetails> GetSongSearchEngineDetails() => SongSearchRepositories.Select(r => r.GetDetails());
 
-        private ISongSearchEngine GetSongSearchRepositry(string typeName)
+        private ISongSearchEngine? GetSongSearchRepositry(string typeName)
         {
             foreach (var songSearchRepository in SongSearchRepositories)
             {

@@ -26,7 +26,7 @@ namespace KHost.App.Controllers.Api
         [HttpPost]
         public async Task<IActionResult> MoveUp([FromBody] GenericIdRequest request)
         {
-            var newPosition = await DefaultRepository.MoveUp(request.Id ?? 0);
+            _ = await DefaultRepository.MoveUp(request.Id ?? 0);
             await DefaultRepository.Save();
 
             var response = new ApiResponse();
@@ -37,7 +37,7 @@ namespace KHost.App.Controllers.Api
         [HttpPost]
         public async Task<IActionResult> MoveDown([FromBody] GenericIdRequest request)
         {
-            var newPosition = await DefaultRepository.MoveDown(request.Id ?? 0);
+            _ = await DefaultRepository.MoveDown(request.Id ?? 0);
             await DefaultRepository.Save();
 
             var response = new ApiResponse();
@@ -48,7 +48,7 @@ namespace KHost.App.Controllers.Api
         [HttpPost]
         public async Task<IActionResult> MoveToTop([FromBody] GenericIdRequest request)
         {
-            var newPosition = await DefaultRepository.MoveToTop(request.Id ?? 0);
+            _ = await DefaultRepository.MoveToTop(request.Id ?? 0);
             await DefaultRepository.Save();
 
             var response = new ApiResponse();
@@ -59,7 +59,7 @@ namespace KHost.App.Controllers.Api
         [HttpPost]
         public async Task<IActionResult> MoveToBottom([FromBody] GenericIdRequest request)
         {
-            var newPosition = await DefaultRepository.MoveToBottom(request.Id ?? 0);
+            _ = await DefaultRepository.MoveToBottom(request.Id ?? 0);
             await DefaultRepository.Save();
 
             var response = new ApiResponse();
@@ -70,7 +70,7 @@ namespace KHost.App.Controllers.Api
         [HttpPost]
         public async Task<IActionResult> MoveBefore([FromBody] MoveBeforeRequest request)
         {
-            var newPosition = await DefaultRepository.MoveBefore(request.BeforeId ?? 0, request.Id ?? 0);
+            _ = await DefaultRepository.MoveBefore(request.BeforeId ?? 0, request.Id ?? 0);
             await DefaultRepository.Save();
 
             var response = new ApiResponse();
