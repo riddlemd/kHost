@@ -10,11 +10,9 @@ namespace KHost.Common.Models
 
         public int SingerId { get; set; }
 
-        public Singer Singer { get; set; }
-
         [NotMapped]
         public int QueuedSongsCount { get; set; }
 
-        public override QueuedSinger Clone() => base.Clone() as QueuedSinger;
+        public override QueuedSinger Clone() => (base.Clone() as QueuedSinger)!;
     }
 }

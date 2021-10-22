@@ -14,6 +14,6 @@ namespace KHost.Common.Models
 
         public DateTime Date { get; set; }
 
-        public override SingerPerformance Clone() => base.Clone() as SingerPerformance;
+        public override SingerPerformance Clone() => (base.Clone() as SingerPerformance)!;
     }
 }

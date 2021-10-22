@@ -4,8 +4,8 @@
     {
         public int? Id { get; set; }
 
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
 
-        public override Venue Clone() => base.Clone() as Venue;
+        public override Venue Clone() => (base.Clone() as Venue)!;
     }
 }

@@ -10,6 +10,6 @@
 
         public float Position { get; set; }
 
-        public override QueuedSong Clone() => base.Clone() as QueuedSong;
+        public override QueuedSong Clone() => (base.Clone() as QueuedSong)!;
     }
 }
