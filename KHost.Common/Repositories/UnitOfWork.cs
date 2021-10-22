@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -33,11 +34,19 @@ namespace KHost.Common.Repositories
         public async Task Complete()
         {
             var contexts = GetContexts();
+
+            var repositoriesWithoutContext = GetRepositoriesWithoutContext();
+
             var tasks = new List<Task>();
 
             foreach(var context in contexts)
             {
                 tasks.Add(context.Save());
+            }
+
+            foreach(var repository in repositoriesWithoutContext)
+            {
+                tasks.Add(repository.Save());
             }
 
             await Task.WhenAll(tasks);
@@ -51,7 +60,19 @@ namespace KHost.Common.Repositories
             {
                 context.Dispose();
             }
+
+            var repositoriesWithoutContext = GetRepositoriesWithoutContext();
+
+            foreach(var repository in repositoriesWithoutContext)
+            {
+                if (repository is not IDisposable disposableRepository) continue;
+
+                disposableRepository.Dispose();
+            }
         }
+
+        private IEnumerable<IRepository> GetRepositoriesWithoutContext() => Repositories
+            .Where(r => r is not IRepositoryWithContext);
 
         private IEnumerable<IRepositoryContext> GetContexts() => Repositories
             .Where(r => r is IRepositoryWithContext)
