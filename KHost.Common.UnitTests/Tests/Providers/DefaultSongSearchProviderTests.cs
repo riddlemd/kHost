@@ -50,10 +50,10 @@ namespace KHost.Common.UnitTests.Tests.Providers
             var entities = GenerateEntities();
 
             var query = "";
-
-            var engine = "ISongSearchEngineProxy";
             
             var songSearchRepository = Mock.Of<ISongSearchEngine>();
+
+            var engine = songSearchRepository.GetType().Name;
             
             _ = Mock.Get(songSearchRepository).Setup(r => r.Search(It.IsAny<string>(), It.IsAny<int?>(), It.IsAny<int?>())).Returns(Task.FromResult(entities));
             
