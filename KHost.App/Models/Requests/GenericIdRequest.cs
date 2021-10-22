@@ -1,7 +1,10 @@
-﻿namespace KHost.App.Models.Requests
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace KHost.App.Models.Requests
 {
     public class GenericIdRequest
     {
-        public int Id { get; set; }
+        [Required]
+        public int? Id { get; set; }
     }
 }

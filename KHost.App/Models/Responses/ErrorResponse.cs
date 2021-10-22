@@ -5,9 +5,9 @@ namespace KHost.App.Models.Responses
 {
     public class ErrorResponse : ApiResponse
     {
-        public string Message { get; set; }
+        public string Message { get; set; } = "";
 
-        public ErrorResponse(Exception ex = null)
+        public ErrorResponse(Exception? ex = null)
         {
             Success = false;
 

@@ -1,7 +1,10 @@
-﻿namespace KHost.App.Models.Requests
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace KHost.App.Models.Requests
 {
     public class GenericSearchRequest : GenericPaginatedRequest
     {
-        public string Query { get; set; }
+        [Required]
+        public string? Query { get; set; }
     }
 }

@@ -42,7 +42,7 @@ namespace KHost.App.Controllers.Api
 
         public class SongSearchRequest : GenericSearchRequest
         {
-            public string Engine { get; set; }
+            public string Engine { get; set; } = "";
         }
 
         #endregion

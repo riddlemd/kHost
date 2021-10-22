@@ -54,7 +54,7 @@ namespace KHost.App.Controllers.Api
         [HttpPost]
         public virtual async Task<IActionResult> Delete([FromBody] GenericIdRequest request)
         {
-            await DefaultRepository.DeleteById(request.Id);
+            await DefaultRepository.DeleteById(request.Id ?? 0);
             await DefaultRepository.Save();
 
             var response = new ApiResponse();
