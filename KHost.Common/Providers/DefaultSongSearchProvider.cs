@@ -11,35 +11,55 @@ namespace KHost.Common.Providers
 {
     public class DefaultSongSearchProvider : ISongSearchProvider
     {
-        private ISongSearchEngine[] SongSearchRepositories { get; }
+        private readonly ISongSearchEngine[] _songSearchEngines;
 
-        public DefaultSongSearchProvider(IServiceProvider services)
+        private readonly IDownloadsRepository _downloadsRepository;
+
+        public DefaultSongSearchProvider(IServiceProvider services, IDownloadsRepository downloadsRepository)
         {
-            SongSearchRepositories = services.GetServices<ISongSearchEngine>().ToArray();
+            _songSearchEngines = services.GetServices<ISongSearchEngine>().ToArray();
+            _downloadsRepository = downloadsRepository;
         }
+
+        public IEnumerable<SongSearchEngineDetails> GetSongSearchEngineDetails() => _songSearchEngines.Select(r => r.GetDetails());
 
         public async Task<IEnumerable<SongSearchResult>> Search(string searchQuery, string searchEngine, int? count = null, int? offset = null)
         {
-            var repository = GetSongSearchRepositry(searchEngine);
+            var engine = GetSongSearchEngine(searchEngine);
 
-            _ = repository ?? throw new Exception($"Search Engine '{searchEngine}' could not be found");
-
-            var songSearchResults = await repository.Search(searchQuery, count, offset);
+            var songSearchResults = await engine.Search(searchQuery, count, offset);
 
             return songSearchResults;
         }
 
-        public IEnumerable<SongSearchEngineDetails> GetSongSearchEngineDetails() => SongSearchRepositories.Select(r => r.GetDetails());
-
-        private ISongSearchEngine? GetSongSearchRepositry(string typeName)
+        public Task<Song> GetSong(string id, string searchEngine)
         {
-            foreach (var songSearchRepository in SongSearchRepositories)
+            var engine = GetSongSearchEngine(searchEngine);
+
+            return engine.GetSong(id);
+        }
+
+        public async Task<Download> DownloadSong(string id, string searchEngine, int songId)
+        {
+            var engine = GetSongSearchEngine(searchEngine);
+
+            var download = await engine.DownloadSong(id, songId);
+
+            await _downloadsRepository.Create(download);
+            await _downloadsRepository.Save();
+
+            return download;
+        }
+
+        private ISongSearchEngine GetSongSearchEngine(string name)
+        {
+            foreach (var songSearchEngine in _songSearchEngines)
             {
-                if (songSearchRepository.GetType().Name == typeName)
-                    return songSearchRepository;
+                if (songSearchEngine.Name == name)
+                    return songSearchEngine;
             }
 
-            return null;
+            throw new Exception($"Search Engine '{name}' could not be found");
         }
     }
 }

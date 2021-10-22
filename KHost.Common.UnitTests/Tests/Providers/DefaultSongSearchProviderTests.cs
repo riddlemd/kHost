@@ -53,15 +53,21 @@ namespace KHost.Common.UnitTests.Tests.Providers
             
             var songSearchEngine = Mock.Of<ISongSearchEngine>();
 
-            var engine = songSearchEngine.GetType().Name;
-            
-            _ = Mock.Get(songSearchEngine).Setup(e => e.Search(It.IsAny<string>(), It.IsAny<int?>(), It.IsAny<int?>())).Returns(Task.FromResult(entities));
+            var engine = "mock";
+
+            _ = Mock.Get(songSearchEngine).Setup(e => e.Name)
+                .Returns(engine);
+
+            _ = Mock.Get(songSearchEngine).Setup(e => e.Search(It.IsAny<string>(), It.IsAny<int?>(), It.IsAny<int?>()))
+                .Returns(Task.FromResult(entities));
             
             var serviceProvider = new ServiceCollection()
-                .AddSingleton(p => songSearchEngine)
+                .AddTransient(p => songSearchEngine)
                 .BuildServiceProvider();
+
+            var downloadsRepository = Mock.Of<IDownloadsRepository>();
             
-            var provider = new DefaultSongSearchProvider(serviceProvider);
+            var provider = new DefaultSongSearchProvider(serviceProvider, downloadsRepository);
 
             // When
             var result = await provider.Search(query, engine);
@@ -80,17 +86,97 @@ namespace KHost.Common.UnitTests.Tests.Providers
             var mockSongSearchEngine = Mock.Of<ISongSearchEngine>();
 
             var serviceProvider = new ServiceCollection()
-                .AddSingleton(p => localSongSearchEngine)
-                .AddSingleton(p => mockSongSearchEngine)
+                .AddTransient(p => localSongSearchEngine)
+                .AddTransient(p => mockSongSearchEngine)
                 .BuildServiceProvider();
-            
-            var provider = new DefaultSongSearchProvider(serviceProvider);
+
+            var downloadsRepository = Mock.Of<IDownloadsRepository>();
+
+            var provider = new DefaultSongSearchProvider(serviceProvider, downloadsRepository);
 
             // When
             var result = provider.GetSongSearchEngineDetails();
 
             // Then
             Assert.True(result.Count() == 2);
+        }
+
+        [Fact]
+        [Category(TestCategory.Success)]
+        public async Task ShouldSuccessfullyCreateSong()
+        {
+            // Given
+            var songSearchResultId = "1";
+
+            var songToReturn = new Song
+            {
+                Id = 1,
+                Name = "Dance Commander",
+                BandName = "Electric Six"
+            };
+
+            var songSearchEngine = Mock.Of<ISongSearchEngine>();
+
+            var engine = "mock";
+
+            _ = Mock.Get(songSearchEngine).Setup(e => e.Name)
+                .Returns(engine);
+
+            _ = Mock.Get(songSearchEngine).Setup(e => e.GetSong(It.IsAny<string>()))
+                .Returns((string id) => Task.FromResult(songToReturn));
+
+            var serviceProvider = new ServiceCollection()
+                .AddTransient(p => songSearchEngine)
+                .BuildServiceProvider();
+
+            var downloadsRepository = Mock.Of<IDownloadsRepository>();
+
+            var provider = new DefaultSongSearchProvider(serviceProvider, downloadsRepository);
+
+            // When
+            var song = await provider.GetSong(songSearchResultId, engine);
+
+            // Then
+            Assert.True(song == songToReturn);
+        }
+
+        [Fact]
+        [Category(TestCategory.Success)]
+        public async Task ShouldSuccessfullyStartDownloadingSong()
+        {
+            // Given
+            var songSearchResultId = "1";
+
+            var downloadToReturn = new Download
+            {
+                Id = 1,
+                Name = "Dance Commander - Electric Six",
+                SongId = 1
+            };
+
+            var songSearchEngine = Mock.Of<ISongSearchEngine>();
+
+            var engine = "mock";
+
+            _ = Mock.Get(songSearchEngine).Setup(e => e.Name)
+                .Returns(engine);
+
+            _ = Mock.Get(songSearchEngine).Setup(e => e.DownloadSong(It.IsAny<string>(), It.IsAny<int>()))
+                .Returns((string id, int songId) => Task.FromResult(downloadToReturn));
+
+            var serviceProvider = new ServiceCollection()
+                .AddTransient(p => songSearchEngine)
+                .BuildServiceProvider();
+
+            var downloadsRepository = Mock.Of<IDownloadsRepository>();
+
+            var provider = new DefaultSongSearchProvider(serviceProvider, downloadsRepository);
+
+            // When
+            var download = await provider.DownloadSong(songSearchResultId, engine, 1);
+
+            // Then
+            Assert.True(download == downloadToReturn);
         }
     }
 }

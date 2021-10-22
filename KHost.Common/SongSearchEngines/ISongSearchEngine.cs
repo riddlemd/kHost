@@ -6,8 +6,14 @@ namespace KHost.Common.SongSearchEngines
 {
     public interface ISongSearchEngine
     {
-        public Task<IEnumerable<SongSearchResult>> Search(string searchQuery, int? count, int? offset);
+        string Name { get; }
 
-        public SongSearchEngineDetails GetDetails();
+        Task<IEnumerable<SongSearchResult>> Search(string searchQuery, int? count, int? offset);
+
+        SongSearchEngineDetails GetDetails();
+
+        Task<Song> GetSong(string id);
+
+        Task<Download> DownloadSong(string id, int songId);
     }
 }
