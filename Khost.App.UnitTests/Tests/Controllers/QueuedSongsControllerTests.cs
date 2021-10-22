@@ -3,6 +3,7 @@ using KHost.App.Models.Requests;
 using KHost.App.Models.Responses;
 using KHost.Common.Models;
 using KHost.Common.Repositories;
+using KHost.Common.UnitTests;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using System;
@@ -43,7 +44,7 @@ namespace Khost.App.UnitTests.Tests.Controllers
         };
 
         [Fact]
-        [Category("Success")]
+        [Category(TestCategory.Success)]
         public async Task ShouldSuccessfullyFindQueuedSongsWhenQueuedSingerIdProvided()
         {
             // Given
@@ -73,7 +74,7 @@ namespace Khost.App.UnitTests.Tests.Controllers
         }
 
         [Fact]
-        [Category("Success")]
+        [Category(TestCategory.Success)]
         public async Task ShouldSuccessfullyMoveUp()
         {
             // Given
@@ -103,7 +104,7 @@ namespace Khost.App.UnitTests.Tests.Controllers
         }
 
         [Fact]
-        [Category("Success")]
+        [Category(TestCategory.Success)]
         public async Task ShouldSuccessfullyMoveDown()
         {
             // Given
@@ -133,7 +134,7 @@ namespace Khost.App.UnitTests.Tests.Controllers
         }
 
         [Fact]
-        [Category("Success")]
+        [Category(TestCategory.Success)]
         public async Task ShouldSuccessfullyMoveToTop()
         {
             // Given
@@ -163,7 +164,7 @@ namespace Khost.App.UnitTests.Tests.Controllers
         }
 
         [Fact]
-        [Category("Success")]
+        [Category(TestCategory.Success)]
         public async Task ShouldSuccessfullyMoveToBottom()
         {
             // Given

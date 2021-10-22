@@ -3,6 +3,7 @@ using KHost.App.Models.Requests;
 using KHost.App.Models.Responses;
 using KHost.Common.Models;
 using KHost.Common.Repositories;
+using KHost.Common.UnitTests;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Newtonsoft.Json;
@@ -29,7 +30,7 @@ namespace Khost.App.UnitTests.Tests.Controllers
         }
 
         [SkippableFact(typeof(NotSupportedException))]
-        [Category("Success")]
+        [Category(TestCategory.Success)]
         public virtual async Task<ApiResponse> ShouldSuccessfullyCreateEntity()
         {
             // Given
@@ -58,7 +59,7 @@ namespace Khost.App.UnitTests.Tests.Controllers
         }
 
         [SkippableFact(typeof(NotSupportedException))]
-        [Category("Success")]
+        [Category(TestCategory.Success)]
         public virtual async Task<ApiResponse> ShouldSuccessfullyReadEntities()
         {
             // Given
@@ -87,7 +88,7 @@ namespace Khost.App.UnitTests.Tests.Controllers
         }
 
         [SkippableFact(typeof(NotSupportedException))]
-        [Category("Success")]
+        [Category(TestCategory.Success)]
         public virtual async Task<ApiResponse> ShouldSuccessfullyUpdateEntity()
         {
             // Given
@@ -114,7 +115,7 @@ namespace Khost.App.UnitTests.Tests.Controllers
         }
 
         [SkippableFact(typeof(NotSupportedException))]
-        [Category("Success")]
+        [Category(TestCategory.Success)]
         public virtual async Task<ApiResponse> ShouldSuccessfullyDeleteEntity()
         {
             // Given

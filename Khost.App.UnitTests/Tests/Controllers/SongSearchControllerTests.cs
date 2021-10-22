@@ -11,6 +11,7 @@ using Xunit;
 using Xunit.Categories;
 using Microsoft.AspNetCore.Mvc;
 using KHost.App.Models.Responses;
+using KHost.Common.UnitTests;
 
 namespace Khost.App.UnitTests.Tests.Controllers
 {
@@ -43,7 +44,7 @@ namespace Khost.App.UnitTests.Tests.Controllers
         };
 
         [Fact]
-        [Category("Success")]
+        [Category(TestCategory.Success)]
         public async Task ShouldSuccessfullyGetSongSearchResultsWhenQueryProvided()
         {
             // Given
@@ -75,7 +76,7 @@ namespace Khost.App.UnitTests.Tests.Controllers
         }
 
         [Fact]
-        [Category("Success")]
+        [Category(TestCategory.Success)]
         public async Task ShouldSuccessfullyGetSearchEngines()
         {
             // Given

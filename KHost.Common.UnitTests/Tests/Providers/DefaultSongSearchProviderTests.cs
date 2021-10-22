@@ -42,7 +42,7 @@ namespace KHost.Common.UnitTests.Tests.Providers
         };
 
         [Fact]
-        [Category("Success")]
+        [Category(TestCategory.Success)]
         public async Task ShouldSuccessfullySearchWhenQueryProvided()
         {
             // Given
@@ -70,7 +70,7 @@ namespace KHost.Common.UnitTests.Tests.Providers
         }
 
         [Fact]
-        [Category("Success")]
+        [Category(TestCategory.Success)]
         public async Task ShouldSuccessfullyGetSongSearchEngineDefinitions()
         {
             // Given
