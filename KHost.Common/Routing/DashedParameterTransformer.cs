@@ -5,9 +5,11 @@ namespace KHost.Common.Routing
 {
     public class DashedParameterTransformer : IOutboundParameterTransformer
     {
-        public string TransformOutbound(object value)
+        public string? TransformOutbound(object value)
         {
-            return value == null ? null : Regex.Replace(value.ToString(), "([a-z])([A-Z])", "$1-$2").ToLower();
+            if (value == null) return null;
+
+            return Regex.Replace(value.ToString()!, "([a-z])([A-Z])", "$1-$2").ToLower();
         }
     }
 }

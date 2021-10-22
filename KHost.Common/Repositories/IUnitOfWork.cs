@@ -10,7 +10,7 @@ namespace KHost.Common.Repositories
 
         IEnumerable<IRepository> GetRepositories();
 
-        public TRepository GetRepository<TRepository>() where TRepository : class;
+        public TRepository? GetRepository<TRepository>() where TRepository : class;
 
         Task Complete();
     }

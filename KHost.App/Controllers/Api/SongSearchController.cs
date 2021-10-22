@@ -4,7 +4,9 @@ using KHost.Common.Models;
 using KHost.Common.Providers;
 using KHost.Common.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
 namespace KHost.App.Controllers.Api
@@ -21,7 +23,7 @@ namespace KHost.App.Controllers.Api
         [HttpGet]
         public async Task<IActionResult> Search([FromQuery] SongSearchRequest request)
         {
-            var songSearchResults = await SongSearchProvider.Search(request.Query, request.Engine, request.Count, request.Offset);
+            var songSearchResults = await SongSearchProvider.Search(request.Query!, request.Engine, request.Count, request.Offset);
 
             var response = new ApiResponse<IEnumerable<SongSearchResult>>(songSearchResults);
 
@@ -42,6 +44,7 @@ namespace KHost.App.Controllers.Api
 
         public class SongSearchRequest : GenericSearchRequest
         {
+            [Required]
             public string Engine { get; set; } = "";
         }
 

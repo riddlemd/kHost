@@ -19,7 +19,7 @@ namespace KHost.Common.Repositories
 
         public IEnumerable<IRepository> GetRepositories() => Repositories.ToArray();
 
-        public TRepository GetRepository<TRepository>()
+        public TRepository? GetRepository<TRepository>()
             where TRepository : class
         {
             foreach (var repository in Repositories)
@@ -76,7 +76,7 @@ namespace KHost.Common.Repositories
 
         private IEnumerable<IRepositoryContext> GetContexts() => Repositories
             .Where(r => r is IRepositoryWithContext)
-            .Select(r => (r as IRepositoryWithContext).Context)
+            .Select(r => (r as IRepositoryWithContext)!.Context)
             .Distinct();
     }
 }
