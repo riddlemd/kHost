@@ -4,7 +4,7 @@ import { Download } from "src/app/models/Download";
 @Injectable()
 export class DownloadsProvider {
     
-    getById(id: number): Promise<Download[]> {
+    findById(id: number): Promise<Download[]> {
         throw ("Not Implemented");
     }
 

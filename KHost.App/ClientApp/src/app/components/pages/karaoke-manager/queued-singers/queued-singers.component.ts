@@ -121,7 +121,7 @@ export class QueuedSingersComponent implements OnInit {
   {
     this.queuedSingers = await this._queuedSingersProvider.read();
 
-    const singers = await this._singersProvider.getByIds(this.queuedSingers.map(qs => qs.singerId ?? 0));
+    const singers = await this._singersProvider.findByIds(this.queuedSingers.map(qs => qs.singerId ?? 0));
 
     for(let queuedSinger of this.queuedSingers) {
       const singer = singers.find(s => s.id == queuedSinger.singerId) ?? undefined;

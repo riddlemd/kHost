@@ -44,7 +44,7 @@ namespace Khost.App.UnitTests.Tests.Controllers
 
         [Fact]
         [Category("Success")]
-        public async Task ShouldSuccessfullyGetQueuedSongsWhenQueuedSingerIdProvided()
+        public async Task ShouldSuccessfullyFindQueuedSongsWhenQueuedSingerIdProvided()
         {
             // Given
             var request = new GenericIdRequest
@@ -54,13 +54,13 @@ namespace Khost.App.UnitTests.Tests.Controllers
 
             var repository = Mock.Of<IQueuedSongsRepository>();
 
-            _ = Mock.Get(repository).Setup(r => r.GetByQueuedSingerId(It.IsAny<int>()))
+            _ = Mock.Get(repository).Setup(r => r.FindByQueuedSingerId(It.IsAny<int>()))
                 .Returns((int id) => Task.FromResult(GenerateEntities().Where(e => e.QueuedSingerId == request.Id)));
 
             var controller = CreateController(repository);
 
             // When
-            var actionResult = await controller.GetByQueuedSingerId(request);
+            var actionResult = await controller.FindByQueuedSingerId(request);
 
             // Then
             var okResult = Assert.IsType<OkObjectResult>(actionResult);

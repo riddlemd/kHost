@@ -50,9 +50,9 @@ namespace KHost.Common.Repositories.EF
             return songSearchResults;
         }
 
-        public Task<object> GetById(int id) => throw new NotImplementedException();
+        public Task<object> FindById(int id) => throw new NotImplementedException();
 
-        public Task<IEnumerable<object>> GetByIds(IEnumerable<int> ids) => throw new NotImplementedException();
+        public Task<IEnumerable<object>> FindByIds(IEnumerable<int> ids) => throw new NotImplementedException();
 
         public Task Create(object entity) => throw new NotImplementedException();
 

@@ -5,11 +5,11 @@ import { Singer } from 'src/app/models/Singer';
 @Injectable()
 export abstract class SingersProvider {
 
-    getById(id: number): Promise<Singer | undefined> {
+    findById(id: number): Promise<Singer | undefined> {
         throw("Not Implemented");
     }
 
-    getByIds(ids: number[]): Promise<Singer[]> {
+    findByIds(ids: number[]): Promise<Singer[]> {
         throw("Not Implemented");
     }
 

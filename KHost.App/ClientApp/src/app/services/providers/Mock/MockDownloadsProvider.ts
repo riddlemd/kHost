@@ -5,7 +5,7 @@ import { DownloadsProvider } from "../DownloadsProvider";
 @Injectable()
 export class MockDownloadsProvider implements DownloadsProvider {
 
-    getById(id: number): Promise<Download[]> {
+    findById(id: number): Promise<Download[]> {
         throw ("Not Implemented");
     }
 

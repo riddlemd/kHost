@@ -18,8 +18,8 @@ export class HttpSingersProvider implements SingersProvider {
         
     }
 
-    async getById(id: number): Promise<Singer | undefined> {
-        const url = `${this._config.apiUrl}${HttpSingersProvider.ENDPOINT}/get-by-id`;
+    async findById(id: number): Promise<Singer | undefined> {
+        const url = `${this._config.apiUrl}${HttpSingersProvider.ENDPOINT}/find-by-id`;
 
         const options: any = {
             params: {
@@ -40,8 +40,8 @@ export class HttpSingersProvider implements SingersProvider {
         return undefined;
     }
 
-    async getByIds(ids: number[]): Promise<Singer[]> {
-        const url = `${this._config.apiUrl}${HttpSingersProvider.ENDPOINT}/get-by-ids`;
+    async findByIds(ids: number[]): Promise<Singer[]> {
+        const url = `${this._config.apiUrl}${HttpSingersProvider.ENDPOINT}/find-by-ids`;
 
         const options: any = {
             params: {

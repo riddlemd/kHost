@@ -8,9 +8,9 @@ namespace KHost.Common.Repositories
         where TModel : class, IModelWithId
     {
 
-        public new Task<TModel> GetById(int id);
+        public new Task<TModel> FindById(int id);
 
-        public new Task<IEnumerable<TModel>> GetByIds(IEnumerable<int> ids);
+        public new Task<IEnumerable<TModel>> FindByIds(IEnumerable<int> ids);
 
         public Task Create(TModel entity);
 
@@ -22,9 +22,9 @@ namespace KHost.Common.Repositories
 
         #region Non Generic Implementations
 
-        async Task<object> IRepository.GetById(int id) => await GetById(id);
+        async Task<object> IRepository.FindById(int id) => await FindById(id);
 
-        async Task<IEnumerable<object>> IRepository.GetByIds(IEnumerable<int> ids) => await GetByIds(ids);
+        async Task<IEnumerable<object>> IRepository.FindByIds(IEnumerable<int> ids) => await FindByIds(ids);
 
         Task IRepository.Create(object entity) => Create(entity as TModel);
 
@@ -41,9 +41,9 @@ namespace KHost.Common.Repositories
     {
         public Task<IEnumerable<object>> Read(int? count = null, int? offset = null);
 
-        public Task<object> GetById(int id);
+        public Task<object> FindById(int id);
 
-        public Task<IEnumerable<object>> GetByIds(IEnumerable<int> ids);
+        public Task<IEnumerable<object>> FindByIds(IEnumerable<int> ids);
 
         public Task Create(object entity);
 

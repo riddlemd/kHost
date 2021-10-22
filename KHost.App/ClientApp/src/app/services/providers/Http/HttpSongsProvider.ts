@@ -16,8 +16,8 @@ export class HttpSongsProvider implements SongsProvider {
         
     }
 
-    async getByIds(ids: number[]): Promise<Song[]> {
-        const url = `${this._config.apiUrl}${HttpSongsProvider.ENDPOINT}/get-by-ids`;
+    async findByIds(ids: number[]): Promise<Song[]> {
+        const url = `${this._config.apiUrl}${HttpSongsProvider.ENDPOINT}/find-by-ids`;
 
         const options: any = {
             params: {

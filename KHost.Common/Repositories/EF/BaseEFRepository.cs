@@ -21,9 +21,9 @@ namespace KHost.Common.Repositories.EF
 
         public virtual async Task<IEnumerable<TModel>> Read(int? count = null, int? offset = null) => await BuildReadQuery(count, offset).ToArrayAsync();
 
-        public virtual async Task<TModel> GetById(int id) => (await BuildGetByIdQuery(id).ToArrayAsync()).FirstOrDefault();
+        public virtual async Task<TModel> FindById(int id) => (await BuildFindByIdQuery(id).ToArrayAsync()).FirstOrDefault();
 
-        public virtual async Task<IEnumerable<TModel>> GetByIds(IEnumerable<int> ids) => await BuildGetByIdsQuery(ids).ToArrayAsync();
+        public virtual async Task<IEnumerable<TModel>> FindByIds(IEnumerable<int> ids) => await BuildFindByIdsQuery(ids).ToArrayAsync();
 
         public virtual async Task Create(TModel entity)
         {
@@ -36,7 +36,7 @@ namespace KHost.Common.Repositories.EF
 
         public virtual async Task DeleteById(int id)
         {
-            var entity = await GetById(id);
+            var entity = await FindById(id);
 
             await Delete(entity);
         }
@@ -45,7 +45,7 @@ namespace KHost.Common.Repositories.EF
         {
             if (entity.Id == null) throw new Exception("Entity must have valid Id to be updated");
 
-            var originalEntity = await GetById((int)entity.Id);
+            var originalEntity = await FindById((int)entity.Id);
 
             if (originalEntity == null) throw new Exception($"Entity with Id (${entity.Id}) could not be found to update.");
 
@@ -69,7 +69,7 @@ namespace KHost.Common.Repositories.EF
             return query;
         }
 
-        protected virtual IQueryable<TModel> BuildGetByIdQuery(int id)
+        protected virtual IQueryable<TModel> BuildFindByIdQuery(int id)
         {
             var query = Context.Set<TModel>().AsQueryable()
                 .Where(e => e.Id == id);
@@ -77,7 +77,7 @@ namespace KHost.Common.Repositories.EF
             return query;
         }
 
-        protected virtual IQueryable<TModel> BuildGetByIdsQuery(IEnumerable<int> ids)
+        protected virtual IQueryable<TModel> BuildFindByIdsQuery(IEnumerable<int> ids)
         {
             var query = Context.Set<TModel>().AsQueryable()
                 .Where(e => e.Id != null && ids.Contains((int)e.Id));

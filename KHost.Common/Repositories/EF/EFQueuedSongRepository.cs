@@ -15,7 +15,7 @@ namespace KHost.Common.Repositories.EF
 
         DbContext IQueueRepository<QueuedSong>.Context => Context;
 
-        public async Task<IEnumerable<QueuedSong>> GetByQueuedSingerId(int id)
+        public async Task<IEnumerable<QueuedSong>> FindByQueuedSingerId(int id)
         {
             var queuedSongs = Context.Set<QueuedSong>()
                 .Where(qs => qs.QueuedSingerId == id)

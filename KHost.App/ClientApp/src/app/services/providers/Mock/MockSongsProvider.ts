@@ -11,7 +11,7 @@ export class MockSongsProvider implements SongsProvider {
         this._generateSongs();
     }
     
-    getByIds(ids: number[]): Promise<Song[]> {
+    findByIds(ids: number[]): Promise<Song[]> {
         throw new Error("Method not implemented.");
     }
 

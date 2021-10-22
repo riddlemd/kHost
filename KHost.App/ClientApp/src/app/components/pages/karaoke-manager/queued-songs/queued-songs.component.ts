@@ -113,7 +113,7 @@ export class QueuedSongsComponent implements OnChanges {
   protected async getQueuedSongsAndSongsForQueuedSinger(queuedSinger: QueuedSinger): Promise<QueuedSong[]> {
     const queuedSongs = await this._queuedSongsProvider.getByQueuedSinger(queuedSinger);
 
-    const songs = await this._songsProvider.getByIds(queuedSongs.map(qs => qs.songId ?? 0));
+    const songs = await this._songsProvider.findByIds(queuedSongs.map(qs => qs.songId ?? 0));
 
     for(let queuedSong of queuedSongs) {
       const song = songs.find(s => s.id == queuedSong.songId) ?? undefined;

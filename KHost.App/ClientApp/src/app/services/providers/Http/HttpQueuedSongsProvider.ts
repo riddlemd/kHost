@@ -18,7 +18,7 @@ export class HttpQueuedSongsProvider implements QueuedSongsProvider {
     }
 
     async getByQueuedSinger(queuedSinger: QueuedSinger, count?: number, offset?: number): Promise<QueuedSong[]> {
-        const url = `${this._config.apiUrl}${HttpQueuedSongsProvider.ENDPOINT}/get-by-queued-singer-id`;
+        const url = `${this._config.apiUrl}${HttpQueuedSongsProvider.ENDPOINT}/find-by-queued-singer-id`;
 
         const options: any = {
             params: {

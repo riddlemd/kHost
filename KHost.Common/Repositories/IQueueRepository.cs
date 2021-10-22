@@ -14,7 +14,7 @@ namespace KHost.Common.Repositories
 
         public async Task<float> MoveUp(int id)
         {
-            var entity = await GetById(id);
+            var entity = await FindById(id);
 
             var prevEntity = await GetPrevEntity(entity);
 
@@ -29,7 +29,7 @@ namespace KHost.Common.Repositories
 
         public async Task<float> MoveDown(int id)
         {
-            var entity = await GetById(id);
+            var entity = await FindById(id);
 
             var nextEntity = await GetNextEntity(entity);
 
@@ -44,7 +44,7 @@ namespace KHost.Common.Repositories
 
         public async Task<float> MoveToTop(int id)
         {
-            var entity = await GetById(id);
+            var entity = await FindById(id);
 
             var firstEntity = await GetFirstEntity();
 
@@ -59,7 +59,7 @@ namespace KHost.Common.Repositories
 
         public async Task<float> MoveToBottom(int id)
         {
-            var entity = await GetById(id);
+            var entity = await FindById(id);
 
             var lastEntity = await GetLastEntity();
 
@@ -74,9 +74,9 @@ namespace KHost.Common.Repositories
 
         public async Task<float> MoveBefore(int beforeId, int id)
         {
-            var entity = await GetById(id);
+            var entity = await FindById(id);
 
-            var beforeEntity = await GetById(beforeId);
+            var beforeEntity = await FindById(beforeId);
 
             if (beforeEntity == entity) return entity.Position;
 

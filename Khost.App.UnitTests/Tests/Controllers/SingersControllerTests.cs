@@ -65,13 +65,13 @@ namespace Khost.App.UnitTests.Tests.Controllers
 
             var repository = Mock.Of<ISingersRepository>();
 
-            _ = Mock.Get(repository).Setup(r => r.GetByIds(It.IsAny<IEnumerable<int>>()))
+            _ = Mock.Get(repository).Setup(r => r.FindByIds(It.IsAny<IEnumerable<int>>()))
                 .Returns((IEnumerable<int> ids) => Task.FromResult(GenerateEntities().Where(e => ids.Contains((int)e.Id))));
 
             var controller = CreateController(repository);
 
             // When
-            var actionResult = await controller.GetByIds(request);
+            var actionResult = await controller.FindByIds(request);
 
             // Then
             var okResult = Assert.IsType<OkObjectResult>(actionResult);

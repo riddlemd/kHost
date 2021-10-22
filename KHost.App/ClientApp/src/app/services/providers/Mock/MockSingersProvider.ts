@@ -12,8 +12,8 @@ export class MockSingersProvider implements SingersProvider {
         this._generateSingers();
     }
 
-    getById(id: number): Promise<Singer | undefined> {
-        console.info(`Getting Singer (Id:${id})`);
+    findById(id: number): Promise<Singer | undefined> {
+        console.info(`Finding Singer (Id:${id})`);
 
         let singerToReturn: Singer | undefined;
 
@@ -29,7 +29,7 @@ export class MockSingersProvider implements SingersProvider {
         });
     }
 
-    getByIds(ids: number[]): Promise<Singer[]> {
+    findByIds(ids: number[]): Promise<Singer[]> {
         throw new Error("Method not implemented.");
     }
 
