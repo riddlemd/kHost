@@ -87,7 +87,7 @@ namespace KHost.Common.UnitTests.Tests.Providers
             var provider = new DefaultSongSearchProvider(serviceProvider);
 
             // When
-            var result = provider.GetSongSearchEngineDefinitions();
+            var result = provider.GetSongSearchEngineDetails();
 
             // Then
             Assert.True(result.Count() == 2);

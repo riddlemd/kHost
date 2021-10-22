@@ -29,7 +29,7 @@ namespace KHost.Common.Providers
             return songSearchResults;
         }
 
-        public IEnumerable<SongSearchEngine> GetSongSearchEngineDefinitions() => SongSearchRepositories.Select(r => r.EngineDefinition);
+        public IEnumerable<SongSearchEngineDetails> GetSongSearchEngineDetails() => SongSearchRepositories.Select(r => r.GetDetails());
 
         private ISongSearchEngine GetSongSearchRepositry(string typeName)
         {

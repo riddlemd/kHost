@@ -6,8 +6,8 @@ namespace KHost.Common.SongSearchEngines
 {
     public interface ISongSearchEngine
     {
-        public SongSearchEngine EngineDefinition { get; }
-
         public Task<IEnumerable<SongSearchResult>> Search(string searchQuery, int? count, int? offset);
+
+        public SongSearchEngineDetails GetDetails();
     }
 }

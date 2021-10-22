@@ -80,7 +80,7 @@ namespace Khost.App.UnitTests.Tests.Controllers
         public async Task ShouldSuccessfullyGetSearchEngines()
         {
             // Given
-            var engines = new List<SongSearchEngine>
+            var engines = new List<SongSearchEngineDetails>
             {
                 new ()
                 {
@@ -90,7 +90,7 @@ namespace Khost.App.UnitTests.Tests.Controllers
 
             var provider = Mock.Of<ISongSearchProvider>();
 
-            _ = Mock.Get(provider).Setup(p => p.GetSongSearchEngineDefinitions())
+            _ = Mock.Get(provider).Setup(p => p.GetSongSearchEngineDetails())
                 .Returns(() => engines);
 
             var controller = new SongSearchController(provider);
@@ -101,7 +101,7 @@ namespace Khost.App.UnitTests.Tests.Controllers
             // Then
             var okResult = Assert.IsType<OkObjectResult>(actionResult);
             
-            var apiResponse = Assert.IsType<ApiResponse<IEnumerable<SongSearchEngine>>>(okResult.Value);
+            var apiResponse = Assert.IsType<ApiResponse<IEnumerable<SongSearchEngineDetails>>>(okResult.Value);
             
             Assert.True(apiResponse.Success);
             

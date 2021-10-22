@@ -11,14 +11,6 @@ namespace KHost.Common.SongSearchEngines
 {
     public class LocalSongSearchEngine : ISongSearchEngine
     {
-        public SongSearchEngine EngineDefinition { get; } = new SongSearchEngine
-        {
-            Name = nameof(LocalSongSearchEngine),
-            DisplayName = "Local",
-            IsLocal = true,
-            AllowDownload = false
-        };
-
         private ISongsRepository SongsRepository { get; }
 
         public LocalSongSearchEngine(ISongsRepository songsRepository)
@@ -44,5 +36,13 @@ namespace KHost.Common.SongSearchEngines
 
             return songSearchResults;
         }
+
+        public SongSearchEngineDetails GetDetails() => new SongSearchEngineDetails
+        {
+            Name = nameof(LocalSongSearchEngine),
+            DisplayName = "Local",
+            IsLocal = true,
+            AllowDownload = false
+        };
     }
 }

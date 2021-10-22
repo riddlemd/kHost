@@ -6,7 +6,7 @@ namespace KHost.Common.Providers
 {
     public interface ISongSearchProvider
     {
-        IEnumerable<SongSearchEngine> GetSongSearchEngineDefinitions();
+        IEnumerable<SongSearchEngineDetails> GetSongSearchEngineDetails();
         Task<IEnumerable<SongSearchResult>> Search(string searchQuery, string searchEngine, int? count = null, int? offset = null);
     }
 }

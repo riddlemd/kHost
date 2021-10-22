@@ -1,6 +1,6 @@
 ﻿namespace KHost.Common.Models
 {
-    public class SongSearchEngine : BaseModel
+    public class SongSearchEngineDetails : BaseModel
     {
         public string Name { get; set; }
 
@@ -10,6 +10,6 @@
 
         public bool AllowDownload { get; set; } = false;
 
-        public override SongSearchEngine Clone() => base.Clone() as SongSearchEngine;
+        public override SongSearchEngineDetails Clone() => base.Clone() as SongSearchEngineDetails;
     }
 }
