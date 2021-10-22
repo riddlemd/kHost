@@ -21,6 +21,8 @@ namespace KHost.Common.Providers
         {
             var repository = GetSongSearchRepositry(searchEngine);
 
+            _ = repository ?? throw new Exception($"Search Engine '{searchEngine}' could not be found");
+
             var songSearchResults = await repository.Search(searchQuery, count, offset);
 
             return songSearchResults;
