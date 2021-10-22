@@ -1,5 +1,6 @@
 ﻿using KHost.Common.EntityFramework;
 using KHost.Common.Models;
+using KHost.Common.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -18,27 +19,20 @@ namespace KHost.Common.SongSearchEngines
             AllowDownload = false
         };
 
-        protected virtual DatabaseContext Context { get; }
+        private ISongsRepository SongsRepository { get; }
 
-        public LocalSongSearchEngine(DatabaseContext context)
+        public LocalSongSearchEngine(ISongsRepository songsRepository)
         {
-            Context = context;
+            SongsRepository = songsRepository;
         }
 
         public async Task<IEnumerable<SongSearchResult>> Search(string searchQuery, int? count, int? offset)
         {
-            var query = Context.Songs.AsQueryable()
-                .Where(song => EF.Functions.Like(song.Name, searchQuery) || EF.Functions.Like(song.BandName, searchQuery));
-
-            if (offset != null)
-                query = query.Skip((int)offset);
-
-            if (count != null)
-                query = query.Take((int)count);
-
             var currentEngine = GetType().Name;
 
-            var songSearchResults = (await query.ToArrayAsync())
+            var songs = await SongsRepository.Search(searchQuery, count, offset);
+
+            var songSearchResults = songs
                 .Select(song => new SongSearchResult
                 {
                     Id = song.Id.ToString()!,
