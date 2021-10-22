@@ -51,14 +51,14 @@ namespace KHost.Common.UnitTests.Tests.Providers
 
             var query = "";
             
-            var songSearchRepository = Mock.Of<ISongSearchEngine>();
+            var songSearchEngine = Mock.Of<ISongSearchEngine>();
 
-            var engine = songSearchRepository.GetType().Name;
+            var engine = songSearchEngine.GetType().Name;
             
-            _ = Mock.Get(songSearchRepository).Setup(r => r.Search(It.IsAny<string>(), It.IsAny<int?>(), It.IsAny<int?>())).Returns(Task.FromResult(entities));
+            _ = Mock.Get(songSearchEngine).Setup(e => e.Search(It.IsAny<string>(), It.IsAny<int?>(), It.IsAny<int?>())).Returns(Task.FromResult(entities));
             
             var serviceProvider = new ServiceCollection()
-                .AddSingleton(p => songSearchRepository)
+                .AddSingleton(p => songSearchEngine)
                 .BuildServiceProvider();
             
             var provider = new DefaultSongSearchProvider(serviceProvider);
@@ -75,13 +75,13 @@ namespace KHost.Common.UnitTests.Tests.Providers
         public async Task ShouldSuccessfullyGetSongSearchEngineDefinitions()
         {
             // Given
-            var localSongSearchRepository = Mock.Of<ISongSearchEngine>();
+            var localSongSearchEngine = Mock.Of<ISongSearchEngine>();
 
-            var mockSongSearchRepository = Mock.Of<ISongSearchEngine>();
+            var mockSongSearchEngine = Mock.Of<ISongSearchEngine>();
 
             var serviceProvider = new ServiceCollection()
-                .AddSingleton(p => localSongSearchRepository)
-                .AddSingleton(p => mockSongSearchRepository)
+                .AddSingleton(p => localSongSearchEngine)
+                .AddSingleton(p => mockSongSearchEngine)
                 .BuildServiceProvider();
             
             var provider = new DefaultSongSearchProvider(serviceProvider);
