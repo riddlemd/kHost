@@ -42,6 +42,8 @@ export class VenuesManagerComponent implements OnInit {
     dialogRef
       .afterClosed()
         .subscribe(venue => {
+          if(!venue) return;
+
           venue.id
             ? this._venuesProvider.update(venue)
             : this._venuesProvider.create(venue);
