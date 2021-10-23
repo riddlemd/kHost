@@ -3,7 +3,6 @@
 <form [formGroup]="form" (submit)="save()">
     <mat-dialog-content>
         <input type="text" placeholder="Name" formControlName="name">
-        <input type="text" placeholder="Address" formControlName="address">
     </mat-dialog-content>
     <mat-dialog-actions>
         <button>{{ isNew() ? 'Create' : 'Update' }}</button>

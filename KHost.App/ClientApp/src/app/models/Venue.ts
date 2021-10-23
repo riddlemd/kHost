@@ -4,8 +4,6 @@ export class Venue {
 
     id?: number = undefined;
 
-    address: string = "";
-
     constructor() {
  
     }

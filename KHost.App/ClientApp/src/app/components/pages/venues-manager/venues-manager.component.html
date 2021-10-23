@@ -8,14 +8,12 @@
         <thead>
             <tr>
                 <th>Name</th>
-                <th>Address</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let venue of venues" class="venue-row" [ngClass]="{'selected': venue === selectedVenue }" (contextmenu)="menuTrigger.openMenu();" (mousedown)="selectedVenue=venue">
                 <td class='name-column'>{{ venue.name }}</td>
-                <td class='address-column'>{{ venue.address }}</td>
                 <td class='options-column'>
                     <a mat-icon-button #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="menu">
                         <mat-icon>more_vert</mat-icon>
