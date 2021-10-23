@@ -1,5 +1,7 @@
 <h1>Venues Manager</h1>
-<button (click)="openEditVenueDialog()">Create Venue</button>
+<div class='manager-actions'>
+    <button (click)="openEditVenueDialog()">Create Venue</button>
+</div>
 <div class='scroll-wrapper'>
     <div class='empty' *ngIf="venues.length <= 0">No Venues found.</div>
     <table *ngIf="venues.length > 0">
