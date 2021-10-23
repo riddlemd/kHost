@@ -133,8 +133,13 @@ export class QueuedSingersComponent implements OnInit {
   }
 
   openAddSingerDialog(): void {
+    const config = {
+      data: {
+        currentVenue: this.currentVenue
+      }
+    };
+
     const dialogRef = this._dialog.open(AddSingerComponent);
-    dialogRef.componentInstance.currentVenue = this.currentVenue;
 
     dialogRef
       .afterClosed()
@@ -144,8 +149,13 @@ export class QueuedSingersComponent implements OnInit {
   }
 
   openSingerPerformanceHistoryDialog(): void {
-    const dialogRef = this._dialog.open(SingerPerformanceHistoryComponent);
-    dialogRef.componentInstance.selectedQueuedSinger = this.selectedQueuedSinger;
+    const config = {
+      data: {
+        selectedQueuedSinger: this.selectedQueuedSinger
+      }
+    };
+
+    const dialogRef = this._dialog.open(SingerPerformanceHistoryComponent, config);
 
     dialogRef
       .afterClosed()

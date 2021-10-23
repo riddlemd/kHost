@@ -9,22 +9,24 @@ import { AuthService } from 'src/app/modules/auth/services/auth.service';
 })
 export class LoginComponent {
 
-    form: FormGroup;
+    private _form: FormGroup;
+    get form(): FormGroup { return this._form };
 
-    showError: boolean = false;
+    private _showError: boolean = false;
+    get showError(): boolean { return this._showError };
 
     constructor(
       private _authService: AuthService,
       private _router: Router
     ) {
-      this.form = new FormGroup({
+      this._form = new FormGroup({
           'username': new FormControl(undefined, Validators.required),
           'password': new FormControl(undefined, Validators.required)
       });
     }
 
     async login(): Promise<void> {
-        this.showError = false;
+        this._showError = false;
         const username = this.form.get("username")?.value;
         const password = this.form.get("password")?.value;
 
@@ -32,11 +34,11 @@ export class LoginComponent {
 
         const authenticated = await this._authService.authenticate(username, password);
 
-        if(authenticated) {
-          console.info("BAM!");
-          this._router.navigateByUrl('/');
-        } else {
-          this.showError = true;
+        if(!authenticated) {
+          this._showError = true;
+          return;
         }
+
+        this._router.navigateByUrl('/');
     }
 }
