@@ -30,7 +30,7 @@ export class EditVenueComponent {
   }
 
   public isNew(): boolean {
-    return this._venue !== undefined
+    return this._venue.id === undefined;
   }
 
   public async save(): Promise<void> {

@@ -55,6 +55,8 @@ export class VenuesManagerComponent implements OnInit {
   }
 
   async openDeleteVenueDialog(venue: Venue): Promise<void> {
+    if(venue.id === 1) return;
+
     const config = {
       data: {
         title: 'Delete Venue',

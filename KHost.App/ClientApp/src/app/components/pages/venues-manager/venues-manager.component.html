@@ -25,7 +25,7 @@
                             <mat-icon>edit</mat-icon>
                             <span>Edit</span>
                         </button>
-                        <button mat-menu-item (click)="openDeleteVenueDialog(venue)">
+                        <button mat-menu-item (click)="openDeleteVenueDialog(venue)" *ngIf="venue.id !== 1">
                             <mat-icon>delete</mat-icon>
                             <span>Delete</span>
                         </button>
