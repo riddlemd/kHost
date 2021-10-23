@@ -24,8 +24,7 @@ export class EditVenueComponent {
     this._venue = data.venue ?? new Venue();
 
     this._form = new FormGroup({
-      'name': new FormControl(this._venue?.name, Validators.required),
-      'address': new FormControl(this._venue?.address)
+      'name': new FormControl(this._venue?.name, Validators.required)
     });
   }
 
@@ -35,7 +34,6 @@ export class EditVenueComponent {
 
   public async save(): Promise<void> {
     this._venue.name = this._form.get("name")?.value;
-    this._venue.address = this._form.get("address")?.value;
 
     this._dialogRef.close(this._venue);
   } 
