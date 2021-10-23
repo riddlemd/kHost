@@ -1,24 +1,12 @@
 export class Venue {
 
-    name: string;
+    name: string = "";
 
-    id?: number;
+    id?: number = undefined;
 
-    address: string;
+    address: string = "";
 
-    constructor({
-        name,
-        id,
-        address
-    }: parameters) {
-        this.name = name;
-        this.id = id,
-        this.address = address ?? '';
+    constructor() {
+ 
     }
-}
-
-interface parameters {
-    name: string,
-    id?: number,
-    address?: string
 }

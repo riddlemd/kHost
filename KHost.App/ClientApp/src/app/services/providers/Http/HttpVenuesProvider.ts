@@ -16,28 +16,6 @@ export class HttpVenuesProvider implements VenuesProvider {
         
     }
 
-    async findByIds(ids: number[]): Promise<Venue[]> {
-        const url = `${this._config.apiUrl}${HttpVenuesProvider.ENDPOINT}/find-by-ids`;
-
-        const options: any = {
-            params: {
-                ids: ids.join(',')
-            }
-        };
-
-        try {
-            const response = await this._httpClient.get<ApiResponse<Venue[]>>(url, <object>options).toPromise();
-            const venues = response.result;
-            
-            return venues;
-        }
-        catch(exception) {
-
-        }
-
-        return [];
-    }
-
     async search(query: string, count?: number, offset?: number): Promise<Venue[]> {
         const url = `${this._config.apiUrl}${HttpVenuesProvider.ENDPOINT}/search`;
 
@@ -58,6 +36,26 @@ export class HttpVenuesProvider implements VenuesProvider {
         }
 
         return [];
+    }
+
+    async findById(id: number): Promise<Venue | undefined> {
+        const url = `${this._config.apiUrl}${HttpVenuesProvider.ENDPOINT}/find-by-id`;
+
+        const options: any = {
+            params: {
+                id: id
+            }
+        };
+
+        try {
+            const response = await this._httpClient.get<ApiResponse<Venue>>(url, <object>options).toPromise();
+            return response.result;
+        }
+        catch(exception) {
+
+        }
+
+        return undefined;
     }
 
     // CRUD Methods

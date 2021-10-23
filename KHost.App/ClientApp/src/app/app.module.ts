@@ -35,6 +35,8 @@ import { VenuesManagerComponent } from './components/pages/venues-manager/venues
 import { MainMenuComponent } from './components/main-menu/main-menu.component';
 import { HeaderComponent } from './components/header/header.component';
 import { NotAuthorizedComponent } from './components/pages/not-authorized/not-authorized.component';
+import { EditVenueComponent } from './components/pages/venues-manager/edit-venue/edit-venue.component';
+import { ConfirmComponent } from './components/confirm/confirm.component';
 // Services
 import { LocalStorageService } from "./services/local-storage.service";
 import { AuthService } from './modules/auth/services/auth.service';
@@ -68,8 +70,6 @@ import { AppConfig, AppConfigInstance } from './app.config';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    LoginComponent,
     // KaraokeManager
     KaraokeManagerComponent,
     AddSingerComponent,
@@ -88,9 +88,14 @@ import { AppConfig, AppConfigInstance } from './app.config';
     SongsManagerComponent,
     // VenuesManager
     VenuesManagerComponent,
+    EditVenueComponent,
+    // Other Components
+    AppComponent,
+    LoginComponent,
     NotAuthorizedComponent,
     MainMenuComponent,
-    HeaderComponent
+    HeaderComponent,
+    ConfirmComponent,
   ],
   imports: [
     // Angular Modules

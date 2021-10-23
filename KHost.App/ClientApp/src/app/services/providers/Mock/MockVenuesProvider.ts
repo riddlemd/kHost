@@ -13,17 +13,6 @@ export class MockVenuesProvider extends VenuesProvider {
         this._generateVenues();
     }
 
-    get(count: number = 20, offset: number = 0): Promise<Venue[]> {
-        console.info(`Getting Venues (Count:${count}, Offset:${offset})`);
-
-        const venues = this._cache
-            .slice(offset, count);
-        
-        return new Promise((resolve, reject) => {
-            resolve(venues);
-        });
-    }
-
     search(query: string, count: number = 20, offset: number = 0): Promise<Venue[]> {
         console.info(`Searching Venues (Query:"${query}", Count:${count}, Offset:${offset})`);
 
@@ -68,10 +57,9 @@ export class MockVenuesProvider extends VenuesProvider {
 
         for(let i = 0; i < 100; i++) {
             
-            const venue = new Venue({
-                id: i,
-                name: (Math.random() + 1).toString(36).substring(7)
-            });
+            const venue = new Venue();
+            venue.id = i;
+            venue.name = (Math.random() + 1).toString(36).substring(7);
 
             this._cache.push(venue);
         }

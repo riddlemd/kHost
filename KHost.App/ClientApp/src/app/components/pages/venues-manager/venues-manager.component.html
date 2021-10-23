@@ -1,4 +1,5 @@
 <h1>Venues Manager</h1>
+<button (click)="openEditVenueDialog()">Create Venue</button>
 <div class='scroll-wrapper'>
     <div class='empty' *ngIf="venues.length <= 0">No Venues found.</div>
     <table *ngIf="venues.length > 0">
@@ -10,7 +11,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let venue of venues" class="singer-row" [ngClass]="{'selected': venue === selectedVenue }" (contextmenu)="menuTrigger.openMenu();" (mousedown)="selectedVenue=venue">
+            <tr *ngFor="let venue of venues" class="venue-row" [ngClass]="{'selected': venue === selectedVenue }" (contextmenu)="menuTrigger.openMenu();" (mousedown)="selectedVenue=venue">
                 <td class='name-column'>{{ venue.name }}</td>
                 <td class='address-column'>{{ venue.address }}</td>
                 <td class='options-column'>
@@ -18,13 +19,13 @@
                         <mat-icon>more_vert</mat-icon>
                     </a>
                     <mat-menu #menu="matMenu">
-                        <button mat-menu-item>
+                        <button mat-menu-item (click)="openEditVenueDialog(venue)">
                             <mat-icon>edit</mat-icon>
                             <span>Edit</span>
                         </button>
-                        <button mat-menu-item>
+                        <button mat-menu-item (click)="openDeleteVenueDialog(venue)">
                             <mat-icon>delete</mat-icon>
-                            <span>Remove</span>
+                            <span>Delete</span>
                         </button>
                     </mat-menu>
                 </td>
