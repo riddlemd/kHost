@@ -26,7 +26,7 @@ export class EditVenueComponent extends EditModelComponent<Venue, EditVenueCompo
 
   protected _createFormGroup(venue: Venue): FormGroup {
     return new FormGroup({
-      'name': new FormControl(venue.name, Validators.required)
+      'name': new FormControl(venue?.name, Validators.required)
     });
   }
 }

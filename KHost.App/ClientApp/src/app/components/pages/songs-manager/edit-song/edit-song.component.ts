@@ -26,15 +26,15 @@ export class EditSongComponent extends EditModelComponent<Song, EditSongComponen
 
   protected _createFormGroup(song: Song): FormGroup {
     return new FormGroup({
-      'name': new FormControl(song.name, Validators.required),
-      'bandName': new FormControl(song.bandName, Validators.required),
-      'source': new FormControl(song.source, Validators.required),
-      'karaokeBrand': new FormControl(song.karaokeBrand, Validators.required),
-      'localPath': new FormControl(song.localPath, Validators.required),
-      'remotePath': new FormControl(song.remotePath, Validators.required),
-      'notes': new FormControl(song.notes, Validators.required),
-      'state': new FormControl(song.state, Validators.required),
-      'lengthInSeconds': new FormControl(song.lengthInSeconds, Validators.required)
+      'name': new FormControl(song?.name, Validators.required),
+      'bandName': new FormControl(song?.bandName, Validators.required),
+      'source': new FormControl(song?.source, Validators.required),
+      'karaokeBrand': new FormControl(song?.karaokeBrand, Validators.required),
+      'localPath': new FormControl(song?.localPath, Validators.required),
+      'remotePath': new FormControl(song?.remotePath, Validators.required),
+      'notes': new FormControl(song?.notes, Validators.required),
+      'state': new FormControl(song?.state, Validators.required),
+      'lengthInSeconds': new FormControl(song?.lengthInSeconds, Validators.required)
     });
   }
 }
