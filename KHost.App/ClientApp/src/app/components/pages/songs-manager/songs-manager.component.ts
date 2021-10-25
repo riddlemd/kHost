@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Song } from 'src/app/models/Song';
 import { SongsProvider } from 'src/app/services/providers/SongsProvider';
@@ -14,18 +15,39 @@ export class SongsManagerComponent implements OnInit {
   private _songs: Song[] = [];
   get songs(): Song[] { return this._songs; }
 
+  private _form: FormGroup;
+  get form(): FormGroup { return this._form; }
+
   selectedSong?: Song;
 
   constructor(
     private _songsProvider: SongsProvider,
     private _dialog: MatDialog
   ) {
-
+    this._form = new FormGroup({
+      'query': new FormControl(undefined, Validators.required)
+    });
   }
 
   ngOnInit(): void {
+    this.getAll();
+  }
+
+  async getAll(): Promise<void> {
     this._songsProvider.read()
       .then(value => { this._songs = value; });
+  }
+
+  async search(): Promise<void> {
+    const query = this.form.get("query")?.value;
+
+    if(query) {
+      this._songsProvider.search(query)
+        .then(value => { this._songs = value; });
+      return;
+    }
+
+    this.getAll();
   }
 
   async openEditSongDialog(song?: Song): Promise<void> {
