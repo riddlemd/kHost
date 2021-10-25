@@ -17,26 +17,6 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 // kHost Modules
 import { KommonModule } from './modules/kommon/kommon.module';
 import { AuthModule } from './modules/auth/auth.module';
-// Components
-import { AppComponent } from './app.component';
-import { LoginComponent } from "./components/pages/login/login.component";
-import { KaraokeManagerComponent } from './components/pages/karaoke-manager/karaoke-manager.component';
-import { AddSingerComponent } from './components/pages/karaoke-manager/add-singer/add-singer.component';
-import { PerformanceControlsComponent } from './components/pages/karaoke-manager/performance-controls/performance-controls.component';
-import { QueuedSingersComponent } from './components/pages/karaoke-manager/queued-singers/queued-singers.component';
-import { QueuedSongsComponent } from './components/pages/karaoke-manager/queued-songs/queued-songs.component';
-import { SingerPerformanceHistoryComponent } from './components/pages/karaoke-manager/singer-performance-history/singer-performance-history.component';
-import { SongSearchComponent } from './components/pages/karaoke-manager/song-search/song-search.component';
-import { DownloadsManagerComponent } from './components/pages/downloads-manager/downloads-manager.component';
-import { SettingsManagerComponent } from './components/pages/settings-manager/settings-manager.component';
-import { SingersManagerComponent } from './components/pages/singers-manager/singers-manager.component';
-import { SongsManagerComponent } from './components/pages/songs-manager/songs-manager.component';
-import { VenuesManagerComponent } from './components/pages/venues-manager/venues-manager.component';
-import { MainMenuComponent } from './components/main-menu/main-menu.component';
-import { HeaderComponent } from './components/header/header.component';
-import { NotAuthorizedComponent } from './components/pages/not-authorized/not-authorized.component';
-import { EditVenueComponent } from './components/pages/venues-manager/edit-venue/edit-venue.component';
-import { ConfirmComponent } from './components/confirm/confirm.component';
 // Services
 import { LocalStorageService } from "./services/local-storage.service";
 import { AuthService } from './modules/auth/services/auth.service';
@@ -67,6 +47,28 @@ import { HttpSingersProvider } from './services/providers/Http/HttpSingersProvid
 import { HttpVenuesProvider } from './services/providers/Http/HttpVenuesProvider';
 // Configs
 import { AppConfig, AppConfigInstance } from './app.config';
+// Components
+import { AppComponent } from './app.component';
+import { LoginComponent } from "./components/pages/login/login.component";
+import { KaraokeManagerComponent } from './components/pages/karaoke-manager/karaoke-manager.component';
+import { AddSingerComponent } from './components/pages/karaoke-manager/add-singer/add-singer.component';
+import { PerformanceControlsComponent } from './components/pages/karaoke-manager/performance-controls/performance-controls.component';
+import { QueuedSingersComponent } from './components/pages/karaoke-manager/queued-singers/queued-singers.component';
+import { QueuedSongsComponent } from './components/pages/karaoke-manager/queued-songs/queued-songs.component';
+import { SingerPerformanceHistoryComponent } from './components/pages/karaoke-manager/singer-performance-history/singer-performance-history.component';
+import { SongSearchComponent } from './components/pages/karaoke-manager/song-search/song-search.component';
+import { DownloadsManagerComponent } from './components/pages/downloads-manager/downloads-manager.component';
+import { SettingsManagerComponent } from './components/pages/settings-manager/settings-manager.component';
+import { SingersManagerComponent } from './components/pages/singers-manager/singers-manager.component';
+import { SongsManagerComponent } from './components/pages/songs-manager/songs-manager.component';
+import { VenuesManagerComponent } from './components/pages/venues-manager/venues-manager.component';
+import { MainMenuComponent } from './components/main-menu/main-menu.component';
+import { HeaderComponent } from './components/header/header.component';
+import { NotAuthorizedComponent } from './components/pages/not-authorized/not-authorized.component';
+import { EditVenueComponent } from './components/pages/venues-manager/edit-venue/edit-venue.component';
+import { ConfirmComponent } from './components/confirm/confirm.component';
+import { EditSongComponent } from './components/pages/songs-manager/edit-song/edit-song.component';
+import { EditSingerComponent } from './components/pages/singers-manager/edit-singer/edit-singer.component';
 
 @NgModule({
   declarations: [
@@ -86,6 +88,7 @@ import { AppConfig, AppConfigInstance } from './app.config';
     SingersManagerComponent,
     // SongsManager
     SongsManagerComponent,
+    EditSongComponent,
     // VenuesManager
     VenuesManagerComponent,
     EditVenueComponent,
@@ -96,6 +99,7 @@ import { AppConfig, AppConfigInstance } from './app.config';
     MainMenuComponent,
     HeaderComponent,
     ConfirmComponent,
+    EditSingerComponent,
   ],
   imports: [
     // Angular Modules

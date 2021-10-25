@@ -1,0 +1,21 @@
+<div mat-dialog-title>{{ isNew() ? 'Create' : 'Edit' }} Song</div>
+
+<form [formGroup]="form" (submit)="save()">
+    <mat-dialog-content>
+        <div><input type="text" placeholder="Name" formControlName="name"></div>
+        <div><input type="text" placeholder="Band Name" formControlName="bandName"></div>
+        <div><input type="text" placeholder="Source" formControlName="source"></div>
+        <div><input type="text" placeholder="Karaoke Brand" formControlName="karaokeBrand"></div>
+        <div><input type="text" placeholder="Local Path" formControlName="localPath"></div>
+        <div><input type="text" placeholder="Remote Path" formControlName="remotePath"></div>
+        <div><input type="text" placeholder="State" formControlName="state"></div>
+        <div><input type="text" placeholder="LengthInSeconds" formControlName="lengthInSeconds"></div>
+        <div>
+            <label>Notes</label>
+            <textarea type="text" formControlName="notes"></textarea>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+        <button>{{ isNew() ? 'Create' : 'Update' }}</button>
+    </mat-dialog-actions>
+</form>

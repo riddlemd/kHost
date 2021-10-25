@@ -1,40 +1,32 @@
 import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { EditModelComponent } from 'src/app/components/edit-model/edit-model.component';
 import { Venue } from 'src/app/models/Venue';
-import { VenuesProvider } from 'src/app/services/providers/VenuesProvider';
 
 @Component({
   templateUrl: './edit-venue.component.html',
   styleUrls: ['./edit-venue.component.scss']
 })
-export class EditVenueComponent {
 
-  private _venue: Venue;
-
-  private _form: FormGroup;
-  get form(): FormGroup { return this._form };
+export class EditVenueComponent extends EditModelComponent<Venue, EditVenueComponent>{
 
   constructor(
-    private _dialogRef: MatDialogRef<EditVenueComponent>,
+    dialogRef: MatDialogRef<EditVenueComponent>,
     @Inject(MAT_DIALOG_DATA) data: {
-       venue: Venue
+       entity: Venue
     }
   ) {
-    this._venue = data.venue ?? new Venue();
+    super(dialogRef, data);
+  }
 
-    this._form = new FormGroup({
-      'name': new FormControl(this._venue?.name, Validators.required)
+  protected _createNewEntity(): Venue {
+    return new Venue();
+  }
+
+  protected _createFormGroup(venue: Venue): FormGroup {
+    return new FormGroup({
+      'name': new FormControl(venue.name, Validators.required)
     });
   }
-
-  public isNew(): boolean {
-    return this._venue.id === undefined;
-  }
-
-  public async save(): Promise<void> {
-    this._venue.name = this._form.get("name")?.value;
-
-    this._dialogRef.close(this._venue);
-  } 
 }

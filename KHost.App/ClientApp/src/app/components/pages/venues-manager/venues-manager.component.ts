@@ -33,7 +33,7 @@ export class VenuesManagerComponent implements OnInit {
 
     const config = {
       data: {
-        venue: venue
+        entity: venue
       }
     };
 

@@ -22,9 +22,13 @@
                         <mat-icon>more_vert</mat-icon>
                     </a>
                     <mat-menu #menu="matMenu">
-                        <button mat-menu-item>
-                            <mat-icon>play_arrow</mat-icon>
-                            <span>Play Now</span>
+                        <button mat-menu-item (click)="openEditSongDialog(song)">
+                            <mat-icon>edit</mat-icon>
+                            <span>Edit</span>
+                        </button>
+                        <button mat-menu-item (click)="openDeleteSongDialog(song)">
+                            <mat-icon>delete</mat-icon>
+                            <span>Delete</span>
                         </button>
                     </mat-menu>
                 </td>
