@@ -5,7 +5,6 @@ import { EditModelComponent } from 'src/app/components/edit-model/edit-model.com
 import { Song } from 'src/app/models/Song';
 
 @Component({
-  selector: 'kh-edit-song',
   templateUrl: './edit-song.component.html',
   styleUrls: ['./edit-song.component.scss']
 })
