@@ -2,7 +2,7 @@
 
 namespace KHost.Common.Repositories
 {
-    public interface IVenuesRepository : IRepository<Venue>
+    public interface IVenuesRepository : IRepository<Venue>, ISearchableRepository<Venue>
     {
         
     }
