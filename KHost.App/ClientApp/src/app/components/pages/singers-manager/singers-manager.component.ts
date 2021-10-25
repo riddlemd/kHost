@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Singer } from 'src/app/models/Singer';
 import { SingersProvider } from 'src/app/services/providers/SingersProvider';
@@ -14,18 +15,39 @@ export class SingersManagerComponent implements OnInit {
   private _singers: Singer[] = [];
   get singers(): Singer[] { return this._singers; }
 
+  private _form: FormGroup;
+  get form(): FormGroup { return this._form; }
+
   selectedSinger?: Singer;
 
   constructor(
     private _singersProvider: SingersProvider,
     private _dialog: MatDialog
   ) {
-
+    this._form = new FormGroup({
+      'query': new FormControl(undefined, Validators.required)
+    });
   }
 
   ngOnInit(): void {
+    this.getAll();
+  }
+
+  async getAll(): Promise<void> {
     this._singersProvider.read()
       .then(value => { this._singers = value; });
+  }
+
+  async search(): Promise<void> {
+    const query = this.form.get("query")?.value;
+
+    if(query) {
+      this._singersProvider.search(query)
+        .then(value => { this._singers = value; });
+      return;
+    }
+
+    this.getAll();
   }
 
   async openEditSingerDialog(singer?: Singer): Promise<void> {

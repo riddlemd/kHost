@@ -35,7 +35,7 @@
         </tbody>
     </table>
 </div>
-<form>
-    <input type="text" placeholder="Enter the name of the singer here, use * for wildcard searches.">
-    <button (click)="false;">Search</button>
+<form [formGroup]="form" (submit)="search()">
+    <input type="text" placeholder="Enter the name of the singer, use % for wildcard searches." formControlName="query">
+    <button>Search</button>
 </form>
