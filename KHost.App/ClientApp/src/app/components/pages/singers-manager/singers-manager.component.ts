@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Singer } from 'src/app/models/Singer';
 import { SingersProvider } from 'src/app/services/providers/SingersProvider';
+import { ConfirmComponent } from '../../confirm/confirm.component';
+import { EditSingerComponent } from './edit-singer/edit-singer.component';
 
 @Component({
   templateUrl: './singers-manager.component.html',
@@ -8,15 +11,68 @@ import { SingersProvider } from 'src/app/services/providers/SingersProvider';
 })
 export class SingersManagerComponent implements OnInit {
 
-  singers: Singer[] = [];
+  private _singers: Singer[] = [];
+  get singers(): Singer[] { return this._singers; }
 
   selectedSinger?: Singer;
 
-  constructor(private _singersProvider: SingersProvider) { }
+  constructor(
+    private _singersProvider: SingersProvider,
+    private _dialog: MatDialog
+  ) {
+
+  }
 
   ngOnInit(): void {
     this._singersProvider.read()
-      .then(value => { this.singers = value; });
+      .then(value => { this._singers = value; });
   }
 
+  async openEditSingerDialog(singer?: Singer): Promise<void> {
+    const isNew = singer === undefined;
+
+    const config = {
+      data: {
+        entity: singer
+      }
+    };
+
+    const dialogRef = this._dialog.open(EditSingerComponent, config);
+
+    dialogRef
+      .afterClosed()
+        .subscribe(singer => {
+          if(!singer) return;
+
+          singer.id
+            ? this._singersProvider.update(singer)
+            : this._singersProvider.create(singer);
+
+          if(!isNew) return;
+
+          this._singers.push(singer);
+    });
+  }
+
+  async openDeleteSingerDialog(singer: Singer): Promise<void> {
+    if(singer.id === 1) return;
+
+    const config = {
+      data: {
+        title: 'Delete Singer',
+        message: `Are you sure you want to delete ${singer.name}?`
+      }
+    };
+
+    const dialogRef = this._dialog.open(ConfirmComponent, config);
+
+    dialogRef
+      .afterClosed()
+        .subscribe(async confirm => {
+          if(!confirm) return;
+
+          await this._singersProvider.delete(singer);
+          this._singers.remove(singer);
+    });
+  }
 }

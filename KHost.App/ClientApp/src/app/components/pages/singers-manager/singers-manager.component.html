@@ -1,4 +1,7 @@
 <h1>Singers Manager</h1>
+<div class='manager-actions'>
+    <button (click)="openEditSingerDialog()">Create Singer</button>
+</div>
 <div class='scroll-wrapper'>
     <div class='empty' *ngIf="singers.length <= 0">No Singers found.</div>
     <table *ngIf="singers.length > 0">
@@ -18,13 +21,13 @@
                         <mat-icon>more_vert</mat-icon>
                     </a>
                     <mat-menu #menu="matMenu">
-                        <button mat-menu-item>
+                        <button mat-menu-item (click)="openEditSingerDialog(singer)">
                             <mat-icon>edit</mat-icon>
                             <span>Edit</span>
                         </button>
-                        <button mat-menu-item>
+                        <button mat-menu-item (click)="openDeleteSingerDialog(singer)">
                             <mat-icon>delete</mat-icon>
-                            <span>Remove</span>
+                            <span>Delete</span>
                         </button>
                     </mat-menu>
                 </td>

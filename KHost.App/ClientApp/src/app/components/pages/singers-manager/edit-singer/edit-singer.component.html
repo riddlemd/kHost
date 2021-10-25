@@ -1,1 +1,10 @@
-<p>edit-singer works!</p>
+<div mat-dialog-title>{{ isNew() ? 'Create' : 'Edit' }} Singer</div>
+
+<form [formGroup]="form" (submit)="save()">
+    <mat-dialog-content>
+        <div><input type="text" placeholder="Name" formControlName="name"></div>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+        <button>{{ isNew() ? 'Create' : 'Update' }}</button>
+    </mat-dialog-actions>
+</form>

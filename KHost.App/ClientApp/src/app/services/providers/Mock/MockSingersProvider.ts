@@ -79,10 +79,9 @@ export class MockSingersProvider implements SingersProvider {
 
         for(var i = 0; i < 100; i++)
         {
-            const singer = new Singer({
-                id: i,
-                name: (Math.random() + 1).toString(36).substring(7)
-            });
+            const singer = new Singer();
+            singer.id = i;
+            singer.name = (Math.random() + 1).toString(36).substring(7);
 
             this._cache.push(singer);
         }
