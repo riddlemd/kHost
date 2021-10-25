@@ -34,6 +34,6 @@
     </table>
 </div>
 <form [formGroup]="form" (submit)="search()">
-    <input type="text" placeholder="Enter the name of the venue here, use * for wildcard searches." formControlName="query">
+    <input type="text" placeholder="Enter the name of the venue here, use % for wildcard searches." formControlName="query">
     <button>Search</button>
 </form>
