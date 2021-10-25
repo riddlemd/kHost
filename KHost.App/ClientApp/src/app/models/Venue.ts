@@ -1,10 +1,8 @@
-export class Venue {
+import { ModelWithId } from "./ModelWIthId";
+
+export class Venue implements ModelWithId {
+
+    public id?: number;
 
     name: string = "";
-
-    id?: number = undefined;
-
-    constructor() {
- 
-    }
 }
