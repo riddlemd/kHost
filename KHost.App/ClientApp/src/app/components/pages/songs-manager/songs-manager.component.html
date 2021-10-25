@@ -1,4 +1,7 @@
 <h1>Songs Manager</h1>
+<div class='manager-actions'>
+    <button (click)="openEditSongDialog()">Create Song</button>
+</div>
 <div class='scroll-wrapper'>
     <div class='empty' *ngIf="songs.length <= 0">No Songs found.</div>
     <table *ngIf="songs.length > 0">
