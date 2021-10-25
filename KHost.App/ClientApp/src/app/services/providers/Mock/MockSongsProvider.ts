@@ -63,17 +63,16 @@ export class MockSongsProvider implements SongsProvider {
             const localPath = i % 2 ? 'local://' : undefined;
             const remotePath = i % 2 ? undefined : 'remote://';
             
-            const song = new Song({
-                id: i,
-                name: (Math.random() + 1).toString(36).substring(7) + ' ' + source,
-                bandName: (Math.random() + 1).toString(36).substring(7),
-                source: source,
-                karaokeBrand: 'KHOST',
-                localPath: localPath,
-                remotePath: remotePath,
-                state: SongState.Ready,
-                lengthInSeconds: Math.random() * 360
-            });
+            const song = new Song()
+            song.id = i;
+            song.name = (Math.random() + 1).toString(36).substring(7) + ' ' + source;
+            song.bandName = (Math.random() + 1).toString(36).substring(7);
+            song.source = source;
+            song.karaokeBrand = 'KHOST';
+            song.localPath = localPath;
+            song.remotePath = remotePath;
+            song.state = SongState.Ready;
+            song.lengthInSeconds = Math.random() * 360;
 
             this._cache.push(song);
         }
