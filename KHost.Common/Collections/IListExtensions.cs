@@ -15,6 +15,10 @@ namespace KHost.Common.Collections
             return list;
         }
 
+        public static IList<T> MoveTowardsFirst<T>(this IList<T> list, int oldIndex) => list.Move(oldIndex, oldIndex - 1);
+
+        public static IList<T> MoveTowardsLast<T>(this IList<T> list, int oldIndex) => list.Move(oldIndex, oldIndex + 1);
+
         public static IList<T> MoveToFirst<T>(this IList<T> list, int oldIndex)
         {
             if (oldIndex == 0)
