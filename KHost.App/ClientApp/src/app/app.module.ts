@@ -1,7 +1,7 @@
 // Angular Modules
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from "@angular/forms";
 import { AppRoutingModule } from './app-routing.module';
 // Angular Material Modules
@@ -12,6 +12,8 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from "@angular/material/dialog";
+import { MatOptionModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
 // Angular CDK
 import { DragDropModule } from '@angular/cdk/drag-drop';
 // kHost Modules
@@ -115,6 +117,8 @@ import { EditSingerComponent } from './components/pages/singers-manager/edit-sin
     MatInputModule,
     MatButtonModule,
     MatDialogModule,
+    MatSelectModule,
+    MatOptionModule,
     // Angular CDK
     DragDropModule,
     // kHost Modules

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { Song } from 'src/app/models/Song';
+import { Song, SongState } from 'src/app/models/Song';
 import { SongsProvider } from 'src/app/services/providers/SongsProvider';
 import { ConfirmComponent } from '../../confirm/confirm.component';
 import { EditSongComponent } from './edit-song/edit-song.component';
@@ -56,7 +56,8 @@ export class SongsManagerComponent implements OnInit {
     const config = {
       data: {
         entity: song
-      }
+      },
+      minWidth: '50vw'
     };
 
     const dialogRef = this._dialog.open(EditSongComponent, config);

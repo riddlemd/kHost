@@ -1,8 +1,9 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, NgIterable } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EditModelComponent } from 'src/app/components/edit-model/edit-model.component';
-import { Song } from 'src/app/models/Song';
+import { Song, SongState } from 'src/app/models/Song';
+import { EnumToArrayPipe } from 'src/app/modules/kommon/pipes/enumToArrayPipe';
 
 @Component({
   templateUrl: './edit-song.component.html',
@@ -29,9 +30,9 @@ export class EditSongComponent extends EditModelComponent<Song, EditSongComponen
       'bandName': new FormControl(song?.bandName, Validators.required),
       'source': new FormControl(song?.source, Validators.required),
       'karaokeBrand': new FormControl(song?.karaokeBrand, Validators.required),
-      'localPath': new FormControl(song?.localPath, Validators.required),
-      'remotePath': new FormControl(song?.remotePath, Validators.required),
-      'notes': new FormControl(song?.notes, Validators.required),
+      'localPath': new FormControl(song?.localPath),
+      'remotePath': new FormControl(song?.remotePath),
+      'notes': new FormControl(song?.notes),
       'state': new FormControl(song?.state, Validators.required),
       'lengthInSeconds': new FormControl(song?.lengthInSeconds, Validators.required)
     });

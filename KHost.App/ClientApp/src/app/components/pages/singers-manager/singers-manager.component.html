@@ -15,7 +15,7 @@
         <tbody>
             <tr *ngFor="let singer of singers" class="singer-row" [ngClass]="{'selected': singer === selectedSinger }" (contextmenu)="menuTrigger.openMenu();" (mousedown)="selectedSinger=singer">
                 <td class='name-column'>{{ singer.name }}</td>
-                <td class='last-sang-column'>{{ singer.lastSang | date }}</td>
+                <td class='last-sang-column'>{{ singer.lastSang ? (singer.lastSang | date) : 'Never' }}</td>
                 <td class='options-column'>
                     <a mat-icon-button #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="menu">
                         <mat-icon>more_vert</mat-icon>

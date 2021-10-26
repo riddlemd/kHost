@@ -6,6 +6,8 @@
 
         public string Name { get; set; } = "";
 
+        public string Notes { get; set; } = "";
+
         public override Singer Clone() => (base.Clone() as Singer)!;
     }
 }

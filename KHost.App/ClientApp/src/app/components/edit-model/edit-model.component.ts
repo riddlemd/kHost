@@ -30,6 +30,8 @@ export abstract class EditModelComponent<TModel extends ModelWithId, TComponent>
   }
 
   public async save(): Promise<void> {
+    if(!this._form.valid) return;
+
     Object.keys(this.form.controls).forEach(key => {
       const control = this._form.controls[key];
       this._entity[key as keyof TModel] = control.value;

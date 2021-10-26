@@ -2,7 +2,14 @@
 
 <form [formGroup]="form" (submit)="save()">
     <mat-dialog-content>
-        <input type="text" placeholder="Name" formControlName="name">
+        <mat-form-field appearance="fill">
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Notes</mat-label>
+            <textarea matInput formControlName="notes"></textarea>
+        </mat-form-field>
     </mat-dialog-content>
     <mat-dialog-actions>
         <button>{{ isNew() ? 'Create' : 'Update' }}</button>

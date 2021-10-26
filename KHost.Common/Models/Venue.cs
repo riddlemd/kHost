@@ -6,6 +6,8 @@
 
         public string Name { get; set; } = "";
 
+        public string Notes { get; set; } = "";
+
         public override Venue Clone() => (base.Clone() as Venue)!;
     }
 }

@@ -2,9 +2,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MultiButtonComponent } from './components/multi-button/multi-button.component';
-import { MatIcon, MatIconModule } from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { SecondsToMinutesPipe } from './pipes/SecondsToMinutesPipe';
+import { EnumToArrayPipe } from './pipes/enumToArrayPipe';
 // Components
 
 
@@ -12,7 +13,8 @@ import { SecondsToMinutesPipe } from './pipes/SecondsToMinutesPipe';
 @NgModule({
   declarations: [
     MultiButtonComponent,
-    SecondsToMinutesPipe
+    SecondsToMinutesPipe,
+    EnumToArrayPipe
   ],
   imports: [
     CommonModule,
@@ -21,7 +23,8 @@ import { SecondsToMinutesPipe } from './pipes/SecondsToMinutesPipe';
   ],
   exports: [
     MultiButtonComponent,
-    SecondsToMinutesPipe
+    SecondsToMinutesPipe,
+    EnumToArrayPipe
   ]
 })
 export class KommonModule { }

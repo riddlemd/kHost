@@ -195,7 +195,7 @@ a {
 
 ::-webkit-scrollbar {
 	width: 10px;
-  }
+}
 
 .scroll-wrapper {
 	overflow-y: scroll;
@@ -214,10 +214,6 @@ a {
 .empty {
 	text-align: center;
 	margin: 1em;
-}
-
-.mat-dialog-container {
-	padding: 1em !important;
 }
 
 .mat-menu-content {
@@ -248,4 +244,8 @@ ng-component {
 
 mat-dialog-actions {
 	justify-content: right;
+}
+
+mat-form-field {
+	width: 100%;
 }

@@ -25,7 +25,8 @@ export class EditSingerComponent extends EditModelComponent<Singer, EditSingerCo
 
   protected _createFormGroup(singer: Singer): FormGroup {
     return new FormGroup({
-      'name': new FormControl(singer?.name, Validators.required)
+      'name': new FormControl(singer?.name, Validators.required),
+      'notes': new FormControl(singer?.notes)
     });
   }
 }
