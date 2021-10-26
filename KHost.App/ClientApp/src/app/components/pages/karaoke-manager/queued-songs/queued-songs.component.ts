@@ -31,12 +31,13 @@ export class QueuedSongsComponent implements OnChanges {
   ngOnChanges() {
     if(!this.selectedQueuedSinger?.singer) return;
 
+    this.queuedSongs = []
+
+    if(this.selectedQueuedSinger.queuedSongsCount <= 0) return;
+
     this.getQueuedSongsAndSongsForQueuedSinger(this.selectedQueuedSinger)
       .then(queuedSongs => {
         this.queuedSongs = queuedSongs;
-      })
-      .catch(() => {
-        this.queuedSongs = [];
       });
   }
 
