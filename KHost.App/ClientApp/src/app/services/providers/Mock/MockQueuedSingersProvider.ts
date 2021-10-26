@@ -113,11 +113,10 @@ export class MockQueuedSingersProvider implements QueuedSingersProvider {
 
             if(!singer.id) continue;
 
-            const queuedSinger = new QueuedSinger({
-                id: i,
-                singerId: singer.id,
-                singer: singer
-            });
+            const queuedSinger = new QueuedSinger()
+            queuedSinger.id = i;
+            queuedSinger.singerId = singer.id;
+            queuedSinger.singer = singer;
             
             this._cache.push(queuedSinger);
         }

@@ -1,36 +1,15 @@
+import { ModelWithId } from "./ModelWIthId";
 import { Singer } from "./Singer";
 
-export class QueuedSinger {
+export class QueuedSinger implements ModelWithId {
 
-  singerId: number;
+  id?: number;
+
+  singerId?: number;
     
   singer?: Singer;
   
-  id?: number;
-  
-  queuedSongsCount: number;
+  queuedSongsCount: number = 0;
 
-  position: number;
-
-  constructor({
-    singerId,
-    singer,
-    id,
-    queuedSongsCount,
-    position
-  }: parameters) {
-    this.singerId = singerId;
-    this.singer = singer;
-    this.id = id;
-    this.queuedSongsCount = queuedSongsCount ?? 0;
-    this.position = position ?? 1;
-  }
-}
-
-interface parameters {
-  singerId: number,
-  singer?: Singer,
-  id?: number,
-  queuedSongsCount?: number,
-  position?: number
+  position: number = 0;
 }
