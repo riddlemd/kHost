@@ -17,7 +17,6 @@ namespace KHost.App.Models.Responses
 
     [Serializable]
     public class ApiResponse<TModel> : ApiResponse
-        where TModel : class
     {
         public TModel Result { get; }
 
