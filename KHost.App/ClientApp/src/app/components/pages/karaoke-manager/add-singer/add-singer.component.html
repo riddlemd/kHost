@@ -27,6 +27,6 @@
 </mat-dialog-content>
 
 <mat-dialog-actions>
-    <button>Create New</button>
-    <button *ngIf="selectedSinger">Add Selected</button>
+    <button (click)="returnNewSinger()">Create New</button>
+    <button *ngIf="selectedSinger" (click)="returnSelectedSinger()">Add Selected</button>
 </mat-dialog-actions>
