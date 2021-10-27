@@ -16,6 +16,8 @@ namespace KHost.Common.Repositories.EntityFramework
 
         DbContext IQueueRepository<QueuedSong>.Context => Context;
 
+        public async Task<QueuedSong?> GetLast(int queuedSingerId) => await Context.Set<QueuedSong>().Where(e => e.QueuedSingerId == queuedSingerId).OrderBy(e => e.Position).LastOrDefaultAsync();
+
         public async Task<IEnumerable<QueuedSong>> FindByQueuedSingerId(int id)
         {
             var queuedSongs = Context.Set<QueuedSong>()
@@ -32,6 +34,15 @@ namespace KHost.Common.Repositories.EntityFramework
 
 
             return query;
+        }
+
+        public async override Task Create(QueuedSong entity)
+        {
+            var lastQueuedSong = await GetLast(entity.QueuedSingerId);
+
+            entity.Position = (lastQueuedSong?.Position ?? -1) + 1;
+
+            await base.Create(entity);
         }
     }
 }

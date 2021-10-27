@@ -39,20 +39,19 @@ namespace KHost.Common.Repositories
 
     public interface IRepository
     {
-        public Task<IEnumerable<object>> Read(int? count = null, int? offset = null);
-
         public Task<object?> FindById(int id);
 
         public Task<IEnumerable<object>> FindByIds(IEnumerable<int> ids);
 
         public Task Create(object entity);
 
+        public Task<IEnumerable<object>> Read(int? count = null, int? offset = null);
+
         public Task Update(object entity);
 
         public Task DeleteById(int id);
 
         public Task Delete(object entity);
-
 
         public Task<int> Save();
     }

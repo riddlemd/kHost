@@ -137,6 +137,10 @@ namespace KHost.Common.Repositories
             return entity.Position;
         }
 
+        public async Task<TModel?> GetFirst() => await Context.Set<TModel>().OrderBy(e => e.Position).FirstOrDefaultAsync();
+
+        public async Task<TModel?> GetLast() => await Context.Set<TModel>().OrderBy(e => e.Position).LastOrDefaultAsync();
+
         private async Task<List<TModel>> GetEntities() => await Context.Set<TModel>()
             .OrderBy(e => e.Position)
             .ToListAsync();
