@@ -31,15 +31,6 @@ import { VenuesProvider } from "src/app/services/providers/VenuesProvider";
 import { KhEventsProvider } from "src/app/services/providers/KhEventsProvider";
 import { SingerPerformancesProvider } from "src/app/services/providers/SingerPerformancesProvider";
 import { SongSearchProvider } from "src/app/services/providers/SongSearchProvider";
-// Mock Providers
-import { MockQueuedSongsProvider } from "src/app/services/providers/Mock/MockQueuedSongsProvider";
-import { MockQueuedSingersProvider } from "./services/providers/Mock/MockQueuedSingersProvider";
-import { MockSongsProvider } from "src/app/services/providers/Mock/MockSongsProvider";
-import { MockSingersProvider } from "src/app/services/providers/Mock/MockSingersProvider";
-import { MockSongSearchProvider } from "src/app/services/providers/Mock/MockSongSearchProvider";
-import { MockVenuesProvider } from "src/app/services/providers/Mock/MockVenuesProvider";
-import { MockSingerPerformanceProvider } from "src/app/services/providers/Mock/MockSingerPerformancesProvider";
-import { MockKhEventsProvider } from "src/app/services/providers/Mock/MockKhEventsProvider";
 // Http Providers
 import { HttpSongSearchProvider } from './services/providers/Http/HttpSongSearchProvider';
 import { HttpQueuedSingersProvider } from './services/providers/Http/HttpQueuedSingersProvider';
@@ -135,8 +126,8 @@ import { EditSingerComponent } from './components/pages/singers-manager/edit-sin
     [{ provide: SingersProvider, useClass: HttpSingersProvider }],
     [{ provide: SongSearchProvider, useClass: HttpSongSearchProvider}],
     [{ provide: VenuesProvider, useClass: HttpVenuesProvider }],
-    [{ provide: SingerPerformancesProvider, useClass: MockSingerPerformanceProvider}],
-    [{ provide: KhEventsProvider, useClass: MockKhEventsProvider }]
+    //[{ provide: SingerPerformancesProvider, useClass: MockSingerPerformanceProvider}],
+    //[{ provide: KhEventsProvider, useClass: MockKhEventsProvider }]
   ],
   bootstrap: [AppComponent]
 })

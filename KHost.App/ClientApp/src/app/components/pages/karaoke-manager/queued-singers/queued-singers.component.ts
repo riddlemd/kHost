@@ -36,7 +36,6 @@ export class QueuedSingersComponent implements OnInit {
   constructor(
     private _queuedSingersProvider: QueuedSingersProvider,
     private _singersProvider: SingersProvider,
-    private _singerPerformancesProvider: SingerPerformancesProvider,
     private _dialog: MatDialog) {
   }
 
