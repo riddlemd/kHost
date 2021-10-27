@@ -175,12 +175,12 @@ export class HttpQueuedSongsProvider implements QueuedSongsProvider {
         }
     }
 
-    async moveBefore(beforeQueuedSong: QueuedSong, queuedSong: QueuedSong): Promise<void> {
-        const url = `${this._config.apiUrl}${HttpQueuedSongsProvider.ENDPOINT}/move-before`;
+    async moveTo(queuedSong: QueuedSong, position: number): Promise<void> {
+        const url = `${this._config.apiUrl}${HttpQueuedSongsProvider.ENDPOINT}/move-to`;
 
         const data = {
-            beforeId: beforeQueuedSong.id,
-            id: queuedSong.id
+            id: queuedSong?.id,
+            position: position
         };
 
         try {

@@ -75,7 +75,7 @@ export class QueuedSongsComponent implements OnChanges {
 
     var nextQueuedSinger = this.queuedSongs[e.currentIndex + 1]
 
-    await this._queuedSongsProvider.moveBefore(nextQueuedSinger, queuedSong);
+    await this._queuedSongsProvider.moveTo(queuedSong, e.currentIndex);
   }
 
   async moveToTop(queuedSong: QueuedSong): Promise<void> {
