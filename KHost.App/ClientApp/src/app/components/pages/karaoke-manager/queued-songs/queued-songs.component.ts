@@ -25,10 +25,20 @@ export class QueuedSongsComponent implements OnChanges {
     private _queuedSongsProvider: QueuedSongsProvider,
     private _songsProvider: SongsProvider
   ) {
-    
+    this._queuedSongsProvider.created.subscribe(queuedSong => {
+      if(!this.selectedQueuedSinger) return;
+
+      this.selectedQueuedSinger.queuedSongsCount++;
+      
+      this.refresh();
+    });
   }
 
   ngOnChanges() {
+    this.refresh();
+  }
+
+  refresh(): void {
     if(!this.selectedQueuedSinger?.singer) return;
 
     this.queuedSongs = []
@@ -97,6 +107,9 @@ export class QueuedSongsComponent implements OnChanges {
     
     const startIndex = this.getQueuedSongIndex(queuedSong);
     this.queuedSongs.splice(startIndex, 1);
+
+    if(this.selectedQueuedSinger)
+      this.selectedQueuedSinger.queuedSongsCount--;
   }
 
   selectQueuedSong(queuedSong:QueuedSong): void {

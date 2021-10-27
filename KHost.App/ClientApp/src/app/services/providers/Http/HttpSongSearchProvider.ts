@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { AppConfig } from "src/app/app.config";
 import { ApiResponse } from "src/app/models/ApiResponse";
+import { Song } from "src/app/models/Song";
 import { SongSearchEngine } from "src/app/models/SongSearchEngine";
 import { SongSearchResult } from "src/app/models/SongSearchResult";
 import { SongSearchProvider } from "../SongSearchProvider";
@@ -42,6 +43,26 @@ export class HttpSongSearchProvider implements SongSearchProvider {
         }
 
         return [];
+    }
+
+    async getSong(songSearchResult: SongSearchResult): Promise<Song | undefined> {
+        const url = `${this._config.apiUrl}${HttpSongSearchProvider.endpointPath}/get-song`;
+
+        const options: any = {
+            params: {
+                id: songSearchResult.id,
+                engine: songSearchResult.engineName
+            }
+        };
+
+        try {
+            const response = await this._httpClient.get<ApiResponse<Song>>(url, <object>options).toPromise();
+            return response.result;
+        } catch (exception) {
+            
+        }
+
+        return undefined;
     }
 
     async getSongSearchEngines(): Promise<SongSearchEngine[]> {

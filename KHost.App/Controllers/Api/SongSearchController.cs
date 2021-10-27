@@ -41,7 +41,7 @@ namespace KHost.App.Controllers.Api
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetSong(GetSongRequest request)
+        public async Task<IActionResult> GetSong([FromQuery] GetSongRequest request)
         {
             var song = await SongSearchProvider.GetSong(request.Id!, request.Engine!);
 

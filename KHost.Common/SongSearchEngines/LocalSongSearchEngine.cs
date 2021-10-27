@@ -23,8 +23,6 @@ namespace KHost.Common.SongSearchEngines
 
         public async Task<IEnumerable<SongSearchResult>> Search(string searchQuery, int? count, int? offset)
         {
-            var currentEngine = GetType().Name;
-
             var songs = await SongsRepository.Search(searchQuery, count, offset);
 
             var songSearchResults = songs
@@ -33,7 +31,7 @@ namespace KHost.Common.SongSearchEngines
                     Id = song.Id.ToString()!,
                     SongName = song.Name,
                     BandName = song.BandName,
-                    EngineName = currentEngine,
+                    EngineName = Name,
                     LengthInSeconds = 0
                 });
 

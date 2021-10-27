@@ -4,6 +4,8 @@ import { MultiButtonMode } from 'src/app/modules/kommon/models/MultiButtonMode';
 import { QueuedSinger } from 'src/app/models/QueuedSinger';
 import { SongSearchResult } from 'src/app/models/SongSearchResult';
 import { SongSearchProvider } from 'src/app/services/providers/SongSearchProvider';
+import { QueuedSongsProvider } from 'src/app/services/providers/QueuedSongsProvider';
+import { QueuedSong } from 'src/app/models/QueuedSong';
 
 
 @Component({
@@ -32,7 +34,10 @@ export class SongSearchComponent implements OnInit {
     this._selectedSearchMode = value;
   }
 
-  constructor(private _songSearchProvider: SongSearchProvider) { 
+  constructor(
+    private _songSearchProvider: SongSearchProvider,
+    private _queuedSongsProvider: QueuedSongsProvider
+  ) { 
     
   }
 
@@ -61,5 +66,15 @@ export class SongSearchComponent implements OnInit {
       .then(songSearchResults => { 
         this.songSearchResults = songSearchResults;
       });
+  }
+
+  async addSongToSinger(songSearchResult: SongSearchResult): Promise<void> {
+    const song = await this._songSearchProvider.getSong(songSearchResult);
+
+    const newQueuedSong = new QueuedSong();
+    newQueuedSong.queuedSingerId = this.selectedQueuedSinger?.id;
+    newQueuedSong.songId = song?.id;
+
+    await this._queuedSongsProvider.create(newQueuedSong);
   }
 }

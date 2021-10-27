@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 import { QueuedSinger } from 'src/app/models/QueuedSinger';
 import { QueuedSong } from 'src/app/models/QueuedSong';
 
@@ -11,6 +12,12 @@ export abstract class QueuedSongsProvider {
     getByQueuedSinger(queuedSinger: QueuedSinger, count?: number, offset?: number): Promise<QueuedSong[]> {
         throw("Not Implemented");
     }
+
+    // Events
+
+    created: Observable<QueuedSong> = (() => { throw("Not Implemented") })();
+    
+    deleted: Observable<QueuedSong> = (() => { throw("Not Implemented") })();
 
     // CRUD Methods
 

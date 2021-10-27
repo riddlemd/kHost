@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 import { AppConfig } from 'src/app/app.config';
 import { ApiResponse } from 'src/app/models/ApiResponse';
 import { QueuedSinger } from 'src/app/models/QueuedSinger';
@@ -8,8 +9,13 @@ import { QueuedSongsProvider } from '../QueuedSongsProvider';
 
 @Injectable()
 export class HttpQueuedSongsProvider implements QueuedSongsProvider {
+    
     private static readonly ENDPOINT:string = "/api/queued-songs";
     
+    private _created = new Subject<QueuedSong>();
+
+    private _deleted = new Subject<QueuedSong>();
+
     constructor(
         private _config: AppConfig,
         private _httpClient: HttpClient
@@ -43,6 +49,12 @@ export class HttpQueuedSongsProvider implements QueuedSongsProvider {
         return [];
     }
 
+    // Events
+
+    created: Observable<QueuedSong> = this._created.asObservable();
+    
+    deleted: Observable<QueuedSong> = this._deleted.asObservable();
+
     // CRUD Methods
 
     async create(queuedSong: QueuedSong): Promise<number> {
@@ -50,9 +62,11 @@ export class HttpQueuedSongsProvider implements QueuedSongsProvider {
 
         try {
             const response = await this._httpClient.post<ApiResponse<QueuedSong>>(url, queuedSong).toPromise();
-            const id: number = response.result.id ?? -1;
+            queuedSong.id = response.result.id ?? -1;
 
-            return id;
+            this._created.next(queuedSong)
+
+            return queuedSong.id;
         }
         catch(exception) {
             throw("Unable to Create QueuedSong");
@@ -91,6 +105,8 @@ export class HttpQueuedSongsProvider implements QueuedSongsProvider {
 
         try {
             await this._httpClient.post(url, queuedSong).toPromise();
+
+            this._deleted.next(queuedSong);
         }
         catch(exception) {
             throw("Unable to Delete QueuedSong");

@@ -1,3 +1,4 @@
+import { Song } from "src/app/models/Song";
 import { SongSearchEngine } from "src/app/models/SongSearchEngine";
 import { SongSearchResult } from "src/app/models/SongSearchResult";
 
@@ -8,6 +9,10 @@ export class SongSearchProvider {
     }
 
     search(query: string, songSearchEngine: SongSearchEngine, count?: number, offset?: number): Promise<SongSearchResult[]> {
+        throw ("Not Implemented");
+    }
+
+    getSong(songSearchResult: SongSearchResult): Promise<Song | undefined> {
         throw ("Not Implemented");
     }
 
