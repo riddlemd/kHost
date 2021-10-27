@@ -131,12 +131,12 @@ export class HttpQueuedSingersProvider implements QueuedSingersProvider {
         }
     }
 
-    async moveBefore(beforeQueuedSinger: QueuedSinger, queuedSinger: QueuedSinger): Promise<void> {
-        const url = `${this._config.apiUrl}${HttpQueuedSingersProvider.ENDPOINT}/move-before`;
+    async moveTo(queuedSinger: QueuedSinger, position: number): Promise<void> {
+        const url = `${this._config.apiUrl}${HttpQueuedSingersProvider.ENDPOINT}/move-to`;
 
         const data = {
-            beforeId: beforeQueuedSinger?.id,
-            id: queuedSinger?.id
+            id: queuedSinger?.id,
+            position: position
         };
 
         try {

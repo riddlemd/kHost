@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace KHost.Common.Collections
 {
@@ -9,7 +10,9 @@ namespace KHost.Common.Collections
             if (oldIndex == newIndex) return list;
 
             T item = list[oldIndex];
+
             list.RemoveAt(oldIndex);
+
             list.Insert(newIndex, item);
 
             return list;

@@ -62,9 +62,7 @@ export class QueuedSingersComponent implements OnInit {
       return;
     }
 
-    var nextQueuedSinger = this.queuedSingers[e.currentIndex + 1]
-
-    await this._queuedSingersProvider.moveBefore(nextQueuedSinger, queuedSinger);
+    await this._queuedSingersProvider.moveTo(queuedSinger, e.currentIndex);
   }
 
   async moveToTop(queuedSinger: QueuedSinger): Promise<void> {

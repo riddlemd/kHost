@@ -68,9 +68,9 @@ namespace KHost.App.Controllers.Api
         }
 
         [HttpPost]
-        public async Task<IActionResult> MoveBefore([FromBody] MoveBeforeRequest request)
+        public async Task<IActionResult> MoveTo([FromBody] MoveToRequest request)
         {
-            _ = await DefaultRepository.MoveBefore(request.BeforeId ?? 0, request.Id ?? 0);
+            _ = await DefaultRepository.MoveTo(request.Id ?? 0, request.Position ?? 0);
             await DefaultRepository.Save();
 
             var response = new ApiResponse();

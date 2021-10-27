@@ -96,7 +96,7 @@ export class MockQueuedSingersProvider implements QueuedSingersProvider {
         });
     }
 
-    moveBefore(beforeQueuedSinger: QueuedSinger, queuedSinger: QueuedSinger): Promise<void> {
+    moveTo(beforeQueuedSinger: QueuedSinger, position: number): Promise<void> {
         throw ("Not Implemented");
     }
 

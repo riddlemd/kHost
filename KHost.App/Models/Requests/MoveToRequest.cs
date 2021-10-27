@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace KHost.App.Models.Requests
 {
-    public class MoveBeforeRequest : GenericIdRequest
+    public class MoveToRequest : GenericIdRequest
     {
         [Required]
-        public int? BeforeId { get; set; }
+        public int? Position { get; set; }
     }
 }

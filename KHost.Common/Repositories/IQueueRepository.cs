@@ -1,6 +1,8 @@
-﻿using KHost.Common.ErrorHandling;
+﻿using KHost.Common.Collections;
+using KHost.Common.ErrorHandling;
 using KHost.Common.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,21 +11,21 @@ namespace KHost.Common.Repositories
     public interface IQueueRepository<TModel> : IRepository<TModel>
         where TModel : class, IModelWithId, IModelWithPosition
     {
-        private static float PositionIncrement { get; } = 0.0001f; 
-
         abstract protected DbContext Context { get; }
 
         public async Task<float> MoveUp(int id)
         {
-            var entity = await FindById(id);
+            var entities = await GetEntities();
+
+            var entity = entities.FirstOrDefault(e => e.Id == id);
 
             _ = entity ?? throw new KHostException("Entity not found");
 
-            var prevEntity = await GetPrevEntity(entity);
+            var entityKey = entities.IndexOf(entity);
 
-            if (prevEntity == null) return entity.Position;
+            entities.MoveTowardsFirst(entityKey);
 
-            entity.Position = prevEntity.Position - PositionIncrement;
+            ReclaculatePositions(entities);
 
             await Context.SaveChangesAsync();
 
@@ -32,15 +34,17 @@ namespace KHost.Common.Repositories
 
         public async Task<float> MoveDown(int id)
         {
-            var entity = await FindById(id);
+            var entities = await GetEntities();
+
+            var entity = entities.FirstOrDefault(e => e.Id == id);
 
             _ = entity ?? throw new KHostException("Entity not found");
 
-            var nextEntity = await GetNextEntity(entity);
+            var entityKey = entities.IndexOf(entity);
 
-            if (nextEntity == null) return entity.Position;
+            entities.MoveTowardsLast(entityKey);
 
-            entity.Position = nextEntity.Position + PositionIncrement;
+            ReclaculatePositions(entities);
 
             await Context.SaveChangesAsync();
 
@@ -49,15 +53,17 @@ namespace KHost.Common.Repositories
 
         public async Task<float> MoveToTop(int id)
         {
-            var entity = await FindById(id);
+            var entities = await GetEntities();
+
+            var entity = entities.FirstOrDefault(e => e.Id == id);
 
             _ = entity ?? throw new KHostException("Entity not found");
 
-            var firstEntity = await GetFirstEntity();
+            var entityKey = entities.IndexOf(entity);
 
-            if (firstEntity == entity) return entity.Position;
+            entities.MoveToFirst(entityKey);
 
-            entity.Position = firstEntity.Position - PositionIncrement;
+            ReclaculatePositions(entities);
 
             await Context.SaveChangesAsync();
 
@@ -66,15 +72,17 @@ namespace KHost.Common.Repositories
 
         public async Task<float> MoveToBottom(int id)
         {
-            var entity = await FindById(id);
+            var entities = await GetEntities();
+
+            var entity = entities.FirstOrDefault(e => e.Id == id);
 
             _ = entity ?? throw new KHostException("Entity not found");
 
-            var lastEntity = await GetLastEntity();
+            var entityKey = entities.IndexOf(entity);
 
-            if (lastEntity == entity) return entity.Position;
+            entities.MoveToLast(entityKey);
 
-            entity.Position = lastEntity.Position + PositionIncrement;
+            ReclaculatePositions(entities);
 
             await Context.SaveChangesAsync();
 
@@ -83,39 +91,63 @@ namespace KHost.Common.Repositories
 
         public async Task<float> MoveBefore(int beforeId, int id)
         {
-            var entity = await FindById(id);
+            var entities = await GetEntities();
+
+            var entity = entities.FirstOrDefault(e => e.Id == id);
 
             _ = entity ?? throw new KHostException("Entity not found");
 
-            var beforeEntity = await FindById(beforeId);
+            var beforeEntity = entities.FirstOrDefault(e => e.Id == beforeId);
 
             _ = beforeEntity ?? throw new KHostException("Entity not found");
 
             if (beforeEntity == entity) return entity.Position;
 
-            entity.Position = beforeEntity.Position - PositionIncrement;
+            var entityKey = entities.IndexOf(entity);
+
+            var beforeEntityKey = entities.IndexOf(beforeEntity);
+
+            entities.Move(entityKey, beforeEntityKey);
+
+            ReclaculatePositions(entities);
 
             await Context.SaveChangesAsync();
 
             return entity.Position;
         }
 
-        private async Task<TModel> GetFirstEntity() => await Context.Set<TModel>()
+        public async Task<float> MoveTo(int id, int position)
+        {
+            var entities = await GetEntities();
+
+            var entity = entities.FirstOrDefault(e => e.Id == id);
+
+            _ = entity ?? throw new KHostException("Entity not found");
+
+            if (entity.Position == position) return entity.Position;
+
+            var entityKey = entities.IndexOf(entity);
+
+            entities.Move(entityKey, position);
+
+            ReclaculatePositions(entities);
+
+            await Context.SaveChangesAsync();
+
+            return entity.Position;
+        }
+
+        private async Task<List<TModel>> GetEntities() => await Context.Set<TModel>()
             .OrderBy(e => e.Position)
-            .FirstOrDefaultAsync();
+            .ToListAsync();
 
-        private async Task<TModel> GetLastEntity() => await Context.Set<TModel>()
-            .OrderByDescending(e => e.Position)
-            .FirstOrDefaultAsync();
-
-        private async Task<TModel> GetPrevEntity(TModel entity) => await Context.Set<TModel>()
-            .Where(e => e.Position < entity.Position)
-            .OrderByDescending(e => e.Position)
-            .FirstOrDefaultAsync();
-
-        private async Task<TModel> GetNextEntity(TModel entity) => await Context.Set<TModel>()
-            .Where(e => e.Position > entity.Position)
-            .OrderBy(e => e.Position)
-            .FirstOrDefaultAsync();
+        private void ReclaculatePositions(List<TModel> entities)
+        {
+            var i = 0;
+            foreach(var entity in entities)
+            {
+                entity.Position = i++;
+            }
+        }
     }
 }
