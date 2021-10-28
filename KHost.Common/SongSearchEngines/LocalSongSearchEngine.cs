@@ -31,6 +31,7 @@ namespace KHost.Common.SongSearchEngines
                     Id = song.Id.ToString()!,
                     SongName = song.Name,
                     BandName = song.BandName,
+                    State = song.State.ToString(),
                     EngineName = Name,
                     LengthInSeconds = 0
                 });

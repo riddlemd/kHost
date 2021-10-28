@@ -8,6 +8,8 @@
 
         public string BandName { get; set; } = "";
 
+        public string State { get; set; } = "Unknown";
+
         public string EngineName { get; set; } = "";
 
         public int? LengthInSeconds { get; set; }
