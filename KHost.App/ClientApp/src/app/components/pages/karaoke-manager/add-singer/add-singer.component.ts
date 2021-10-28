@@ -40,7 +40,7 @@ export class AddSingerComponent {
 
     this._singers = [];
 
-    this._singers = await this._singersProvider.search(this.queryControl.value);
+    this._singers = await this._singersProvider.search(this.queryControl.value + "%");
   }
 
   async returnNewSinger(): Promise<void> {
