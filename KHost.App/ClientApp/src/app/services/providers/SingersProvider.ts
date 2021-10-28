@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Venue } from 'src/app/models/Venue';
 import { Singer } from 'src/app/models/Singer';
+import { CurdProvider } from './CrudProvider';
 
 @Injectable()
-export abstract class SingersProvider {
+export abstract class SingersProvider implements CurdProvider<Singer> {
 
     findById(id: number): Promise<Singer | undefined> {
         throw("Not Implemented");

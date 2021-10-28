@@ -1,8 +1,9 @@
 import { Injectable } from "@angular/core";
 import { Download } from "src/app/models/Download";
+import { CurdProvider } from "./CrudProvider";
 
 @Injectable()
-export class DownloadsProvider {
+export class DownloadsProvider implements CurdProvider<Download> {
     
     findById(id: number): Promise<Download[]> {
         throw ("Not Implemented");
