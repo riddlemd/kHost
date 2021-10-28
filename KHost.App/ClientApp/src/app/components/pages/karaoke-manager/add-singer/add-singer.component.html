@@ -1,7 +1,10 @@
 <div mat-dialog-title>Add Singer</div>
 
 <form>
-    <input name='name' type='text' placeholder="Name of singer" [formControl]="queryControl">
+    <mat-form-field appearance="fill">
+        <mat-label>Name of Singer</mat-label>
+        <input matInput [formControl]="queryControl">
+    </mat-form-field>
     <button (click)="search();false;">Search</button>
 </form>
 
