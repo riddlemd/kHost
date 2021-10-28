@@ -26,7 +26,7 @@
                             <span>Preview</span>
                         </button>
                         <mat-divider></mat-divider>
-                        <button mat-menu-item [disabled]="!selectedQueuedSinger?.singer" (click)="addSongToSinger(songSearchResult)">
+                        <button mat-menu-item [disabled]="!selectedQueuedSinger?.singer" (click)="addSelectedSongResultSongToSelectedQueuedSinger()">
                             <mat-icon>add</mat-icon>
                             <span>Add to Singer</span>
                         </button>
@@ -35,7 +35,7 @@
                             <span>Download and Add to Singer</span>
                         </button>
                         <mat-divider></mat-divider>
-                        <button mat-menu-item *ngIf="selectedSearchMode.value.isLocal" >
+                        <button mat-menu-item *ngIf="selectedSearchMode.value.isLocal" (click)="openEditSongDialog()">
                             <mat-icon>edit</mat-icon>
                             <span>Edit</span>
                         </button>

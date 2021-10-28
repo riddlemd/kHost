@@ -6,6 +6,8 @@ import { SongSearchResult } from 'src/app/models/SongSearchResult';
 import { SongSearchProvider } from 'src/app/services/providers/SongSearchProvider';
 import { QueuedSongsProvider } from 'src/app/services/providers/QueuedSongsProvider';
 import { QueuedSong } from 'src/app/models/QueuedSong';
+import { MatDialog } from '@angular/material/dialog';
+import { EditSongComponent } from '../../songs-manager/edit-song/edit-song.component';
 
 
 @Component({
@@ -36,7 +38,8 @@ export class SongSearchComponent implements OnInit {
 
   constructor(
     private _songSearchProvider: SongSearchProvider,
-    private _queuedSongsProvider: QueuedSongsProvider
+    private _queuedSongsProvider: QueuedSongsProvider,
+    private _dialog: MatDialog
   ) { 
     
   }
@@ -70,13 +73,27 @@ export class SongSearchComponent implements OnInit {
     this.songSearchResults = await this._songSearchProvider.search(this.queryControl.value, this.selectedSearchMode.value);
   }
 
-  async addSongToSinger(songSearchResult: SongSearchResult): Promise<void> {
-    const song = await this._songSearchProvider.getSong(songSearchResult);
+  async addSelectedSongResultSongToSelectedQueuedSinger(): Promise<void> {
+    if(!this.selectedSongSearchResult) return;
+
+    const song = await this._songSearchProvider.getSong(this.selectedSongSearchResult);
 
     const newQueuedSong = new QueuedSong();
     newQueuedSong.queuedSingerId = this.selectedQueuedSinger?.id;
     newQueuedSong.songId = song?.id;
 
     await this._queuedSongsProvider.create(newQueuedSong);
+  }
+
+  async openEditSongDialog(): Promise<void> {
+    const config = {
+      data: {
+        entity: this.selectedSongSearchResult
+      }
+    };
+
+    const dialogRef = this._dialog.open(EditSongComponent);
+
+    await dialogRef.afterClosed().toPromise();
   }
 }
