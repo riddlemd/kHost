@@ -28,17 +28,16 @@ import { QueuedSingersProvider } from "./services/providers/QueuedSingersProvide
 import { SongsProvider } from "src/app/services/providers/SongsProvider";
 import { SingersProvider } from "src/app/services/providers/SingersProvider";
 import { VenuesProvider } from "src/app/services/providers/VenuesProvider";
-import { KhEventsProvider } from "src/app/services/providers/KhEventsProvider";
 import { SingerPerformancesProvider } from "src/app/services/providers/SingerPerformancesProvider";
 import { SongSearchProvider } from "src/app/services/providers/SongSearchProvider";
 // Http Providers
-import { HttpSongSearchProvider } from './services/providers/Http/HttpSongSearchProvider';
-import { HttpQueuedSingersProvider } from './services/providers/Http/HttpQueuedSingersProvider';
-import { HttpQueuedSongsProvider } from './services/providers/Http/HttpQueuedSongsProvider';
-import { HttpSongsProvider } from './services/providers/Http/HttpSongsProvider';
-import { HttpSingersProvider } from './services/providers/Http/HttpSingersProvider';
-import { HttpVenuesProvider } from './services/providers/Http/HttpVenuesProvider';
-import { HttpSingerPerformancesProvider } from './services/providers/Http/HttpSingerPerformancesProvider';
+import { HttpSongSearchProvider } from './services/providers/http/HttpSongSearchProvider';
+import { HttpQueuedSingersProvider } from './services/providers/http/HttpQueuedSingersProvider';
+import { HttpQueuedSongsProvider } from './services/providers/http/HttpQueuedSongsProvider';
+import { HttpSongsProvider } from './services/providers/http/HttpSongsProvider';
+import { HttpSingersProvider } from './services/providers/http/HttpSingersProvider';
+import { HttpVenuesProvider } from './services/providers/http/HttpVenuesProvider';
+import { HttpSingerPerformancesProvider } from './services/providers/http/HttpSingerPerformancesProvider';
 // Configs
 import { AppConfig, AppConfigInstance } from './app.config';
 // Components
