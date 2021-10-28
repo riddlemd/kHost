@@ -3,8 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Singer } from 'src/app/models/Singer';
 import { SingersProvider } from 'src/app/services/providers/SingersProvider';
-import { ConfirmComponent } from '../../confirm/confirm.component';
-import { EditSingerComponent } from './edit-singer/edit-singer.component';
+import { ConfirmComponent } from '../../dialogs/confirm/confirm.component';
+import { EditSingerComponent } from '../../dialogs/edit-singer/edit-singer.component';
 
 @Component({
   templateUrl: './singers-manager.component.html',

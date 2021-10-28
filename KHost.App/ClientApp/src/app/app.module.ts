@@ -43,57 +43,60 @@ import { HttpSingerPerformancesProvider } from './services/providers/Http/HttpSi
 import { AppConfig, AppConfigInstance } from './app.config';
 // Components
 import { AppComponent } from './app.component';
+import { MainMenuComponent } from './components/main-menu/main-menu.component';
+import { HeaderComponent } from './components/header/header.component';
+// Components.Pages
 import { LoginComponent } from "./components/pages/login/login.component";
 import { KaraokeManagerComponent } from './components/pages/karaoke-manager/karaoke-manager.component';
-import { AddSingerComponent } from './components/pages/karaoke-manager/add-singer/add-singer.component';
 import { PerformanceControlsComponent } from './components/pages/karaoke-manager/performance-controls/performance-controls.component';
 import { QueuedSingersComponent } from './components/pages/karaoke-manager/queued-singers/queued-singers.component';
 import { QueuedSongsComponent } from './components/pages/karaoke-manager/queued-songs/queued-songs.component';
-import { SingerPerformanceHistoryComponent } from './components/pages/karaoke-manager/singer-performance-history/singer-performance-history.component';
+import { SingerPerformanceHistoryComponent } from './components/dialogs/singer-performance-history/singer-performance-history.component';
 import { SongSearchComponent } from './components/pages/karaoke-manager/song-search/song-search.component';
 import { DownloadsManagerComponent } from './components/pages/downloads-manager/downloads-manager.component';
 import { SettingsManagerComponent } from './components/pages/settings-manager/settings-manager.component';
 import { SingersManagerComponent } from './components/pages/singers-manager/singers-manager.component';
 import { SongsManagerComponent } from './components/pages/songs-manager/songs-manager.component';
 import { VenuesManagerComponent } from './components/pages/venues-manager/venues-manager.component';
-import { MainMenuComponent } from './components/main-menu/main-menu.component';
-import { HeaderComponent } from './components/header/header.component';
 import { NotAuthorizedComponent } from './components/pages/not-authorized/not-authorized.component';
-import { EditVenueComponent } from './components/pages/venues-manager/edit-venue/edit-venue.component';
-import { ConfirmComponent } from './components/confirm/confirm.component';
-import { EditSongComponent } from './components/pages/songs-manager/edit-song/edit-song.component';
-import { EditSingerComponent } from './components/pages/singers-manager/edit-singer/edit-singer.component';
+// Components.Dialogs
+import { AddSingerComponent } from './components/dialogs/add-singer/add-singer.component';
+import { EditVenueComponent } from './components/dialogs/edit-venue/edit-venue.component';
+import { ConfirmComponent } from './components/dialogs/confirm/confirm.component';
+import { EditSongComponent } from './components/dialogs/edit-song/edit-song.component';
+import { EditSingerComponent } from './components/dialogs/edit-singer/edit-singer.component';
 
 @NgModule({
   declarations: [
-    // KaraokeManager
-    KaraokeManagerComponent,
-    AddSingerComponent,
-    PerformanceControlsComponent,
-    QueuedSingersComponent,
-    QueuedSongsComponent,
-    SingerPerformanceHistoryComponent,
-    SongSearchComponent,
-    // DownloadsManager
-    DownloadsManagerComponent,
-    // SettingsManager
-    SettingsManagerComponent,
-    // SingersManager
-    SingersManagerComponent,
-    // SongsManager
-    SongsManagerComponent,
-    EditSongComponent,
-    // VenuesManager
-    VenuesManagerComponent,
-    EditVenueComponent,
-    // Other Components
     AppComponent,
     LoginComponent,
     NotAuthorizedComponent,
     MainMenuComponent,
     HeaderComponent,
+    // Dialogs
+    AddSingerComponent,
+    EditSongComponent,
+    EditVenueComponent,
     ConfirmComponent,
     EditSingerComponent,
+    SingerPerformanceHistoryComponent,
+    // Pages
+    // Pages.KaraokeManager
+    KaraokeManagerComponent,
+    PerformanceControlsComponent,
+    QueuedSingersComponent,
+    QueuedSongsComponent,
+    SongSearchComponent,
+    // Pages.DownloadsManager
+    DownloadsManagerComponent,
+    // Pages.SettingsManager
+    SettingsManagerComponent,
+    // Pages.SingersManager
+    SingersManagerComponent,
+    // Pages.SongsManager
+    SongsManagerComponent,
+    // Pages.VenuesManager
+    VenuesManagerComponent,
   ],
   imports: [
     // Angular Modules

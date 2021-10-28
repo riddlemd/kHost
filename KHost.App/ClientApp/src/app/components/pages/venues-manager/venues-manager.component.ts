@@ -3,8 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Venue } from 'src/app/models/Venue';
 import { VenuesProvider } from 'src/app/services/providers/VenuesProvider';
-import { ConfirmComponent } from '../../confirm/confirm.component';
-import { EditVenueComponent } from './edit-venue/edit-venue.component';
+import { ConfirmComponent } from '../../dialogs/confirm/confirm.component';
+import { EditVenueComponent } from '../../dialogs/edit-venue/edit-venue.component';
 
 @Component({
   templateUrl: './venues-manager.component.html',

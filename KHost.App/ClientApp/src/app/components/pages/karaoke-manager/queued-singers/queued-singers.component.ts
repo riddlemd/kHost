@@ -4,10 +4,10 @@ import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Singer } from 'src/app/models/Singer';
 import { QueuedSingersProvider } from 'src/app/services/providers/QueuedSingersProvider';
 import { MatDialog } from '@angular/material/dialog';
-import { AddSingerComponent } from '../add-singer/add-singer.component';
+import { AddSingerComponent } from '../../../dialogs/add-singer/add-singer.component';
 import { Venue } from 'src/app/models/Venue';
 import { SingerPerformancesProvider } from 'src/app/services/providers/SingerPerformancesProvider';
-import { SingerPerformanceHistoryComponent } from '../singer-performance-history/singer-performance-history.component';
+import { SingerPerformanceHistoryComponent } from '../../../dialogs/singer-performance-history/singer-performance-history.component';
 import { SingersProvider } from 'src/app/services/providers/SingersProvider';
 
 @Component({

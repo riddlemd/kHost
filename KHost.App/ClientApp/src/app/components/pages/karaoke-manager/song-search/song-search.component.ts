@@ -7,7 +7,7 @@ import { SongSearchProvider } from 'src/app/services/providers/SongSearchProvide
 import { QueuedSongsProvider } from 'src/app/services/providers/QueuedSongsProvider';
 import { QueuedSong } from 'src/app/models/QueuedSong';
 import { MatDialog } from '@angular/material/dialog';
-import { EditSongComponent } from '../../songs-manager/edit-song/edit-song.component';
+import { EditSongComponent } from '../../../dialogs/edit-song/edit-song.component';
 
 
 @Component({
@@ -92,7 +92,7 @@ export class SongSearchComponent implements OnInit {
       }
     };
 
-    const dialogRef = this._dialog.open(EditSongComponent);
+    const dialogRef = this._dialog.open(EditSongComponent, config);
 
     await dialogRef.afterClosed().toPromise();
   }
