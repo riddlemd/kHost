@@ -62,15 +62,13 @@ export class SongsManagerComponent implements OnInit {
 
     const dialogRef = this._dialog.open(EditSongComponent, config);
 
-    dialogRef
-      .afterClosed()
-        .subscribe(song => {
-          if(!song) return;
-          
-          if(!isNew) return;
+    song = await dialogRef.afterClosed().toPromise();
 
-          this._songs.push(song);
-    });
+    if(!song) return;
+          
+    if(!isNew) return;
+
+    this._songs.push(song);
   }
 
   async openDeleteSongDialog(song: Song): Promise<void> {
@@ -85,13 +83,12 @@ export class SongsManagerComponent implements OnInit {
 
     const dialogRef = this._dialog.open(ConfirmComponent, config);
 
-    dialogRef
-      .afterClosed()
-        .subscribe(async confirm => {
-          if(!confirm) return;
+    const confirm = await dialogRef.afterClosed().toPromise();
 
-          await this._songsProvider.delete(song);
-          this._songs.remove(song);
-    });
+    if(!confirm) return;
+
+    await this._songsProvider.delete(song);
+    
+    this._songs.remove(song);
   }
 }
