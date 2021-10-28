@@ -61,7 +61,12 @@ export class SongSearchComponent implements OnInit {
   }
 
   search(): void {
+    this.songSearchResults = undefined;
+
+    if(!this.queryControl.value) return;
+
     this.songSearchResults = [];
+
     this._songSearchProvider.search(this.queryControl.value, this.selectedSearchMode.value)
       .then(songSearchResults => { 
         this.songSearchResults = songSearchResults;
