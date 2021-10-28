@@ -61,15 +61,13 @@ export class VenuesManagerComponent implements OnInit {
 
     const dialogRef = this._dialog.open(EditVenueComponent, config);
 
-    dialogRef
-      .afterClosed()
-        .subscribe(venue => {
-          if(!venue) return;
+    venue = await dialogRef.afterClosed().toPromise();
 
-          if(!isNew) return;
+    if(!venue) return;
 
-          this._venues.push(venue);
-    });
+    if(!isNew) return;
+
+    this._venues.push(venue);
   }
 
   async openDeleteVenueDialog(venue: Venue): Promise<void> {
@@ -84,13 +82,12 @@ export class VenuesManagerComponent implements OnInit {
 
     const dialogRef = this._dialog.open(ConfirmComponent, config);
 
-    dialogRef
-      .afterClosed()
-        .subscribe(async confirm => {
-          if(!confirm) return;
+    const confirm = await dialogRef.afterClosed().toPromise();
+          
+    if(!confirm) return;
 
-          await this._venuesProvider.delete(venue);
-          this._venues.remove(venue);
-    });
+    await this._venuesProvider.delete(venue);
+
+    this._venues.remove(venue);
   }
 }
