@@ -132,7 +132,7 @@ export class QueuedSongsComponent implements OnChanges {
       queuedSong.songId = song.id;
     }
 
-    this._queuedSongs = queuedSongs;
+    this._queuedSongs = queuedSongs.filter(qs => qs.song != undefined);
   }
 
   async openEditSongDialog(): Promise<void> {
