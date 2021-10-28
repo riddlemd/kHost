@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Song } from 'src/app/models/Song';
 import { CurdProvider } from './CrudProvider';
 
@@ -9,9 +10,21 @@ export abstract class SongsProvider implements CurdProvider<Song> {
         throw ("Not Implemented");
     }
 
+    findById(id: number): Promise<Song | undefined> {
+        throw("Not Implemented");
+    }
+
     findByIds(ids: number[]): Promise<Song[]> {
         throw("Not Implemented");
     }
+
+    // Events
+
+    created: Observable<Song> = (() => { throw("Not Implemented") })();
+
+    updated: Observable<Song> = (() => { throw("Not Implemented") })();
+    
+    deleted: Observable<Song> = (() => { throw("Not Implemented") })();
 
     // CRUD Methods
 

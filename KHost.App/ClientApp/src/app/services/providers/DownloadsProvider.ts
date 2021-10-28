@@ -5,8 +5,12 @@ import { CurdProvider } from "./CrudProvider";
 @Injectable()
 export class DownloadsProvider implements CurdProvider<Download> {
     
-    findById(id: number): Promise<Download[]> {
+    findById(id: number): Promise<Download | undefined> {
         throw ("Not Implemented");
+    }
+
+    findByIds(ids: number[]): Promise<Download[]> {
+        throw("Not Implemented");
     }
 
     // CRUD Methods

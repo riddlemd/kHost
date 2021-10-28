@@ -10,6 +10,15 @@ export class SingerPerformancesProvider implements CurdProvider<SingerPerformanc
         throw("Not Implemented");
     }
 
+    findById(id: number): Promise<SingerPerformance | undefined> {
+        throw("Not Implemented");
+    }
+
+    findByIds(ids: number[]): Promise<SingerPerformance[]> {
+        throw("Not Implemented");
+    }
+
+
     // CRUD Methods
 
     create(singerPerformance: SingerPerformance): Promise<number> {

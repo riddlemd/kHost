@@ -14,6 +14,14 @@ export abstract class QueuedSongsProvider implements CurdProvider<QueuedSong> {
         throw("Not Implemented");
     }
 
+    findById(id: number): Promise<QueuedSong | undefined> {
+        throw("Not Implemented");
+    }
+
+    findByIds(ids: number[]): Promise<QueuedSong[]> {
+        throw("Not Implemented");
+    }
+
     // Events
 
     created: Observable<QueuedSong> = (() => { throw("Not Implemented") })();

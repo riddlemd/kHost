@@ -2,9 +2,14 @@ import { Injectable } from '@angular/core';
 import { Venue } from 'src/app/models/Venue';
 import { Singer } from 'src/app/models/Singer';
 import { CurdProvider } from './CrudProvider';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export abstract class SingersProvider implements CurdProvider<Singer> {
+
+    search(query: string, venue?: Venue, count?: number, offset?: number): Promise<Singer[]> {
+        throw("Not Implemented");
+    }
 
     findById(id: number): Promise<Singer | undefined> {
         throw("Not Implemented");
@@ -14,9 +19,13 @@ export abstract class SingersProvider implements CurdProvider<Singer> {
         throw("Not Implemented");
     }
 
-    search(query: string, venue?: Venue, count?: number, offset?: number): Promise<Singer[]> {
-        throw("Not Implemented");
-    }
+    // Events
+
+    created: Observable<Singer> = (() => { throw("Not Implemented") })();
+
+    updated: Observable<Singer> = (() => { throw("Not Implemented") })();
+    
+    deleted: Observable<Singer> = (() => { throw("Not Implemented") })();
 
     // CRUD Methods
 
