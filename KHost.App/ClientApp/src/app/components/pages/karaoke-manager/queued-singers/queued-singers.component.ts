@@ -36,7 +36,9 @@ export class QueuedSingersComponent implements OnInit {
   constructor(
     private _queuedSingersProvider: QueuedSingersProvider,
     private _singersProvider: SingersProvider,
-    private _dialog: MatDialog) {
+    private _dialog: MatDialog
+  ) {
+    
   }
 
   ngOnInit(): void {
