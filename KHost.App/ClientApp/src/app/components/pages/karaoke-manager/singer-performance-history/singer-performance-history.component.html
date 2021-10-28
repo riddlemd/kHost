@@ -1,6 +1,6 @@
 <div mat-dialog-title>Performance History for {{ selectedQueuedSinger?.singer?.name }}</div>
 
-<div class='scroll-wrapper'>
+<mat-dialog-content>
     <div class='empty' *ngIf="!selectedQueuedSinger?.singer">No Singer selected.</div>
     <div class='empty' *ngIf="getPerformanceCount() <= 0 && selectedQueuedSinger?.singer">Selected singer has no performance history.</div>
     <table *ngIf="getPerformanceCount() > 0">
@@ -10,34 +10,23 @@
                 <th>Band</th>
                 <th>Venue</th>
                 <th>Date</th>
-                <th></th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let singerPerformance of performanceHistory" class="singer-performance-row" [ngClass]="{'selected': singerPerformance === selectedSingerPerformance }" (contextmenu)="menuTrigger.openMenu();" (mousedown)="selectedSingerPerformance=singerPerformance">
-                <td class='song-name-column'>{{ singerPerformance?.songId }}</td>
-                <td class='song-band-name-column'>{{ singerPerformance?.songId }}</td>
-                <td class='venue-name-column'>{{ singerPerformance?.venueId }}</td>
-                <td class='date-column'>{{ singerPerformance?.date | date:"YYYY/MM/dd" }}</td>
-                <td class='options-column'>
-                    <a mat-icon-button #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="menu">
-                        <mat-icon>more_vert</mat-icon>
-                    </a>
-                    <mat-menu #menu="matMenu">
-                        <button mat-menu-item>
-                            <mat-icon>play_arrow</mat-icon>
-                            <span>Play Now</span>
-                        </button>
-                    </mat-menu>
-                </td>
+            <tr *ngFor="let singerPerformance of singerPerformances" class="singer-performance-row" [ngClass]="{'selected': singerPerformance === selectedSingerPerformance }" (mousedown)="selectedSingerPerformance=singerPerformance">
+                <td class='song-name-column'>{{ singerPerformance?.song?.name ?? 'ERROR' }}</td>
+                <td class='song-band-name-column'>{{ singerPerformance?.song?.bandName ?? 'ERROR' }}</td>
+                <td class='venue-name-column'>{{ singerPerformance?.venue?.name ?? 'ERROR' }}</td>
+                <td class='date-column'>{{ singerPerformance?.date ? (singerPerformance?.date | date:"YYYY/MM/dd") : 'ERROR' }}</td>
             </tr>
         </tbody>
     </table>
-</div>
+</mat-dialog-content>
+
 <div class='table-footer'>
     <div>Performances: {{ getPerformanceCount() }}</div>
 </div>
 
-<div class='buttons'>
-    <button *ngIf="selectedSingerPerformance">Add to Queue</button>
-</div>
+<mat-dialog-actions *ngIf="selectedSingerPerformance">
+    <button (click)="addSelectedSongToSelectedQueuedSinger()">Add to Queue</button>
+</mat-dialog-actions>

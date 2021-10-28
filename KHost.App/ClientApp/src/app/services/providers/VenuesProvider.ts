@@ -12,6 +12,10 @@ export class VenuesProvider {
         throw("Not Implemented");
     }
 
+    findByIds(ids: number[]): Promise<Venue[]> {
+        throw("Not Implemented");
+    }
+
     // CRUD Methods
 
     create(venue: Venue): Promise<number> {

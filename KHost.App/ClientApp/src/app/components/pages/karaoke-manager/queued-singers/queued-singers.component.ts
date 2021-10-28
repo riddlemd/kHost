@@ -149,7 +149,8 @@ export class QueuedSingersComponent implements OnInit {
     const config = {
       data: {
         selectedQueuedSinger: this.selectedQueuedSinger
-      }
+      },
+      minWidth: '60vw'
     };
 
     const dialogRef = this._dialog.open(SingerPerformanceHistoryComponent, config);

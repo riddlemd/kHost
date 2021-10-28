@@ -50,6 +50,7 @@ namespace KHost.App
                 .AddTransient<IVenuesRepository, EntityFrameworkVenuesRepository>()
                 .AddTransient<IDownloadsRepository, EntityFrameworkDownloadsRepository>()
                 .AddTransient<IUsersRepository, EntityFrameworkUsersRepository>()
+                .AddTransient<ISingerPerformancesRepository, EntityFrameworkSingerPerformancesRepository>()
                 // Song Search Engines
                 .AddSearchEnginesDynamically()
                 // ASP.NET CORE

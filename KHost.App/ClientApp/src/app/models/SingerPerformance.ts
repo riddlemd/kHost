@@ -1,34 +1,23 @@
-export class SingerPerformance {
+import { ModelWithId } from "./ModelWIthId";
+import { Singer } from "./Singer";
+import { Song } from "./Song";
+import { Venue } from "./Venue";
 
-    singerId: number;
-    
-    songId: number;
-    
-    venueId: number;
-    
-    date: Date;
-    
+export class SingerPerformance implements ModelWithId {
+
     id?: number;
-    
-    constructor({
-        singerId,
-        songId,
-        venueId,
-        date,
-        id
-    }: parameters) {
-        this.singerId = singerId;
-        this.songId = songId;
-        this.venueId = venueId;
-        this.date = date;
-        this.id = id;
-    }
-}
 
-interface parameters {
-    singerId: number,
-    songId: number,
-    venueId: number,
-    date: Date,
-    id: number
+    singerId?: number;
+
+    singer?: Singer;
+    
+    songId?: number;
+
+    song?: Song;
+    
+    venueId?: number;
+
+    venue?: Venue;
+    
+    date?: Date;
 }

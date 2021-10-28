@@ -58,6 +58,26 @@ export class HttpVenuesProvider implements VenuesProvider {
         return undefined;
     }
 
+    async findByIds(ids: number[]): Promise<Venue[]> {
+        const url = `${this._config.apiUrl}${HttpVenuesProvider.ENDPOINT}/find-by-ids`;
+
+        const options: any = {
+            params: {
+                ids: ids.join(',')
+            }
+        };
+
+        try {
+            const response = await this._httpClient.get<ApiResponse<Venue[]>>(url, <object>options).toPromise();
+            return response.result
+        }
+        catch(exception) {
+
+        }
+
+        return [];
+    }
+
     // CRUD Methods
 
     async create(venue: Venue): Promise<number> {

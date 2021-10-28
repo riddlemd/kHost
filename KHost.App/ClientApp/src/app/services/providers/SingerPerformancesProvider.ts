@@ -5,7 +5,7 @@ import { SingerPerformance } from "src/app/models/SingerPerformance";
 @Injectable()
 export class SingerPerformancesProvider {
 
-    getBySinger(singer: Singer, count?: number, offset?: number): Promise<SingerPerformance[]> {
+    findBySinger(singer: Singer, count?: number, offset?: number): Promise<SingerPerformance[]> {
         throw("Not Implemented");
     }
 

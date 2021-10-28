@@ -38,6 +38,7 @@ import { HttpQueuedSongsProvider } from './services/providers/Http/HttpQueuedSon
 import { HttpSongsProvider } from './services/providers/Http/HttpSongsProvider';
 import { HttpSingersProvider } from './services/providers/Http/HttpSingersProvider';
 import { HttpVenuesProvider } from './services/providers/Http/HttpVenuesProvider';
+import { HttpSingerPerformancesProvider } from './services/providers/Http/HttpSingerPerformancesProvider';
 // Configs
 import { AppConfig, AppConfigInstance } from './app.config';
 // Components
@@ -126,7 +127,7 @@ import { EditSingerComponent } from './components/pages/singers-manager/edit-sin
     [{ provide: SingersProvider, useClass: HttpSingersProvider }],
     [{ provide: SongSearchProvider, useClass: HttpSongSearchProvider}],
     [{ provide: VenuesProvider, useClass: HttpVenuesProvider }],
-    //[{ provide: SingerPerformancesProvider, useClass: MockSingerPerformanceProvider}],
+    [{ provide: SingerPerformancesProvider, useClass: HttpSingerPerformancesProvider}],
     //[{ provide: KhEventsProvider, useClass: MockKhEventsProvider }]
   ],
   bootstrap: [AppComponent]
