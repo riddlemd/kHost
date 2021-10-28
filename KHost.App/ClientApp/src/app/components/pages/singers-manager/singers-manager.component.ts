@@ -61,15 +61,13 @@ export class SingersManagerComponent implements OnInit {
 
     const dialogRef = this._dialog.open(EditSingerComponent, config);
 
-    dialogRef
-      .afterClosed()
-        .subscribe(singer => {
-          if(!singer) return;
-          
-          if(!isNew) return;
+    singer = await dialogRef.afterClosed().toPromise();
 
-          this._singers.push(singer);
-    });
+    if(!singer) return;
+          
+    if(!isNew) return;
+
+    this._singers.push(singer);
   }
 
   async openDeleteSingerDialog(singer: Singer): Promise<void> {
@@ -84,13 +82,12 @@ export class SingersManagerComponent implements OnInit {
 
     const dialogRef = this._dialog.open(ConfirmComponent, config);
 
-    dialogRef
-      .afterClosed()
-        .subscribe(async confirm => {
-          if(!confirm) return;
+    const confirm = await dialogRef.afterClosed().toPromise();
+    
+    if(!confirm) return;
 
-          await this._singersProvider.delete(singer);
-          this._singers.remove(singer);
-    });
+    await this._singersProvider.delete(singer);
+    
+    this._singers.remove(singer);
   }
 }
