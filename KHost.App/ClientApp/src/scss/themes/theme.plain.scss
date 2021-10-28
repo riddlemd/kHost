@@ -161,3 +161,9 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
     transition: all 5000s ease-in-out 0s;
 }
+
+[data-state="Broken"] {
+	td {
+		background: rgba(255, 0, 0, 0.3);
+	}
+}
