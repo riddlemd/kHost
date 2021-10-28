@@ -60,17 +60,14 @@ export class SongSearchComponent implements OnInit {
     return this.songSearchResults?.length ?? 0;
   }
 
-  search(): void {
+  async search(): Promise<void> {
     this.songSearchResults = undefined;
 
     if(!this.queryControl.value) return;
 
     this.songSearchResults = [];
 
-    this._songSearchProvider.search(this.queryControl.value, this.selectedSearchMode.value)
-      .then(songSearchResults => { 
-        this.songSearchResults = songSearchResults;
-      });
+    this.songSearchResults = await this._songSearchProvider.search(this.queryControl.value, this.selectedSearchMode.value);
   }
 
   async addSongToSinger(songSearchResult: SongSearchResult): Promise<void> {
