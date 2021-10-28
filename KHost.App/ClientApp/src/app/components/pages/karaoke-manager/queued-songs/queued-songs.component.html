@@ -47,15 +47,11 @@
                             <span>Move to Bottom</span>
                         </button>
                         <mat-divider></mat-divider>
-                        <button mat-menu-item *ngIf="queuedSong.song?.remotePath === undefined" (click)="openEditSongDialog()">
+                        <button mat-menu-item *ngIf="queuedSong.song?.localPath" (click)="openEditSongDialog()">
                             <mat-icon>edit</mat-icon>
                             <span>Edit</span>
                         </button>
-                        <button mat-menu-item *ngIf="queuedSong.song?.remotePath === undefined">
-                            <mat-icon>delete_forever</mat-icon>
-                            <span>Remove from Library</span>
-                        </button>
-                        <button mat-menu-item *ngIf="queuedSong.song?.remotePath !== undefined">
+                        <button mat-menu-item *ngIf="queuedSong.song?.remotePath">
                             <mat-icon>download_for_offline</mat-icon>
                             <span>Download</span>
                         </button>
