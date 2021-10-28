@@ -31,22 +31,12 @@ export class QueuedSongsComponent implements OnChanges {
 
       this.selectedQueuedSinger.queuedSongsCount++;
       
-      this.loadQueuedSongsForSelectedQueuedSinger();
+      this.loadQueuedSongsAndSongsForSelectedQueuedSinger();
     });
   }
 
   ngOnChanges() {
-    this.loadQueuedSongsForSelectedQueuedSinger();
-  }
-
-  async loadQueuedSongsForSelectedQueuedSinger(): Promise<void> {
-    if(!this.selectedQueuedSinger?.singer) return;
-
-    this._queuedSongs = []
-
-    if(this.selectedQueuedSinger.queuedSongsCount <= 0) return;
-
-    this._queuedSongs = await this.getQueuedSongsAndSongsForQueuedSinger(this.selectedQueuedSinger);
+    this.loadQueuedSongsAndSongsForSelectedQueuedSinger();
   }
 
   getSongQueueCount(): number {
@@ -122,8 +112,14 @@ export class QueuedSongsComponent implements OnChanges {
     return -1;
   }
 
-  protected async getQueuedSongsAndSongsForQueuedSinger(queuedSinger: QueuedSinger): Promise<QueuedSong[]> {
-    const queuedSongs = await this._queuedSongsProvider.getByQueuedSinger(queuedSinger);
+  protected async loadQueuedSongsAndSongsForSelectedQueuedSinger(): Promise<void> {
+    if(!this.selectedQueuedSinger?.singer) return;
+
+    this._queuedSongs = []
+
+    if(this.selectedQueuedSinger.queuedSongsCount <= 0) return;
+
+    const queuedSongs = await this._queuedSongsProvider.getByQueuedSinger(this.selectedQueuedSinger);
 
     const songs = await this._songsProvider.findByIds(queuedSongs.map(qs => qs.songId ?? 0));
 
@@ -136,6 +132,6 @@ export class QueuedSongsComponent implements OnChanges {
       queuedSong.songId = song.id;
     }
 
-    return queuedSongs;
+    this._queuedSongs = queuedSongs;
   }
 }
