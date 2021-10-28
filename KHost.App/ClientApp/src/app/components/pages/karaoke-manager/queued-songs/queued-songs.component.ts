@@ -17,7 +17,8 @@ export class QueuedSongsComponent implements OnChanges {
   @Input()
   selectedQueuedSinger?: QueuedSinger;
 
-  queuedSongs: QueuedSong[] = [];
+  private _queuedSongs: QueuedSong[] = [];
+  get queuedSongs() { return this._queuedSongs; }
 
   selectedQueuedSong?: QueuedSong;
 
@@ -30,25 +31,22 @@ export class QueuedSongsComponent implements OnChanges {
 
       this.selectedQueuedSinger.queuedSongsCount++;
       
-      this.refresh();
+      this.loadQueuedSongsForSelectedQueuedSinger();
     });
   }
 
   ngOnChanges() {
-    this.refresh();
+    this.loadQueuedSongsForSelectedQueuedSinger();
   }
 
-  refresh(): void {
+  async loadQueuedSongsForSelectedQueuedSinger(): Promise<void> {
     if(!this.selectedQueuedSinger?.singer) return;
 
-    this.queuedSongs = []
+    this._queuedSongs = []
 
     if(this.selectedQueuedSinger.queuedSongsCount <= 0) return;
 
-    this.getQueuedSongsAndSongsForQueuedSinger(this.selectedQueuedSinger)
-      .then(queuedSongs => {
-        this.queuedSongs = queuedSongs;
-      });
+    this._queuedSongs = await this.getQueuedSongsAndSongsForQueuedSinger(this.selectedQueuedSinger);
   }
 
   getSongQueueCount(): number {
