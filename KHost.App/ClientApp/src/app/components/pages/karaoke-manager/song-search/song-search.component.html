@@ -57,6 +57,6 @@
     <div>Songs: {{ getSongSearchResultsCount() }}</div>
 </div>
 <form>
-    <input type="text" name="query" [formControl]="queryControl" placeholder="Enter the name of the song or band here, use * for wildcard searches.">
+    <input type="text" name="query" [formControl]="queryControl" placeholder="Enter the name of the song or band here, use % for wildcard searches.">
     <multi-button prefix="Search " [modes]="searchModes" (trigger)="search()" [(selectedMode)]="selectedSearchMode"></multi-button>
 </form>
