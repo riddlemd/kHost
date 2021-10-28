@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { EditModelComponent } from 'src/app/components/edit-model/edit-model.component';
+import { EditModelComponent } from 'src/app/components/dialogs/edit-model/edit-model.component';
 import { Venue } from 'src/app/models/Venue';
 
 @Component({
