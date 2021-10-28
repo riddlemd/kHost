@@ -47,7 +47,7 @@
                             <span>Move to Bottom</span>
                         </button>
                         <mat-divider></mat-divider>
-                        <button mat-menu-item *ngIf="queuedSong.song?.remotePath === undefined">
+                        <button mat-menu-item *ngIf="queuedSong.song?.remotePath === undefined" (click)="openEditSongDialog()">
                             <mat-icon>edit</mat-icon>
                             <span>Edit</span>
                         </button>

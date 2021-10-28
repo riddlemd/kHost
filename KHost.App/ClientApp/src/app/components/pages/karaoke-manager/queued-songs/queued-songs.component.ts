@@ -4,8 +4,9 @@ import { QueuedSong } from 'src/app/models/QueuedSong';
 import { QueuedSinger } from 'src/app/models/QueuedSinger';
 import { QueuedSongsProvider } from 'src/app/services/providers/QueuedSongsProvider';
 import 'src/app/modules/kommon/collections/arrayExtensions';
-import { Singer } from 'src/app/models/Singer';
 import { SongsProvider } from 'src/app/services/providers/SongsProvider';
+import { EditSongComponent } from 'src/app/components/dialogs/edit-song/edit-song.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'kh-queued-songs',
@@ -24,7 +25,8 @@ export class QueuedSongsComponent implements OnChanges {
 
   constructor(
     private _queuedSongsProvider: QueuedSongsProvider,
-    private _songsProvider: SongsProvider
+    private _songsProvider: SongsProvider,
+    private _dialog: MatDialog
   ) {
     this._queuedSongsProvider.created.subscribe(queuedSong => {
       if(!this.selectedQueuedSinger) return;
@@ -60,8 +62,6 @@ export class QueuedSongsComponent implements OnChanges {
       await this._queuedSongsProvider.moveToTop(queuedSong);
       return;
     }
-
-    var nextQueuedSinger = this.queuedSongs[e.currentIndex + 1]
 
     await this._queuedSongsProvider.moveTo(queuedSong, e.currentIndex);
   }
@@ -133,5 +133,19 @@ export class QueuedSongsComponent implements OnChanges {
     }
 
     this._queuedSongs = queuedSongs;
+  }
+
+  async openEditSongDialog(): Promise<void> {
+    if(!this.selectedQueuedSong) return;
+
+    const config = {
+      data: {
+        entity: this.selectedQueuedSong.song
+      }
+    };
+
+    const dialogRef = this._dialog.open(EditSongComponent, config);
+
+    await dialogRef.afterClosed().toPromise();
   }
 }
