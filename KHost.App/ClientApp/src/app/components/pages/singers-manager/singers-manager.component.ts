@@ -65,11 +65,7 @@ export class SingersManagerComponent implements OnInit {
       .afterClosed()
         .subscribe(singer => {
           if(!singer) return;
-
-          singer.id
-            ? this._singersProvider.update(singer)
-            : this._singersProvider.create(singer);
-
+          
           if(!isNew) return;
 
           this._singers.push(singer);

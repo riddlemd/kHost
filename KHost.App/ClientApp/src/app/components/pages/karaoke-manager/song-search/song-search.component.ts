@@ -86,9 +86,13 @@ export class SongSearchComponent implements OnInit {
   }
 
   async openEditSongDialog(): Promise<void> {
+    if(!this.selectedSongSearchResult) return;
+
+    const song = await this._songSearchProvider.getSong(this.selectedSongSearchResult);
+
     const config = {
       data: {
-        entity: this.selectedSongSearchResult
+        entity: song
       }
     };
 

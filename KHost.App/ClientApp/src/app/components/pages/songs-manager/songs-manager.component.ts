@@ -66,11 +66,7 @@ export class SongsManagerComponent implements OnInit {
       .afterClosed()
         .subscribe(song => {
           if(!song) return;
-
-          song.id
-            ? this._songsProvider.update(song)
-            : this._songsProvider.create(song);
-
+          
           if(!isNew) return;
 
           this._songs.push(song);

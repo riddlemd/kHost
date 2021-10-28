@@ -3,20 +3,22 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EditModelComponent } from 'src/app/components/dialogs/edit-model/edit-model.component';
 import { Singer } from 'src/app/models/Singer';
+import { SingersProvider } from 'src/app/services/providers/SingersProvider';
 
 @Component({
   templateUrl: './edit-singer.component.html',
   styleUrls: ['./edit-singer.component.scss']
 })
-export class EditSingerComponent extends EditModelComponent<Singer, EditSingerComponent> {
+export class EditSingerComponent extends EditModelComponent<Singer, SingersProvider, EditSingerComponent> {
 
   constructor(
-    dialogRef: MatDialogRef<EditSingerComponent>,
     @Inject(MAT_DIALOG_DATA) data: {
        entity: Singer
-    }
+    },
+    provider: SingersProvider,
+    dialogRef: MatDialogRef<EditSingerComponent>,
   ) {
-    super(dialogRef, data);
+    super(data, provider, dialogRef);
   }
 
   protected _createNewEntity(): Singer {

@@ -2,8 +2,9 @@ import { Inject } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { ModelWithId } from "src/app/models/ModelWIthId";
+import { CurdProvider } from "src/app/services/providers/CrudProvider";
 
-export abstract class EditModelComponent<TModel extends ModelWithId, TComponent> {
+export abstract class EditModelComponent<TModel extends ModelWithId, TProvider extends CurdProvider<TModel>, TComponent> {
   
   protected _entity: TModel;
 
@@ -11,10 +12,11 @@ export abstract class EditModelComponent<TModel extends ModelWithId, TComponent>
   get form(): FormGroup { return this._form; }
 
   constructor(
-    private _dialogRef: MatDialogRef<TComponent>,
     @Inject(MAT_DIALOG_DATA) data: {
        entity: TModel
-    }
+    },
+    private _provider: TProvider,
+    private _dialogRef: MatDialogRef<TComponent>,
   ) {
     this._entity = data.entity ?? this._createNewEntity();
 
@@ -36,6 +38,10 @@ export abstract class EditModelComponent<TModel extends ModelWithId, TComponent>
       const control = this._form.controls[key];
       this._entity[key as keyof TModel] = control.value;
     });
+
+    this._entity.id
+      ? this._provider.update(this._entity)
+      : this._provider.create(this._entity);
 
     this._dialogRef.close(this._entity);
   } 
