@@ -76,6 +76,10 @@ a {
 	background: $button-color;
 }
 
+::-webkit-scrollbar-corner {
+	background: $scrollbar-background-color;
+}
+
 .mat-menu-panel {
 	background: $background-color;
 	color: $text-color;
@@ -149,4 +153,11 @@ table {
 
 .mat-select-value {
 	color: rgba(255, 255, 255, 0.6);
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: all 5000s ease-in-out 0s;
 }

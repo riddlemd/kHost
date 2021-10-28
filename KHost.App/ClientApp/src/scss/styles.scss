@@ -164,6 +164,7 @@ button {
 	font-family: Roboto, "Helvetica Neue", sans-serif;
 	cursor: pointer;
 	margin-right: 0.25em;
+	white-space: nowrap;
 }
 
 select {
@@ -248,4 +249,13 @@ mat-dialog-actions {
 
 mat-form-field {
 	width: 100%;
+	padding: 0.3em;
+}
+
+.mat-form-field-underline {
+	bottom: 0px;
+}
+
+.mat-form-field-wrapper {
+	padding-bottom: 0px;
 }

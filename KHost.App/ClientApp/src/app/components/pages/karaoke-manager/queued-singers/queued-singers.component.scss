@@ -17,10 +17,12 @@ button {
 
 .name-column {
     width: 100%;
+    white-space: nowrap;
 }
 
 .count-column {
     text-align: right;
+    white-space: nowrap;
 }
 
 .singer-row {
