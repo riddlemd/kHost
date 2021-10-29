@@ -32,15 +32,8 @@ export abstract class BaseHttpProvider<TModel extends ModelWithId> {
             }
         };
 
-        try {
-            const response = await this._httpClient.get<ApiResponse<TModel>>(url, <object>options).toPromise();
-            return response.result;
-        }
-        catch(exception) {
-
-        }
-
-        return undefined;
+        const response = await this._httpClient.get<ApiResponse<TModel>>(url, <object>options).toPromise();
+        return response.result;
     }
 
     async findByIds(ids: number[]): Promise<TModel[]> {
@@ -52,15 +45,8 @@ export abstract class BaseHttpProvider<TModel extends ModelWithId> {
             }
         };
 
-        try {
-            const response = await this._httpClient.get<ApiResponse<TModel[]>>(url, <object>options).toPromise();
-            return response.result;
-        }
-        catch(exception) {
-
-        }
-
-        return [];
+        const response = await this._httpClient.get<ApiResponse<TModel[]>>(url, <object>options).toPromise();
+        return response.result;
     }
 
     // Events
