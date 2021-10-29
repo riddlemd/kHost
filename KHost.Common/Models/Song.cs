@@ -1,6 +1,6 @@
 ﻿namespace KHost.Common.Models
 {
-    public class Song : BaseModel, IModelWithId
+    public class Song : BaseModel, IModelWithId, IModelWithName
     {
         public int? Id { get; set; }
 

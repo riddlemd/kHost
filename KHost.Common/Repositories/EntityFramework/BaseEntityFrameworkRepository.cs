@@ -76,6 +76,9 @@ namespace KHost.Common.Repositories.EntityFramework
             if (count != null)
                 query = query.Take((int)count);
 
+            if (typeof(TModel).IsAssignableTo(typeof(IModelWithName)))
+                query = query.OrderBy(e => (e as IModelWithName).Name);
+
             return query;
         }
 
