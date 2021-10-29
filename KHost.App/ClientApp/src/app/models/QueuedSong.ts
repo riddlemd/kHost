@@ -1,8 +1,9 @@
 import { ModelWithId } from "./ModelWIthId";
+import { ModelWithPosition } from "./ModelWithPosition";
 import { QueuedSinger } from "./QueuedSinger";
 import { Song } from "./Song";
 
-export class QueuedSong implements ModelWithId {
+export class QueuedSong implements ModelWithId, ModelWithPosition {
 
     id?: number;
 
@@ -13,4 +14,6 @@ export class QueuedSong implements ModelWithId {
     song?: Song;
 
     queuedSinger?: QueuedSinger
+
+    position: number = 0;
 }

@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 import { AppConfig } from 'src/app/app.config';
 import { ApiResponse } from 'src/app/models/ApiResponse';
 import { QueuedSinger } from 'src/app/models/QueuedSinger';
@@ -12,6 +13,8 @@ import { QueueProviderComponent } from './components/QueueProviderComponent';
 export class HttpQueuedSongsProvider extends BaseHttpProvider<QueuedSong> implements QueuedSongsProvider {
     
     private _queue: QueueProviderComponent<QueuedSong>;
+
+    private _moved = new Subject<QueuedSinger>();
 
     constructor(
         config: AppConfig,
@@ -45,6 +48,10 @@ export class HttpQueuedSongsProvider extends BaseHttpProvider<QueuedSong> implem
 
         return [];
     }
+    
+    // Events
+
+    moved: Observable<QueuedSinger> = this._moved.asObservable();
 
     // CRUD Methods
 
@@ -56,22 +63,42 @@ export class HttpQueuedSongsProvider extends BaseHttpProvider<QueuedSong> implem
     // Queue Methods
 
     async moveToTop(queuedSinger: QueuedSinger): Promise<number> {
-        return await this._queue.moveToTop(queuedSinger);
+        const position = await this._queue.moveToTop(queuedSinger);
+
+        this._moved.next(queuedSinger);
+
+        return position;
     }
 
     async moveToBottom(queuedSinger: QueuedSinger): Promise<number> {
-        return await this._queue.moveToBottom(queuedSinger);
+        const position = await this._queue.moveToBottom(queuedSinger);
+
+        this._moved.next(queuedSinger);
+
+        return position;
     }
 
     async moveUp(queuedSinger: QueuedSinger): Promise<number> {
-        return await this._queue.moveUp(queuedSinger);
+        const position = await this._queue.moveUp(queuedSinger);
+
+        this._moved.next(queuedSinger);
+
+        return position;
     }
 
     async moveDown(queuedSinger: QueuedSinger): Promise<number> {
-        return await this._queue.moveDown(queuedSinger);
+        const position = await this._queue.moveDown(queuedSinger);
+
+        this._moved.next(queuedSinger);
+
+        return position;
     }
 
     async moveTo(queuedSinger: QueuedSinger, position: number): Promise<number> {
-        return await this._queue.moveTo(queuedSinger, position);
+        const newPosition = await this._queue.moveTo(queuedSinger, position);
+
+        this._moved.next(queuedSinger);
+
+        return newPosition;
     }
 }

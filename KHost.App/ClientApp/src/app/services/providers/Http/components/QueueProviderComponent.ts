@@ -1,8 +1,9 @@
 import { HttpClient } from "@angular/common/http";
 import { ApiResponse } from "src/app/models/ApiResponse";
 import { ModelWithId } from "src/app/models/ModelWIthId";
+import { ModelWithPosition } from "src/app/models/ModelWithPosition";
 
-export class QueueProviderComponent<TModel extends ModelWithId> {
+export class QueueProviderComponent<TModel extends ModelWithId & ModelWithPosition> {
     
     constructor(
         private _endpoint: string,
@@ -20,6 +21,8 @@ export class QueueProviderComponent<TModel extends ModelWithId> {
 
         const response = await this._httpClient.post<ApiResponse<number>>(url, data).toPromise();
 
+        entity.position = response.result;
+
         return response.result;
     }
 
@@ -31,6 +34,8 @@ export class QueueProviderComponent<TModel extends ModelWithId> {
         };
 
         const response = await this._httpClient.post<ApiResponse<number>>(url, data).toPromise();
+
+        entity.position = response.result;
 
         return response.result;
     }
@@ -44,6 +49,8 @@ export class QueueProviderComponent<TModel extends ModelWithId> {
 
         const response = await this._httpClient.post<ApiResponse<number>>(url, data).toPromise();
 
+        entity.position = response.result;
+
         return response.result;
     }
 
@@ -55,6 +62,8 @@ export class QueueProviderComponent<TModel extends ModelWithId> {
         };
 
         const response = await this._httpClient.post<ApiResponse<number>>(url, data).toPromise();
+
+        entity.position = response.result;
 
         return response.result;
     }
@@ -68,6 +77,8 @@ export class QueueProviderComponent<TModel extends ModelWithId> {
         };
 
         const response = await this._httpClient.post<ApiResponse<number>>(url, data).toPromise();
+
+        entity.position = response.result;
 
         return response.result;
     }
