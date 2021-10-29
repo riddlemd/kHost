@@ -38,6 +38,7 @@ import { HttpSongsProvider } from './services/providers/http/HttpSongsProvider';
 import { HttpSingersProvider } from './services/providers/http/HttpSingersProvider';
 import { HttpVenuesProvider } from './services/providers/http/HttpVenuesProvider';
 import { HttpSingerPerformancesProvider } from './services/providers/http/HttpSingerPerformancesProvider';
+import { HttpDownloadsProvider } from './services/providers/http/HttpDownloadsProvider';
 // Configs
 import { AppConfig, AppConfigInstance } from './app.config';
 // Components
@@ -64,6 +65,7 @@ import { EditVenueComponent } from './components/dialogs/edit-venue/edit-venue.c
 import { ConfirmComponent } from './components/dialogs/confirm/confirm.component';
 import { EditSongComponent } from './components/dialogs/edit-song/edit-song.component';
 import { EditSingerComponent } from './components/dialogs/edit-singer/edit-singer.component';
+import { DownloadsProvider } from './services/providers/DownloadsProvider';
 
 @NgModule({
   declarations: [
@@ -127,10 +129,10 @@ import { EditSingerComponent } from './components/dialogs/edit-singer/edit-singe
     [{ provide: QueuedSingersProvider, useClass: HttpQueuedSingersProvider }],
     [{ provide: SongsProvider, useClass: HttpSongsProvider }],
     [{ provide: SingersProvider, useClass: HttpSingersProvider }],
-    [{ provide: SongSearchProvider, useClass: HttpSongSearchProvider}],
+    [{ provide: SongSearchProvider, useClass: HttpSongSearchProvider }],
     [{ provide: VenuesProvider, useClass: HttpVenuesProvider }],
-    [{ provide: SingerPerformancesProvider, useClass: HttpSingerPerformancesProvider}],
-    //[{ provide: KhEventsProvider, useClass: MockKhEventsProvider }]
+    [{ provide: SingerPerformancesProvider, useClass: HttpSingerPerformancesProvider }],
+    [{ provide: DownloadsProvider, useClass: HttpDownloadsProvider }],
   ],
   bootstrap: [AppComponent]
 })

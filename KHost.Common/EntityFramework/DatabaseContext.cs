@@ -18,6 +18,8 @@ namespace KHost.Common.EntityFramework
 
         public virtual DbSet<SingerPerformance> SingerPerformances { get; set; }
 
+        public virtual DbSet<Download> Downloads { get; set; }
+
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
             

@@ -1,1 +1,28 @@
-<p>downloads-manager works!</p>
+<h1>Downloads Manager</h1>
+<div class='scroll-wrapper'>
+    <div class='empty' *ngIf="downloads.length <= 0">No active downloads.</div>
+    <table *ngIf="downloads.length > 0">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let download of downloads" class="download-row" [ngClass]="{'selected': download === selectedDownload }" (contextmenu)="menuTrigger.openMenu();" (mousedown)="selectedDownload=download">
+                <td class='song-name-column'>{{ download.name }}</td>
+                <td class='options-column'>
+                    <a mat-icon-button #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="menu">
+                        <mat-icon>more_vert</mat-icon>
+                    </a>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item>
+                            <mat-icon>cancel</mat-icon>
+                            <span>Cancel</span>
+                        </button>
+                    </mat-menu>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
