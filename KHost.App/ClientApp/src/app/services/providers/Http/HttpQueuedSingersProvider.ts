@@ -27,13 +27,6 @@ export class HttpQueuedSingersProvider extends BaseHttpProvider<QueuedSinger> im
 
     moved: Observable<QueuedSinger> = this._moved.asObservable();
 
-    // CRUD Methods
-
-    update(queuedSinger: QueuedSinger): Promise<void> {
-        // This provider is not expected to implement this.
-        throw new Error('Method not implemented.');
-    }
-
     // Queue Methods
 
     async moveToTop(queuedSinger: QueuedSinger): Promise<number> {
