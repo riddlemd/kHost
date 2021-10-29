@@ -129,6 +129,6 @@ export abstract class BaseHttpProvider<TModel extends ModelWithId> {
     }
 
     protected _getFullEndpointUrl(action?: string): string {
-        return this._config.apiUrl + this._endpoint + action;
+        return this._config.apiUrl + this._endpoint + (action ? action : '');
     }
 }
