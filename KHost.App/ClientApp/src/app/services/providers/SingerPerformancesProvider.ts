@@ -1,10 +1,10 @@
 import { Injectable } from "@angular/core";
 import { Singer } from "src/app/models/Singer";
 import { SingerPerformance } from "src/app/models/SingerPerformance";
-import { CurdProvider } from "./CrudProvider";
+import { CrudProvider } from "./CrudProvider";
 
 @Injectable()
-export class SingerPerformancesProvider implements CurdProvider<SingerPerformance> {
+export class SingerPerformancesProvider implements CrudProvider<SingerPerformance> {
 
     findBySinger(singer: Singer, count?: number, offset?: number): Promise<SingerPerformance[]> {
         throw("Not Implemented");

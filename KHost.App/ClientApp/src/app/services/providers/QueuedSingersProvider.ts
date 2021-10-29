@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { QueuedSinger } from 'src/app/models/QueuedSinger';
-import { CurdProvider } from './CrudProvider';
+import { CrudProvider } from './CrudProvider';
 
 @Injectable()
-export abstract class QueuedSingersProvider implements CurdProvider<QueuedSinger> {
+export abstract class QueuedSingersProvider implements CrudProvider<QueuedSinger> {
     constructor() {
 
     }

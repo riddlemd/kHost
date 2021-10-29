@@ -1,6 +1,6 @@
 import { ModelWithId } from "src/app/models/ModelWIthId";
 
-export interface CurdProvider<TModel extends ModelWithId> {
+export interface CrudProvider<TModel extends ModelWithId> {
     
     create(entity: TModel): Promise<number>;
 

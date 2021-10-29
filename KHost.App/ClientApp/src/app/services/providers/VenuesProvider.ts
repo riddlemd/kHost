@@ -1,10 +1,10 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { Venue } from "src/app/models/Venue";
-import { CurdProvider } from "./CrudProvider";
+import { CrudProvider } from "./CrudProvider";
 
 @Injectable()
-export class VenuesProvider implements CurdProvider<Venue> {
+export class VenuesProvider implements CrudProvider<Venue> {
 
     search(query: string, count?: number, offset?: number): Promise<Venue[]> {
         throw("Not Implemented");

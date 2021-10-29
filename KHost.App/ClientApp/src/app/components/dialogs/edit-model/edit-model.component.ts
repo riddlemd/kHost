@@ -2,9 +2,9 @@ import { Inject } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { ModelWithId } from "src/app/models/ModelWIthId";
-import { CurdProvider } from "src/app/services/providers/CrudProvider";
+import { CrudProvider } from "src/app/services/providers/CrudProvider";
 
-export abstract class EditModelComponent<TModel extends ModelWithId, TProvider extends CurdProvider<TModel>, TComponent> {
+export abstract class EditModelComponent<TModel extends ModelWithId, TProvider extends CrudProvider<TModel>, TComponent> {
   
   protected _entity: TModel;
 
