@@ -3,9 +3,12 @@ import { Observable, Subject } from "rxjs";
 import { AppConfig } from "src/app/app.config";
 import { ApiResponse } from "src/app/models/ApiResponse";
 import { ModelWithId } from "src/app/models/ModelWIthId";
+import { CrudProviderComponent } from "./components/CrudProviderComponent";
 
 export abstract class BaseHttpProvider<TModel extends ModelWithId> {
         
+    protected _crud: CrudProviderComponent<TModel>;
+
     protected _created = new Subject<TModel>();
 
     protected _updated = new Subject<TModel>();
@@ -17,6 +20,7 @@ export abstract class BaseHttpProvider<TModel extends ModelWithId> {
         protected readonly _config: AppConfig,
         protected readonly _httpClient: HttpClient
     ) {
+        this._crud = new CrudProviderComponent<TModel>(this._getFullEndpointUrl(), this._httpClient);
     }
 
     async findById(id: number): Promise<TModel | undefined> {
@@ -70,62 +74,27 @@ export abstract class BaseHttpProvider<TModel extends ModelWithId> {
     // CRUD Methods
 
     async create(entity: TModel): Promise<number> {
-        const url = this._getFullEndpointUrl('/create');
+        const newEntity = await this._crud.create(entity);
 
-        try {
-            const response = await this._httpClient.post<ApiResponse<TModel>>(url, entity).toPromise();
+        this._created.next(newEntity);
 
-            this._created.next(response.result);
-
-            return response.result.id!;
-        }
-        catch(exception) {
-            throw("Unable to Create");
-        }
+        return newEntity.id!;
     }
 
     async read(count?: number, offset?: number): Promise<TModel[]> {
-        const url = this._getFullEndpointUrl('/read');
-
-        const options: any = { params: {} };
-
-        if(count) options.params.count = count;
-
-        if(offset) options.params.offset = offset;
-
-        try {
-            const response = await this._httpClient.get<ApiResponse<TModel[]>>(url, <object>options).toPromise();
-            return response.result;
-        }
-        catch(exception) {
-
-        }
-
-        return [];
+        return await this._crud.read(count, offset);
     }
 
     async update(entity: TModel): Promise<void> {
-        const url = this._getFullEndpointUrl('/update');
+        await this._crud.update(entity);
 
-        try {
-            await this._httpClient.post(url, entity).toPromise();
-            this._updated.next(entity);
-        }
-        catch(exception) {
-            throw("Unable to Update");
-        }
+        this._updated.next(entity);
     }
 
     async delete(entity: TModel): Promise<void> {
-        const url = this._getFullEndpointUrl('/delete');
+        await this._crud.delete(entity);
 
-        try {
-            await this._httpClient.post(url, entity).toPromise();
-            this._deleted.next(entity);
-        }
-        catch(exception) {
-            throw("Unable to Delete");
-        }
+        this._deleted.next(entity);
     }
 
     protected _getFullEndpointUrl(action?: string): string {
