@@ -23,6 +23,8 @@ export abstract class QueuedSingersProvider implements CrudProvider<QueuedSinger
     
     deleted: Observable<QueuedSinger> = (() => { throw("Not Implemented") })();
 
+    moved: Observable<QueuedSinger> = (() => { throw("Not Implemented") })();
+
     // CRUD Methods
 
     create(queuedSinger: QueuedSinger): Promise<number> {
