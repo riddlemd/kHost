@@ -2,6 +2,6 @@
 {
     public interface IModelWithPosition
     {
-        public float Position { get; set; }
+        public int Position { get; set; }
     }
 }

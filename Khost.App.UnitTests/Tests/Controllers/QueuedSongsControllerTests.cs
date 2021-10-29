@@ -83,7 +83,7 @@ namespace Khost.App.UnitTests.Tests.Controllers
                 Id = 2
             };
 
-            var expectedNewPosition = 5.45f;
+            var expectedNewPosition = 1;
 
             var repository = Mock.Of<IQueuedSongsRepository>();
 
@@ -113,7 +113,7 @@ namespace Khost.App.UnitTests.Tests.Controllers
                 Id = 2
             };
 
-            var expectedNewPosition = 5.45f;
+            var expectedNewPosition = 1;
 
             var repository = Mock.Of<IQueuedSongsRepository>();
 
@@ -143,7 +143,7 @@ namespace Khost.App.UnitTests.Tests.Controllers
                 Id = 2
             };
 
-            var expectedNewPosition = 0f;
+            var expectedNewPosition = 0;
 
             var repository = Mock.Of<IQueuedSongsRepository>();
 
@@ -173,7 +173,7 @@ namespace Khost.App.UnitTests.Tests.Controllers
                 Id = 2
             };
 
-            var expectedNewPosition = 100f;
+            var expectedNewPosition = 100;
 
             var repository = Mock.Of<IQueuedSongsRepository>();
 

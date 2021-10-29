@@ -6,7 +6,7 @@ namespace KHost.Common.Models
     {
         public int? Id { get; set; }
 
-        public float Position { get; set; }
+        public int Position { get; set; }
 
         public int SingerId { get; set; }
 

@@ -43,23 +43,23 @@ export abstract class QueuedSingersProvider implements CurdProvider<QueuedSinger
 
     // Queue Methods
 
-    moveToTop(queuedSinger: QueuedSinger): Promise<void> {
+    moveToTop(queuedSinger: QueuedSinger): Promise<number> {
         throw ("Not Implemented");
     }
 
-    moveToBottom(queuedSinger: QueuedSinger): Promise<void> {
+    moveToBottom(queuedSinger: QueuedSinger): Promise<number> {
         throw ("Not Implemented");
     }
 
-    moveUp(queuedSinger: QueuedSinger): Promise<void> {
+    moveUp(queuedSinger: QueuedSinger): Promise<number> {
         throw ("Not Implemented");
     }
 
-    moveDown(queuedSinger: QueuedSinger): Promise<void> {
+    moveDown(queuedSinger: QueuedSinger): Promise<number> {
         throw ("Not Implemented");
     }
 
-    moveTo(beforeQueuedSinger: QueuedSinger, position: number): Promise<void> {
+    moveTo(beforeQueuedSinger: QueuedSinger, position: number): Promise<number> {
         throw ("Not Implemented");
     }
 }

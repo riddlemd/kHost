@@ -8,7 +8,7 @@
 
         public int QueuedSingerId { get; set; }
 
-        public float Position { get; set; }
+        public int Position { get; set; }
 
         public override QueuedSong Clone() => (base.Clone() as QueuedSong)!;
     }

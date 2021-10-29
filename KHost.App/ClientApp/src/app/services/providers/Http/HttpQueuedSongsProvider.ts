@@ -1,21 +1,25 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
 import { AppConfig } from 'src/app/app.config';
 import { ApiResponse } from 'src/app/models/ApiResponse';
 import { QueuedSinger } from 'src/app/models/QueuedSinger';
 import { QueuedSong } from 'src/app/models/QueuedSong';
 import { QueuedSongsProvider } from '../QueuedSongsProvider';
 import { BaseHttpProvider } from './BaseHttpProvider';
+import { QueueProviderComponent } from './components/QueueProviderComponent';
 
 @Injectable()
 export class HttpQueuedSongsProvider extends BaseHttpProvider<QueuedSong> implements QueuedSongsProvider {
     
+    private _queue: QueueProviderComponent<QueuedSong>;
+
     constructor(
         config: AppConfig,
         httpClient: HttpClient
     ) {
         super("/api/queued-songs", config, httpClient);
+
+        this._queue = new QueueProviderComponent<QueuedSong>(this._getFullEndpointUrl(), httpClient);
     }
 
     async getByQueuedSinger(queuedSinger: QueuedSinger, count?: number, offset?: number): Promise<QueuedSong[]> {
@@ -51,79 +55,23 @@ export class HttpQueuedSongsProvider extends BaseHttpProvider<QueuedSong> implem
 
     // Queue Methods
 
-    async moveToTop(queuedSong: QueuedSong): Promise<void> {
-        const url = this._getFullEndpointUrl('/move-to-top');
-
-        const data = {
-            id: queuedSong.id
-        };
-
-        try {
-            await this._httpClient.post(url, data).toPromise();
-        }
-        catch(exception) {
-
-        }
+    async moveToTop(queuedSinger: QueuedSinger): Promise<number> {
+        return await this._queue.moveToTop(queuedSinger);
     }
 
-    async moveToBottom(queuedSong: QueuedSong): Promise<void> {
-        const url = this._getFullEndpointUrl('/move-to-bottom');
-
-        const data = {
-            id: queuedSong.id
-        };
-
-        try {
-            await this._httpClient.post(url, data).toPromise();
-        }
-        catch(exception) {
-
-        }
+    async moveToBottom(queuedSinger: QueuedSinger): Promise<number> {
+        return await this._queue.moveToBottom(queuedSinger);
     }
 
-    async moveUp(queuedSong: QueuedSong): Promise<void> {
-        const url = this._getFullEndpointUrl('/move-up');
-
-        const data = {
-            id: queuedSong.id
-        };
-
-        try {
-            await this._httpClient.post(url, data).toPromise();
-        }
-        catch(exception) {
-
-        }
+    async moveUp(queuedSinger: QueuedSinger): Promise<number> {
+        return await this._queue.moveUp(queuedSinger);
     }
 
-    async moveDown(queuedSong: QueuedSong): Promise<void> {
-        const url = this._getFullEndpointUrl('/move-down');
-
-        const data = {
-            id: queuedSong.id
-        };
-
-        try {
-            await this._httpClient.post(url, data).toPromise();
-        }
-        catch(exception) {
-
-        }
+    async moveDown(queuedSinger: QueuedSinger): Promise<number> {
+        return await this._queue.moveDown(queuedSinger);
     }
 
-    async moveTo(queuedSong: QueuedSong, position: number): Promise<void> {
-        const url = this._getFullEndpointUrl('/move-to');
-
-        const data = {
-            id: queuedSong?.id,
-            position: position
-        };
-
-        try {
-            await this._httpClient.post(url, data).toPromise();
-        }
-        catch(exception) {
-            
-        }
+    async moveTo(queuedSinger: QueuedSinger, position: number): Promise<number> {
+        return await this._queue.moveTo(queuedSinger, position);
     }
 }

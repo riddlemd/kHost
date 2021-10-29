@@ -37,10 +37,10 @@ namespace KHost.App.Controllers.Api
         [HttpPost]
         public async Task<IActionResult> MoveUp([FromBody] GenericIdRequest request)
         {
-            _ = await DefaultRepository.MoveUp(request.Id ?? 0);
+            var position = await DefaultRepository.MoveUp((int)request.Id!);
             await DefaultRepository.Save();
 
-            var response = new ApiResponse();
+            var response = new ApiResponse<int>(position);
 
             return Ok(response);
         }
@@ -48,10 +48,10 @@ namespace KHost.App.Controllers.Api
         [HttpPost]
         public async Task<IActionResult> MoveDown([FromBody] GenericIdRequest request)
         {
-            _ = await DefaultRepository.MoveDown(request.Id ?? 0);
+            var position = await DefaultRepository.MoveDown((int)request.Id!);
             await DefaultRepository.Save();
 
-            var response = new ApiResponse();
+            var response = new ApiResponse<int>(position);
 
             return Ok(response);
         }
@@ -59,10 +59,10 @@ namespace KHost.App.Controllers.Api
         [HttpPost]
         public async Task<IActionResult> MoveToTop([FromBody] GenericIdRequest request)
         {
-            _ = await DefaultRepository.MoveToTop(request.Id ?? 0);
+            var position = await DefaultRepository.MoveToTop((int)request.Id!);
             await DefaultRepository.Save();
 
-            var response = new ApiResponse();
+            var response = new ApiResponse<int>(position);
 
             return Ok(response);
         }
@@ -70,10 +70,10 @@ namespace KHost.App.Controllers.Api
         [HttpPost]
         public async Task<IActionResult> MoveToBottom([FromBody] GenericIdRequest request)
         {
-            _ = await DefaultRepository.MoveToBottom(request.Id ?? 0);
+            var position = await DefaultRepository.MoveToBottom((int)request.Id!);
             await DefaultRepository.Save();
 
-            var response = new ApiResponse();
+            var response = new ApiResponse<int>(position);
 
             return Ok(response);
         }
@@ -81,10 +81,10 @@ namespace KHost.App.Controllers.Api
         [HttpPost]
         public async Task<IActionResult> MoveTo([FromBody] MoveToRequest request)
         {
-            _ = await DefaultRepository.MoveTo(request.Id ?? 0, request.Position ?? 0);
+            var position = await DefaultRepository.MoveTo((int)request.Id!, (int)request.Position!);
             await DefaultRepository.Save();
 
-            var response = new ApiResponse();
+            var response = new ApiResponse<int>(position);
 
             return Ok(response);
         }

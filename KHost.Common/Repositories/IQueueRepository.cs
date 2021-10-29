@@ -13,7 +13,7 @@ namespace KHost.Common.Repositories
     {
         abstract protected DbContext Context { get; }
 
-        public async Task<float> MoveUp(int id)
+        public async Task<int> MoveUp(int id)
         {
             var entities = await GetEntities();
 
@@ -32,7 +32,7 @@ namespace KHost.Common.Repositories
             return entity.Position;
         }
 
-        public async Task<float> MoveDown(int id)
+        public async Task<int> MoveDown(int id)
         {
             var entities = await GetEntities();
 
@@ -51,7 +51,7 @@ namespace KHost.Common.Repositories
             return entity.Position;
         }
 
-        public async Task<float> MoveToTop(int id)
+        public async Task<int> MoveToTop(int id)
         {
             var entities = await GetEntities();
 
@@ -70,7 +70,7 @@ namespace KHost.Common.Repositories
             return entity.Position;
         }
 
-        public async Task<float> MoveToBottom(int id)
+        public async Task<int> MoveToBottom(int id)
         {
             var entities = await GetEntities();
 
@@ -89,34 +89,7 @@ namespace KHost.Common.Repositories
             return entity.Position;
         }
 
-        public async Task<float> MoveBefore(int beforeId, int id)
-        {
-            var entities = await GetEntities();
-
-            var entity = entities.FirstOrDefault(e => e.Id == id);
-
-            _ = entity ?? throw new KHostException("Entity not found");
-
-            var beforeEntity = entities.FirstOrDefault(e => e.Id == beforeId);
-
-            _ = beforeEntity ?? throw new KHostException("Entity not found");
-
-            if (beforeEntity == entity) return entity.Position;
-
-            var entityKey = entities.IndexOf(entity);
-
-            var beforeEntityKey = entities.IndexOf(beforeEntity);
-
-            entities.Move(entityKey, beforeEntityKey);
-
-            ReclaculatePositions(entities);
-
-            await Context.SaveChangesAsync();
-
-            return entity.Position;
-        }
-
-        public async Task<float> MoveTo(int id, int position)
+        public async Task<int> MoveTo(int id, int position)
         {
             var entities = await GetEntities();
 
