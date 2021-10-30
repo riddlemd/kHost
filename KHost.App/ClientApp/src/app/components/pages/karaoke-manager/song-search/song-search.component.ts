@@ -33,7 +33,6 @@ export class SongSearchComponent implements OnInit {
   set selectedSearchMode(value: MultiButtonMode) {
     this.songSearchResults = undefined;
     this._selectedSearchMode = value;
-    this.search();
   }
 
   constructor(
