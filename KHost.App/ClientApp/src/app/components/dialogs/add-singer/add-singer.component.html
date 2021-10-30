@@ -9,7 +9,8 @@
 </form>
 
 <mat-dialog-content>
-    <div class='empty' *ngIf="singers !== undefined && singers.length === 0">No singers found.</div>
+    <div class='loading' *ngIf="searching">Searching...</div>
+    <div class='empty' *ngIf="singers !== undefined && singers.length === 0 && !searching">No singers found.</div>
 
     <div *ngIf="singers !== undefined && singers.length > 0">
         <table >

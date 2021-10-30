@@ -24,6 +24,9 @@ export class AddSingerComponent {
   private _queryControl = new FormControl();
   get queryControl() { return this._queryControl; }
 
+  private _searching: boolean = false;
+  get searching() { return this._searching; }
+
   selectedSinger?: Singer;
 
   constructor(
@@ -38,9 +41,13 @@ export class AddSingerComponent {
 
     if(!this.queryControl.value) return;
 
+    this._searching = true;
+
     this._singers = [];
 
     this._singers = await this._singersProvider.search(this.queryControl.value + "%");
+
+    this._searching = false;
   }
 
   async returnNewSinger(): Promise<void> {
