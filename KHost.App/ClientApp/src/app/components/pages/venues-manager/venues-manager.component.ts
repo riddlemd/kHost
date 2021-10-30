@@ -68,7 +68,8 @@ export class VenuesManagerComponent implements OnInit {
     const config = {
       data: {
         entity: venue
-      }
+      },
+      minWidth: '50vw'
     };
 
     const dialogRef = this._dialog.open(EditVenueComponent, config);

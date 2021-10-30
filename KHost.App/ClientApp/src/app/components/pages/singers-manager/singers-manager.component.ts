@@ -68,7 +68,8 @@ export class SingersManagerComponent implements OnInit {
     const config = {
       data: {
         entity: singer
-      }
+      },
+      minWidth: '50vw'
     };
 
     const dialogRef = this._dialog.open(EditSingerComponent, config);

@@ -99,7 +99,8 @@ export class SongSearchComponent implements OnInit {
     const config = {
       data: {
         entity: song
-      }
+      },
+      minWidth: '50vw'
     };
 
     const dialogRef = this._dialog.open(EditSongComponent, config);

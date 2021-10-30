@@ -97,7 +97,8 @@ export class QueuedSongsComponent implements OnChanges {
     const config = {
       data: {
         entity: this.selectedQueuedSong.song
-      }
+      },
+      minWidth: '50vw'
     };
 
     const dialogRef = this._dialog.open(EditSongComponent, config);
