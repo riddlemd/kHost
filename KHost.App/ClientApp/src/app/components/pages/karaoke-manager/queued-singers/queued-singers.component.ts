@@ -104,7 +104,10 @@ export class QueuedSingersComponent implements OnInit {
 
     const existingQueuedSinger = this._getQueuedSingerWithSinger(singer);
 
-    if(existingQueuedSinger) return;
+    if(existingQueuedSinger) {
+      this.selectedQueuedSinger = existingQueuedSinger;
+      return;
+    }
 
     const newQueuedSinger = new QueuedSinger();
     newQueuedSinger.singerId = singer.id;
@@ -114,6 +117,8 @@ export class QueuedSingersComponent implements OnInit {
     newQueuedSinger.id = await this._queuedSingersProvider.create(newQueuedSinger);
 
     this.queuedSingers.push(newQueuedSinger);
+
+    this.selectedQueuedSinger = newQueuedSinger;
   }
 
   async populateSingers(): Promise<void>
