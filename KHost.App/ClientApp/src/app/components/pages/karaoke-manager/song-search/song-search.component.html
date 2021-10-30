@@ -1,7 +1,8 @@
 <div class='component-title'>{{ selectedSearchMode ? selectedSearchMode?.text : ""  }} Song Search</div>
 <div class='scroll-wrapper'>
-    <div class='empty' *ngIf="songSearchResults === undefined">Enter query below to search songs.</div>
-    <div class='empty' *ngIf="getSongSearchResultsCount() <= 0 && songSearchResults !== undefined">No Results Found.</div>
+    <div class='loading' *ngIf="searching">Searching...</div>
+    <div class='empty' *ngIf="songSearchResults === undefined && !searching">Enter query below to search songs.</div>
+    <div class='empty' *ngIf="getSongSearchResultsCount() <= 0 && songSearchResults !== undefined && !searching">No Results Found.</div>
     <table *ngIf="getSongSearchResultsCount() > 0">
         <thead>
             <tr>

@@ -3,7 +3,8 @@
     <button (click)="openEditVenueDialog()">Create Venue</button>
 </div>
 <div class='scroll-wrapper'>
-    <div class='empty' *ngIf="venues.length <= 0">No Venues found.</div>
+    <div class='loading' *ngIf="searching">Searching...</div>
+    <div class='empty' *ngIf="venues.length <= 0 && !searching">No Venues found.</div>
     <table *ngIf="venues.length > 0">
         <thead>
             <tr>

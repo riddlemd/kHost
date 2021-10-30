@@ -18,6 +18,9 @@ export class SongsManagerComponent implements OnInit {
   private _form: FormGroup;
   get form(): FormGroup { return this._form; }
 
+  private _searching: boolean = false;
+  get searching() { return this._searching; }
+
   selectedSong?: Song;
 
   constructor(
@@ -34,16 +37,25 @@ export class SongsManagerComponent implements OnInit {
   }
 
   async getAll(): Promise<void> {
-    this._songsProvider.read()
-      .then(value => { this._songs = value; });
+    this._searching = true;
+
+    this._songs = await this._songsProvider.read();
+  
+    this._searching = false;
   }
 
   async search(): Promise<void> {
     const query = this.form.get("query")?.value;
 
+    this._songs = [];
+
     if(query) {
-      this._songsProvider.search(query)
-        .then(value => { this._songs = value; });
+      this._searching = true;
+
+      this._songs = await this._songsProvider.search(query);
+
+      this._searching = false;
+
       return;
     }
 

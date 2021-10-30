@@ -18,6 +18,9 @@ export class VenuesManagerComponent implements OnInit {
   private _form: FormGroup;
   get form(): FormGroup { return this._form; }
 
+  private _searching: boolean = false;
+  get searching() { return this._searching; }
+
   selectedVenue?: Venue;
 
   constructor(
@@ -34,16 +37,25 @@ export class VenuesManagerComponent implements OnInit {
   }
 
   async getAll(): Promise<void> {
-    this._venuesProvider.read()
-      .then(value => { this._venues = value; });
+    this._searching = true;
+
+    this._venues = await this._venuesProvider.read();
+
+    this._searching = false;
   }
 
   async search(): Promise<void> {
     const query = this.form.get("query")?.value;
 
+    this._venues = [];
+
     if(query) {
-      this._venuesProvider.search(query)
-        .then(value => { this._venues = value; });
+      this._searching = true;
+
+      this._venues = await this._venuesProvider.search(query);
+      
+      this._searching = false;
+
       return;
     }
 

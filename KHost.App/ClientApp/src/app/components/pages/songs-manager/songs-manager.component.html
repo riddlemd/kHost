@@ -3,7 +3,8 @@
     <button (click)="openEditSongDialog()">Create Song</button>
 </div>
 <div class='scroll-wrapper'>
-    <div class='empty' *ngIf="songs.length <= 0">No Songs found.</div>
+    <div class='loading' *ngIf="searching">Searching...</div>
+    <div class='empty' *ngIf="songs.length <= 0 && !searching">No Songs found.</div>
     <table *ngIf="songs.length > 0">
         <thead>
             <tr>

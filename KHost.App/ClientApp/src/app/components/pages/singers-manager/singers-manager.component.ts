@@ -18,6 +18,9 @@ export class SingersManagerComponent implements OnInit {
   private _form: FormGroup;
   get form(): FormGroup { return this._form; }
 
+  private _searching: boolean = false;
+  get searching() { return this._searching; }
+
   selectedSinger?: Singer;
 
   constructor(
@@ -34,16 +37,25 @@ export class SingersManagerComponent implements OnInit {
   }
 
   async getAll(): Promise<void> {
-    this._singersProvider.read()
-      .then(value => { this._singers = value; });
+    this._searching = true;
+
+    this._singers = await this._singersProvider.read();
+
+    this._searching = false;
   }
 
   async search(): Promise<void> {
     const query = this.form.get("query")?.value;
 
+    this._singers = [];
+
     if(query) {
-      this._singersProvider.search(query)
-        .then(value => { this._singers = value; });
+      this._searching = true;
+
+      this._singers = await this._singersProvider.search(query);
+
+      this._searching = false;
+
       return;
     }
 

@@ -35,6 +35,9 @@ export class SongSearchComponent implements OnInit {
     this._selectedSearchMode = value;
   }
 
+  private _searching: boolean = false;
+  get searching() { return this._searching; }
+
   constructor(
     private _songSearchProvider: SongSearchProvider,
     private _queuedSongsProvider: QueuedSongsProvider,
@@ -63,6 +66,8 @@ export class SongSearchComponent implements OnInit {
   }
 
   async search(): Promise<void> {
+    this._searching = true;
+
     this.songSearchResults = undefined;
 
     if(!this.queryControl.value) return;
@@ -70,6 +75,8 @@ export class SongSearchComponent implements OnInit {
     this.songSearchResults = [];
 
     this.songSearchResults = await this._songSearchProvider.search(this.queryControl.value, this.selectedSearchMode.value);
+
+    this._searching = false;
   }
 
   async addSelectedSongResultSongToSelectedQueuedSinger(): Promise<void> {
