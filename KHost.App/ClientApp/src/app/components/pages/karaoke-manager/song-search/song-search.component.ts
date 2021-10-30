@@ -47,18 +47,7 @@ export class SongSearchComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._songSearchProvider.getSongSearchEngines()
-      .then(engines => {
-        for(let engine of engines) {
-          const searchMode = new MultiButtonMode();
-          searchMode.text = engine.displayName;
-          searchMode.value = engine;
-
-          this.searchModes.push(searchMode);
-        }
-
-        this.selectedSearchMode = this.searchModes.filter(sm => sm.value?.name === 'local')[0];
-      });
+    this._populateSearchModes();
   }
 
   getSongSearchResultsCount(): number {
@@ -108,5 +97,16 @@ export class SongSearchComponent implements OnInit {
     const dialogRef = this._dialog.open(EditSongComponent, config);
 
     await dialogRef.afterClosed().toPromise();
+  }
+
+  private async _populateSearchModes() {
+    const engines = await this._songSearchProvider.getSongSearchEngines();
+
+    for(let engine of engines) {
+      const searchMode = new MultiButtonMode(engine.displayName, engine);
+      this.searchModes.push(searchMode);
+    }
+
+    this.selectedSearchMode = this.searchModes.filter(sm => sm.value?.name === 'local')[0];
   }
 }
