@@ -167,3 +167,15 @@ input:-webkit-autofill:active {
 		background: rgba(255, 0, 0, 0.3);
 	}
 }
+
+.mat-select-panel {
+	background: rgba(32, 32, 32, 1);
+}
+
+.mat-option {
+	&:not(.mat-option-disabled) {
+		&:hover {
+			background: $focus-color;
+		}
+	}
+}
