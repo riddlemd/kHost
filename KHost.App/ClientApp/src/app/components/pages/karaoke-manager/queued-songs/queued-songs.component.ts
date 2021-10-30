@@ -7,6 +7,7 @@ import 'src/app/modules/kommon/collections/arrayExtensions';
 import { SongsProvider } from 'src/app/services/providers/SongsProvider';
 import { EditSongComponent } from 'src/app/components/dialogs/edit-song/edit-song.component';
 import { MatDialog } from '@angular/material/dialog';
+import { ConfirmComponent } from 'src/app/components/dialogs/confirm/confirm.component';
 
 @Component({
   selector: 'kh-queued-songs',
@@ -90,21 +91,47 @@ export class QueuedSongsComponent implements OnChanges {
     this.queuedSongs.moveToEnd(queuedSong);
   }
 
-  async remove(queuedSong: QueuedSong): Promise<void> {
+  async openEditSongDialog(): Promise<void> {
+    if(!this.selectedQueuedSong) return;
+
+    const config = {
+      data: {
+        entity: this.selectedQueuedSong.song
+      }
+    };
+
+    const dialogRef = this._dialog.open(EditSongComponent, config);
+
+    await dialogRef.afterClosed().toPromise();
+  }
+
+  async openRemoveQueuedSongDialog(queuedSong: QueuedSong): Promise<void> {
+    const config = {
+      data: {
+        title: 'Remove Queued Song',
+        message: `Are you sure you want to remove ${queuedSong.song?.name} from the queue?`
+      }
+    };
+
+    const dialogRef = this._dialog.open(ConfirmComponent, config);
+
+    const confirm = await dialogRef.afterClosed().toPromise();
+          
+    if(!confirm) return;
+
     const result = await this._queuedSongsProvider.delete(queuedSong);
-    
-    const startIndex = this.getQueuedSongIndex(queuedSong);
+
+    const startIndex = this._getQueuedSongIndex(queuedSong);
+
     this.queuedSongs.splice(startIndex, 1);
+    
+    this.selectedQueuedSong = undefined;
 
     if(this.selectedQueuedSinger)
       this.selectedQueuedSinger.queuedSongsCount--;
   }
 
-  selectQueuedSong(queuedSong:QueuedSong): void {
-    this.selectedQueuedSong = queuedSong;
-  }
-
-  protected getQueuedSongIndex(queuedSong: QueuedSong): number {    
+  protected _getQueuedSongIndex(queuedSong: QueuedSong): number {    
     for(let i = 0; i < this.getSongQueueCount(); i++) {
       if(this.queuedSongs![i].id === queuedSong.id) return i;
     }
@@ -133,19 +160,5 @@ export class QueuedSongsComponent implements OnChanges {
     }
 
     this._queuedSongs = queuedSongs.filter(qs => qs.song != undefined);
-  }
-
-  async openEditSongDialog(): Promise<void> {
-    if(!this.selectedQueuedSong) return;
-
-    const config = {
-      data: {
-        entity: this.selectedQueuedSong.song
-      }
-    };
-
-    const dialogRef = this._dialog.open(EditSongComponent, config);
-
-    await dialogRef.afterClosed().toPromise();
   }
 }
