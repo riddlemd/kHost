@@ -1,8 +1,9 @@
+import { KeyValue } from '@angular/common';
 import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EditModelComponent } from 'src/app/components/dialogs/edit-model/edit-model.component';
-import { Song } from 'src/app/models/Song';
+import { Song, SongState } from 'src/app/models/Song';
 import { SongsProvider } from 'src/app/services/providers/SongsProvider';
 
 @Component({
@@ -10,6 +11,9 @@ import { SongsProvider } from 'src/app/services/providers/SongsProvider';
   styleUrls: ['./edit-song.component.scss']
 })
 export class EditSongComponent extends EditModelComponent<Song, SongsProvider, EditSongComponent> {
+
+  private _songStates: KeyValue<number, string>[];
+  get songStates() { return this._songStates; }
 
   constructor(
     @Inject(MAT_DIALOG_DATA) data: {
@@ -19,6 +23,22 @@ export class EditSongComponent extends EditModelComponent<Song, SongsProvider, E
     dialogRef: MatDialogRef<EditSongComponent>,
   ) {
     super(data, provider, dialogRef);
+
+    this._songStates = this._getSongStates();
+  }
+
+  private _getSongStates(): KeyValue<number, string>[] {
+    const states: KeyValue<number, string>[] = [];
+
+    for(const state in SongState) {
+      const songState: SongState = SongState[state as keyof typeof SongState];
+      
+      if(isNaN(songState)) continue;
+
+      states.push({key: songState, value: state});
+    }
+
+    return states;
   }
 
   protected _createNewEntity(): Song {

@@ -29,8 +29,8 @@
         <mat-form-field appearance="fill">
             <mat-label>State</mat-label>
             <mat-select formControlName="state">
-                <mat-option *ngFor="let state of [{name: 'Unknown', value: 0}, {name: 'Ready', value: 1}]" [value]="state.value">
-                  {{ state.name }}
+                <mat-option *ngFor="let state of songStates" [value]="state.key">
+                  {{ state.value }}
                 </mat-option>
             </mat-select>
         </mat-form-field>
