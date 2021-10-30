@@ -22,6 +22,9 @@ export class SingerPerformanceHistoryComponent implements OnInit {
   private _singerPerformances: SingerPerformance[] = [];
   get singerPerformances() { return this._singerPerformances; }
 
+  private _loading: boolean = false;
+  get loading() { return this._loading; }
+
   selectedSingerPerformance?: SingerPerformance;
 
   constructor(
@@ -60,11 +63,16 @@ export class SingerPerformanceHistoryComponent implements OnInit {
   private async loadSingerPerformancesForSelectedSinger() {
     if(!this.selectedQueuedSinger?.singer) return;
 
+    this._loading = true;
+
     this._singerPerformances = [];
 
     const singerPerformances = await this._singerPerformancesProvider.findBySinger(this.selectedQueuedSinger.singer);
 
-    if(!singerPerformances.length) return;
+    if(!singerPerformances.length) {
+      this._loading = false;
+      return;
+    }
 
     const songs = await this._songsProvider.findByIds(singerPerformances.map(sp => sp.songId ?? 0));
 
@@ -87,6 +95,8 @@ export class SingerPerformanceHistoryComponent implements OnInit {
     }
 
     this._singerPerformances = singerPerformances;
+
+    this._loading = false;
   }
   
 }

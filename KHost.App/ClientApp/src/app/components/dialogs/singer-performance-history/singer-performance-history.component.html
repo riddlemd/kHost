@@ -1,8 +1,9 @@
 <div mat-dialog-title>Performance History for {{ selectedQueuedSinger?.singer?.name }}</div>
 
 <mat-dialog-content>
-    <div class='empty' *ngIf="!selectedQueuedSinger?.singer">No Singer selected.</div>
-    <div class='empty' *ngIf="getPerformanceCount() <= 0 && selectedQueuedSinger?.singer">Selected singer has no performance history.</div>
+    <div class='loading' *ngIf="loading">Loading...</div>
+    <div class='empty' *ngIf="!selectedQueuedSinger?.singer && !loading">No Singer selected.</div>
+    <div class='empty' *ngIf="getPerformanceCount() <= 0 && selectedQueuedSinger?.singer && !loading">Selected singer has no performance history.</div>
     <table *ngIf="getPerformanceCount() > 0">
         <thead>
             <tr>
