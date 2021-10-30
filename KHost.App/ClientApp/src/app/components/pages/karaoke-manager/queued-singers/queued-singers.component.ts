@@ -172,7 +172,7 @@ export class QueuedSingersComponent implements OnInit {
 
   protected _getQueuedSingerWithSinger(singer: Singer): QueuedSinger | undefined {
     for(let queuedSinger of this._queuedSingers) {
-      if(queuedSinger.singer === singer) return queuedSinger;
+      if(queuedSinger.singer?.id === singer.id) return queuedSinger;
     }
 
     return undefined;
