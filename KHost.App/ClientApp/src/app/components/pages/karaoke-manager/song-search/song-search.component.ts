@@ -55,7 +55,7 @@ export class SongSearchComponent implements OnInit {
           this.searchModes.push(searchMode);
         }
 
-        this.selectedSearchMode = this.searchModes[0];
+        this.selectedSearchMode = this.searchModes.filter(sm => sm.value?.name === 'local')[0];
       });
   }
 
