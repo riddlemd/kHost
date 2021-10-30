@@ -22,6 +22,9 @@ export class QueuedSongsComponent implements OnChanges {
   private _queuedSongs: QueuedSong[] = [];
   get queuedSongs() { return this._queuedSongs; }
 
+  private _loading: boolean = false
+  get loading() { return this._loading; }
+
   selectedQueuedSong?: QueuedSong;
 
   constructor(
@@ -143,11 +146,16 @@ export class QueuedSongsComponent implements OnChanges {
   protected async loadQueuedSongsAndSongsForSelectedQueuedSinger(): Promise<void> {
     if(!this.selectedQueuedSinger?.singer) return;
 
-    this._queuedSongs = []
+    this._loading = true;
+
+    this._queuedSongs = [];
 
     const queuedSongs = await this._queuedSongsProvider.getByQueuedSinger(this.selectedQueuedSinger);
 
-    if(!queuedSongs.length) return;
+    if(!queuedSongs.length) {
+      this._loading = false;
+      return;
+    }
 
     const songs = await this._songsProvider.findByIds(queuedSongs.map(qs => qs.songId ?? 0));
 
@@ -161,5 +169,7 @@ export class QueuedSongsComponent implements OnChanges {
     }
 
     this._queuedSongs = queuedSongs.filter(qs => qs.song != undefined);
+
+    this._loading = false;
   }
 }

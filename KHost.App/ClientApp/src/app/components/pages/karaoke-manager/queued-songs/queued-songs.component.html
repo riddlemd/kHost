@@ -1,7 +1,8 @@
 <div class='component-title'>Queued Songs{{ selectedQueuedSinger?.singer ? " for " + selectedQueuedSinger!.singer!.name : ""  }}</div>
 <div class='scroll-wrapper'>
-    <div class='empty' *ngIf="!selectedQueuedSinger?.singer">No Singer selected.</div>
-    <div class='empty' *ngIf="getSongQueueCount() <= 0 && selectedQueuedSinger?.singer">Selected singer has no songs queued.</div>
+    <div class='loading' *ngIf="loading">Loading...</div>
+    <div class='empty' *ngIf="!selectedQueuedSinger?.singer && !loading">No Singer selected.</div>
+    <div class='empty' *ngIf="getSongQueueCount() <= 0 && selectedQueuedSinger?.singer && !loading">Selected singer has no songs queued.</div>
     <table *ngIf="getSongQueueCount() > 0 && selectedQueuedSinger?.singer">
         <thead>
             <tr>
