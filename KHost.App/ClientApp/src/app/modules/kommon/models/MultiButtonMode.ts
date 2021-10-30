@@ -1,5 +1,8 @@
 export class MultiButtonMode {
-    text: string = '';
-    
-    value: any = undefined;
+    constructor(
+      public text: string = '',
+      public value?: any
+    ) {
+
+    }
   }
