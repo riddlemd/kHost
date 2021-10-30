@@ -66,11 +66,11 @@ export class SongSearchComponent implements OnInit {
   }
 
   async search(): Promise<void> {
-    this._searching = true;
-
     this.songSearchResults = undefined;
 
     if(!this.queryControl.value) return;
+
+    this._searching = true;
 
     this.songSearchResults = [];
 
