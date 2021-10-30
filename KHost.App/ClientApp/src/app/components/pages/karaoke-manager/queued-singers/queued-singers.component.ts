@@ -6,9 +6,9 @@ import { QueuedSingersProvider } from 'src/app/services/providers/QueuedSingersP
 import { MatDialog } from '@angular/material/dialog';
 import { AddSingerComponent } from '../../../dialogs/add-singer/add-singer.component';
 import { Venue } from 'src/app/models/Venue';
-import { SingerPerformancesProvider } from 'src/app/services/providers/SingerPerformancesProvider';
 import { SingerPerformanceHistoryComponent } from '../../../dialogs/singer-performance-history/singer-performance-history.component';
 import { SingersProvider } from 'src/app/services/providers/SingersProvider';
+import { ConfirmComponent } from 'src/app/components/dialogs/confirm/confirm.component';
 
 @Component({
   selector: 'kh-queued-singers',
@@ -90,15 +90,6 @@ export class QueuedSingersComponent implements OnInit {
     this.queuedSingers.moveToEnd(queuedSinger);
   }
 
-  async remove(queuedSinger: QueuedSinger): Promise<void> {
-    const result = await this._queuedSingersProvider.delete(queuedSinger)
-
-    const startIndex = this._getQueuedSingerIndex(queuedSinger);
-
-    this.queuedSingers.splice(startIndex, 1);
-    this.selectedQueuedSinger = undefined;
-  }
-
   async add(singer: Singer): Promise<void> {
     if(!singer?.id) return;
 
@@ -165,6 +156,29 @@ export class QueuedSingersComponent implements OnInit {
     const song = await dialogRef.afterClosed().toPromise();
 
     if(!song) return;
+  }
+
+  async openRemoveQueuedSingerDialog(queuedSinger: QueuedSinger): Promise<void> {
+    const config = {
+      data: {
+        title: 'Remove Queued Singer',
+        message: `Are you sure you want to remove ${queuedSinger.singer?.name} from the queue?`
+      }
+    };
+
+    const dialogRef = this._dialog.open(ConfirmComponent, config);
+
+    const confirm = await dialogRef.afterClosed().toPromise();
+          
+    if(!confirm) return;
+
+    const result = await this._queuedSingersProvider.delete(queuedSinger)
+
+    const startIndex = this._getQueuedSingerIndex(queuedSinger);
+
+    this.queuedSingers.splice(startIndex, 1);
+    
+    this.selectedQueuedSinger = undefined;
   }
 
   protected _getQueuedSingerIndex(queuedSinger: QueuedSinger): number {
