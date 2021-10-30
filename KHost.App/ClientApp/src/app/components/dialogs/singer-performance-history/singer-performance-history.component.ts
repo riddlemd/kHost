@@ -74,9 +74,10 @@ export class SingerPerformanceHistoryComponent implements OnInit {
       return;
     }
 
-    const songs = await this._songsProvider.findByIds(singerPerformances.map(sp => sp.songId ?? 0));
-
-    const venues = await this._venuesProvider.findByIds(singerPerformances.map(sp => sp.songId ?? 0));
+    const [songs, venues] = await Promise.all([
+      this._songsProvider.findByIds(singerPerformances.map(sp => sp.songId ?? 0)),
+      this._venuesProvider.findByIds(singerPerformances.map(sp => sp.songId ?? 0))
+    ]);
 
     for(let singerPerformance of singerPerformances) {
       const song = songs.find(s => s.id == singerPerformance.songId);
