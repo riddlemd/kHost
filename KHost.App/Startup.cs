@@ -18,6 +18,8 @@ using KHost.Common.EntityFramework;
 using KHost.Common.Repositories.EntityFramework;
 using KHost.Common.SongSearchEngines;
 using System.Threading.Tasks;
+using System.IO;
+using KHost.Common.Plugins;
 
 namespace KHost.App
 {
@@ -35,6 +37,7 @@ namespace KHost.App
         {
             services
                 .AddOptions()
+                .LoadPlugins()
                 // Configurations
                 .Configure<SingerOptions>(Configuration.GetSection("Singers"))
                 .Configure<SongOptions>(Configuration.GetSection("Songs"))
@@ -42,6 +45,7 @@ namespace KHost.App
                 .AddDbContextPool<DatabaseContext>(options => options.UseSqlite(Configuration.GetConnectionString("Default")))
                 // Providers
                 .AddTransient<ISongSearchProvider, DefaultSongSearchProvider>()
+                .AddSingleton<IPluginsProvider, DefaultPluginsProvider>()
                 // Repositories
                 .AddTransient<ISongsRepository, EntityFrameworkSongsRepository>()
                 .AddTransient<ISingersRepository, EntityFrameworkSingersRepository>()
@@ -51,8 +55,6 @@ namespace KHost.App
                 .AddTransient<IDownloadsRepository, EntityFrameworkDownloadsRepository>()
                 .AddTransient<IUsersRepository, EntityFrameworkUsersRepository>()
                 .AddTransient<ISingerPerformancesRepository, EntityFrameworkSingerPerformancesRepository>()
-                // Song Search Engines
-                .AddSearchEnginesDynamically()
                 // ASP.NET CORE
                 .AddControllersWithViews(options =>
                 {
@@ -81,6 +83,10 @@ namespace KHost.App
                             .AllowAnyMethod()
                     );
             });
+
+            // Song Search Engines
+            services
+                .AddSearchEnginesDynamically();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -95,12 +101,12 @@ namespace KHost.App
                     {
                         var exceptionHandlerPathFeature = context.Features.Get<IExceptionHandlerPathFeature>();
 
-                        if(exceptionHandlerPathFeature.Error is KHostException kHostException)
+                        if (exceptionHandlerPathFeature.Error is KHostException kHostException)
                         {
                             context.Response.StatusCode = (int)kHostException.HttpStatusCode;
                         }
 
-                        if(context.Request.IsApiRequest())
+                        if (context.Request.IsApiRequest())
                         {
                             await context.Response.WriteAsync(new ErrorResponse(exceptionHandlerPathFeature.Error).ToString());
                         }
