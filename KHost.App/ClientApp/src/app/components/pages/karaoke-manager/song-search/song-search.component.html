@@ -3,7 +3,7 @@
     <div class='loading' *ngIf="searching">Searching...</div>
     <div class='empty' *ngIf="songSearchResults === undefined && !searching">Enter query below to search songs.</div>
     <div class='empty' *ngIf="getSongSearchResultsCount() <= 0 && songSearchResults !== undefined && !searching">No Results Found.</div>
-    <table *ngIf="getSongSearchResultsCount() > 0">
+    <table *ngIf="getSongSearchResultsCount() > 0 && !searching">
         <thead>
             <tr>
                 <th>Name</th>

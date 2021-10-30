@@ -5,7 +5,7 @@
 <div class='scroll-wrapper'>
     <div class='loading' *ngIf="searching">Searching...</div>
     <div class='empty' *ngIf="singers.length <= 0 && !searching">No Singers found.</div>
-    <table *ngIf="singers.length > 0">
+    <table *ngIf="singers.length > 0 && !searching">
         <thead>
             <tr>
                 <th>Name</th>
