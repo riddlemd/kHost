@@ -33,6 +33,9 @@ export class QueuedSingersComponent implements OnInit {
   private _queuedSingers: QueuedSinger[] = [];
   get queuedSingers() { return this._queuedSingers; }
 
+  private _loading: boolean = false
+  get loading() { return this._loading; }
+
   constructor(
     private _queuedSingersProvider: QueuedSingersProvider,
     private _singersProvider: SingersProvider,
@@ -114,7 +117,14 @@ export class QueuedSingersComponent implements OnInit {
 
   async populateSingers(): Promise<void>
   {
+    this._loading = true;
+
     this._queuedSingers = await this._queuedSingersProvider.read();
+
+    if(!this._queuedSingers.length) {
+      this._loading = false;
+      return;
+    }
 
     const singers = await this._singersProvider.findByIds(this.queuedSingers.map(qs => qs.singerId ?? 0));
 
@@ -125,6 +135,8 @@ export class QueuedSingersComponent implements OnInit {
 
       queuedSinger.singer = singer
     }
+
+    this._loading = false;
   }
 
   async openAddSingerDialog(): Promise<void> {
