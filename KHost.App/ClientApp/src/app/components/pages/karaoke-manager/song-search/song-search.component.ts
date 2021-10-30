@@ -97,6 +97,9 @@ export class SongSearchComponent implements OnInit {
     const dialogRef = this._dialog.open(EditSongComponent, config);
 
     await dialogRef.afterClosed().toPromise();
+
+    this.selectedSongSearchResult.songName = song?.name;
+    this.selectedSongSearchResult.bandName = song?.bandName;
   }
 
   private async _populateSearchModes() {

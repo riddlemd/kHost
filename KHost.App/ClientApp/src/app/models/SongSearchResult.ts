@@ -2,13 +2,13 @@ export class SongSearchResult {
 
     id?: string;
 
-    songName: string = '';
+    songName?: string;
 
-    bandName: string = '';
+    bandName?: string;
 
-    state: string = '';
+    state?: string;
 
-    engineName: string = '';
+    engineName?: string;
 
     lengthInSeconds: number = 0;
 }
