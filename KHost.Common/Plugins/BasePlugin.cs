@@ -15,17 +15,16 @@ namespace KHost.Common.Plugins
 
         protected List<Assembly> _assemblies = new();
 
-        public BasePlugin(PluginSettings settings, string path, IEnumerable<Assembly>? assemblies = null)
+        public BasePlugin(PluginSettings settings, string path)
         {
             Settings = settings;
             Path = path;
-
-            if(assemblies != null)
-                _assemblies.AddRange(assemblies);
         }
 
         public IPlugin RegisterAssembly(Assembly assembly)
         {
+            if (_assemblies.Contains(assembly)) return this;
+
             _assemblies.Add(assembly);
 
             return this;
