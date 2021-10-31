@@ -13,7 +13,7 @@ namespace KHost.Common.Plugins
 
         public PluginSettings Settings { get; }
 
-        public List<Assembly> Assemblies { get; } = new();
+        protected List<Assembly> _assemblies = new();
 
         public BasePlugin(PluginSettings settings, string path, IEnumerable<Assembly>? assemblies = null)
         {
@@ -21,16 +21,16 @@ namespace KHost.Common.Plugins
             Path = path;
 
             if(assemblies != null)
-                Assemblies.AddRange(assemblies);
+                _assemblies.AddRange(assemblies);
         }
 
         public IPlugin RegisterAssembly(Assembly assembly)
         {
-            Assemblies.Add(assembly);
+            _assemblies.Add(assembly);
 
             return this;
         }
 
-        public IEnumerable<Assembly> GetAssemblies() => Assemblies.ToArray();
+        public IEnumerable<Assembly> GetAssemblies() => _assemblies.ToArray();
     }
 }
