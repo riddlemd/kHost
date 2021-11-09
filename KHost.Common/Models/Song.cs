@@ -14,13 +14,15 @@
 
         public string Notes { get; set; } = "";
 
-        public string? LocalPath { get; set; } = "";
+        public string? LocalPath { get; set; }
 
-        public string? RemotePath { get; set; } = "";
+        public string? RemotePath { get; set; }
 
         public SongState State { get; set; }
 
         public int LengthInSeconds { get; set; }
+
+        public uint? Crc32 { get; set; }
 
         public override Song Clone() => (base.Clone() as Song)!;
     }

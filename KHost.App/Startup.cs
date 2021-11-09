@@ -20,6 +20,7 @@ using KHost.Common.SongSearchEngines;
 using System.Threading.Tasks;
 using System.IO;
 using KHost.Common.Plugins;
+using KHost.Common.SongImporters;
 
 namespace KHost.App
 {
@@ -45,7 +46,8 @@ namespace KHost.App
                 .AddDbContextPool<DatabaseContext>(options => options.UseSqlite(Configuration.GetConnectionString("Default")))
                 // Providers
                 .AddTransient<ISongSearchProvider, DefaultSongSearchProvider>()
-                .AddSingleton<IPluginsProvider, DefaultPluginsProvider>()
+                .AddTransient<ISongImporterProvider, DefaultSongImporterProvider>()
+                .AddTransient<IPluginsProvider, DefaultPluginsProvider>()
                 // Repositories
                 .AddTransient<ISongsRepository, EntityFrameworkSongsRepository>()
                 .AddTransient<ISingersRepository, EntityFrameworkSingersRepository>()
@@ -55,6 +57,10 @@ namespace KHost.App
                 .AddTransient<IDownloadsRepository, EntityFrameworkDownloadsRepository>()
                 .AddTransient<IUsersRepository, EntityFrameworkUsersRepository>()
                 .AddTransient<ISingerPerformancesRepository, EntityFrameworkSingerPerformancesRepository>()
+                // Song Search Engines
+                .AddSearchEnginesDynamically()
+                // Song Importers
+                .AddSongImportersDynamically()
                 // ASP.NET CORE
                 .AddControllersWithViews(options =>
                 {
@@ -83,10 +89,6 @@ namespace KHost.App
                             .AllowAnyMethod()
                     );
             });
-
-            // Song Search Engines
-            services
-                .AddSearchEnginesDynamically();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
