@@ -10,7 +10,7 @@ namespace KHost.UnitTests.App.SongSearchEngines
     {
 
         [Fact]
-        [Category(TestCategory.Success)]
+        [Category(TestCategory.HappyPath)]
         public void ShouldAddSearchEnginesFoundInAssymbliesToServiceCollection()
         {
             // Given

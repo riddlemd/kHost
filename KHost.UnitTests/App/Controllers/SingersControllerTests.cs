@@ -50,7 +50,7 @@ namespace KHost.UnitTests.App.Controllers
         };
 
         [Fact]
-        [Category(TestCategory.Success)]
+        [Category(TestCategory.HappyPath)]
         public async Task ShouldSuccessfullyGetSingersWhenIdProvided()
         {
             // Given
@@ -80,7 +80,7 @@ namespace KHost.UnitTests.App.Controllers
         }
 
         [Fact]
-        [Category(TestCategory.Success)]
+        [Category(TestCategory.HappyPath)]
         public async Task ShouldSuccessfullyGetSingersWhenQueryProvided()
         {
             // Given

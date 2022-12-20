@@ -17,7 +17,7 @@ namespace KHost.UnitTests.Common.Collections
         };
 
         [Fact]
-        [Category(TestCategory.Success)]
+        [Category(TestCategory.HappyPath)]
         public void ShouldMoveWhenProvidedOldIndexAndNewIndex()
         {
             // Given
@@ -37,7 +37,7 @@ namespace KHost.UnitTests.Common.Collections
         }
 
         [Fact]
-        [Category(TestCategory.Success)]
+        [Category(TestCategory.HappyPath)]
         public void ShouldMoveToFirstWhenProvidedOldIndex()
         {
             // Given
@@ -55,7 +55,7 @@ namespace KHost.UnitTests.Common.Collections
         }
 
         [Fact]
-        [Category(TestCategory.Success)]
+        [Category(TestCategory.HappyPath)]
         public void ShouldMoveToLastWhenProvidedOldIndex()
         {
             // Given

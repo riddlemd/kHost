@@ -49,7 +49,7 @@ namespace KHost.UnitTests.App.Controllers
         };
 
         [Fact]
-        [Category(TestCategory.Success)]
+        [Category(TestCategory.HappyPath)]
         public virtual async Task ShouldSuccessfullyLogin()
         {
             // Given

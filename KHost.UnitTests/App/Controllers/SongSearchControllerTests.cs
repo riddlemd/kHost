@@ -39,7 +39,7 @@ namespace KHost.UnitTests.App.Controllers
         };
 
         [Fact]
-        [Category(TestCategory.Success)]
+        [Category(TestCategory.HappyPath)]
         public async Task ShouldSuccessfullyGetSongSearchResultsWhenQueryProvided()
         {
             // Given
@@ -71,7 +71,7 @@ namespace KHost.UnitTests.App.Controllers
         }
 
         [Fact]
-        [Category(TestCategory.Success)]
+        [Category(TestCategory.HappyPath)]
         public async Task ShouldSuccessfullyGetSearchEngines()
         {
             // Given

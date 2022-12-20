@@ -24,7 +24,7 @@ namespace KHost.UnitTests.App.Controllers
         }
 
         [SkippableFact(typeof(NotSupportedException))]
-        [Category(TestCategory.Success)]
+        [Category(TestCategory.HappyPath)]
         public virtual async Task<ApiResponse> ShouldSuccessfullyCreateEntity()
         {
             // Given
@@ -53,7 +53,7 @@ namespace KHost.UnitTests.App.Controllers
         }
 
         [SkippableFact(typeof(NotSupportedException))]
-        [Category(TestCategory.Success)]
+        [Category(TestCategory.HappyPath)]
         public virtual async Task<ApiResponse> ShouldSuccessfullyReadEntities()
         {
             // Given
@@ -82,7 +82,7 @@ namespace KHost.UnitTests.App.Controllers
         }
 
         [SkippableFact(typeof(NotSupportedException))]
-        [Category(TestCategory.Success)]
+        [Category(TestCategory.HappyPath)]
         public virtual async Task<ApiResponse> ShouldSuccessfullyUpdateEntity()
         {
             // Given
@@ -109,7 +109,7 @@ namespace KHost.UnitTests.App.Controllers
         }
 
         [SkippableFact(typeof(NotSupportedException))]
-        [Category(TestCategory.Success)]
+        [Category(TestCategory.HappyPath)]
         public virtual async Task<ApiResponse> ShouldSuccessfullyDeleteEntity()
         {
             // Given

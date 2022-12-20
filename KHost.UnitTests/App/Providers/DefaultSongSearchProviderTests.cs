@@ -38,7 +38,7 @@ namespace KHost.UnitTests.App.Providers
         };
 
         [Fact]
-        [Category(TestCategory.Success)]
+        [Category(TestCategory.HappyPath)]
         public async Task ShouldSuccessfullySearchWhenQueryProvided()
         {
             // Given
@@ -72,7 +72,7 @@ namespace KHost.UnitTests.App.Providers
         }
 
         [Fact]
-        [Category(TestCategory.Success)]
+        [Category(TestCategory.HappyPath)]
         public void ShouldSuccessfullyGetSongSearchEngineDefinitions()
         {
             // Given
@@ -97,7 +97,7 @@ namespace KHost.UnitTests.App.Providers
         }
 
         [Fact]
-        [Category(TestCategory.Success)]
+        [Category(TestCategory.HappyPath)]
         public async Task ShouldSuccessfullyCreateSong()
         {
             // Given
@@ -136,7 +136,7 @@ namespace KHost.UnitTests.App.Providers
         }
 
         [Fact]
-        [Category(TestCategory.Success)]
+        [Category(TestCategory.HappyPath)]
         public async Task ShouldSuccessfullyStartDownloadingSong()
         {
             // Given

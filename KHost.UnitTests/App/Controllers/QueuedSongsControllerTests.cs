@@ -38,7 +38,7 @@ namespace KHost.UnitTests.App.Controllers
         };
 
         [Fact]
-        [Category(TestCategory.Success)]
+        [Category(TestCategory.HappyPath)]
         public async Task ShouldSuccessfullyFindQueuedSongsWhenQueuedSingerIdProvided()
         {
             // Given
@@ -68,7 +68,7 @@ namespace KHost.UnitTests.App.Controllers
         }
 
         [Fact]
-        [Category(TestCategory.Success)]
+        [Category(TestCategory.HappyPath)]
         public async Task ShouldSuccessfullyMoveUp()
         {
             // Given
@@ -98,7 +98,7 @@ namespace KHost.UnitTests.App.Controllers
         }
 
         [Fact]
-        [Category(TestCategory.Success)]
+        [Category(TestCategory.HappyPath)]
         public async Task ShouldSuccessfullyMoveDown()
         {
             // Given
@@ -128,7 +128,7 @@ namespace KHost.UnitTests.App.Controllers
         }
 
         [Fact]
-        [Category(TestCategory.Success)]
+        [Category(TestCategory.HappyPath)]
         public async Task ShouldSuccessfullyMoveToTop()
         {
             // Given
@@ -158,7 +158,7 @@ namespace KHost.UnitTests.App.Controllers
         }
 
         [Fact]
-        [Category(TestCategory.Success)]
+        [Category(TestCategory.HappyPath)]
         public async Task ShouldSuccessfullyMoveToBottom()
         {
             // Given

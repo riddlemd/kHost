@@ -8,8 +8,8 @@ namespace KHost.UnitTests
 {
     public static class TestCategory
     {
-        public const string Success = "Success";
+        public const string HappyPath = nameof(HappyPath);
 
-        public const string Error = "Error";
+        public const string FailurePath = nameof(FailurePath);
     }
 }
