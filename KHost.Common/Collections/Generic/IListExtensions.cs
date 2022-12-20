@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace KHost.Common.Collections
+namespace KHost.Common.Collections.Generic
 {
     public static class IListExtensions
     {

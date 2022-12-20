@@ -1,4 +1,4 @@
-﻿using KHost.Common.Collections;
+﻿using KHost.Common.Collections.Generic;
 using System;
 using System.Collections.Generic;
 using System.Linq;

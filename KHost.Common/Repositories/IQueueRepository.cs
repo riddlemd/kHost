@@ -1,4 +1,4 @@
-﻿using KHost.Common.Collections;
+﻿using KHost.Common.Collections.Generic;
 using KHost.Common.ErrorHandling;
 using KHost.Common.Models;
 using Microsoft.EntityFrameworkCore;
