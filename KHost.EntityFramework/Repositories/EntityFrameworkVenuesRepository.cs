@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KHost.EntityFramework.Repositories
 {
-    public class EntityFrameworkVenuesRepository : BaseEntityFrameworkRepository<Venue>, IVenuesRepository
+    internal class EntityFrameworkVenuesRepository : BaseEntityFrameworkRepository<Venue>, IVenuesRepository
     {
         private readonly SearchComponent<Venue> _searchComponent;
 

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KHost.EntityFramework.Repositories
 {
-    public class EntityFrameworkUsersRepository : BaseEntityFrameworkRepository<User>, IUsersRepository
+    internal class EntityFrameworkUsersRepository : BaseEntityFrameworkRepository<User>, IUsersRepository
     {
         private readonly SearchComponent<User> _searchComponent;
 

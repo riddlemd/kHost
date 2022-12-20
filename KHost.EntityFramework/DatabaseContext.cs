@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KHost.EntityFramework
 {
-    public class DatabaseContext : DbContext, IRepositoryContext
+    internal class DatabaseContext : DbContext, IRepositoryContext
     {
         public virtual DbSet<QueuedSinger>? QueuedSingers { get; set; }
 

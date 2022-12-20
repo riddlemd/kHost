@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KHost.EntityFramework.Repositories
 {
-    public class EntityFrameworkQueuedSongRepository : BaseEntityFrameworkRepository<QueuedSong>, IQueuedSongsRepository
+    internal class EntityFrameworkQueuedSongRepository : BaseEntityFrameworkRepository<QueuedSong>, IQueuedSongsRepository
     {
         private readonly QueueComponent<QueuedSong> _queueComponent;
 

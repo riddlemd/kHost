@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KHost.EntityFramework.Repositories
 {
-    public class EntityFrameworkSingerPerformancesRepository : BaseEntityFrameworkRepository<SingerPerformance>, ISingerPerformancesRepository
+    internal class EntityFrameworkSingerPerformancesRepository : BaseEntityFrameworkRepository<SingerPerformance>, ISingerPerformancesRepository
     {
         public EntityFrameworkSingerPerformancesRepository(DatabaseContext context) : base(context)
         {

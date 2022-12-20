@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KHost.EntityFramework.Repositories
 {
-    public abstract class BaseEntityFrameworkRepository<TModel> : IRepository<TModel>, IRepositoryWithContext
+    internal abstract class BaseEntityFrameworkRepository<TModel> : IRepository<TModel>, IRepositoryWithContext
         where TModel : class, IModelWithId
     {
         protected virtual DatabaseContext Context { get; }
