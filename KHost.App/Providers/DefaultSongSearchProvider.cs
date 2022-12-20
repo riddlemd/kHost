@@ -1,4 +1,5 @@
-﻿using KHost.Abstractions.Models;
+﻿using KHost.Abstractions.ErrorHandling;
+using KHost.Abstractions.Models;
 using KHost.Abstractions.Providers;
 using KHost.Abstractions.Repositories;
 using KHost.Abstractions.SongSearchEngines;
@@ -12,17 +13,18 @@ namespace KHost.App.Providers
 {
     internal class DefaultSongSearchProvider : ISongSearchProvider
     {
-        private readonly ISongSearchEngine[] _songSearchEngines;
+        private readonly List<ISongSearchEngine> _songSearchEngines;
 
         private readonly IDownloadsRepository _downloadsRepository;
 
         public DefaultSongSearchProvider(IServiceProvider services, IDownloadsRepository downloadsRepository)
         {
-            _songSearchEngines = services.GetServices<ISongSearchEngine>().ToArray();
+            _songSearchEngines = services.GetServices<ISongSearchEngine>().ToList();
             _downloadsRepository = downloadsRepository;
         }
 
-        public IEnumerable<SongSearchEngineDetails> GetSongSearchEngineDetails() => _songSearchEngines.Select(r => r.GetDetails());
+        public IEnumerable<SongSearchEngineDetails> GetSongSearchEngineDetails()
+            => _songSearchEngines.Select(r => r.GetDetails());
 
         public async Task<IEnumerable<SongSearchResult>> SearchAsync(string searchQuery, string searchEngine, int? count = null, int? offset = null)
         {
@@ -53,14 +55,7 @@ namespace KHost.App.Providers
         }
 
         private ISongSearchEngine GetSongSearchEngine(string name)
-        {
-            foreach (var songSearchEngine in _songSearchEngines)
-            {
-                if (songSearchEngine.Name == name)
-                    return songSearchEngine;
-            }
-
-            throw new Exception($"Search Engine '{name}' could not be found");
-        }
+            => _songSearchEngines.FirstOrDefault(se => se.Name == name)
+            ?? throw new KHostException($"Search Engine '{name}' could not be found");
     }
 }
