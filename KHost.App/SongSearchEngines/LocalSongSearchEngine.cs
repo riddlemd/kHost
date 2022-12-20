@@ -42,21 +42,23 @@ namespace KHost.App.SongSearchEngines
         {
             Name = Name,
             DisplayName = "Local",
-            IsLocal = true,
             AllowDownload = false
         };
 
         public async Task<Song> GetSongAsync(string id)
         {
-            if (!int.TryParse(id, out var intId)) throw new KHostException("Id must be int");
+            if (!int.TryParse(id, out var intId))
+                throw new KHostException("Id must be int");
 
             var song = await SongsRepository.FindByIdAsync(intId);
 
-            _ = song ?? throw new KHostException("Song not found");
+            if(song is null)
+                throw new KHostException("Song not found");
 
             return song;
         }
 
-        public Task<Download> DownloadSongAsync(string id, int songId) => throw new NotSupportedException();
+        public Task<Download> DownloadSongAsync(string id, int songId)
+            => throw new NotSupportedException();
     }
 }
