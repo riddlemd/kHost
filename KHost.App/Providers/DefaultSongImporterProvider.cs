@@ -22,21 +22,21 @@ namespace KHost.App.Providers
         {
             var importer = GetImporterByName(importerName);
 
-            return importer.Find(path);
+            return importer.FindAsync(path);
         }
 
         public Task<ImportableSong> GetDetailsAsync(string path, string importerName)
         {
             var importer = GetImporterByName(importerName);
 
-            return importer.GetDetails(path);
+            return importer.GetDetailsAsync(path);
         }
 
         public Task<Song> ImportAsync(string path, string importerName)
         {
             var importer = GetImporterByName(importerName);
 
-            return importer.Import(path);
+            return importer.ImportAsync(path);
         }
 
         private ISongImporter GetImporterByName(string name)

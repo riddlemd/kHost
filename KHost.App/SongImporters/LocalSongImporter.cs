@@ -22,7 +22,7 @@ namespace KHost.App.SongImporters
 
         private static readonly string[] _tagLibSupportedExtensions = TagLib.SupportedMimeType.AllExtensions.ToArray();
 
-        public async Task<IEnumerable<ImportableSong>> Find(string path)
+        public async Task<IEnumerable<ImportableSong>> FindAsync(string path)
         {
             var importableSongs = new List<ImportableSong>();
 
@@ -31,7 +31,7 @@ namespace KHost.App.SongImporters
             return importableSongs;
         }
 
-        public async Task<ImportableSong> GetDetails(string path)
+        public async Task<ImportableSong> GetDetailsAsync(string path)
         {
             var importableSong = await GenerateImportableSongAsync(path) ?? throw new Exception("Not a valid karaoke file");
 
@@ -48,7 +48,7 @@ namespace KHost.App.SongImporters
             return importableSong;
         }
 
-        public Task<Song> Import(string path)
+        public Task<Song> ImportAsync(string path)
         {
             throw new NotImplementedException();
         }

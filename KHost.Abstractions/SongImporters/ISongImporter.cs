@@ -6,10 +6,10 @@ namespace KHost.Abstractions.SongImporters
     {
         public string Name { get; }
 
-        public Task<IEnumerable<ImportableSong>> Find(string path);
+        public Task<IEnumerable<ImportableSong>> FindAsync(string path);
 
-        public Task<ImportableSong> GetDetails(string path);
+        public Task<ImportableSong> GetDetailsAsync(string path);
 
-        public Task<Song> Import(string path);
+        public Task<Song> ImportAsync(string path);
     }
 }
