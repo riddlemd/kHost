@@ -1,5 +1,4 @@
 using KHost.App.Configuration;
-using KHost.App.Models.Responses;
 using KHost.Common.Routing;
 using KHost.Common.Http;
 using Microsoft.AspNetCore.Builder;
@@ -20,6 +19,7 @@ using KHost.Abstractions.ErrorHandling;
 using KHost.Abstractions.Providers;
 using KHost.Abstractions.Plugins;
 using KHost.EntityFramework;
+using KHost.App.Areas.Api.Models.Responses;
 
 namespace KHost.App
 {

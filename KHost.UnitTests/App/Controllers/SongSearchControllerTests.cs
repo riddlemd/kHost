@@ -1,12 +1,11 @@
-﻿using KHost.App.Controllers.Api;
-using Moq;
+﻿using Moq;
 using Xunit;
 using Xunit.Categories;
 using Microsoft.AspNetCore.Mvc;
-using KHost.App.Models.Responses;
 using KHost.Abstractions.Models;
 using KHost.Abstractions.Providers;
-using KHost.UnitTests;
+using KHost.App.Areas.Api.Controllers;
+using KHost.App.Areas.Api.Models.Responses;
 
 namespace KHost.UnitTests.App.Controllers
 {

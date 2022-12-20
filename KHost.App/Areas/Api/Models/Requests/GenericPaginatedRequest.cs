@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace KHost.App.Models.Requests
+namespace KHost.App.Areas.Api.Models.Requests
 {
     public class GenericPaginatedRequest
     {

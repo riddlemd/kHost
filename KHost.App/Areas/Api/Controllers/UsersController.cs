@@ -1,11 +1,11 @@
-﻿using KHost.App.Models.Responses;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 using KHost.Abstractions.Repositories;
 using KHost.Abstractions.Models;
+using KHost.App.Areas.Api.Models.Responses;
 
-namespace KHost.App.Controllers.Api
+namespace KHost.App.Areas.Api.Controllers
 {
     public class UsersController : CrudController<User, IUsersRepository>
     {

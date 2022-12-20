@@ -1,6 +1,6 @@
 ﻿using KHost.Abstractions.Models;
 using KHost.Abstractions.Repositories;
-using KHost.App.Controllers.Api;
+using KHost.App.Areas.Api.Controllers;
 using System.Collections.Generic;
 
 namespace KHost.UnitTests.App.Controllers

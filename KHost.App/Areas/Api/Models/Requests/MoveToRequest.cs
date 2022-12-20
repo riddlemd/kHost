@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace KHost.App.Models.Requests
+namespace KHost.App.Areas.Api.Models.Requests
 {
     public class MoveToRequest : GenericIdRequest
     {

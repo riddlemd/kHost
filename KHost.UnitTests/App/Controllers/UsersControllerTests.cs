@@ -1,8 +1,7 @@
 ﻿using KHost.Abstractions.Models;
 using KHost.Abstractions.Repositories;
-using KHost.App.Controllers.Api;
-using KHost.App.Models.Responses;
-using KHost.UnitTests;
+using KHost.App.Areas.Api.Controllers;
+using KHost.App.Areas.Api.Models.Responses;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Xunit;

@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 
-namespace KHost.App.Models.Responses
+namespace KHost.App.Areas.Api.Models.Responses
 {
     public class ErrorResponse : ApiResponse
     {
@@ -11,7 +11,7 @@ namespace KHost.App.Models.Responses
         {
             Success = false;
 
-            if(ex != null)
+            if (ex != null)
                 Message = ex.Message;
         }
     }

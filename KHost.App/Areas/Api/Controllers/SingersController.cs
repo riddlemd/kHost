@@ -1,13 +1,13 @@
-﻿using KHost.App.Models.Requests;
-using KHost.App.Models.Responses;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using KHost.Abstractions.Models;
 using KHost.Abstractions.Repositories;
 using KHost.Abstractions.ErrorHandling;
+using KHost.App.Areas.Api.Models.Requests;
+using KHost.App.Areas.Api.Models.Responses;
 
-namespace KHost.App.Controllers.Api
+namespace KHost.App.Areas.Api.Controllers
 {
     public class SingersController : CrudController<Singer, ISingersRepository>
     {

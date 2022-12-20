@@ -1,12 +1,12 @@
 ﻿using KHost.Abstractions.Providers;
 using KHost.Abstractions.SongImporters;
-using KHost.App.Models.Responses;
+using KHost.App.Areas.Api.Models.Responses;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
-namespace KHost.App.Controllers.Api
+namespace KHost.App.Areas.Api.Controllers
 {
     public class SongImportersController : BaseApiController
     {
@@ -38,7 +38,7 @@ namespace KHost.App.Controllers.Api
         }
 
         #region Requests
-        
+
         public class BaseImporterRequest
         {
             [Required]

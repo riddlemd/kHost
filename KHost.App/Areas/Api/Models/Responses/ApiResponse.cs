@@ -5,7 +5,7 @@ using System.Collections;
 using System.Linq;
 using System.Runtime.Serialization;
 
-namespace KHost.App.Models.Responses
+namespace KHost.App.Areas.Api.Models.Responses
 {
     [Serializable]
     public class ApiResponse
