@@ -12,7 +12,7 @@ namespace KHost.App.SongImporters
 
             foreach (var type in types)
             {
-                services.AddTransient(p => (ActivatorUtilities.CreateInstance(p, type) as ISongImporter)!);
+                services.AddTransient(p => (ISongImporter)ActivatorUtilities.CreateInstance(p, type));
             }
 
             return services;

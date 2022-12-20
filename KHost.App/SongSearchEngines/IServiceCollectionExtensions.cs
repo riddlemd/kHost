@@ -12,7 +12,7 @@ namespace KHost.App.SongSearchEngines
 
             foreach (var type in types)
             {
-                services.AddTransient(p => (ActivatorUtilities.CreateInstance(p, type) as ISongSearchEngine)!);
+                services.AddTransient(p => (ISongSearchEngine)ActivatorUtilities.CreateInstance(p, type));
             }
 
             return services;
