@@ -23,7 +23,7 @@ namespace KHost.App.Controllers.Api
         [HttpGet]
         public async Task<IActionResult> Search([FromQuery] SongSearchRequest request)
         {
-            var songSearchResults = await SongSearchProvider.Search(request.Query!, request.Engine, request.Count, request.Offset);
+            var songSearchResults = await SongSearchProvider.Search(request.Query!, request.Engine!, request.Count, request.Offset);
 
             var response = new ApiResponse<IEnumerable<SongSearchResult>>(songSearchResults);
 

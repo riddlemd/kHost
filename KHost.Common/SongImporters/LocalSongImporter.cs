@@ -115,7 +115,9 @@ namespace KHost.Common.SongImporters
             if (!string.IsNullOrWhiteSpace(tagFile.Tag.JoinedPerformers)) return tagFile.Tag.JoinedPerformers;
 
             // JoinedArtists is depricated, but field related to it is still used...
+#pragma warning disable CS0618
             if (!string.IsNullOrWhiteSpace(tagFile.Tag.JoinedArtists)) return tagFile.Tag.JoinedArtists;
+#pragma warning restore CS0618
 
             return "";
         }

@@ -33,7 +33,6 @@ namespace KHost.App
             Configuration = configuration;
         }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services
@@ -45,18 +44,18 @@ namespace KHost.App
                 // Database
                 .AddDbContextPool<DatabaseContext>(options => options.UseSqlite(Configuration.GetConnectionString("Default")))
                 // Providers
-                .AddTransient<ISongSearchProvider, DefaultSongSearchProvider>()
-                .AddTransient<ISongImporterProvider, DefaultSongImporterProvider>()
-                .AddTransient<IPluginsProvider, DefaultPluginsProvider>()
+                .AddScoped<ISongSearchProvider, DefaultSongSearchProvider>()
+                .AddScoped<ISongImporterProvider, DefaultSongImporterProvider>()
+                .AddScoped<IPluginsProvider, DefaultPluginsProvider>()
                 // Repositories
-                .AddTransient<ISongsRepository, EntityFrameworkSongsRepository>()
-                .AddTransient<ISingersRepository, EntityFrameworkSingersRepository>()
-                .AddTransient<IQueuedSingersRepository, EntityFrameworkQueuedSingerRepository>()
-                .AddTransient<IQueuedSongsRepository, EntityFrameworkQueuedSongRepository>()
-                .AddTransient<IVenuesRepository, EntityFrameworkVenuesRepository>()
-                .AddTransient<IDownloadsRepository, EntityFrameworkDownloadsRepository>()
-                .AddTransient<IUsersRepository, EntityFrameworkUsersRepository>()
-                .AddTransient<ISingerPerformancesRepository, EntityFrameworkSingerPerformancesRepository>()
+                .AddScoped<ISongsRepository, EntityFrameworkSongsRepository>()
+                .AddScoped<ISingersRepository, EntityFrameworkSingersRepository>()
+                .AddScoped<IQueuedSingersRepository, EntityFrameworkQueuedSingerRepository>()
+                .AddScoped<IQueuedSongsRepository, EntityFrameworkQueuedSongRepository>()
+                .AddScoped<IVenuesRepository, EntityFrameworkVenuesRepository>()
+                .AddScoped<IDownloadsRepository, EntityFrameworkDownloadsRepository>()
+                .AddScoped<IUsersRepository, EntityFrameworkUsersRepository>()
+                .AddScoped<ISingerPerformancesRepository, EntityFrameworkSingerPerformancesRepository>()
                 // Song Search Engines
                 .AddSearchEnginesDynamically()
                 // Song Importers
@@ -90,8 +89,7 @@ namespace KHost.App
                     );
             });
         }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -103,14 +101,14 @@ namespace KHost.App
                     {
                         var exceptionHandlerPathFeature = context.Features.Get<IExceptionHandlerPathFeature>();
 
-                        if (exceptionHandlerPathFeature.Error is KHostException kHostException)
+                        if (exceptionHandlerPathFeature?.Error is KHostException kHostException)
                         {
                             context.Response.StatusCode = (int)kHostException.HttpStatusCode;
                         }
 
                         if (context.Request.IsApiRequest())
                         {
-                            await context.Response.WriteAsync(new ErrorResponse(exceptionHandlerPathFeature.Error).ToString());
+                            await context.Response.WriteAsync(new ErrorResponse(exceptionHandlerPathFeature?.Error).ToString());
                         }
                     })
                 );
@@ -121,7 +119,7 @@ namespace KHost.App
                     errorApp.Run(context =>
                     {
                         var exceptionHandlerPathFeature = context.Features.Get<IExceptionHandlerPathFeature>();
-                        var ex = exceptionHandlerPathFeature.Error;
+                        var ex = exceptionHandlerPathFeature?.Error;
                         return Task.CompletedTask;
                     })
                 );

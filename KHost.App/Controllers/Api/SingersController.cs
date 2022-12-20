@@ -5,6 +5,7 @@ using KHost.Common.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using KHost.Common.ErrorHandling;
 
 namespace KHost.App.Controllers.Api
 {
@@ -28,6 +29,9 @@ namespace KHost.App.Controllers.Api
         [HttpGet]
         public async Task<IActionResult> Search([FromQuery] GenericSearchRequest request)
         {
+            if (string.IsNullOrWhiteSpace(request.Query))
+                throw new KHostException("Search requires a query", httpStatusCode: System.Net.HttpStatusCode.BadRequest);
+
             var singers = await DefaultRepository.Search(request.Query, request.Count, request.Offset);
 
             var response = new ApiResponse<IEnumerable<Singer>>(singers);

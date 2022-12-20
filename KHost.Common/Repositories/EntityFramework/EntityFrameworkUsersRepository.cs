@@ -18,7 +18,8 @@ namespace KHost.Common.Repositories.EntityFramework
 
         public async Task<IEnumerable<User>> Search(string searchQuery, int? count, int? offset)
         {
-            var query = Context.Set<User>().AsQueryable()
+            var query = Context.Set<User>()
+                .AsQueryable()
                 .Where(user => EF.Functions.Like(user.Username, searchQuery));
 
             if (offset != null)
@@ -27,7 +28,7 @@ namespace KHost.Common.Repositories.EntityFramework
             if (count != null)
                 query = query.Take((int)count);
 
-            return await query.ToArrayAsync();
+            return await query.ToListAsync();
         }
     }
 }
