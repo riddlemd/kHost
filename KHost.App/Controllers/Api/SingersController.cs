@@ -19,7 +19,7 @@ namespace KHost.App.Controllers.Api
         [HttpGet]
         public async Task<IActionResult> FindByIds([FromQuery] GenericIdsRequest request)
         {
-            var singers = await DefaultRepository.FindByIds(request.GetIdsAsInts());
+            var singers = await DefaultRepository.FindByIdsAsync(request.GetIdsAsInts());
 
             var response = new ApiResponse<IEnumerable<Singer>>(singers);
 

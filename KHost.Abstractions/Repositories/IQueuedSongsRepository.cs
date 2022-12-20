@@ -6,6 +6,6 @@ namespace KHost.Abstractions.Repositories
 {
     public interface IQueuedSongsRepository : IQueueRepository<QueuedSong>
     {
-        public Task<IEnumerable<QueuedSong>> FindByQueuedSingerId(int id);
+        public Task<IEnumerable<QueuedSong>> FindByQueuedSingerIdAsync(int id);
     }
 }

@@ -18,7 +18,7 @@ namespace KHost.App.Controllers.Api
         [HttpGet]
         public async Task<IActionResult> FindBySingerId([FromQuery] GenericIdRequest request)
         {
-            var singerPerformances = await DefaultRepository.FindBySingerId(request.Id ?? 0);
+            var singerPerformances = await DefaultRepository.FindBySingerIdAsync(request.Id ?? 0);
 
             var response = new ApiResponse<IEnumerable<SingerPerformance>>(singerPerformances);
 

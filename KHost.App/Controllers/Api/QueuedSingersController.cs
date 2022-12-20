@@ -27,7 +27,7 @@ namespace KHost.App.Controllers.Api
         public async Task<IActionResult> MoveUp([FromBody] GenericIdRequest request)
         {
             var position = await DefaultRepository.MoveUpAsync((int)request.Id!);
-            await DefaultRepository.Save();
+            await DefaultRepository.SaveAsync();
 
             var response = new ApiResponse<int>(position);
 
@@ -38,7 +38,7 @@ namespace KHost.App.Controllers.Api
         public async Task<IActionResult> MoveDown([FromBody] GenericIdRequest request)
         {
             var position = await DefaultRepository.MoveDownAsync((int)request.Id!);
-            await DefaultRepository.Save();
+            await DefaultRepository.SaveAsync();
 
             var response = new ApiResponse<int>(position);
 
@@ -49,7 +49,7 @@ namespace KHost.App.Controllers.Api
         public async Task<IActionResult> MoveToTop([FromBody] GenericIdRequest request)
         {
             var position = await DefaultRepository.MoveToTopAsync((int)request.Id!);
-            await DefaultRepository.Save();
+            await DefaultRepository.SaveAsync();
 
             var response = new ApiResponse<int>(position);
 
@@ -60,7 +60,7 @@ namespace KHost.App.Controllers.Api
         public async Task<IActionResult> MoveToBottom([FromBody] GenericIdRequest request)
         {
             var position = await DefaultRepository.MoveToBottomAsync((int)request.Id!);
-            await DefaultRepository.Save();
+            await DefaultRepository.SaveAsync();
 
             var response = new ApiResponse<int>(position);
 
@@ -71,7 +71,7 @@ namespace KHost.App.Controllers.Api
         public async Task<IActionResult> MoveTo([FromBody] MoveToRequest request)
         {
             var position = await DefaultRepository.MoveToAsync((int)request.Id!, (int)request.Position!);
-            await DefaultRepository.Save();
+            await DefaultRepository.SaveAsync();
 
             var response = new ApiResponse<int>(position);
 

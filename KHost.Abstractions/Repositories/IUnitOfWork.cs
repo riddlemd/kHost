@@ -8,6 +8,6 @@
 
         public TRepository? GetRepository<TRepository>() where TRepository : class;
 
-        Task Complete();
+        Task CompleteAsync();
     }
 }

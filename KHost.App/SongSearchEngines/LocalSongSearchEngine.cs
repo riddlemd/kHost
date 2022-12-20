@@ -50,7 +50,7 @@ namespace KHost.App.SongSearchEngines
         {
             if (!int.TryParse(id, out var intId)) throw new KHostException("Id must be int");
 
-            var song = await SongsRepository.FindById(intId);
+            var song = await SongsRepository.FindByIdAsync(intId);
 
             _ = song ?? throw new KHostException("Song not found");
 

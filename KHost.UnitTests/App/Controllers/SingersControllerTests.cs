@@ -61,7 +61,7 @@ namespace KHost.UnitTests.App.Controllers
 
             var repository = Mock.Of<ISingersRepository>();
 
-            _ = Mock.Get(repository).Setup(r => r.FindByIds(It.IsAny<IEnumerable<int>>()))
+            _ = Mock.Get(repository).Setup(r => r.FindByIdsAsync(It.IsAny<IEnumerable<int>>()))
                 .Returns((IEnumerable<int> ids) => Task.FromResult(GenerateEntities().Where(e => ids.Contains(e.Id ?? 0))));
 
             var controller = CreateController(repository);

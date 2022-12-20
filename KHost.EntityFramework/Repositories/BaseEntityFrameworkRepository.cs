@@ -16,13 +16,13 @@ namespace KHost.EntityFramework.Repositories
             Context = context;
         }
 
-        public virtual async Task<IEnumerable<TModel>> Fetch(int? count = null, int? offset = null) => await BuildFetchQuery(count, offset).ToArrayAsync();
+        public virtual async Task<IEnumerable<TModel>> FetchAsync(int? count = null, int? offset = null) => await BuildFetchQuery(count, offset).ToArrayAsync();
 
-        public virtual async Task<TModel?> FindById(int id) => (await BuildFindByIdQuery(id).ToArrayAsync()).FirstOrDefault();
+        public virtual async Task<TModel?> FindByIdAsync(int id) => (await BuildFindByIdQuery(id).ToArrayAsync()).FirstOrDefault();
 
-        public virtual async Task<IEnumerable<TModel>> FindByIds(IEnumerable<int> ids) => await BuildFindByIdsQuery(ids).ToArrayAsync();
+        public virtual async Task<IEnumerable<TModel>> FindByIdsAsync(IEnumerable<int> ids) => await BuildFindByIdsQuery(ids).ToArrayAsync();
 
-        public virtual Task Create(TModel entity)
+        public virtual Task CreateAsync(TModel entity)
         {
             if (entity.Id != null) throw new Exception("Entity Id must be null to be inserted");
 
@@ -31,34 +31,34 @@ namespace KHost.EntityFramework.Repositories
             return Task.CompletedTask;
         }
 
-        public virtual Task Delete(TModel entity)
+        public virtual Task DeleteAsync(TModel entity)
         {
             Context.Set<TModel>().Remove(entity);
 
             return Task.CompletedTask;
         }
 
-        public virtual async Task DeleteById(int id)
+        public virtual async Task DeleteByIdAsync(int id)
         {
-            var entity = await FindById(id);
+            var entity = await FindByIdAsync(id);
 
             if (entity == null) return;
 
-            await Delete(entity);
+            await DeleteAsync(entity);
         }
 
-        public virtual async Task Update(TModel entity)
+        public virtual async Task UpdateAsync(TModel entity)
         {
             if (entity.Id == null) throw new Exception("Entity must have valid Id to be updated");
 
-            var originalEntity = await FindById((int)entity.Id);
+            var originalEntity = await FindByIdAsync((int)entity.Id);
 
             if (originalEntity == null) throw new Exception($"Entity with Id (${entity.Id}) could not be found to update.");
 
             Context.Entry(originalEntity).CurrentValues.SetValues(entity);
         }
 
-        public virtual Task<int> Save() => Context.SaveChangesAsync();
+        public virtual Task<int> SaveAsync() => Context.SaveChangesAsync();
 
         #region Query Building Methods
 

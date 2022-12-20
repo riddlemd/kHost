@@ -46,8 +46,8 @@ namespace KHost.App.Providers
 
             var download = await engine.DownloadSong(id, songId);
 
-            await _downloadsRepository.Create(download);
-            await _downloadsRepository.Save();
+            await _downloadsRepository.CreateAsync(download);
+            await _downloadsRepository.SaveAsync();
 
             return download;
         }

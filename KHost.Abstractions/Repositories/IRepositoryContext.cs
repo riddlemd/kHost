@@ -8,6 +8,6 @@ namespace KHost.Abstractions.Repositories
 {
     public interface IRepositoryContext : IDisposable
     {
-        Task<bool> Save();
+        Task<bool> SaveAsync();
     }
 }

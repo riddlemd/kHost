@@ -12,7 +12,7 @@ namespace KHost.EntityFramework.Repositories
             // Nothing
         }
 
-        public async Task<IEnumerable<SingerPerformance>> FindBySingerId(int id)
+        public async Task<IEnumerable<SingerPerformance>> FindBySingerIdAsync(int id)
         {
             var singerPerformances = Context.Set<SingerPerformance>()
                 .Where(sp => sp.SingerId == id)

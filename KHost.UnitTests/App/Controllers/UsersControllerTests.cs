@@ -61,7 +61,7 @@ namespace KHost.UnitTests.App.Controllers
 
             var repository = Mock.Of<IUsersRepository>();
 
-            _ = Mock.Get(repository).Setup(r => r.Create(It.IsAny<UsersController.LoginRequest>()))
+            _ = Mock.Get(repository).Setup(r => r.CreateAsync(It.IsAny<UsersController.LoginRequest>()))
                 .Returns((UsersController.LoginRequest request) => Task.FromResult(new User { Username = request.Username }));
 
             var controller = CreateController(repository);

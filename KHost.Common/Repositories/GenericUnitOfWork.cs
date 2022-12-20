@@ -32,7 +32,7 @@ namespace KHost.Common.Repositories
             return null;
         }
 
-        public async Task Complete()
+        public async Task CompleteAsync()
         {
             var contexts = GetContexts();
 
@@ -42,12 +42,12 @@ namespace KHost.Common.Repositories
 
             foreach (var context in contexts)
             {
-                tasks.Add(context.Save());
+                tasks.Add(context.SaveAsync());
             }
 
             foreach (var repository in repositoriesWithoutContext)
             {
-                tasks.Add(repository.Save());
+                tasks.Add(repository.SaveAsync());
             }
 
             await Task.WhenAll(tasks);

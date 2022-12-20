@@ -49,7 +49,7 @@ namespace KHost.UnitTests.App.Controllers
 
             var repository = Mock.Of<IQueuedSongsRepository>();
 
-            _ = Mock.Get(repository).Setup(r => r.FindByQueuedSingerId(It.IsAny<int>()))
+            _ = Mock.Get(repository).Setup(r => r.FindByQueuedSingerIdAsync(It.IsAny<int>()))
                 .Returns((int id) => Task.FromResult(GenerateEntities().Where(e => e.QueuedSingerId == request.Id)));
 
             var controller = CreateController(repository);

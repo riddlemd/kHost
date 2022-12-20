@@ -25,6 +25,6 @@ namespace KHost.EntityFramework
 
         }
 
-        async Task<bool> IRepositoryContext.Save() => await SaveChangesAsync() > 0;
+        async Task<bool> IRepositoryContext.SaveAsync() => await SaveChangesAsync() > 0;
     }
 }

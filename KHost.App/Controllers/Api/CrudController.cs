@@ -22,8 +22,8 @@ namespace KHost.App.Controllers.Api
         [HttpPost]
         public virtual async Task<IActionResult> Create([FromBody] TModel entity)
         {
-            await DefaultRepository.Create(entity);
-            await DefaultRepository.Save();
+            await DefaultRepository.CreateAsync(entity);
+            await DefaultRepository.SaveAsync();
 
             var response = new ApiResponse<TModel>(entity);
 
@@ -33,7 +33,7 @@ namespace KHost.App.Controllers.Api
         [HttpGet]
         public virtual async Task<IActionResult> Fetch([FromQuery] GenericPaginatedRequest request)
         {
-            var entities = await DefaultRepository.Fetch(request.Count, request.Offset);
+            var entities = await DefaultRepository.FetchAsync(request.Count, request.Offset);
 
             var response = new ApiResponse<IEnumerable<TModel>>(entities);
 
@@ -43,8 +43,8 @@ namespace KHost.App.Controllers.Api
         [HttpPost]
         public virtual async Task<IActionResult> Update([FromBody] TModel entity)
         {
-            await DefaultRepository.Update(entity);
-            await DefaultRepository.Save();
+            await DefaultRepository.UpdateAsync(entity);
+            await DefaultRepository.SaveAsync();
 
             var response = new ApiResponse();
 
@@ -54,8 +54,8 @@ namespace KHost.App.Controllers.Api
         [HttpPost]
         public virtual async Task<IActionResult> Delete([FromBody] GenericIdRequest request)
         {
-            await DefaultRepository.DeleteById(request.Id ?? 0);
-            await DefaultRepository.Save();
+            await DefaultRepository.DeleteByIdAsync(request.Id ?? 0);
+            await DefaultRepository.SaveAsync();
 
             var response = new ApiResponse();
 

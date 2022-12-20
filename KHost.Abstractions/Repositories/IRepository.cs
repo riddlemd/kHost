@@ -6,51 +6,51 @@ namespace KHost.Abstractions.Repositories
     public interface IRepository<TModel> : IRepository
         where TModel : class, IModelWithId
     {
-        public new Task<TModel?> FindById(int id);
+        public new Task<TModel?> FindByIdAsync(int id);
 
-        public new Task<IEnumerable<TModel>> FindByIds(IEnumerable<int> ids);
+        public new Task<IEnumerable<TModel>> FindByIdsAsync(IEnumerable<int> ids);
 
-        public Task Create(TModel entity);
+        public Task CreateAsync(TModel entity);
 
-        public new Task<IEnumerable<TModel>> Fetch(int? count = null, int? offset = null);
+        public new Task<IEnumerable<TModel>> FetchAsync(int? count = null, int? offset = null);
 
-        public Task Update(TModel entity);
+        public Task UpdateAsync(TModel entity);
 
-        public Task Delete(TModel entity);
+        public Task DeleteAsync(TModel entity);
 
         #region Non Generic Implementations
 
-        async Task<object?> IRepository.FindById(int id) => await FindById(id);
+        async Task<object?> IRepository.FindByIdAsync(int id) => await FindByIdAsync(id);
 
-        async Task<IEnumerable<object>> IRepository.FindByIds(IEnumerable<int> ids) => await FindByIds(ids);
+        async Task<IEnumerable<object>> IRepository.FindByIdsAsync(IEnumerable<int> ids) => await FindByIdsAsync(ids);
 
-        Task IRepository.Create(object entity) => Create(entity as TModel ?? throw new KHostException("Invalid cast"));
+        Task IRepository.CreateAsync(object entity) => CreateAsync(entity as TModel ?? throw new KHostException("Invalid cast"));
 
-        async Task<IEnumerable<object>> IRepository.Fetch(int? count, int? offset) => await Fetch(count, offset);
+        async Task<IEnumerable<object>> IRepository.FetchAsync(int? count, int? offset) => await FetchAsync(count, offset);
 
-        Task IRepository.Update(object entity) => Update(entity as TModel ?? throw new KHostException("Invalid cast"));
+        Task IRepository.UpdateAsync(object entity) => UpdateAsync(entity as TModel ?? throw new KHostException("Invalid cast"));
 
-        Task IRepository.Delete(object entity) => Delete(entity as TModel ?? throw new KHostException("Invalid cast"));
+        Task IRepository.DeleteAsync(object entity) => DeleteAsync(entity as TModel ?? throw new KHostException("Invalid cast"));
 
         #endregion
     }
 
     public interface IRepository
     {
-        public Task<object?> FindById(int id);
+        public Task<object?> FindByIdAsync(int id);
 
-        public Task<IEnumerable<object>> FindByIds(IEnumerable<int> ids);
+        public Task<IEnumerable<object>> FindByIdsAsync(IEnumerable<int> ids);
 
-        public Task Create(object entity);
+        public Task CreateAsync(object entity);
 
-        public Task<IEnumerable<object>> Fetch(int? count = null, int? offset = null);
+        public Task<IEnumerable<object>> FetchAsync(int? count = null, int? offset = null);
 
-        public Task Update(object entity);
+        public Task UpdateAsync(object entity);
 
-        public Task DeleteById(int id);
+        public Task DeleteByIdAsync(int id);
 
-        public Task Delete(object entity);
+        public Task DeleteAsync(object entity);
 
-        public Task<int> Save();
+        public Task<int> SaveAsync();
     }
 }

@@ -9,6 +9,6 @@ namespace KHost.Abstractions.Repositories
 {
     public interface ISingerPerformancesRepository : IRepository<SingerPerformance>
     {
-        Task<IEnumerable<SingerPerformance>> FindBySingerId(int id);
+        Task<IEnumerable<SingerPerformance>> FindBySingerIdAsync(int id);
     }
 }

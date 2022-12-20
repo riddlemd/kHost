@@ -35,7 +35,7 @@ namespace KHost.EntityFramework.Repositories
         public Task<int> MoveUpAsync(int id)
             => _queueComponent.MoveUpAsync(id);
 
-        public override async Task<IEnumerable<QueuedSinger>> Fetch(int? count = null, int? offset = null)
+        public override async Task<IEnumerable<QueuedSinger>> FetchAsync(int? count = null, int? offset = null)
         {
             var query = BuildFetchQuery(count, offset)
                 .OrderBy(qs => qs.Position);
