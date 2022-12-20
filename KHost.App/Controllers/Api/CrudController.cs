@@ -1,10 +1,10 @@
-﻿using KHost.Common.Models;
-using KHost.App.Models.Requests;
+﻿using KHost.App.Models.Requests;
 using KHost.App.Models.Responses;
-using KHost.Common.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using KHost.Abstractions.Models;
+using KHost.Abstractions.Repositories;
 
 namespace KHost.App.Controllers.Api
 {
@@ -31,9 +31,9 @@ namespace KHost.App.Controllers.Api
         }
 
         [HttpGet]
-        public virtual async Task<IActionResult> Read([FromQuery] GenericPaginatedRequest request)
+        public virtual async Task<IActionResult> Fetch([FromQuery] GenericPaginatedRequest request)
         {
-            var entities = await DefaultRepository.Read(request.Count, request.Offset);
+            var entities = await DefaultRepository.Fetch(request.Count, request.Offset);
 
             var response = new ApiResponse<IEnumerable<TModel>>(entities);
 

@@ -1,10 +1,8 @@
-﻿using KHost.App.Models.Requests;
+﻿using KHost.Abstractions.Models;
+using KHost.Abstractions.Providers;
+using KHost.App.Models.Requests;
 using KHost.App.Models.Responses;
-using KHost.Common.Models;
-using KHost.Common.Providers;
-using KHost.Common.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
@@ -23,7 +21,7 @@ namespace KHost.App.Controllers.Api
         [HttpGet]
         public async Task<IActionResult> Search([FromQuery] SongSearchRequest request)
         {
-            var songSearchResults = await SongSearchProvider.Search(request.Query!, request.Engine!, request.Count, request.Offset);
+            var songSearchResults = await SongSearchProvider.SearchAsync(request.Query!, request.Engine!, request.Count, request.Offset);
 
             var response = new ApiResponse<IEnumerable<SongSearchResult>>(songSearchResults);
 
@@ -43,7 +41,7 @@ namespace KHost.App.Controllers.Api
         [HttpGet]
         public async Task<IActionResult> GetSong([FromQuery] GetSongRequest request)
         {
-            var song = await SongSearchProvider.GetSong(request.Id!, request.Engine!);
+            var song = await SongSearchProvider.GetSongAsync(request.Id!, request.Engine!);
 
             var response = new ApiResponse<Song>(song);
 
@@ -53,7 +51,7 @@ namespace KHost.App.Controllers.Api
         [HttpPost]
         public async Task<IActionResult> DownloadSong(DownloadSongRequest request)
         {
-            var download = await SongSearchProvider.DownloadSong(request.Id!, request.Engine!, (int)request.SongId!);
+            var download = await SongSearchProvider.DownloadSongAsync(request.Id!, request.Engine!, (int)request.SongId!);
 
             var response = new ApiResponse<Download>(download);
 

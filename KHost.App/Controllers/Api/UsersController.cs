@@ -1,9 +1,9 @@
-﻿using KHost.Common.Models;
-using KHost.App.Models.Responses;
-using KHost.Common.Repositories;
+﻿using KHost.App.Models.Responses;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
+using KHost.Abstractions.Repositories;
+using KHost.Abstractions.Models;
 
 namespace KHost.App.Controllers.Api
 {

@@ -1,11 +1,11 @@
-﻿using KHost.Common.Models;
-using KHost.App.Models.Requests;
+﻿using KHost.App.Models.Requests;
 using KHost.App.Models.Responses;
-using KHost.Common.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using KHost.Common.ErrorHandling;
+using KHost.Abstractions.Repositories;
+using KHost.Abstractions.Models;
+using KHost.Abstractions.ErrorHandling;
 
 namespace KHost.App.Controllers.Api
 {
@@ -32,7 +32,7 @@ namespace KHost.App.Controllers.Api
             if (string.IsNullOrWhiteSpace(request.Query))
                 throw new KHostException("Search requires a query", httpStatusCode: System.Net.HttpStatusCode.BadRequest);
 
-            var songs = await DefaultRepository.Search(request.Query, request.Count, request.Offset);
+            var songs = await DefaultRepository.SearchAsync(request.Query, request.Count, request.Offset);
 
             var response = new ApiResponse<IEnumerable<Song>>(songs);
 

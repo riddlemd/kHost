@@ -1,15 +1,13 @@
-﻿using KHost.App.Controllers.Api;
+﻿using KHost.Abstractions.Models;
+using KHost.Abstractions.Repositories;
+using KHost.App.Controllers.Api;
 using KHost.App.Models.Requests;
 using KHost.App.Models.Responses;
-using KHost.Common.Models;
-using KHost.Common.Repositories;
 using KHost.Common.UnitTests;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 using Xunit.Categories;
@@ -53,7 +51,7 @@ namespace Khost.App.UnitTests.Tests.Controllers
 
             var repository = Mock.Of<IQueuedSingersRepository>();
 
-            _ = Mock.Get(repository).Setup(r => r.MoveUp(It.IsAny<int>()))
+            _ = Mock.Get(repository).Setup(r => r.MoveUpAsync(It.IsAny<int>()))
                 .Returns((int id) => Task.FromResult(expectedNewPosition));
 
             var controller = CreateController(repository);
@@ -83,7 +81,7 @@ namespace Khost.App.UnitTests.Tests.Controllers
 
             var repository = Mock.Of<IQueuedSingersRepository>();
 
-            _ = Mock.Get(repository).Setup(r => r.MoveDown(It.IsAny<int>()))
+            _ = Mock.Get(repository).Setup(r => r.MoveDownAsync(It.IsAny<int>()))
                 .Returns((int id) => Task.FromResult(expectedNewPosition));
 
             var controller = CreateController(repository);
@@ -113,7 +111,7 @@ namespace Khost.App.UnitTests.Tests.Controllers
 
             var repository = Mock.Of<IQueuedSingersRepository>();
 
-            _ = Mock.Get(repository).Setup(r => r.MoveToTop(It.IsAny<int>()))
+            _ = Mock.Get(repository).Setup(r => r.MoveToTopAsync(It.IsAny<int>()))
                 .Returns((int id) => Task.FromResult(expectedNewPosition));
 
             var controller = CreateController(repository);
@@ -143,7 +141,7 @@ namespace Khost.App.UnitTests.Tests.Controllers
 
             var repository = Mock.Of<IQueuedSingersRepository>();
 
-            _ = Mock.Get(repository).Setup(r => r.MoveUp(It.IsAny<int>()))
+            _ = Mock.Get(repository).Setup(r => r.MoveUpAsync(It.IsAny<int>()))
                 .Returns((int id) => Task.FromResult(expectedNewPosition));
 
             var controller = CreateController(repository);

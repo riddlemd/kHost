@@ -1,10 +1,10 @@
-﻿using KHost.Common.Models;
-using KHost.App.Models.Requests;
+﻿using KHost.App.Models.Requests;
 using KHost.App.Models.Responses;
-using KHost.Common.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using KHost.Abstractions.Models;
+using KHost.Abstractions.Repositories;
 
 namespace KHost.App.Controllers.Api
 {
@@ -37,7 +37,7 @@ namespace KHost.App.Controllers.Api
         [HttpPost]
         public async Task<IActionResult> MoveUp([FromBody] GenericIdRequest request)
         {
-            var position = await DefaultRepository.MoveUp((int)request.Id!);
+            var position = await DefaultRepository.MoveUpAsync((int)request.Id!);
             await DefaultRepository.Save();
 
             var response = new ApiResponse<int>(position);
@@ -48,7 +48,7 @@ namespace KHost.App.Controllers.Api
         [HttpPost]
         public async Task<IActionResult> MoveDown([FromBody] GenericIdRequest request)
         {
-            var position = await DefaultRepository.MoveDown((int)request.Id!);
+            var position = await DefaultRepository.MoveDownAsync((int)request.Id!);
             await DefaultRepository.Save();
 
             var response = new ApiResponse<int>(position);
@@ -59,7 +59,7 @@ namespace KHost.App.Controllers.Api
         [HttpPost]
         public async Task<IActionResult> MoveToTop([FromBody] GenericIdRequest request)
         {
-            var position = await DefaultRepository.MoveToTop((int)request.Id!);
+            var position = await DefaultRepository.MoveToTopAsync((int)request.Id!);
             await DefaultRepository.Save();
 
             var response = new ApiResponse<int>(position);
@@ -70,7 +70,7 @@ namespace KHost.App.Controllers.Api
         [HttpPost]
         public async Task<IActionResult> MoveToBottom([FromBody] GenericIdRequest request)
         {
-            var position = await DefaultRepository.MoveToBottom((int)request.Id!);
+            var position = await DefaultRepository.MoveToBottomAsync((int)request.Id!);
             await DefaultRepository.Save();
 
             var response = new ApiResponse<int>(position);
@@ -81,7 +81,7 @@ namespace KHost.App.Controllers.Api
         [HttpPost]
         public async Task<IActionResult> MoveTo([FromBody] MoveToRequest request)
         {
-            var position = await DefaultRepository.MoveTo((int)request.Id!, (int)request.Position!);
+            var position = await DefaultRepository.MoveToAsync((int)request.Id!, (int)request.Position!);
             await DefaultRepository.Save();
 
             var response = new ApiResponse<int>(position);

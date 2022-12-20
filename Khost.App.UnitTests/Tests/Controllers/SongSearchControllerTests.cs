@@ -1,17 +1,16 @@
 ﻿using KHost.App.Controllers.Api;
-using KHost.Common.Providers;
-using KHost.Common.Models;
 using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 using Xunit.Categories;
 using Microsoft.AspNetCore.Mvc;
 using KHost.App.Models.Responses;
 using KHost.Common.UnitTests;
+using KHost.Abstractions.Models;
+using KHost.Abstractions.Providers;
 
 namespace Khost.App.UnitTests.Tests.Controllers
 {
@@ -57,7 +56,7 @@ namespace Khost.App.UnitTests.Tests.Controllers
 
             var provider = Mock.Of<ISongSearchProvider>();
 
-            _ = Mock.Get(provider).Setup(p => p.Search(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int?>(), It.IsAny<int?>()))
+            _ = Mock.Get(provider).Setup(p => p.SearchAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int?>(), It.IsAny<int?>()))
                 .Returns((string query, string engine, int? count, int? offset) => Task.FromResult(songSearchResults));
 
             var controller = new SongSearchController(provider);

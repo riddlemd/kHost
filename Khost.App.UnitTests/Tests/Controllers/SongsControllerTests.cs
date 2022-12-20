@@ -1,11 +1,7 @@
-﻿using KHost.App.Controllers.Api;
-using KHost.Common.Models;
-using KHost.Common.Repositories;
-using System;
+﻿using KHost.Abstractions.Models;
+using KHost.Abstractions.Repositories;
+using KHost.App.Controllers.Api;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Khost.App.UnitTests.Tests.Controllers
 {

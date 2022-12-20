@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30717.126
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KHost.Common", "KHost.Common\KHost.Common.csproj", "{629939D0-7F67-4D0B-97C3-6601340E453F}"
 EndProject
@@ -9,7 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KHost.App", "KHost.App\KHos
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Khost.App.UnitTests", "Khost.App.UnitTests\Khost.App.UnitTests.csproj", "{2757DF79-F951-401E-804D-9883FBBCB5CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KHost.Common.UnitTests", "KHost.Common.UnitTests\KHost.Common.UnitTests.csproj", "{B8B9F02F-EA3A-419F-BD36-787D346B3458}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KHost.Common.UnitTests", "KHost.Common.UnitTests\KHost.Common.UnitTests.csproj", "{B8B9F02F-EA3A-419F-BD36-787D346B3458}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KHost.EntityFramework", "KHost.EntityFramework\KHost.EntityFramework.csproj", "{7BB32E75-6734-4764-BE86-70967E55AC55}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KHost.Abstractions", "KHost.Abstractions\KHost.Abstractions.csproj", "{BD66DB15-EEC0-440C-86E5-162ED863305F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,14 @@ Global
 		{B8B9F02F-EA3A-419F-BD36-787D346B3458}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8B9F02F-EA3A-419F-BD36-787D346B3458}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8B9F02F-EA3A-419F-BD36-787D346B3458}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BB32E75-6734-4764-BE86-70967E55AC55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BB32E75-6734-4764-BE86-70967E55AC55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BB32E75-6734-4764-BE86-70967E55AC55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BB32E75-6734-4764-BE86-70967E55AC55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD66DB15-EEC0-440C-86E5-162ED863305F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD66DB15-EEC0-440C-86E5-162ED863305F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD66DB15-EEC0-440C-86E5-162ED863305F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD66DB15-EEC0-440C-86E5-162ED863305F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,15 +1,14 @@
-﻿using KHost.App.Controllers.Api;
+﻿using KHost.Abstractions.Models;
+using KHost.Abstractions.Repositories;
+using KHost.App.Controllers.Api;
 using KHost.App.Models.Requests;
 using KHost.App.Models.Responses;
-using KHost.Common.Models;
-using KHost.Common.Repositories;
 using KHost.Common.UnitTests;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 using Xunit.Categories;
@@ -96,7 +95,7 @@ namespace Khost.App.UnitTests.Tests.Controllers
 
             var repository = Mock.Of<ISingersRepository>();
 
-            _ = Mock.Get(repository).Setup(r => r.Search(It.IsAny<string>(), It.IsAny<int?>(), It.IsAny<int?>()))
+            _ = Mock.Get(repository).Setup(r => r.SearchAsync(It.IsAny<string>(), It.IsAny<int?>(), It.IsAny<int?>()))
                 .Returns((string query, int? count, int? offset) => Task.FromResult(GenerateEntities()));
 
             var controller = CreateController(repository);

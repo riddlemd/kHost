@@ -1,7 +1,7 @@
-﻿using KHost.App.Models.Requests;
+﻿using KHost.Abstractions.Models;
+using KHost.Abstractions.Repositories;
+using KHost.App.Models.Requests;
 using KHost.App.Models.Responses;
-using KHost.Common.Models;
-using KHost.Common.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -18,7 +18,7 @@ namespace KHost.App.Controllers.Api
         [HttpGet]
         public async Task<IActionResult> Search([FromQuery] GenericSearchRequest request)
         {
-            var venues = await DefaultRepository.Search(request.Query!, request.Count, request.Offset);
+            var venues = await DefaultRepository.SearchAsync(request.Query!, request.Count, request.Offset);
 
             var response = new ApiResponse<IEnumerable<Venue>>(venues);
 

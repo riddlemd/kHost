@@ -1,5 +1,4 @@
-﻿using KHost.Common.Repositories;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace KHost.App.Controllers.Api
 {

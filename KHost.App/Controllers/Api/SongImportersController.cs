@@ -1,6 +1,6 @@
-﻿using KHost.App.Models.Responses;
-using KHost.Common.Providers;
-using KHost.Common.SongImporters;
+﻿using KHost.Abstractions.Providers;
+using KHost.Abstractions.SongImporters;
+using KHost.App.Models.Responses;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -20,7 +20,7 @@ namespace KHost.App.Controllers.Api
         [HttpGet]
         public async Task<IActionResult> Find([FromQuery] BaseImporterRequest request)
         {
-            var importableSongs = await SongImporterProvider.Find(request.Path!, request.Importer!);
+            var importableSongs = await SongImporterProvider.FindAsync(request.Path!, request.Importer!);
 
             var response = new ApiResponse<IEnumerable<ImportableSong>>(importableSongs);
 
@@ -30,7 +30,7 @@ namespace KHost.App.Controllers.Api
         [HttpGet]
         public async Task<IActionResult> GetDetails([FromQuery] BaseImporterRequest request)
         {
-            var importableSong = await SongImporterProvider.GetDetails(request.Path!, request.Importer!);
+            var importableSong = await SongImporterProvider.GetDetailsAsync(request.Path!, request.Importer!);
 
             var response = new ApiResponse<ImportableSong>(importableSong);
 

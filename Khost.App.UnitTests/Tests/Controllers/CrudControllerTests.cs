@@ -1,8 +1,8 @@
-﻿using KHost.App.Controllers.Api;
+﻿using KHost.Abstractions.Models;
+using KHost.Abstractions.Repositories;
+using KHost.App.Controllers.Api;
 using KHost.App.Models.Requests;
 using KHost.App.Models.Responses;
-using KHost.Common.Models;
-using KHost.Common.Repositories;
 using KHost.Common.UnitTests;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -67,13 +67,13 @@ namespace Khost.App.UnitTests.Tests.Controllers
 
             var repository = Mock.Of<TRepository>();
 
-            _ = Mock.Get(repository).Setup(r => r.Read(It.IsAny<int?>(), It.IsAny<int?>()))
+            _ = Mock.Get(repository).Setup(r => r.Fetch(It.IsAny<int?>(), It.IsAny<int?>()))
                 .Returns((int? count, int? offset) => Task.FromResult(GenerateEntities()));
             
             var controller = CreateController(repository);
 
             // When
-            var actionResult = await controller.Read(request);
+            var actionResult = await controller.Fetch(request);
 
             // Then
             var okResult = Assert.IsType<OkObjectResult>(actionResult);

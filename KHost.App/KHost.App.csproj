@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\KHost.Common\KHost.Common.csproj" />
+    <ProjectReference Include="..\KHost.EntityFramework\KHost.EntityFramework.csproj" />
   </ItemGroup>
 
   <ItemGroup>

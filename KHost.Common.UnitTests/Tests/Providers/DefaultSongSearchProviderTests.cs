@@ -1,13 +1,12 @@
-﻿using KHost.Common.Models;
-using KHost.Common.Providers;
-using KHost.Common.Repositories;
-using KHost.Common.SongSearchEngines;
+﻿using KHost.Abstractions.Models;
+using KHost.Abstractions.Repositories;
+using KHost.Abstractions.SongSearchEngines;
+using KHost.App.Providers;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 using Xunit.Categories;
@@ -70,7 +69,7 @@ namespace KHost.Common.UnitTests.Tests.Providers
             var provider = new DefaultSongSearchProvider(serviceProvider, downloadsRepository);
 
             // When
-            var result = await provider.Search(query, engine);
+            var result = await provider.SearchAsync(query, engine);
 
             // Then
             Assert.True(result.Count() == entities.Count());
@@ -134,7 +133,7 @@ namespace KHost.Common.UnitTests.Tests.Providers
             var provider = new DefaultSongSearchProvider(serviceProvider, downloadsRepository);
 
             // When
-            var song = await provider.GetSong(songSearchResultId, engine);
+            var song = await provider.GetSongAsync(songSearchResultId, engine);
 
             // Then
             Assert.True(song == songToReturn);
@@ -173,7 +172,7 @@ namespace KHost.Common.UnitTests.Tests.Providers
             var provider = new DefaultSongSearchProvider(serviceProvider, downloadsRepository);
 
             // When
-            var download = await provider.DownloadSong(songSearchResultId, engine, 1);
+            var download = await provider.DownloadSongAsync(songSearchResultId, engine, 1);
 
             // Then
             Assert.True(download == downloadToReturn);

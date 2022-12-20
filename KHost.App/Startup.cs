@@ -1,26 +1,25 @@
 using KHost.App.Configuration;
 using KHost.App.Models.Responses;
-using KHost.Common.Providers;
-using KHost.Common.Repositories;
 using KHost.Common.Routing;
 using KHost.Common.Http;
-using KHost.Common.ErrorHandling;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using KHost.Common.EntityFramework;
-using KHost.Common.Repositories.EntityFramework;
-using KHost.Common.SongSearchEngines;
 using System.Threading.Tasks;
 using System.IO;
-using KHost.Common.Plugins;
-using KHost.Common.SongImporters;
+using KHost.App.SongImporters;
+using KHost.App.Providers;
+using KHost.App.SongSearchEngines;
+using KHost.App.Plugins;
+using KHost.Abstractions.ErrorHandling;
+using KHost.Abstractions.Providers;
+using KHost.Abstractions.Plugins;
+using KHost.EntityFramework;
 
 namespace KHost.App
 {
@@ -41,21 +40,12 @@ namespace KHost.App
                 // Configurations
                 .Configure<SingerOptions>(Configuration.GetSection("Singers"))
                 .Configure<SongOptions>(Configuration.GetSection("Songs"))
-                // Database
-                .AddDbContextPool<DatabaseContext>(options => options.UseSqlite(Configuration.GetConnectionString("Default")))
                 // Providers
                 .AddScoped<ISongSearchProvider, DefaultSongSearchProvider>()
                 .AddScoped<ISongImporterProvider, DefaultSongImporterProvider>()
                 .AddScoped<IPluginsProvider, DefaultPluginsProvider>()
                 // Repositories
-                .AddScoped<ISongsRepository, EntityFrameworkSongsRepository>()
-                .AddScoped<ISingersRepository, EntityFrameworkSingersRepository>()
-                .AddScoped<IQueuedSingersRepository, EntityFrameworkQueuedSingerRepository>()
-                .AddScoped<IQueuedSongsRepository, EntityFrameworkQueuedSongRepository>()
-                .AddScoped<IVenuesRepository, EntityFrameworkVenuesRepository>()
-                .AddScoped<IDownloadsRepository, EntityFrameworkDownloadsRepository>()
-                .AddScoped<IUsersRepository, EntityFrameworkUsersRepository>()
-                .AddScoped<ISingerPerformancesRepository, EntityFrameworkSingerPerformancesRepository>()
+                .AddEntityFrameworkRepositories(Configuration)
                 // Song Search Engines
                 .AddSearchEnginesDynamically()
                 // Song Importers

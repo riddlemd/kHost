@@ -1,11 +1,6 @@
-﻿using KHost.Common.Reflection;
-using KHost.Common.SongSearchEngines;
+﻿using KHost.Abstractions.SongSearchEngines;
+using KHost.App.SongSearchEngines;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 using Xunit.Categories;
 

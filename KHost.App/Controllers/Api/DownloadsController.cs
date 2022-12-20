@@ -1,5 +1,5 @@
-﻿using KHost.Common.Models;
-using KHost.Common.Repositories;
+﻿using KHost.Abstractions.Models;
+using KHost.Abstractions.Repositories;
 
 namespace KHost.App.Controllers.Api
 {
