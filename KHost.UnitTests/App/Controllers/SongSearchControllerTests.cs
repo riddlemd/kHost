@@ -1,25 +1,21 @@
 ﻿using KHost.App.Controllers.Api;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Xunit;
 using Xunit.Categories;
 using Microsoft.AspNetCore.Mvc;
 using KHost.App.Models.Responses;
-using KHost.Common.UnitTests;
 using KHost.Abstractions.Models;
 using KHost.Abstractions.Providers;
+using KHost.UnitTests;
 
-namespace Khost.App.UnitTests.Tests.Controllers
+namespace KHost.UnitTests.App.Controllers
 {
     public class SongSearchControllerTests
     {
         public IEnumerable<SongSearchResult> GenerateEntities() => new List<SongSearchResult>()
         {
             new ()
-            { 
+            {
                 Id = Guid.NewGuid().ToString(),
                 SongName = "Spice Up Your Life",
                 BandName = "Spice Girls",
@@ -48,7 +44,7 @@ namespace Khost.App.UnitTests.Tests.Controllers
         {
             // Given
             var songSearchResults = GenerateEntities();
-            
+
             var request = new SongSearchController.SongSearchRequest
             {
                 Query = songSearchResults.First().SongName
@@ -66,11 +62,11 @@ namespace Khost.App.UnitTests.Tests.Controllers
 
             // Then
             var okResult = Assert.IsType<OkObjectResult>(actionResult);
-            
+
             var apiResponse = Assert.IsType<ApiResponse<IEnumerable<SongSearchResult>>>(okResult.Value);
-            
+
             Assert.True(apiResponse.Success);
-            
+
             Assert.True(apiResponse.Result.Any());
         }
 
@@ -99,11 +95,11 @@ namespace Khost.App.UnitTests.Tests.Controllers
 
             // Then
             var okResult = Assert.IsType<OkObjectResult>(actionResult);
-            
+
             var apiResponse = Assert.IsType<ApiResponse<IEnumerable<SongSearchEngineDetails>>>(okResult.Value);
-            
+
             Assert.True(apiResponse.Success);
-            
+
             Assert.True(apiResponse.Result.Any());
         }
     }

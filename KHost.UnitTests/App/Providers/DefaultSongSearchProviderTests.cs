@@ -4,14 +4,10 @@ using KHost.Abstractions.SongSearchEngines;
 using KHost.App.Providers;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Xunit;
 using Xunit.Categories;
 
-namespace KHost.Common.UnitTests.Tests.Providers
+namespace KHost.UnitTests.App.Providers
 {
     public class DefaultSongSearchProviderTests
     {
@@ -49,7 +45,7 @@ namespace KHost.Common.UnitTests.Tests.Providers
             var entities = GenerateEntities();
 
             var query = "";
-            
+
             var songSearchEngine = Mock.Of<ISongSearchEngine>();
 
             var engine = "mock";
@@ -59,13 +55,13 @@ namespace KHost.Common.UnitTests.Tests.Providers
 
             _ = Mock.Get(songSearchEngine).Setup(e => e.Search(It.IsAny<string>(), It.IsAny<int?>(), It.IsAny<int?>()))
                 .Returns(Task.FromResult(entities));
-            
+
             var serviceProvider = new ServiceCollection()
                 .AddTransient(p => songSearchEngine)
                 .BuildServiceProvider();
 
             var downloadsRepository = Mock.Of<IDownloadsRepository>();
-            
+
             var provider = new DefaultSongSearchProvider(serviceProvider, downloadsRepository);
 
             // When

@@ -3,7 +3,7 @@ using KHost.Abstractions.Repositories;
 using KHost.App.Controllers.Api;
 using System.Collections.Generic;
 
-namespace Khost.App.UnitTests.Tests.Controllers
+namespace KHost.UnitTests.App.Controllers
 {
     public class VenuesControllerTests : CrudControllerTests<Venue, IVenuesRepository, VenuesController>
     {

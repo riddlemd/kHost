@@ -1,13 +1,9 @@
 ﻿using KHost.Common.Collections.Generic;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using KHost.UnitTests;
 using Xunit;
 using Xunit.Categories;
 
-namespace KHost.Common.UnitTests.Tests.Collections
+namespace KHost.UnitTests.Common.Collections
 {
     public class IListExtensionsTests
     {

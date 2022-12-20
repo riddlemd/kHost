@@ -3,21 +3,17 @@ using KHost.Abstractions.Repositories;
 using KHost.App.Controllers.Api;
 using KHost.App.Models.Requests;
 using KHost.App.Models.Responses;
-using KHost.Common.UnitTests;
+using KHost.UnitTests;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Xunit;
 using Xunit.Categories;
 
-namespace Khost.App.UnitTests.Tests.Controllers
+namespace KHost.UnitTests.App.Controllers
 {
     public class SingersControllerTests : CrudControllerTests<Singer, ISingersRepository, SingersController>
     {
-        protected override SingersController CreateController(ISingersRepository repository) => new (repository);
+        protected override SingersController CreateController(ISingersRepository repository) => new(repository);
 
         protected override IEnumerable<Singer> GenerateEntities() => new List<Singer>
         {
@@ -48,7 +44,7 @@ namespace Khost.App.UnitTests.Tests.Controllers
             },
         };
 
-        protected override Singer CreateSampleEntity() => new ()
+        protected override Singer CreateSampleEntity() => new()
         {
             Name = "Guy Faux",
         };
@@ -75,11 +71,11 @@ namespace Khost.App.UnitTests.Tests.Controllers
 
             // Then
             var okResult = Assert.IsType<OkObjectResult>(actionResult);
-            
+
             var apiResponse = Assert.IsType<ApiResponse<IEnumerable<Singer>>>(okResult.Value);
-            
+
             Assert.True(apiResponse.Success);
-            
+
             Assert.True(apiResponse.Result.Count() == 2);
         }
 
@@ -105,11 +101,11 @@ namespace Khost.App.UnitTests.Tests.Controllers
 
             // Then
             var okResult = Assert.IsType<OkObjectResult>(actionResult);
-            
+
             var apiResponse = Assert.IsType<ApiResponse<IEnumerable<Singer>>>(okResult.Value);
-            
+
             Assert.True(apiResponse.Success);
-            
+
             Assert.True(apiResponse.Result.Any());
         }
     }

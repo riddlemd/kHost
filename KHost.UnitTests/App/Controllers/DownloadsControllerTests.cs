@@ -4,11 +4,11 @@ using KHost.App.Controllers.Api;
 using System;
 using System.Collections.Generic;
 
-namespace Khost.App.UnitTests.Tests.Controllers
+namespace KHost.UnitTests.App.Controllers
 {
     public class DownloadsControllerTests : CrudControllerTests<Download, IDownloadsRepository, DownloadsController>
     {
-        protected override DownloadsController CreateController(IDownloadsRepository repository) => new (repository);
+        protected override DownloadsController CreateController(IDownloadsRepository repository) => new(repository);
 
         protected override IEnumerable<Download> GenerateEntities() => new List<Download>
         {
@@ -28,7 +28,7 @@ namespace Khost.App.UnitTests.Tests.Controllers
             }
         };
 
-        protected override Download CreateSampleEntity() => new ()
+        protected override Download CreateSampleEntity() => new()
         {
             Name = "Test Download",
             Progress = Random.Next(0, 100),

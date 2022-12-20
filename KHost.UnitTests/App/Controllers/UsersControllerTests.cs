@@ -2,15 +2,13 @@
 using KHost.Abstractions.Repositories;
 using KHost.App.Controllers.Api;
 using KHost.App.Models.Responses;
-using KHost.Common.UnitTests;
+using KHost.UnitTests;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Xunit;
 using Xunit.Categories;
 
-namespace Khost.App.UnitTests.Tests.Controllers
+namespace KHost.UnitTests.App.Controllers
 {
     public class UsersControllerTests : CrudControllerTests<User, IUsersRepository, UsersController>
     {

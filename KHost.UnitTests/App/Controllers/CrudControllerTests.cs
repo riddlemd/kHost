@@ -3,19 +3,13 @@ using KHost.Abstractions.Repositories;
 using KHost.App.Controllers.Api;
 using KHost.App.Models.Requests;
 using KHost.App.Models.Responses;
-using KHost.Common.UnitTests;
+using KHost.UnitTests;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 using Xunit.Categories;
 
-namespace Khost.App.UnitTests.Tests.Controllers
+namespace KHost.UnitTests.App.Controllers
 {
     public abstract class CrudControllerTests<TModel, TRepository, TController>
         where TModel : BaseModel, IModelWithId, new()
@@ -35,12 +29,12 @@ namespace Khost.App.UnitTests.Tests.Controllers
         {
             // Given
             var request = CreateSampleEntity();
-            
+
             var repository = Mock.Of<TRepository>();
-            
+
             _ = Mock.Get(repository).Setup(r => r.Create(It.IsAny<TModel>()))
                 .Returns((TModel entity) => Task.FromResult(entity));
-            
+
             var controller = CreateController(repository);
 
             // When
@@ -48,11 +42,11 @@ namespace Khost.App.UnitTests.Tests.Controllers
 
             // Then
             var okResult = Assert.IsType<OkObjectResult>(actionResult);
-            
+
             var apiResponse = Assert.IsType<ApiResponse<TModel>>(okResult.Value);
-            
+
             Assert.True(apiResponse.Success);
-            
+
             Assert.NotNull(apiResponse.Result);
 
             return apiResponse;
@@ -69,7 +63,7 @@ namespace Khost.App.UnitTests.Tests.Controllers
 
             _ = Mock.Get(repository).Setup(r => r.Fetch(It.IsAny<int?>(), It.IsAny<int?>()))
                 .Returns((int? count, int? offset) => Task.FromResult(GenerateEntities()));
-            
+
             var controller = CreateController(repository);
 
             // When
@@ -77,11 +71,11 @@ namespace Khost.App.UnitTests.Tests.Controllers
 
             // Then
             var okResult = Assert.IsType<OkObjectResult>(actionResult);
-            
+
             var apiResponse = Assert.IsType<ApiResponse<IEnumerable<TModel>>>(okResult.Value);
-            
+
             Assert.True(apiResponse.Success);
-            
+
             Assert.True(apiResponse.Result.Count() > 0);
 
             return apiResponse;
@@ -108,7 +102,7 @@ namespace Khost.App.UnitTests.Tests.Controllers
             var okResult = Assert.IsType<OkObjectResult>(actionResult);
 
             var apiResponse = Assert.IsType<ApiResponse>(okResult.Value);
-            
+
             Assert.True(apiResponse.Success);
 
             return apiResponse;
@@ -136,9 +130,9 @@ namespace Khost.App.UnitTests.Tests.Controllers
 
             // Then
             var okResult = Assert.IsType<OkObjectResult>(actionResult);
-            
+
             var apiResponse = Assert.IsType<ApiResponse>(okResult.Value);
-            
+
             Assert.True(apiResponse.Success);
 
             return apiResponse;

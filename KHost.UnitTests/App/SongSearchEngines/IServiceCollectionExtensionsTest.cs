@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 using Xunit.Categories;
 
-namespace KHost.Common.UnitTests.Tests.SongSearchEngines
+namespace KHost.UnitTests.App.SongSearchEngines
 {
     public class IServiceCollectionExtensionsTest
     {

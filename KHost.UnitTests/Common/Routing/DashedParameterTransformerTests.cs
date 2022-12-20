@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace KHost.Common.UnitTests.Tests.Routing
+namespace KHost.UnitTests.Common.Routing
 {
     public class DashedParameterTransformerTests
     {
