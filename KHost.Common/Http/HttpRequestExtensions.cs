@@ -6,7 +6,7 @@ namespace KHost.Common.Http
 {
     public static class HttpRequestExtensions
     {
-        private static string[] ApiContentTypes { get; } = new[]
+        private static readonly string[] _apiContentTypes = new[]
         {
             "application/json",
             "text/json",
@@ -14,6 +14,6 @@ namespace KHost.Common.Http
             "text/xml"
         };
 
-        public static bool IsApiRequest(this HttpRequest request) => ApiContentTypes.Contains(request.ContentType);
+        public static bool IsApiRequest(this HttpRequest request) => _apiContentTypes.Contains(request.ContentType);
     }
 }
