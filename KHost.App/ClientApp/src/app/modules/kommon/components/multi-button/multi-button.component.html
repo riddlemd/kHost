@@ -1,8 +1,0 @@
-<button id="button" (click)="this.trigger.emit(this.selectedMode);false;">{{ prefix }}{{ selectedMode?.text ?? '' }}{{ postfix }}</button>
-<button id="icon" title="Click to switch mode" [matMenuTriggerFor]="menu" (click)="false;" *ngIf='modes.length'></button>
-
-<mat-menu #menu="matMenu">
-    <button mat-menu-item *ngFor="let mode of modes" (click)="selectedMode=mode;false;">
-        <span>{{ mode?.text ?? '' }}</span>
-    </button>
-</mat-menu>
