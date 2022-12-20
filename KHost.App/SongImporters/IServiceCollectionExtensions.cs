@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace KHost.App.SongImporters
 {
-    public static class IServiceCollectionExtensions
+    internal static class IServiceCollectionExtensions
     {
         public static IServiceCollection AddSongImportersDynamically(this IServiceCollection services)
         {

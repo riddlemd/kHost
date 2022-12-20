@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace KHost.App.SongSearchEngines
 {
-    public class LocalSongSearchEngine : ISongSearchEngine
+    internal class LocalSongSearchEngine : ISongSearchEngine
     {
         public string Name => "local";
 

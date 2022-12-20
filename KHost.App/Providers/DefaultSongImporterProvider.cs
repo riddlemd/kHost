@@ -9,7 +9,7 @@ using KHost.Abstractions.Models;
 
 namespace KHost.App.Providers
 {
-    public class DefaultSongImporterProvider : ISongImporterProvider
+    internal class DefaultSongImporterProvider : ISongImporterProvider
     {
         private readonly ISongImporter[] _importers;
 

@@ -6,7 +6,7 @@ using KHost.Abstractions.Plugins;
 
 namespace KHost.App.Plugins
 {
-    public static class IServiceCollectionExtension
+    internal static class IServiceCollectionExtension
     {
         public static IServiceCollection LoadPlugins(this IServiceCollection services)
         {

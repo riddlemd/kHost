@@ -2,7 +2,7 @@
 
 namespace KHost.App.Plugins
 {
-    public class DefaultPluginsProvider : IPluginsProvider
+    internal class DefaultPluginsProvider : IPluginsProvider
     {
 
     }

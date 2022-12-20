@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace KHost.App.SongSearchEngines
 {
-    public static class IServiceCollectionExtensions
+    internal static class IServiceCollectionExtensions
     {
         public static IServiceCollection AddSearchEnginesDynamically(this IServiceCollection services)
         {

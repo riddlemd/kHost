@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace KHost.App.Providers
 {
-    public class DefaultSongSearchProvider : ISongSearchProvider
+    internal class DefaultSongSearchProvider : ISongSearchProvider
     {
         private readonly ISongSearchEngine[] _songSearchEngines;
 

@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace KHost.App.Plugins
 {
-    public class GenericPlugin : IPlugin
+    internal class GenericPlugin : IPlugin
     {
         public string Path { get; }
 

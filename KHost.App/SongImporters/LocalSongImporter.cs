@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace KHost.App.SongImporters
 {
-    public class LocalSongImporter : ISongImporter
+    internal class LocalSongImporter : ISongImporter
     {
         public string Name => "local";
 
