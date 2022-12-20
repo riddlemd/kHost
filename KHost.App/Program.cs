@@ -3,7 +3,7 @@ using Microsoft.Extensions.Hosting;
 
 namespace KHost.App
 {
-    public class Program
+    internal class Program
     {
         public static void Main(string[] args)
         {

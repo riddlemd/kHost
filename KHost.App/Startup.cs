@@ -23,7 +23,7 @@ using KHost.EntityFramework;
 
 namespace KHost.App
 {
-    public class Startup
+    internal class Startup
     {
         private IConfiguration Configuration { get; }
 
@@ -60,12 +60,6 @@ namespace KHost.App
                     options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
                     //options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 });
-
-            // In production, the Angular files will be served from this directory
-            services.AddSpaStaticFiles(configuration =>
-            {
-                configuration.RootPath = "ClientApp/dist";
-            });
 
             services.AddCors(options =>
             {
@@ -138,19 +132,6 @@ namespace KHost.App
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
-            });
-
-            app.UseSpa(spa =>
-            {
-                // To learn more about options for serving an Angular SPA from ASP.NET Core,
-                // see https://go.microsoft.com/fwlink/?linkid=864501
-
-                spa.Options.SourcePath = "ClientApp";
-
-                if (env.IsDevelopment())
-                {
-                    //spa.UseAngularCliServer(npmScript: "start");
-                }
             });
         }
     }
