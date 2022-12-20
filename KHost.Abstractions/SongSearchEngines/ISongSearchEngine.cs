@@ -8,12 +8,12 @@ namespace KHost.Abstractions.SongSearchEngines
     {
         string Name { get; }
 
-        Task<IEnumerable<SongSearchResult>> Search(string searchQuery, int? count, int? offset);
+        Task<IEnumerable<SongSearchResult>> SearchAsync(string searchQuery, int? count, int? offset);
 
         SongSearchEngineDetails GetDetails();
 
-        Task<Song> GetSong(string id);
+        Task<Song> GetSongAsync(string id);
 
-        Task<Download> DownloadSong(string id, int songId);
+        Task<Download> DownloadSongAsync(string id, int songId);
     }
 }

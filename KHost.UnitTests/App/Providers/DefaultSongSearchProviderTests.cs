@@ -53,7 +53,7 @@ namespace KHost.UnitTests.App.Providers
             _ = Mock.Get(songSearchEngine).Setup(e => e.Name)
                 .Returns(engine);
 
-            _ = Mock.Get(songSearchEngine).Setup(e => e.Search(It.IsAny<string>(), It.IsAny<int?>(), It.IsAny<int?>()))
+            _ = Mock.Get(songSearchEngine).Setup(e => e.SearchAsync(It.IsAny<string>(), It.IsAny<int?>(), It.IsAny<int?>()))
                 .Returns(Task.FromResult(entities));
 
             var serviceProvider = new ServiceCollection()
@@ -117,7 +117,7 @@ namespace KHost.UnitTests.App.Providers
             _ = Mock.Get(songSearchEngine).Setup(e => e.Name)
                 .Returns(engine);
 
-            _ = Mock.Get(songSearchEngine).Setup(e => e.GetSong(It.IsAny<string>()))
+            _ = Mock.Get(songSearchEngine).Setup(e => e.GetSongAsync(It.IsAny<string>()))
                 .Returns((string id) => Task.FromResult(songToReturn));
 
             var serviceProvider = new ServiceCollection()
@@ -156,7 +156,7 @@ namespace KHost.UnitTests.App.Providers
             _ = Mock.Get(songSearchEngine).Setup(e => e.Name)
                 .Returns(engine);
 
-            _ = Mock.Get(songSearchEngine).Setup(e => e.DownloadSong(It.IsAny<string>(), It.IsAny<int>()))
+            _ = Mock.Get(songSearchEngine).Setup(e => e.DownloadSongAsync(It.IsAny<string>(), It.IsAny<int>()))
                 .Returns((string id, int songId) => Task.FromResult(downloadToReturn));
 
             var serviceProvider = new ServiceCollection()

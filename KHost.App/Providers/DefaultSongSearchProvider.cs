@@ -30,7 +30,7 @@ namespace KHost.App.Providers
         {
             var engine = GetSongSearchEngine(searchEngine);
 
-            var songSearchResults = await engine.Search(searchQuery, count, offset);
+            var songSearchResults = await engine.SearchAsync(searchQuery, count, offset);
 
             return songSearchResults;
         }
@@ -39,14 +39,14 @@ namespace KHost.App.Providers
         {
             var engine = GetSongSearchEngine(searchEngine);
 
-            return engine.GetSong(id);
+            return engine.GetSongAsync(id);
         }
 
         public async Task<Download> DownloadSongAsync(string id, string searchEngine, int songId)
         {
             var engine = GetSongSearchEngine(searchEngine);
 
-            var download = await engine.DownloadSong(id, songId);
+            var download = await engine.DownloadSongAsync(id, songId);
 
             await _downloadsRepository.CreateAsync(download);
             await _downloadsRepository.SaveAsync();

@@ -20,7 +20,7 @@ namespace KHost.App.SongSearchEngines
             SongsRepository = songsRepository;
         }
 
-        public async Task<IEnumerable<SongSearchResult>> Search(string searchQuery, int? count, int? offset)
+        public async Task<IEnumerable<SongSearchResult>> SearchAsync(string searchQuery, int? count, int? offset)
         {
             var songs = await SongsRepository.SearchAsync(searchQuery, count, offset);
 
@@ -46,7 +46,7 @@ namespace KHost.App.SongSearchEngines
             AllowDownload = false
         };
 
-        public async Task<Song> GetSong(string id)
+        public async Task<Song> GetSongAsync(string id)
         {
             if (!int.TryParse(id, out var intId)) throw new KHostException("Id must be int");
 
@@ -57,6 +57,6 @@ namespace KHost.App.SongSearchEngines
             return song;
         }
 
-        public Task<Download> DownloadSong(string id, int songId) => throw new NotSupportedException();
+        public Task<Download> DownloadSongAsync(string id, int songId) => throw new NotSupportedException();
     }
 }
