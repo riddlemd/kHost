@@ -1,8 +1,10 @@
-﻿using System.Reflection;
+﻿using KHost.Abstractions.Plugins;
+using System.Collections.Generic;
+using System.Reflection;
 
-namespace KHost.Abstractions.Plugins
+namespace KHost.App.Plugins
 {
-    public class BasePlugin : IPlugin
+    public class GenericPlugin : IPlugin
     {
         public string Path { get; }
 
@@ -10,7 +12,7 @@ namespace KHost.Abstractions.Plugins
 
         protected List<Assembly> _assemblies = new();
 
-        public BasePlugin(PluginSettings settings, string path)
+        public GenericPlugin(PluginSettings settings, string path)
         {
             Settings = settings;
             Path = path;
