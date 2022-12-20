@@ -1,15 +1,16 @@
-﻿using System;
+﻿using KHost.Abstractions.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace KHost.Abstractions.Repositories
+namespace KHost.Common.Repositories
 {
-    public class UnitOfWork : IUnitOfWork
+    public class GenericUnitOfWork : IUnitOfWork
     {
         private List<IRepository> Repositories { get; } = new List<IRepository>();
 
-        public UnitOfWork RegisterRepository(IRepository repository)
+        public IUnitOfWork RegisterRepository(IRepository repository)
         {
             if (!Repositories.Contains(repository))
                 Repositories.Add(repository);
