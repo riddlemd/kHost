@@ -1,6 +1,4 @@
 using KHost.App.Configuration;
-using KHost.Common.Routing;
-using KHost.Common.Http;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
@@ -20,6 +18,8 @@ using KHost.Abstractions.Providers;
 using KHost.Abstractions.Plugins;
 using KHost.EntityFramework;
 using KHost.Server.Models.Responses;
+using Khost.Common.Web.Routing;
+using Khost.Common.Web.Http;
 
 namespace KHost.App
 {
@@ -116,11 +116,6 @@ namespace KHost.App
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
-            if (!env.IsDevelopment())
-            {
-                app.UseSpaStaticFiles();
-            }
 
             app.UseCors("Custom");
 

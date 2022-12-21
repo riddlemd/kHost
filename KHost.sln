@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KHost.Abstractions", "KHost
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KHost.UnitTests", "KHost.UnitTests\KHost.UnitTests.csproj", "{B354BC4C-05FB-4E8D-82AB-30469C1073F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KHost.Interface", "KHost.Interface\KHost.Interface.csproj", "{928A85F1-DB76-47FE-8C97-EA688F5018B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KHost.Interface", "KHost.Interface\KHost.Interface.csproj", "{928A85F1-DB76-47FE-8C97-EA688F5018B9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Khost.Common.Web", "Khost.Common.Web\Khost.Common.Web.csproj", "{65B202AE-5754-44B4-B3A6-FCB67292B5D8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{928A85F1-DB76-47FE-8C97-EA688F5018B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{928A85F1-DB76-47FE-8C97-EA688F5018B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{928A85F1-DB76-47FE-8C97-EA688F5018B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65B202AE-5754-44B4-B3A6-FCB67292B5D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65B202AE-5754-44B4-B3A6-FCB67292B5D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65B202AE-5754-44B4-B3A6-FCB67292B5D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65B202AE-5754-44B4-B3A6-FCB67292B5D8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,4 +1,4 @@
-﻿using KHost.Common.Routing;
+﻿using Khost.Common.Web.Routing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace KHost.UnitTests.Common.Routing
+namespace KHost.UnitTests.Common.Web.Routing
 {
     public class DashedParameterTransformerTests
     {

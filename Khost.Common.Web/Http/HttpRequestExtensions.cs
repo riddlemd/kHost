@@ -2,7 +2,7 @@
 using System;
 using System.Linq;
 
-namespace KHost.Common.Http
+namespace Khost.Common.Web.Http
 {
     public static class HttpRequestExtensions
     {

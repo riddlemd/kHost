@@ -27,6 +27,10 @@
   <ItemGroup>
     <ProjectReference Include="..\KHost.Abstractions\KHost.Abstractions.csproj" />
     <ProjectReference Include="..\KHost.App\KHost.Server.csproj" />
+    <ProjectReference Include="..\Khost.Common.Web\Khost.Common.Web.csproj" />
+    <ProjectReference Include="..\KHost.Common\KHost.Common.csproj" />
+    <ProjectReference Include="..\KHost.EntityFramework\KHost.EntityFramework.csproj" />
+    <ProjectReference Include="..\KHost.Interface\KHost.Interface.csproj" />
     <ProjectReference Include="..\KHost.Server\KHost.Server.csproj" />
   </ItemGroup>
 
