@@ -26,7 +26,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\KHost.Abstractions\KHost.Abstractions.csproj" />
-    <ProjectReference Include="..\KHost.App\KHost.App.csproj" />
+    <ProjectReference Include="..\KHost.App\KHost.Server.csproj" />
+    <ProjectReference Include="..\KHost.Server\KHost.Server.csproj" />
   </ItemGroup>
 
 </Project>

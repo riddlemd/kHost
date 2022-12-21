@@ -5,13 +5,15 @@ VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KHost.Common", "KHost.Common\KHost.Common.csproj", "{629939D0-7F67-4D0B-97C3-6601340E453F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KHost.App", "KHost.App\KHost.App.csproj", "{0A2F5D30-014D-48F2-B963-D70FB7737FCD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KHost.Server", "KHost.Server\KHost.Server.csproj", "{0A2F5D30-014D-48F2-B963-D70FB7737FCD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KHost.EntityFramework", "KHost.EntityFramework\KHost.EntityFramework.csproj", "{7BB32E75-6734-4764-BE86-70967E55AC55}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KHost.EntityFramework", "KHost.EntityFramework\KHost.EntityFramework.csproj", "{7BB32E75-6734-4764-BE86-70967E55AC55}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KHost.Abstractions", "KHost.Abstractions\KHost.Abstractions.csproj", "{BD66DB15-EEC0-440C-86E5-162ED863305F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KHost.Abstractions", "KHost.Abstractions\KHost.Abstractions.csproj", "{BD66DB15-EEC0-440C-86E5-162ED863305F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KHost.UnitTests", "KHost.UnitTests\KHost.UnitTests.csproj", "{B354BC4C-05FB-4E8D-82AB-30469C1073F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KHost.UnitTests", "KHost.UnitTests\KHost.UnitTests.csproj", "{B354BC4C-05FB-4E8D-82AB-30469C1073F2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KHost.Interface", "KHost.Interface\KHost.Interface.csproj", "{928A85F1-DB76-47FE-8C97-EA688F5018B9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{B354BC4C-05FB-4E8D-82AB-30469C1073F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B354BC4C-05FB-4E8D-82AB-30469C1073F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B354BC4C-05FB-4E8D-82AB-30469C1073F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{928A85F1-DB76-47FE-8C97-EA688F5018B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{928A85F1-DB76-47FE-8C97-EA688F5018B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{928A85F1-DB76-47FE-8C97-EA688F5018B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{928A85F1-DB76-47FE-8C97-EA688F5018B9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
